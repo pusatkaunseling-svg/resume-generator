@@ -6,22 +6,15 @@
     <title>UniMAP Student Resume Portal</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @media print { 
-            .no-print { display: none; } 
-            body { background: white; padding: 0; } 
-            .resume-preview { border: none !important; box-shadow: none !important; width: 100%; margin: 0; padding: 0; } 
-        }
-        /* FORMAT STANDARD ATS: ARIAL 11PT */
+        @media print { .no-print { display: none; } body { background: white; padding: 0; } .resume-preview { border: none !important; box-shadow: none !important; width: 100%; margin: 0; padding: 0; } }
         .resume-preview { font-family: 'Arial', sans-serif; color: #1a1a1a; line-height: 1.4; }
         .resume-preview h1 { font-size: 18pt; font-weight: bold; text-transform: uppercase; margin: 0; text-align: center; }
         .resume-preview h2 { border-bottom: 2px solid #333; margin-top: 10px; margin-bottom: 5px; font-size: 13pt; font-weight: bold; text-transform: uppercase; text-align: left; }
         .section-content { font-size: 11pt; text-align: justify; }
         .item-header { display: flex; justify-content: space-between; font-weight: bold; font-size: 11pt; }
         .resume-preview ul { list-style-type: disc !important; margin-left: 1.2rem !important; padding-left: 0 !important; }
-        .resume-preview li { font-size: 11pt; margin-bottom: 2px; display: list-item !important; }
-        
+        .resume-preview li { font-size: 11pt; margin-bottom: 2px; }
         #login-screen { background: #1e3a8a; position: fixed; inset: 0; z-index: 100; display: flex; align-items: center; justify-content: center; }
-        .ai-badge { background: #9333ea; color: white; padding: 2px 6px; border-radius: 4px; font-size: 10px; cursor: pointer; font-weight: bold; }
     </style>
 </head>
 <body class="bg-gray-100">
@@ -29,163 +22,94 @@
     <div id="login-screen">
         <div class="bg-white p-8 rounded-2xl shadow-2xl max-w-md w-full text-center">
             <h2 class="text-2xl font-bold text-blue-900 mb-2">Student Resume Portal</h2>
-            <p class="text-gray-500 mb-6 text-sm">Masukkan emel anda untuk cipta atau edit resume.</p>
-            <input type="email" id="user-email" placeholder="student@example.com" class="w-full p-3 border-2 rounded-xl mb-4 outline-none focus:border-blue-500 transition">
-            <button onclick="checkUser()" id="login-btn" class="w-full bg-blue-600 text-white py-3 rounded-xl font-bold hover:bg-blue-800 transition shadow-lg">LOG MASUK / SEMAK DATA</button>
-            <p id="login-msg" class="mt-4 text-xs text-blue-600 italic"></p>
+            <p class="text-gray-500 mb-6 text-sm">Sila masukkan emel universiti/peribadi anda.</p>
+            <input type="email" id="user-email" placeholder="student@example.com" class="w-full p-3 border-2 rounded-xl mb-4 outline-none focus:border-blue-500">
+            <button onclick="checkUser()" id="login-btn" class="w-full bg-blue-600 text-white py-3 rounded-xl font-bold hover:bg-blue-800 transition shadow-lg">MASUK SISTEM</button>
         </div>
     </div>
 
     <div id="main-app" class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-6 p-4 hidden">
         
-        <div class="bg-white p-6 rounded-xl shadow-lg no-print h-[92vh] overflow-y-auto space-y-6">
-            <div class="flex justify-between items-center border-b pb-2">
-                <h1 class="text-xl font-bold text-blue-800 uppercase">Resume Editor</h1>
-                <button onclick="location.reload()" class="text-xs text-red-600 font-bold hover:underline">LOG OUT</button>
-            </div>
-
+        <div class="bg-white p-6 rounded-xl shadow no-print h-[92vh] overflow-y-auto space-y-6 text-sm">
             <section class="space-y-3">
-                <h3 class="font-bold text-blue-700 text-sm uppercase">1. Maklumat Peribadi</h3>
+                <h3 class="font-bold text-blue-700 uppercase border-b pb-1 text-base">1. Personal Info</h3>
                 <input type="text" id="name" placeholder="Nama Penuh (Huruf Besar)" class="w-full p-2 border rounded" oninput="update()">
-                <input type="email" id="email" class="w-full p-2 border rounded bg-gray-100 font-semibold" readonly title="Emel tidak boleh diubah">
-                <input type="text" id="phone" placeholder="No. Telefon (cth: 012-3456789)" class="w-full p-2 border rounded" oninput="update()">
+                <input type="email" id="email" class="w-full p-2 border rounded bg-gray-50 font-bold text-blue-800" readonly>
+                <input type="text" id="phone" placeholder="No. Telefon (cth: 011-2345678)" class="w-full p-2 border rounded" oninput="update()">
                 <input type="text" id="address" placeholder="Lokasi (cth: Arau, Perlis)" class="w-full p-2 border rounded" oninput="update()">
-                <input type="text" id="linkedin" placeholder="Pautan LinkedIn (Pilihan)" class="w-full p-2 border rounded" oninput="update()">
             </section>
 
             <section>
-                <div class="flex justify-between items-center mb-1">
-                    <h3 class="font-bold text-sm uppercase">2. Professional Summary</h3>
-                    <span onclick="copyAI('summary')" class="ai-badge">✨ AI PROMPT</span>
-                </div>
-                <textarea id="summary" placeholder="Ceritakan kepakaran dan matlamat kerjaya anda..." class="w-full p-2 border rounded h-24 text-sm" oninput="update()"></textarea>
+                <h3 class="font-bold uppercase mb-1">2. Professional Summary</h3>
+                <textarea id="summary" placeholder="Summary diri anda..." class="w-full p-2 border rounded h-24" oninput="update()"></textarea>
             </section>
 
             <section class="bg-gray-50 p-3 rounded-lg border">
-                <div class="flex justify-between items-center mb-2">
-                    <h3 class="font-bold text-sm uppercase">3. Education</h3>
-                    <button onclick="addField('edu-group')" class="bg-blue-600 text-white px-3 rounded-full font-bold">+</button>
-                </div>
-                <div id="edu-group">
-                    <div class="entry p-3 border bg-white rounded-lg mb-2 shadow-sm">
-                        <input type="text" placeholder="Institusi (cth: UniMAP)" class="w-full border-b mb-1 p-1 text-sm font-bold" oninput="update()">
-                        <input type="text" placeholder="Kursus (cth: Ijazah Sarjana Muda Kejuruteraan)" class="w-full border-b mb-1 p-1 text-sm" oninput="update()">
-                        <input type="text" placeholder="Tahun (cth: 2021 - 2025)" class="w-full border-b mb-1 p-1 text-sm" oninput="update()">
-                        <input type="text" placeholder="Keputusan / CGPA" class="w-full p-1 text-sm italic" oninput="update()">
-                    </div>
-                </div>
+                <div class="flex justify-between items-center mb-2"><h3 class="font-bold uppercase">3. Education</h3><button onclick="addField('edu-group')" class="bg-blue-600 text-white px-2 rounded font-bold">+</button></div>
+                <div id="edu-group"><div class="entry p-3 border bg-white rounded-lg mb-2">
+                    <input type="text" placeholder="Institusi" class="w-full border-b mb-1 p-1 font-bold" oninput="update()">
+                    <input type="text" placeholder="Kursus/Tahap" class="w-full border-b mb-1 p-1" oninput="update()">
+                    <input type="text" placeholder="Tahun (e.g. 2021 - 2025)" class="w-full border-b mb-1 p-1" oninput="update()">
+                    <input type="text" placeholder="CGPA" class="w-full p-1 italic" oninput="update()">
+                </div></div>
             </section>
 
             <section class="bg-gray-50 p-3 rounded-lg border">
-                <div class="flex justify-between items-center mb-2">
-                    <h3 class="font-bold text-sm uppercase">4. Experience</h3>
-                    <button onclick="addField('work-group')" class="bg-blue-600 text-white px-3 rounded-full font-bold">+</button>
-                </div>
-                <div id="work-group">
-                    <div class="entry p-3 border bg-white rounded-lg mb-2 shadow-sm">
-                        <input type="text" placeholder="Jawatan (cth: Jurutera Pelatih)" class="w-full border-b mb-1 p-1 text-sm font-bold" oninput="update()">
-                        <input type="text" placeholder="Syarikat & Lokasi" class="w-full border-b mb-1 p-1 text-sm" oninput="update()">
-                        <input type="text" placeholder="Tarikh (cth: Mac 2023 - Jun 2023)" class="w-full border-b mb-1 p-1 text-sm" oninput="update()">
-                        <textarea placeholder="Tugas (Tekan ENTER untuk bullet point)" class="w-full p-1 text-sm h-20 mt-1" oninput="update()"></textarea>
-                    </div>
-                </div>
+                <div class="flex justify-between items-center mb-2"><h3 class="font-bold uppercase">4. Experience</h3><button onclick="addField('work-group')" class="bg-blue-600 text-white px-2 rounded font-bold">+</button></div>
+                <div id="work-group"><div class="entry p-3 border bg-white rounded-lg mb-2">
+                    <input type="text" placeholder="Jawatan" class="w-full border-b mb-1 p-1 font-bold" oninput="update()">
+                    <input type="text" placeholder="Syarikat & Lokasi" class="w-full border-b mb-1 p-1" oninput="update()">
+                    <input type="text" placeholder="Tarikh" class="w-full border-b mb-1 p-1" oninput="update()">
+                    <textarea placeholder="Tugas (Guna ENTER untuk bullet)" class="w-full p-1 h-20 mt-1" oninput="update()"></textarea>
+                </div></div>
             </section>
 
-            <div class="grid grid-cols-2 gap-4">
-                <section>
-                    <h3 class="font-bold text-xs uppercase mb-1">Skills</h3>
-                    <textarea id="skills" placeholder="cth: AutoCAD, Python, MS Office" class="w-full p-2 border rounded h-24 text-xs" oninput="update()"></textarea>
-                </section>
-                <section>
-                    <h3 class="font-bold text-xs uppercase mb-1">Languages</h3>
-                    <textarea id="langs" placeholder="cth: Malay (Native), English (Proficient)" class="w-full p-2 border rounded h-24 text-xs" oninput="update()"></textarea>
-                </section>
-            </div>
-
-            <section class="bg-gray-50 p-3 rounded-lg border">
-                <div class="flex justify-between items-center mb-2">
-                    <h3 class="font-bold text-sm uppercase">5. References</h3>
-                    <button onclick="addField('ref-group')" class="bg-blue-600 text-white px-3 rounded-full font-bold">+</button>
-                </div>
-                <div id="ref-group">
-                    <div class="entry p-2 border bg-white rounded mb-2">
-                        <input type="text" placeholder="Nama & Jawatan" class="w-full border-b mb-1 p-1 text-sm font-bold" oninput="update()">
-                        <input type="text" placeholder="Organisasi & Hubungan (Emel/No Tel)" class="w-full p-1 text-sm" oninput="update()">
-                    </div>
-                </div>
-            </section>
-
-            <button onclick="handleDownload()" id="submitBtn" class="w-full bg-blue-800 text-white py-4 rounded-xl font-bold hover:bg-black transition shadow-xl uppercase tracking-wider">Save & Update PDF</button>
+            <button onclick="handleDownload()" id="submitBtn" class="w-full bg-blue-800 text-white py-4 rounded-xl font-bold hover:bg-black transition uppercase tracking-widest shadow-xl">Save & Update PDF</button>
         </div>
 
-        <div class="bg-white p-12 shadow-2xl resume-preview min-h-[29.7cm] border" id="print-area">
+        <div class="bg-white p-12 resume-preview shadow-2xl min-h-[29.7cm] border" id="print-area">
             <h1 id="out-name">NAMA PENUH ANDA</h1>
-            <p style="text-align:center; font-size:10pt; margin-top:5px;" id="out-contact">Emel | No. Telefon | Lokasi</p>
-            <p style="text-align:center; font-size:9pt; color:blue; font-style:italic;" id="out-linkedin"></p>
-
-            <section>
-                <h2>Professional Summary</h2>
-                <p id="out-summary" class="section-content"></p>
-            </section>
-
-            <section>
-                <h2>Education</h2>
-                <div id="out-edu" class="section-content"></div>
-            </section>
-
-            <section>
-                <h2>Work Experience</h2>
-                <div id="out-work" class="section-content"></div>
-            </section>
-
-            <div class="grid grid-cols-2 gap-6">
-                <section>
-                    <h2>Skills</h2>
-                    <p id="out-skills" class="section-content whitespace-pre-line"></p>
-                </section>
-                <section>
-                    <h2>Languages</h2>
-                    <p id="out-langs" class="section-content whitespace-pre-line"></p>
-                </section>
-            </div>
-
-            <section>
-                <h2>References</h2>
-                <div id="out-ref" class="section-content grid grid-cols-2 gap-4"></div>
-            </section>
+            <p style="text-align:center; font-size:10pt; margin-top:5px;" id="out-contact">Emel | Telefon | Lokasi</p>
+            <section><h2>Summary</h2><p id="out-summary" class="section-content"></p></section>
+            <section><h2>Education</h2><div id="out-edu" class="section-content"></div></section>
+            <section><h2>Work Experience</h2><div id="out-work" class="section-content"></div></section>
         </div>
     </div>
 
     <script>
-        // URL SCRIPT ANDA YANG TERKINI
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxlWU9g6bBEf4fe0LOeEdMFd8doxjOjbSiYr-DLPUi8qP-ZahgzY31sJBKcGiRHEgbzQg/exec';
+        // URL WEB APP ANDA YANG BARU
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzfrKk6Z3D1x6sHA0wDRJzt0Yy8rOY9c0uoJ28hurXQzdwJRD4HnXw0GZq6gvQU1PxxHQ/exec';
 
-        // 1. FUNGSI LOGIN & SEMAK REKOD
         async function checkUser() {
             const email = document.getElementById('user-email').value;
             if(!email || !email.includes('@')) return alert("Sila masukkan emel yang sah!");
             
             const btn = document.getElementById('login-btn');
-            btn.innerText = "Menyemak Rekod...";
+            btn.innerText = "Connecting...";
             btn.disabled = true;
 
             try {
-                const response = await fetch(`${SCRIPT_URL}?email=${email}`);
+                // Timeout 6 saat supaya tidak stuck selamanya
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 6000);
+                
+                const response = await fetch(`${SCRIPT_URL}?email=${email}`, { signal: controller.signal });
                 const result = await response.json();
+                clearTimeout(timeoutId);
 
                 document.getElementById('login-screen').classList.add('hidden');
                 document.getElementById('main-app').classList.remove('hidden');
                 document.getElementById('email').value = email;
 
                 if(result.found) {
-                    alert("Rekod ditemui! Data anda telah diisi secara automatik.");
+                    alert("Rekod lama ditemui! Data telah diisi semula.");
                     document.getElementById('name').value = result.data.name || '';
                     document.getElementById('phone').value = result.data.phone || '';
                     document.getElementById('address').value = result.data.address || '';
                 }
                 update();
             } catch (e) {
-                // Jika tiada rekod, teruskan sebagai pengguna baru
+                // Fail-safe: Jika script lambat/error, teruskan sebagai pengguna baru
                 document.getElementById('login-screen').classList.add('hidden');
                 document.getElementById('main-app').classList.remove('hidden');
                 document.getElementById('email').value = email;
@@ -193,78 +117,39 @@
             }
         }
 
-        // 2. FUNGSI TAMBAH FIELD DINAMIK
         function addField(id) {
-            const container = document.getElementById(id);
-            const clone = container.children[0].cloneNode(true);
+            const c = document.getElementById(id);
+            const clone = c.children[0].cloneNode(true);
             clone.querySelectorAll('input, textarea').forEach(i => i.value = '');
-            container.appendChild(clone);
+            c.appendChild(clone);
             update();
         }
 
-        // 3. FUNGSI UPDATE PREVIEW (LIVE)
         function update() {
             document.getElementById('out-name').innerText = document.getElementById('name').value || 'NAMA PENUH ANDA';
             document.getElementById('out-contact').innerText = `${document.getElementById('email').value} | ${document.getElementById('phone').value} | ${document.getElementById('address').value}`;
-            document.getElementById('out-linkedin').innerText = document.getElementById('linkedin').value;
             document.getElementById('out-summary').innerText = document.getElementById('summary').value;
-            document.getElementById('out-skills').innerText = document.getElementById('skills').value;
-            document.getElementById('out-langs').innerText = document.getElementById('langs').value;
 
-            // Render Education
-            renderSection('edu-group', 'out-edu', i => `
-                <div class="mb-3">
-                    <div class="item-header"><span>${i[0].value}</span><span>${i[2].value}</span></div>
-                    <i>${i[1].value}</i> ${i[3].value ? ' | ' + i[3].value : ''}
-                </div>
-            `);
-
-            // Render Work Experience
-            renderListSection('work-group', 'out-work', (i, bullets) => `
-                <div class="mb-4">
-                    <div class="item-header"><span>${i[0].value}</span><span>${i[2].value}</span></div>
-                    <i>${i[1].value}</i>
-                    <ul class="mt-1">${bullets}</ul>
-                </div>
-            `);
-
-            // Render References
-            renderSection('ref-group', 'out-ref', i => `
-                <div class="text-[10pt] leading-tight">
-                    <b>${i[0].value}</b><br>${i[1].value}
-                </div>
-            `);
+            render('edu-group', 'out-edu', i => `<div class="mb-3"><div class="item-header"><span>${i[0].value}</span><span>${i[2].value}</span></div><i>${i[1].value}</i> (${i[3].value})</div>`);
+            renderList('work-group', 'out-work', (i, b) => `<div class="mb-3"><div class="item-header"><span>${i[0].value}</span><span>${i[2].value}</span></div><i>${i[1].value}</i><ul class="mt-1">${b}</ul></div>`);
         }
 
-        function renderSection(groupId, outputId, template) {
-            let html = '';
-            document.querySelectorAll(`#${groupId} .entry`).forEach(el => {
-                const inputs = el.querySelectorAll('input');
-                if(inputs[0].value) html += template(inputs);
+        function render(gid, oid, tmpl) {
+            let h = ''; document.querySelectorAll(`#${gid} .entry`).forEach(e => { const i = e.querySelectorAll('input'); if(i[0].value) h += tmpl(i); });
+            document.getElementById(oid).innerHTML = h;
+        }
+
+        function renderList(gid, oid, tmpl) {
+            let h = ''; document.querySelectorAll(`#${gid} .entry`).forEach(e => { 
+                const i = e.querySelectorAll('input'); const t = e.querySelector('textarea').value;
+                if(i[0].value) { const b = t.split('\n').filter(l => l.trim()).map(l => `<li>${l}</li>`).join(''); h += tmpl(i, b); }
             });
-            document.getElementById(outputId).innerHTML = html;
+            document.getElementById(oid).innerHTML = h;
         }
 
-        function renderListSection(groupId, outputId, template) {
-            let html = '';
-            document.querySelectorAll(`#${groupId} .entry`).forEach(el => {
-                const inputs = el.querySelectorAll('input');
-                const text = el.querySelector('textarea').value;
-                if(inputs[0].value) {
-                    const bullets = text.split('\n').filter(line => line.trim() !== '').map(line => `<li>${line}</li>`).join('');
-                    html += template(inputs, bullets);
-                }
-            });
-            document.getElementById(outputId).innerHTML = html;
-        }
-
-        // 4. FUNGSI SIMPAN (OVERWRITE DRIVE) & MUAT TURUN
         async function handleDownload() {
             const btn = document.getElementById('submitBtn');
-            const originalText = btn.innerText;
-            btn.innerText = "MENYIMPAN KE DRIVE & CLOUD...";
-            btn.disabled = true;
-
+            btn.innerText = "UPDATING CLOUD & DRIVE..."; btn.disabled = true;
             const data = {
                 name: document.getElementById('name').value,
                 email: document.getElementById('email').value,
@@ -272,30 +157,12 @@
                 address: document.getElementById('address').value,
                 htmlForPdf: document.getElementById('print-area').innerHTML
             };
-
             try {
-                // Menghantar data ke Google Apps Script (POST)
-                await fetch(SCRIPT_URL, { 
-                    method: 'POST', 
-                    mode: 'no-cors', 
-                    body: JSON.stringify(data) 
-                });
-
-                alert("BERJAYA! Fail lama dalam Drive telah digantikan. Sekarang memulakan cetakan PDF...");
+                await fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(data) });
+                alert("Berjaya! Resume dikemaskini dalam Drive. Sila cetak sekarang.");
                 window.print();
-            } catch (e) {
-                alert("Ralat teknikal semasa menyimpan. Sila cuba lagi.");
-            } finally {
-                btn.disabled = false;
-                btn.innerText = originalText;
-            }
-        }
-
-        // 5. AI PROMPT HELP
-        function copyAI(type) {
-            const prompt = type === 'summary' ? "Write a professional 11pt ATS summary for a student in " : "Write ATS job bullets for ";
-            navigator.clipboard.writeText(prompt);
-            alert("Prompt telah disalin! Sila tampal (Paste) di ChatGPT.");
+            } catch (e) { alert("Ralat semasa menyimpan ke Drive."); }
+            btn.disabled = false; btn.innerText = "Save & Update PDF";
         }
     </script>
 </body>
