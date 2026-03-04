@@ -3,156 +3,143 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UniMAP Student Resume Portal</title>
+    <title>ATS Resume Generator - UniMAP</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @media print { .no-print { display: none; } body { background: white; padding: 0; } .resume-preview { border: none !important; box-shadow: none !important; width: 100%; margin: 0; padding: 0; } }
         /* FORMAT STANDARD ATS: ARIAL 11PT */
-        .resume-preview { font-family: 'Arial', sans-serif; color: #1a1a1a; line-height: 1.4; }
+        .resume-preview { font-family: 'Arial', sans-serif; color: #1a1a1a; line-height: 1.4; background: white; }
         .resume-preview h1 { font-size: 18pt; font-weight: bold; text-transform: uppercase; margin: 0; text-align: center; }
         .resume-preview h2 { border-bottom: 2px solid #333; margin-top: 10px; margin-bottom: 5px; font-size: 13pt; font-weight: bold; text-transform: uppercase; text-align: left; }
         .section-content { font-size: 11pt; text-align: justify; }
         .item-header { display: flex; justify-content: space-between; font-weight: bold; font-size: 11pt; }
         .resume-preview ul { list-style-type: disc !important; margin-left: 1.2rem !important; padding-left: 0 !important; }
         .resume-preview li { font-size: 11pt; margin-bottom: 2px; }
-        #login-screen { background: #1e3a8a; position: fixed; inset: 0; z-index: 100; display: flex; align-items: center; justify-content: center; }
     </style>
 </head>
-<body class="bg-gray-100">
+<body class="bg-slate-900 p-2 md:p-6">
 
-    <div id="login-screen">
-        <div class="bg-white p-8 rounded-2xl shadow-2xl max-w-md w-full text-center">
-            <h2 class="text-2xl font-bold text-blue-900 mb-2">Student Resume Portal</h2>
-            <p class="text-gray-500 mb-6 text-sm">Sila masukkan emel anda untuk bermula.</p>
-            <input type="email" id="user-email" placeholder="student@example.com" class="w-full p-3 border-2 rounded-xl mb-4 outline-none focus:border-blue-500">
-            <button onclick="checkUser()" id="login-btn" class="w-full bg-blue-600 text-white py-3 rounded-xl font-bold hover:bg-blue-800 transition shadow-lg">MASUK SISTEM</button>
-        </div>
-    </div>
-
-    <div id="main-app" class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-6 p-4 hidden">
-        <div class="bg-white p-6 rounded-xl shadow no-print h-[92vh] overflow-y-auto space-y-6 text-sm">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-6">
+        
+        <div class="bg-white p-6 rounded-xl shadow-2xl no-print h-[92vh] overflow-y-auto space-y-6">
+            <div class="border-b-2 pb-2">
+                <h1 class="text-2xl font-bold text-blue-800 uppercase">Resume Builder</h1>
+                <p class="text-xs text-gray-500">Lengkapkan maklumat anda untuk menjana resume ATS.</p>
+            </div>
+            
             <section class="space-y-3">
-                <h3 class="font-bold text-blue-700 uppercase border-b pb-1 text-base">1. Maklumat Peribadi</h3>
-                <input type="text" id="name" placeholder="Nama Penuh" class="w-full p-2 border rounded" oninput="update()">
-                <input type="email" id="email" class="w-full p-2 border rounded bg-gray-50 font-bold text-blue-800" readonly>
-                <input type="text" id="phone" placeholder="No. Telefon" class="w-full p-2 border rounded" oninput="update()">
+                <h3 class="font-bold text-blue-700 uppercase text-xs">1. Maklumat Peribadi</h3>
+                <input type="text" id="name" placeholder="Nama Penuh (Huruf Besar)" class="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500 outline-none" oninput="update()">
+                <div class="grid grid-cols-2 gap-2">
+                    <input type="email" id="email" placeholder="Emel" class="p-2 border rounded" oninput="update()">
+                    <input type="text" id="phone" placeholder="No. Telefon" class="p-2 border rounded" oninput="update()">
+                </div>
                 <input type="text" id="address" placeholder="Lokasi (cth: Arau, Perlis)" class="w-full p-2 border rounded" oninput="update()">
             </section>
 
             <section>
-                <h3 class="font-bold uppercase mb-1">2. Professional Summary</h3>
-                <textarea id="summary" placeholder="Ceritakan tentang diri anda..." class="w-full p-2 border rounded h-24" oninput="update()"></textarea>
+                <h3 class="font-bold uppercase text-xs mb-1 text-blue-700">2. Professional Summary</h3>
+                <textarea id="summary" placeholder="Ceritakan kepakaran & matlamat anda..." class="w-full p-2 border rounded h-24 text-sm" oninput="update()"></textarea>
+            </section>
+
+            <section class="bg-blue-50 p-3 rounded-lg border border-blue-100">
+                <div class="flex justify-between items-center mb-2"><h3 class="font-bold text-xs uppercase text-blue-800">3. Education</h3><button onclick="addFields('edu-group')" class="bg-blue-600 text-white px-3 py-1 rounded-lg text-xs font-bold shadow hover:bg-blue-800">+ Tambah</button></div>
+                <div id="edu-group">
+                    <div class="entry p-3 border bg-white rounded-lg mb-2 shadow-sm">
+                        <input type="text" placeholder="Institusi (cth: UniMAP)" class="w-full border-b mb-1 p-1 text-sm font-bold" oninput="update()">
+                        <input type="text" placeholder="Kursus/Ijazah" class="w-full border-b mb-1 p-1 text-sm" oninput="update()">
+                        <input type="text" placeholder="Tahun (e.g. 2021-2025)" class="w-full border-b mb-1 p-1 text-sm" oninput="update()">
+                        <input type="text" placeholder="Keputusan/CGPA" class="w-full p-1 text-sm italic" oninput="update()">
+                    </div>
+                </div>
             </section>
 
             <section class="bg-gray-50 p-3 rounded-lg border">
-                <div class="flex justify-between items-center mb-2"><h3 class="font-bold uppercase">3. Education</h3><button onclick="add('edu-group')" class="bg-blue-600 text-white px-2 rounded font-bold">+</button></div>
-                <div id="edu-group"><div class="entry p-3 border bg-white rounded-lg mb-2 shadow-sm">
-                    <input type="text" placeholder="Institusi" class="w-full border-b mb-1 p-1 font-bold" oninput="update()">
-                    <input type="text" placeholder="Kursus" class="w-full border-b mb-1 p-1" oninput="update()">
-                    <input type="text" placeholder="Tahun" class="w-full border-b mb-1 p-1" oninput="update()">
-                    <input type="text" placeholder="CGPA" class="w-full p-1 italic" oninput="update()">
-                </div></div>
+                <div class="flex justify-between items-center mb-2"><h3 class="font-bold text-xs uppercase text-gray-700">4. Work Experience</h3><button onclick="addFields('work-group')" class="bg-gray-600 text-white px-3 py-1 rounded-lg text-xs font-bold shadow hover:bg-black">+ Tambah</button></div>
+                <div id="work-group">
+                    <div class="entry p-3 border bg-white rounded-lg mb-2 shadow-sm">
+                        <input type="text" placeholder="Jawatan" class="w-full border-b mb-1 p-1 text-sm font-bold" oninput="update()">
+                        <input type="text" placeholder="Syarikat & Lokasi" class="w-full border-b mb-1 p-1 text-sm" oninput="update()">
+                        <input type="text" placeholder="Tarikh" class="w-full border-b mb-1 p-1 text-sm" oninput="update()">
+                        <textarea placeholder="Tugas Utama (Guna ENTER untuk bullet)" class="w-full p-1 text-sm h-20 mt-1" oninput="update()"></textarea>
+                    </div>
+                </div>
             </section>
 
-            <button onclick="handleDownload()" id="submitBtn" class="w-full bg-blue-800 text-white py-4 rounded-xl font-bold hover:bg-black transition uppercase shadow-xl">Save & Update PDF</button>
+            <button onclick="handleDownload()" id="submitBtn" class="w-full bg-blue-700 text-white py-4 rounded-xl font-bold hover:bg-black transition-all uppercase tracking-widest shadow-xl">Download & Save to Cloud</button>
         </div>
 
-        <div class="bg-white p-12 resume-preview shadow-2xl min-h-[29.7cm] border" id="print-area">
+        <div id="print-area" class="bg-white p-12 resume-preview shadow-2xl min-h-[29.7cm] border border-gray-300">
             <h1 id="out-name">NAMA PENUH ANDA</h1>
-            <p style="text-align:center; font-size:10pt; margin-top:5px;" id="out-contact">Emel | Telefon | Lokasi</p>
+            <p style="text-align:center; font-size:10pt; margin-top:5px;" id="out-contact">Emel | No. Telefon | Lokasi</p>
+            
             <section><h2>Summary</h2><p id="out-summary" class="section-content"></p></section>
             <section><h2>Education</h2><div id="out-edu" class="section-content"></div></section>
+            <section><h2>Work Experience</h2><div id="out-work" class="section-content"></div></section>
         </div>
     </div>
 
     <script>
-        // URL ANDA YANG TERKINI
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby466L8-LJolx6PCL2JZ_MmQmlvMfdzggjvHyYOKERw1eBAiqF5Eiw789cztkYwWs1x9g/exec';
+        // URL SCRIPT ANDA
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzT7xLrgXEFhGeR3zom4Oto6aQuvxa-f_7G8qooYoBnE_U_oBVDc80E1n6JpWWp2RNL2w/exec';
 
-        // FUNGSI LOGIN MENGGUNAKAN TEKNIK JSONP (Mencegah Stuck/CORS)
-        function checkUser() {
-            const email = document.getElementById('user-email').value;
-            if(!email || !email.includes('@')) return alert("Sila masukkan emel yang sah!");
-            
-            document.getElementById('login-btn').innerText = "Menyemak Rekod...";
-            document.getElementById('login-btn').disabled = true;
-
-            // Buat 'callback' untuk terima data dari Google
-            window.handleLogin = function(result) {
-                document.getElementById('login-screen').classList.add('hidden');
-                document.getElementById('main-app').classList.remove('hidden');
-                document.getElementById('email').value = email;
-
-                if(result.found) {
-                    alert("Rekod lama ditemui! Maklumat anda telah diisi semula.");
-                    document.getElementById('name').value = result.data.name || '';
-                    document.getElementById('phone').value = result.data.phone || '';
-                    document.getElementById('address').value = result.data.address || '';
-                }
-                update();
-                // Bersihkan tag script
-                const sc = document.getElementById('jsonp-script');
-                if(sc) sc.remove();
-            };
-
-            const script = document.createElement('script');
-            script.id = 'jsonp-script';
-            script.src = `${SCRIPT_URL}?email=${encodeURIComponent(email)}&callback=handleLogin`;
-            document.body.appendChild(script);
-
-            // Fail-safe: Jika Google lambat respon (>7 saat), paksa masuk
-            setTimeout(() => {
-                if(document.getElementById('main-app').classList.contains('hidden')) {
-                    alert("Sistem mengambil masa lama. Masuk sebagai pengguna baru.");
-                    window.handleLogin({found: false});
-                }
-            }, 7000);
-        }
-
-        function add(id) {
-            const c = document.getElementById(id);
-            const clone = c.children[0].cloneNode(true);
+        function addFields(id) {
+            const container = document.getElementById(id);
+            const clone = container.children[0].cloneNode(true);
             clone.querySelectorAll('input, textarea').forEach(i => i.value = '');
-            c.appendChild(clone);
+            container.appendChild(clone);
             update();
         }
 
         function update() {
             document.getElementById('out-name').innerText = document.getElementById('name').value || 'NAMA PENUH ANDA';
-            document.getElementById('out-contact').innerText = `${document.getElementById('email').value} | ${document.getElementById('phone').value} | ${document.getElementById('address').value}`;
+            document.getElementById('out-contact').innerText = `${document.getElementById('email').value || 'Emel'} | ${document.getElementById('phone').value || 'Telefon'} | ${document.getElementById('address').value || 'Lokasi'}`;
             document.getElementById('out-summary').innerText = document.getElementById('summary').value;
 
-            render('edu-group', 'out-edu', i => `
-                <div class="mb-3">
-                    <div class="item-header"><span>${i[0].value}</span><span>${i[2].value}</span></div>
-                    <i>${i[1].value}</i> (${i[3].value})
-                </div>
-            `);
-        }
-
-        function render(gid, oid, tmpl) {
-            let h = ''; document.querySelectorAll(`#${gid} .entry`).forEach(e => {
-                const i = e.querySelectorAll('input'); if(i[0].value) h += tmpl(i);
+            // Render Education
+            let eduHtml = '';
+            document.querySelectorAll('#edu-group .entry').forEach(e => {
+                const i = e.querySelectorAll('input');
+                if(i[0].value) eduHtml += `<div class="mb-3"><div class="item-header"><span>${i[0].value}</span><span>${i[2].value}</span></div><i>${i[1].value}</i> (${i[3].value})</div>`;
             });
-            document.getElementById(oid).innerHTML = h;
+            document.getElementById('out-edu').innerHTML = eduHtml;
+
+            // Render Experience
+            let workHtml = '';
+            document.querySelectorAll('#work-group .entry').forEach(e => {
+                const i = e.querySelectorAll('input');
+                const t = e.querySelector('textarea').value;
+                if(i[0].value) {
+                    const bullets = t.split('\n').filter(l => l.trim()).map(l => `<li>${l}</li>`).join('');
+                    workHtml += `<div class="mb-4"><div class="item-header"><span>${i[0].value}</span><span>${i[2].value}</span></div><i>${i[1].value}</i><ul class="mt-1">${bullets}</ul></div>`;
+                }
+            });
+            document.getElementById('out-work').innerHTML = workHtml;
         }
 
         async function handleDownload() {
+            const name = document.getElementById('name').value;
+            if(!name) return alert("Sila masukkan nama penuh!");
+
             const btn = document.getElementById('submitBtn');
-            btn.innerText = "SAVING TO CLOUD..."; btn.disabled = true;
+            btn.innerText = "UPDATING CLOUD..."; btn.disabled = true;
+            
             const data = {
-                name: document.getElementById('name').value,
+                name: name,
                 email: document.getElementById('email').value,
                 phone: document.getElementById('phone').value,
                 address: document.getElementById('address').value,
                 htmlForPdf: document.getElementById('print-area').innerHTML
             };
+
             try {
+                // Hantar data ke Google secara senyap (Mode: no-cors)
                 await fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(data) });
-                alert("Berjaya! Fail lama di Drive telah digantikan. Sila cetak PDF sekarang.");
+                alert("Berjaya! Fail anda disimpan ke Google Drive. Sila cetak sekarang.");
                 window.print();
-            } catch (e) { alert("Ralat semasa menyimpan."); }
-            btn.disabled = false; btn.innerText = "Save & Update PDF";
+            } catch (e) { alert("Ralat semasa menyimpan ke Cloud."); }
+            
+            btn.disabled = false; btn.innerText = "Download & Save to Cloud";
         }
     </script>
 </body>
