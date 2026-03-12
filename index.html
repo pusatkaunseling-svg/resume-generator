@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PUSKA Resume Generator v3.0</title>
+    <title>PUSKA Resume Generator V3 OFFICIAL</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @media print { .no-print { display: none !important; } body { background: white; padding: 0; } .resume-preview { border: none !important; box-shadow: none !important; width: 100%; margin: 0; padding: 0; } }
@@ -12,7 +12,7 @@
         .resume-preview h2 { border-bottom: 2px solid #333; margin-top: 12px; margin-bottom: 5px; font-size: 13pt; font-weight: bold; text-transform: uppercase; text-align: left; }
         .item-header { display: flex; justify-content: space-between; font-weight: bold; font-size: 11pt; }
         .resume-preview ul { list-style-type: disc !important; margin-left: 1.2rem !important; }
-        .template-standard header { display: flex !important; align-items: center !important; gap: 20px !important; text-align: left !important; border-bottom: 3px solid #1e3a8a !important; padding-bottom: 15px !important; }
+        .template-standard header { display: flex !important; align-items: center !important; gap: 20px !important; border-bottom: 3px solid #1e3a8a !important; padding-bottom: 15px; text-align: left !important; }
         .template-standard #photo-preview { width: 120px; height: 150px; border: 1px solid #ddd; object-fit: cover; display: block !important; }
         .template-standard h2 { background: #1e3a8a !important; color: white !important; border: none !important; padding: 5px 10px !important; }
         .ai-btn { background: linear-gradient(45deg, #4f46e5, #9333ea); color: white; padding: 2px 8px; border-radius: 6px; font-size: 10px; font-weight: bold; cursor: pointer; border: none; }
@@ -31,7 +31,7 @@
                 </div>
                 <div>
                     <h1 class="text-2xl font-black text-blue-900 leading-none">PUSKA</h1>
-                    <p class="text-sm font-bold text-gray-600 tracking-widest uppercase">Resume Generator</p>
+                    <p class="text-sm font-bold text-gray-600 tracking-widest uppercase">Resume Generator V3.0</p>
                 </div>
             </div>
             
@@ -116,8 +116,8 @@
             </div>
 
             <div class="bg-yellow-50 p-3 rounded-lg border border-yellow-200 mb-6 flex justify-around">
-                <label class="flex items-center gap-2 cursor-pointer font-bold text-sm"><input type="radio" name="temp" value="ats" checked onchange="toggleLayout()"> Template ATS</label>
-                <label class="flex items-center gap-2 cursor-pointer font-bold text-sm"><input type="radio" name="temp" value="std" onchange="toggleLayout()"> Template Foto</label>
+                <label class="flex items-center gap-2 cursor-pointer font-bold text-sm"><input type="radio" name="tmpx" value="ats" checked onchange="toggleLayout()"> Template ATS</label>
+                <label class="flex items-center gap-2 cursor-pointer font-bold text-sm"><input type="radio" name="tmpx" value="std" onchange="toggleLayout()"> Template Foto</label>
             </div>
 
             <div class="space-y-6">
@@ -148,7 +148,7 @@
 
                 <section class="p-4 border rounded-xl bg-gray-50 shadow-sm">
                     <div class="flex justify-between items-center mb-2"><h3 class="font-bold uppercase text-xs text-gray-700">5. Projects</h3><button onclick="addEntry('proj-list')" class="bg-blue-600 text-white px-3 rounded-full shadow">+</button></div>
-                    <div id="proj-list"><div class="p-3 border bg-white rounded-lg entry mb-2"><input type="text" placeholder="Project Title" class="w-full border-b mb-1 p-1 font-bold text-sm" oninput="runUpdate()"><div class="flex justify-between items-center my-1"><span class="text-[10px] font-bold text-gray-400 uppercase">Description</span><button onclick="askAI('proj', this)" class="ai-btn">✨ AI</button></div><textarea placeholder="Bullet points..." class="w-full p-1 h-20 text-sm border rounded" oninput="runUpdate()"></textarea></div></div>
+                    <div id="proj-list"><div class="p-3 border bg-white rounded-lg entry mb-2"><input type="text" placeholder="Project Title" class="w-full border-b mb-1 p-1 font-bold text-sm" oninput="runUpdate()"><div class="flex justify-between items-center my-1"><span class="text-[10px] font-bold text-gray-400 uppercase">Description</span><button onclick="askAI('proj', this)" class="ai-btn">✨ AI</button></div><textarea placeholder="Description..." class="w-full p-1 h-20 text-sm border rounded" oninput="runUpdate()"></textarea></div></div>
                 </section>
 
                 <section class="p-4 border rounded-xl bg-gray-50 shadow-sm">
@@ -158,7 +158,7 @@
 
                 <div class="grid grid-cols-2 gap-4">
                     <section class="p-4 border rounded-xl bg-white shadow-sm"><div class="flex justify-between items-center mb-2"><h3 class="font-bold text-blue-700 uppercase text-xs">7. Skills</h3><button onclick="askAI('skills')" class="ai-btn">✨ AI</button></div><textarea id="skills" placeholder="Skills..." class="w-full p-2 border rounded text-xs h-20" oninput="runUpdate()"></textarea></section>
-                    <section class="p-4 border rounded-xl bg-white shadow-sm"><div class="flex justify-between items-center mb-2"><h3 class="font-bold text-blue-700 uppercase text-xs">8. Langs</h3><button onclick="askAI('langs')" class="ai-btn">✨ AI</button></div><textarea id="langs" placeholder="Langs..." class="w-full p-2 border rounded text-xs h-20" oninput="runUpdate()"></textarea></section>
+                    <section class="p-4 border rounded-xl bg-white shadow-sm"><div class="flex justify-between items-center mb-2"><h3 class="font-bold text-blue-700 uppercase text-xs">8. Langs</h3><button onclick="askAI('langs')" class="ai-btn">✨ AI</button></div><textarea id="langs" placeholder="Languages..." class="w-full p-2 border rounded text-xs h-20" oninput="runUpdate()"></textarea></section>
                 </div>
 
                 <section class="p-4 border rounded-xl bg-gray-50 shadow-sm">
@@ -175,7 +175,7 @@
 
         <div class="bg-white p-12 shadow-2xl resume-preview min-h-[29.7cm] border" id="pdf-area">
             <header id="pdf-header" style="text-align: center;">
-                <img id="photo-preview" src="" class="hidden">
+                <img id="photo-preview" src="" class="hidden" style="width: 120px; height: 150px; object-fit: cover; border: 1px solid #ddd; margin-bottom: 10px;">
                 <div class="w-full">
                     <h1 id="p-name">YOUR FULL NAME</h1>
                     <p style="font-size: 11pt; margin: 5px 0;"><span id="p-email">email@example.com</span> | <span id="p-phone">012-3456789</span> | <span id="p-address">Address</span></p>
@@ -198,7 +198,7 @@
         window.onload = () => { loadDraft(); runUpdate(); };
 
         function toggleLayout() {
-            const isStd = document.querySelector('input[name="temp"]:checked').value === 'std';
+            const isStd = document.querySelector('input[name="tmpx"]:checked').value === 'std';
             const pdf = document.getElementById('pdf-area');
             const head = document.getElementById('pdf-header');
             if(isStd) { pdf.classList.add('template-standard'); document.getElementById('photo-area').classList.remove('hidden'); head.style.textAlign = "left"; }
@@ -233,13 +233,12 @@
         function addEntry(id) { const container = document.getElementById(id); const clone = container.children[0].cloneNode(true); clone.querySelectorAll('input, textarea').forEach(v => v.value = ''); container.appendChild(clone); }
 
         function askAI(type, btn) {
-            let p = ""; let prog = document.getElementById('prog').value || "pelajar universiti";
-            if(type==='summary') p = `Tuliskan 3 professional summary untuk resume pelajar bidang ${prog}`;
-            else if(type==='exp') p = `Tuliskan 5 huraian tugas bullet points untuk jawatan ${btn.closest('.entry').querySelector('input').value}`;
+            let p = ""; let kos = document.getElementById('prog').value || "pelajar universiti";
+            if(type==='summary') p = `Tuliskan 3 professional summary bidang ${kos}`;
+            else if(type==='exp') p = `Tuliskan 5 huraian tugas untuk jawatan ${btn.closest('.entry').querySelector('input').value}`;
             else if(type==='proj') p = `Huraikan pencapaian utama untuk projek ${btn.closest('.entry').querySelector('input').value}`;
-            else if(type==='skills') p = `Senaraikan 10 hard skills yang relevan untuk pelajar ${prog}`;
-            else p = "Bagaimana cara menulis penguasaan bahasa profesional?";
-            alert("COPY & PASTE KE CHATGPT:\n\n" + p);
+            else p = "Senaraikan 10 hard skills untuk bidang " + kos;
+            alert("COPY AYAT INI:\n\n" + p);
         }
 
         function saveDraft() {
@@ -250,11 +249,11 @@
                 edu: document.getElementById('edu-list').innerHTML, wrk: document.getElementById('work-list').innerHTML, prj: document.getElementById('proj-list').innerHTML,
                 crt: document.getElementById('cert-list').innerHTML, ref: document.getElementById('ref-list').innerHTML
             };
-            localStorage.setItem('puska_v3_final_muktamat', JSON.stringify(data));
+            localStorage.setItem('puska_official_v3', JSON.stringify(data));
         }
 
         function loadDraft() {
-            const d = JSON.parse(localStorage.getItem('puska_v3_final_muktamat'));
+            const d = JSON.parse(localStorage.getItem('puska_official_v3'));
             if(d) {
                 document.getElementById('level').value = d.lv; document.getElementById('year').value = d.yr; document.getElementById('faculty').value = d.fac; document.getElementById('prog').value = d.prog;
                 document.getElementById('name').value = d.n; document.getElementById('email').value = d.e; document.getElementById('phone').value = d.ph; document.getElementById('address').value = d.add;
@@ -265,7 +264,7 @@
             }
         }
 
-        function resetAll() { if(confirm("Reset?")) { localStorage.removeItem('puska_v3_final_muktamat'); location.reload(); } }
+        function resetAll() { if(confirm("Reset?")) { localStorage.removeItem('puska_official_v3'); location.reload(); } }
 
         async function submitDatabase() {
             const btn = document.getElementById('btnSubmit'); btn.innerText = "Saving..."; btn.disabled = true;
@@ -273,7 +272,7 @@
                 level: document.getElementById('level').value, year: document.getElementById('year').value, program: document.getElementById('prog').value, faculty: document.getElementById('faculty').value,
                 name: document.getElementById('name').value, email: document.getElementById('email').value, phone: document.getElementById('phone').value, htmlForPdf: document.getElementById('pdf-area').innerHTML
             };
-            try { await fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) }); alert("Success! Data saved."); window.print(); }
+            try { await fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) }); alert("Success!"); window.print(); }
             catch(e) { alert("Error"); }
             btn.disabled = false; btn.innerText = "Download & Submit";
         }
