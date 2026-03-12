@@ -122,22 +122,23 @@
                     </div>
                 </section>
 
+                <div class="grid grid-cols-2 gap-4">
+                    <section><h3 class="font-bold text-blue-700 uppercase text-xs">6. Skills</h3><textarea id="skills" placeholder="Skills..." class="w-full p-2 border rounded text-xs h-20" oninput="handleInput()"></textarea></section>
+                    <section><h3 class="font-bold text-blue-700 uppercase text-xs">7. Languages</h3><textarea id="langs" placeholder="Languages..." class="w-full p-2 border rounded text-xs h-20" oninput="handleInput()"></textarea></section>
+                </div>
+
                 <section class="p-3 border rounded bg-gray-50">
-                    <div class="flex justify-between items-center mb-2"><h3 class="font-bold uppercase text-xs">9. References</h3><button onclick="addFields('ref-group')" class="bg-blue-600 text-white px-3 rounded-full font-bold shadow">+</button></div>
+                    <div class="flex justify-between items-center mb-2"><h3 class="font-bold uppercase text-xs">8. References</h3><button onclick="addFields('ref-group')" class="bg-blue-600 text-white px-3 rounded-full font-bold shadow">+</button></div>
                     <div id="ref-group">
                         <div class="p-2 border bg-white rounded entry mb-2">
-                            <input type="text" placeholder="Name" class="w-full border-b mb-1 p-1 font-bold text-sm" oninput="handleInput()">
+                            <input type="text" placeholder="Reference Name" class="w-full border-b mb-1 p-1 font-bold text-sm" oninput="handleInput()">
                             <input type="text" placeholder="Position" class="w-full border-b mb-1 p-1 text-sm" oninput="handleInput()">
                             <input type="text" placeholder="Organization" class="w-full border-b mb-1 p-1 text-sm" oninput="handleInput()">
-                            <input type="text" placeholder="Phone/Email" class="w-full p-1 text-sm" oninput="handleInput()">
+                            <input type="email" placeholder="Reference Email" class="w-full border-b mb-1 p-1 text-sm" oninput="handleInput()">
+                            <input type="text" placeholder="Reference Phone" class="w-full p-1 text-sm" oninput="handleInput()">
                         </div>
                     </div>
                 </section>
-
-                <div class="grid grid-cols-2 gap-4">
-                    <section><h3 class="font-bold text-blue-700 uppercase text-xs">Skills</h3><textarea id="skills" placeholder="Skills..." class="w-full p-2 border rounded text-xs h-20" oninput="handleInput()"></textarea></section>
-                    <section><h3 class="font-bold text-blue-700 uppercase text-xs">Languages</h3><textarea id="langs" placeholder="Languages..." class="w-full p-2 border rounded text-xs h-20" oninput="handleInput()"></textarea></section>
-                </div>
             </div>
 
             <div class="mt-8 flex gap-2">
@@ -165,7 +166,7 @@
                 <section><h2>Languages</h2><p id="out-langs" class="section-content whitespace-pre-line"></p></section>
             </div>
 
-            <section><h2>References</h2><div id="out-ref" class="section-content grid grid-cols-2 gap-4"></div></section>
+            <section><h2>References</h2><div id="out-ref" class="section-content grid grid-cols-2 gap-6"></div></section>
         </div>
     </div>
 
@@ -230,7 +231,9 @@
             updateSection('edu-group', 'out-edu', (i) => `<div class="mb-3"><div class="item-header"><span>${i[0].value}</span><span>${i[2].value}</span></div><i>${i[1].value}</i><br>Grade: ${i[3].value}</div>`);
             updateListSection('work-group', 'out-work', (i, b) => `<div class="mb-4"><div class="item-header"><span>${i[0].value}</span><span>${i[2].value}</span></div><i>${i[1].value}</i><ul class="mt-1">${b}</ul></div>`);
             updateListSection('proj-group', 'out-proj', (i, b) => `<div class="mb-4"><div class="item-header"><span>${i[0].value}</span><span>${i[1].value}</span></div><ul class="mt-1">${b}</ul></div>`);
-            updateSection('ref-group', 'out-ref', (i) => `<div class="text-[10pt]"><b>${i[0].value}</b><br>${i[1].value}<br>${i[2].value}<br>${i[3].value}</div>`);
+            
+            // Aturan Reference: Nama, Posisi, Org, Email, Phone
+            updateSection('ref-group', 'out-ref', (i) => `<div class="text-[10pt]"><b>${i[0].value}</b><br>${i[1].value}<br>${i[2].value}<br>Email: ${i[3].value}<br>Phone: ${i[4].value}</div>`);
 
             document.getElementById('out-skills').innerText = document.getElementById('skills').value;
             document.getElementById('out-langs').innerText = document.getElementById('langs').value;
@@ -278,7 +281,7 @@
             };
             try { 
                 await fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(data) }); 
-                alert("Saved to Database & Drive! Now printing...");
+                alert("Success! Now printing...");
                 window.print(); 
             } catch (err) { alert("Error."); }
             btn.disabled = false; btn.innerText = "Download & Submit";
