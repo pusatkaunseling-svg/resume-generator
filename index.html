@@ -7,37 +7,34 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @media print { .no-print { display: none; } body { background: white; padding: 0; } .resume-preview { border: none !important; box-shadow: none !important; width: 100%; margin: 0; padding: 0; } }
-        
-        /* STYLE UNTUK RESUME */
         .resume-preview { font-family: 'Arial', sans-serif; color: #1a1a1a; line-height: 1.4; background: white; }
         .resume-preview h1 { font-size: 18pt; font-weight: bold; text-transform: uppercase; margin: 0; }
         .resume-preview h2 { border-bottom: 2px solid #333; margin-top: 12px; margin-bottom: 5px; font-size: 13pt; font-weight: bold; text-transform: uppercase; text-align: left; }
         .item-header { display: flex; justify-content: space-between; font-weight: bold; font-size: 11pt; }
         .resume-preview ul { list-style-type: disc !important; margin-left: 1.2rem !important; }
-
-        /* TEMPLATE 2 (STANDARD WITH PHOTO) */
         .template-standard header { display: flex !important; align-items: center !important; gap: 20px !important; text-align: left !important; border-bottom: 3px solid #1e3a8a !important; padding-bottom: 15px !important; margin-bottom: 15px !important; }
         .template-standard #photo-preview { width: 120px; height: 150px; border: 1px solid #ddd; object-fit: cover; display: block !important; }
         .template-standard h2 { background: #1e3a8a !important; color: white !important; border: none !important; padding: 5px 10px !important; }
-
         .ai-btn { background: linear-gradient(45deg, #4f46e5, #9333ea); color: white; padding: 2px 8px; border-radius: 6px; font-size: 10px; font-weight: bold; cursor: pointer; border: none; }
         .hidden { display: none !important; }
-        
-        /* LOGO DI HEADER BORANG */
-        .header-logo { height: 50px; width: auto; object-fit: contain; }
+        /* Style Logo di Borang */
+        .puska-header-logo { height: 60px; width: auto; object-fit: contain; }
     </style>
 </head>
 <body class="bg-gray-100 p-4">
     <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-6">
         
         <div class="bg-white p-6 rounded-lg shadow no-print h-[90vh] overflow-y-auto">
-            <div class="flex items-center gap-4 border-b pb-4 mb-6">
-                <img src="https://lh3.googleusercontent.com/u/0/d/1MvbeFj62QwwzGHvUCNrmjYqX6IrWTQxN" alt="PUSKA Logo" class="header-logo">
-                <h1 class="text-xl font-black text-blue-900 leading-tight uppercase">PUSKA RESUME<br>GENERATOR</h1>
+            <div class="flex items-center gap-4 border-b-2 border-blue-800 pb-4 mb-6">
+                <img src="https://lh3.googleusercontent.com/d/1MvbeFj62QwwzGHvUCNrmjYqX6IrWTQxN" alt="Logo PUSKA" class="puska-header-logo">
+                <div>
+                    <h1 class="text-2xl font-black text-blue-900 leading-none">PUSKA</h1>
+                    <p class="text-sm font-bold text-gray-600 tracking-widest uppercase">Resume Generator</p>
+                </div>
             </div>
             
             <div class="bg-yellow-50 p-4 rounded-xl border border-yellow-200 mb-6">
-                <div class="flex justify-around bg-white p-2 rounded-lg border shadow-sm">
+                <div class="flex justify-around bg-white p-2 rounded-lg border">
                     <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="tmpx" value="ats" checked onchange="toggleTemplate()"> <span class="text-sm font-bold">Template ATS</span></label>
                     <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="tmpx" value="std" onchange="toggleTemplate()"> <span class="text-sm font-bold">Template Foto</span></label>
                 </div>
@@ -54,7 +51,7 @@
                     <input type="text" id="email" placeholder="Email Address" class="w-full p-2 border rounded mb-2" oninput="handleInput()">
                     <input type="text" id="phone" placeholder="Phone Number" class="w-full p-2 border rounded mb-2" oninput="handleInput()">
                     <input type="text" id="address" placeholder="City, State" class="w-full p-2 border rounded mb-2" oninput="handleInput()">
-                    <input type="text" id="prog" placeholder="Programme (e.g. Civil Engineering)" class="w-full p-2 border rounded mb-2" oninput="handleInput()">
+                    <input type="text" id="prog" placeholder="Kos Pengajian (cth: Kejuruteraan Awam)" class="w-full p-2 border rounded mb-2" oninput="handleInput()">
                 </section>
 
                 <section class="p-4 border rounded-xl bg-white shadow-sm">
@@ -63,7 +60,7 @@
                 </section>
 
                 <section class="p-4 border rounded-xl bg-gray-50 shadow-sm">
-                    <div class="flex justify-between items-center mb-2"><h3 class="font-bold uppercase text-xs">3. Education</h3><button onclick="addFields('edu-group')" class="bg-blue-600 text-white px-3 rounded-full font-bold shadow hover:bg-black transition">+</button></div>
+                    <div class="flex justify-between items-center mb-2"><h3 class="font-bold uppercase text-xs">3. Education</h3><button onclick="addFields('edu-group')" class="bg-blue-600 text-white px-3 rounded-full font-bold shadow">+</button></div>
                     <div id="edu-group"><div class="p-3 border bg-white rounded-lg entry mb-2">
                         <input type="text" placeholder="Institution" class="w-full border-b mb-1 p-1 font-bold text-sm" oninput="handleInput()">
                         <input type="text" placeholder="Degree" class="w-full border-b mb-1 p-1 text-sm" oninput="handleInput()">
@@ -73,13 +70,13 @@
                 </section>
 
                 <section class="p-4 border rounded-xl bg-gray-50 shadow-sm">
-                    <div class="flex justify-between items-center mb-2"><h3 class="font-bold uppercase text-xs">4. Work Experience</h3><button onclick="addFields('work-group')" class="bg-blue-600 text-white px-3 rounded-full font-bold shadow hover:bg-black transition">+</button></div>
+                    <div class="flex justify-between items-center mb-2"><h3 class="font-bold uppercase text-xs">4. Work Experience</h3><button onclick="addFields('work-group')" class="bg-blue-600 text-white px-3 rounded-full font-bold shadow">+</button></div>
                     <div id="work-group"><div class="p-3 border bg-white rounded-lg entry mb-2">
                         <input type="text" placeholder="Job Title" class="w-full border-b mb-1 p-1 font-bold text-sm" oninput="handleInput()">
                         <input type="text" placeholder="Company" class="w-full border-b mb-1 p-1 text-sm" oninput="handleInput()">
                         <input type="text" placeholder="Date" class="w-full border-b mb-1 p-1 text-sm" oninput="handleInput()">
-                        <div class="flex justify-between items-center mt-2 mb-1"><span class="text-[10px] font-bold text-gray-400 uppercase text-[9px]">Responsibilities</span><button onclick="aiHelp('exp', this)" class="ai-btn">✨ AI ASSIST</button></div>
-                        <textarea placeholder="Bullet points..." class="w-full p-1 h-20 text-sm border rounded" oninput="handleInput()"></textarea>
+                        <div class="flex justify-between items-center mt-2 mb-1"><span class="text-[10px] font-bold text-gray-400 uppercase">Responsibilities</span><button onclick="aiHelp('exp', this)" class="ai-btn">✨ AI ASSIST</button></div>
+                        <textarea placeholder="Huraian tugas..." class="w-full p-1 h-20 text-sm border rounded" oninput="handleInput()"></textarea>
                     </div></div>
                 </section>
 
@@ -88,23 +85,21 @@
                     <div id="proj-group"><div class="p-3 border bg-white rounded-lg entry mb-2">
                         <input type="text" placeholder="Project Title" class="w-full border-b mb-1 p-1 font-bold text-sm" oninput="handleInput()">
                         <input type="text" placeholder="Date" class="w-full border-b mb-1 p-1 text-sm" oninput="handleInput()">
-                        <div class="flex justify-between items-center mt-2 mb-1"><span class="text-[10px] font-bold text-gray-400 uppercase text-[9px]">Description</span><button onclick="aiHelp('proj', this)" class="ai-btn">✨ AI ASSIST</button></div>
-                        <textarea placeholder="Bullet points..." class="w-full p-1 h-20 text-sm border rounded" oninput="handleInput()"></textarea>
+                        <div class="flex justify-between items-center mt-2 mb-1"><span class="text-[10px] font-bold text-gray-400 uppercase">Description</span><button onclick="aiHelp('proj', this)" class="ai-btn">✨ AI ASSIST</button></div>
+                        <textarea placeholder="Huraian projek..." class="w-full p-1 h-20 text-sm border rounded" oninput="handleInput()"></textarea>
                     </div></div>
                 </section>
 
-                <section class="p-4 border rounded-xl bg-gray-50 shadow-sm"><div class="flex justify-between items-center mb-2"><h3 class="font-bold uppercase text-xs">6. Certifications</h3><button onclick="addFields('cert-group')" class="bg-blue-600 text-white px-3 rounded-full font-bold shadow">+</button></div><div id="cert-group"><div class="p-3 border bg-white rounded-lg entry mb-2"><input type="text" placeholder="Cert Name" class="w-full border-b mb-1 p-1 font-bold text-sm" oninput="handleInput()"><input type="text" placeholder="Issuer" class="w-full p-1 text-sm" oninput="handleInput()"></div></div></section>
-
                 <div class="grid grid-cols-2 gap-4">
                     <section class="p-4 border rounded-xl bg-white shadow-sm"><div class="flex justify-between items-center mb-2"><h3 class="font-bold text-blue-700 uppercase text-xs">7. Skills</h3><button onclick="aiHelp('skills')" class="ai-btn">✨ AI</button></div><textarea id="skills" placeholder="Hard/Soft Skills" class="w-full p-2 border rounded text-xs h-20" oninput="handleInput()"></textarea></section>
-                    <section class="p-4 border rounded-xl bg-white shadow-sm"><div class="flex justify-between items-center mb-2"><h3 class="font-bold text-blue-700 uppercase text-xs">8. Languages</h3><button onclick="aiHelp('langs')" class="ai-btn">✨ AI</button></div><textarea id="langs" placeholder="Malay, English, etc." class="w-full p-2 border rounded text-xs h-20" oninput="handleInput()"></textarea></section>
+                    <section class="p-4 border rounded-xl bg-white shadow-sm"><div class="flex justify-between items-center mb-2"><h3 class="font-bold text-blue-700 uppercase text-xs">8. Languages</h3><button onclick="aiHelp('langs')" class="ai-btn">✨ AI</button></div><textarea id="langs" placeholder="Penguasaan bahasa" class="w-full p-2 border rounded text-xs h-20" oninput="handleInput()"></textarea></section>
                 </div>
 
                 <section class="p-4 border rounded-xl bg-gray-50 shadow-sm"><div class="flex justify-between items-center mb-2"><h3 class="font-bold uppercase text-xs">9. References</h3><button onclick="addFields('ref-group')" class="bg-blue-600 text-white px-3 rounded-full font-bold shadow">+</button></div><div id="ref-group"><div class="p-3 border bg-white rounded-lg entry mb-2"><input type="text" placeholder="Name" class="w-full border-b mb-1 p-1 font-bold text-sm" oninput="handleInput()"><input type="text" placeholder="Position" class="w-full border-b mb-1 p-1 text-sm" oninput="handleInput()"><input type="text" placeholder="Email" class="w-full border-b mb-1 p-1 text-sm" oninput="handleInput()"><input type="text" placeholder="Phone" class="w-full p-1 text-sm" oninput="handleInput()"></div></div></section>
             </div>
 
             <div class="mt-8 flex gap-2">
-                <button onclick="clearDraft()" class="w-1/3 bg-gray-400 text-white py-4 rounded-xl font-bold uppercase text-sm hover:bg-red-600 transition">Reset</button>
+                <button onclick="clearDraft()" class="w-1/3 bg-gray-400 text-white py-4 rounded-xl font-bold uppercase text-sm">Reset</button>
                 <button onclick="handleDownload()" id="submitBtn" class="w-2/3 bg-blue-800 text-white py-4 rounded-xl font-bold uppercase tracking-widest text-sm shadow-xl hover:bg-black transition">Download & Submit</button>
             </div>
         </div>
@@ -121,7 +116,6 @@
             <section><h2>Education</h2><div id="out-edu" class="section-content"></div></section>
             <section><h2>Work Experience</h2><div id="out-work" class="section-content"></div></section>
             <section><h2>Projects</h2><div id="out-proj" class="section-content"></div></section>
-            <section><h2>Certifications</h2><div id="out-cert" class="section-content"></div></section>
             <div class="grid grid-cols-2 gap-8"><section><h2>Skills</h2><p id="out-skills" class="section-content whitespace-pre-line"></p></section><section><h2>Languages</h2><p id="out-langs" class="section-content whitespace-pre-line"></p></section></div>
             <section><h2>References</h2><div id="out-ref" class="section-content grid grid-cols-2 gap-4"></div></section>
         </div>
@@ -164,21 +158,19 @@
             data.edu = document.getElementById('edu-group').innerHTML;
             data.work = document.getElementById('work-group').innerHTML;
             data.proj = document.getElementById('proj-group').innerHTML;
-            data.cert = document.getElementById('cert-group').innerHTML;
             data.ref = document.getElementById('ref-group').innerHTML;
-            localStorage.setItem('puska_final_fixed_v2', JSON.stringify(data));
+            localStorage.setItem('puska_v11_final', JSON.stringify(data));
         }
 
         function loadDraft() {
-            const draft = localStorage.getItem('puska_final_fixed_v2');
+            const draft = localStorage.getItem('puska_v11_final');
             if (draft) {
                 const data = JSON.parse(draft);
                 if(data.tmpl) { document.querySelector(`input[name="tmpx"][value="${data.tmpl}"]`).checked = true; toggleTemplate(); }
-                Object.keys(data).forEach(key => { const el = document.getElementById(key); if (el && !['edu','work','proj','cert','ref','tmpl'].includes(key)) el.value = data[key]; });
+                Object.keys(data).forEach(key => { const el = document.getElementById(key); if (el && !['edu','work','proj','ref','tmpl'].includes(key)) el.value = data[key]; });
                 if(data.edu) document.getElementById('edu-group').innerHTML = data.edu;
                 if(data.work) document.getElementById('work-group').innerHTML = data.work;
                 if(data.proj) document.getElementById('proj-group').innerHTML = data.proj;
-                if(data.cert) document.getElementById('cert-group').innerHTML = data.cert;
                 if(data.ref) document.getElementById('ref-group').innerHTML = data.ref;
                 document.querySelectorAll('.entry input, .entry textarea').forEach(el => el.oninput = handleInput);
             }
@@ -207,7 +199,6 @@
             });
             updateListSection('work-group', 'out-work', (i, b) => `<div class="mb-4"><div class="item-header"><span>${i[0].value}</span><span>${i[2].value}</span></div><i>${i[1].value}</i><ul class="mt-1">${b}</ul></div>`);
             updateListSection('proj-group', 'out-proj', (i, b) => `<div class="mb-4"><div class="item-header"><span>${i[0].value}</span><span>${i[1].value}</span></div><ul class="mt-1">${b}</ul></div>`);
-            updateSection('cert-group', 'out-cert', (i) => `<div class="mb-2"><b>${i[0].value}</b> - ${i[1].value}</div>`);
             updateSection('ref-group', 'out-ref', (i) => `<div class="text-[10pt]"><b>${i[0].value}</b><br>${i[1].value}<br>E: ${i[2].value} | P: ${i[3].value}</div>`);
             document.getElementById('out-skills').innerText = document.getElementById('skills').value;
             document.getElementById('out-langs').innerText = document.getElementById('langs').value;
@@ -227,16 +218,16 @@
         }
 
         function aiHelp(type, btn) {
-            let p = ""; let prog = document.getElementById('prog').value || "pelajar universiti";
-            if(type==='summary') p = `Tolong tuliskan 3 variasi professional summary untuk resume pelajar bidang ${prog}`;
-            else if(type==='exp') p = `Tolong tuliskan 5 responsibilities dalam bullet points untuk jawatan ${btn.closest('.entry').querySelector('input').value || 'ini'}`;
-            else if(type==='proj') p = `Huraikan 4 pencapaian utama untuk projek ${btn.closest('.entry').querySelector('input').value || 'ini'} dalam bullet points teknikal.`;
-            else if(type==='skills') p = `Senaraikan 10 hard/soft skills relevan untuk pelajar bidang ${prog}.`;
-            else if(type==='langs') p = `Bagaimana cara tulis penguasaan bahasa profesional dalam resume?`;
+            let p = ""; let kos = document.getElementById('prog').value || "pelajar universiti";
+            if(type==='summary') p = `Tuliskan 3 variasi professional summary untuk resume pelajar bidang ${kos}.`;
+            else if(type==='exp') p = `Tuliskan 5 huraian tugas dalam bullet points untuk jawatan ${btn.closest('.entry').querySelector('input').value || 'ini'}.`;
+            else if(type==='proj') p = `Huraikan 4 pencapaian utama untuk projek ${btn.closest('.entry').querySelector('input').value || 'ini'}.`;
+            else if(type==='skills') p = `Senaraikan 10 hard & soft skills relevan untuk pelajar ${kos}.`;
+            else if(type==='langs') p = `Tuliskan tahap penguasaan bahasa profesional untuk Melayu dan Inggeris.`;
             alert("COPY AYAT INI KE CHATGPT:\n\n" + p);
         }
 
-        function clearDraft() { if(confirm("Confirm Reset?")) { localStorage.removeItem('puska_final_fixed_v2'); location.reload(); } }
+        function clearDraft() { if(confirm("Confirm Reset?")) { localStorage.removeItem('puska_v11_final'); location.reload(); } }
 
         async function handleDownload() {
             const btn = document.getElementById('submitBtn'); btn.innerText = "Saving..."; btn.disabled = true;
