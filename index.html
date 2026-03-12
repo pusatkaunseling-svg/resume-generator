@@ -66,25 +66,25 @@
                         <option value="Fakulti Perniagaan & Komunikasi">Fakulti Perniagaan & Komunikasi</option>
                     </select>
                 </div>
-                <input type="text" id="prog" placeholder="Programme Name (e.g. Civil Engineering)" class="w-full p-2 border rounded" oninput="handleInput()">
+                <input type="text" id="prog" placeholder="Programme Name" class="w-full p-2 border rounded" oninput="handleInput()">
             </div>
 
             <div class="space-y-6">
                 <section>
-                    <h3 class="font-bold border-b-2 border-blue-500 mb-3 text-blue-700 uppercase text-sm">1. Personal Info</h3>
-                    <input type="text" id="name" placeholder="Full Name (As per IC)" class="w-full p-2 border rounded mb-2" oninput="handleInput()">
+                    <h3 class="font-bold border-b-2 border-blue-500 mb-3 text-blue-700 uppercase text-xs">1. Personal Info</h3>
+                    <input type="text" id="name" placeholder="Full Name" class="w-full p-2 border rounded mb-2" oninput="handleInput()">
                     <input type="text" id="email" placeholder="Email" class="w-full p-2 border rounded mb-2" oninput="handleInput()">
-                    <input type="text" id="phone" placeholder="Phone (e.g. 012-3456789)" class="w-full p-2 border rounded mb-2" oninput="handleInput()">
-                    <input type="text" id="address" placeholder="Location (City, State)" class="w-full p-2 border rounded mb-2" oninput="handleInput()">
+                    <input type="text" id="phone" placeholder="Phone" class="w-full p-2 border rounded mb-2" oninput="handleInput()">
+                    <input type="text" id="address" placeholder="Address" class="w-full p-2 border rounded mb-2" oninput="handleInput()">
                     <input type="text" id="linkedin" placeholder="LinkedIn URL" class="w-full p-2 border rounded mb-2" oninput="handleInput()">
                 </section>
 
                 <section>
                     <div class="flex justify-between items-center mb-2">
-                        <h3 class="font-bold border-b-2 border-blue-500 text-blue-700 uppercase text-sm">2. Summary</h3>
-                        <span onclick="aiHelp('summary')" class="ai-btn">✨ AI PROMPT</span>
+                        <h3 class="font-bold border-b-2 border-blue-500 text-blue-700 uppercase text-xs">2. Summary</h3>
+                        <span onclick="aiHelp('summary')" class="ai-btn">✨ AI HELP</span>
                     </div>
-                    <textarea id="summary" placeholder="Brief professional summary..." class="w-full p-2 border rounded h-24 text-sm" oninput="handleInput()"></textarea>
+                    <textarea id="summary" placeholder="Summary..." class="w-full p-2 border rounded h-24 text-sm" oninput="handleInput()"></textarea>
                 </section>
 
                 <section class="p-3 border rounded bg-gray-50">
@@ -92,9 +92,9 @@
                     <div id="edu-group">
                         <div class="p-2 border bg-white rounded entry mb-2">
                             <input type="text" placeholder="Institution" class="w-full border-b mb-1 p-1 font-bold text-sm" oninput="handleInput()">
-                            <input type="text" placeholder="Degree / Course" class="w-full border-b mb-1 p-1 text-sm" oninput="handleInput()">
-                            <input type="text" placeholder="Date (e.g. 2021 - 2025)" class="w-full border-b mb-1 p-1 text-sm" oninput="handleInput()">
-                            <input type="text" placeholder="CGPA / Grade" class="w-full p-1 text-sm italic" oninput="handleInput()">
+                            <input type="text" placeholder="Degree" class="w-full border-b mb-1 p-1 text-sm" oninput="handleInput()">
+                            <input type="text" placeholder="Date" class="w-full border-b mb-1 p-1 text-sm" oninput="handleInput()">
+                            <input type="text" placeholder="CGPA/Grade" class="w-full p-1 text-sm italic" oninput="handleInput()">
                         </div>
                     </div>
                 </section>
@@ -104,16 +104,39 @@
                     <div id="work-group">
                         <div class="p-2 border bg-white rounded entry mb-2">
                             <input type="text" placeholder="Job Title" class="w-full border-b mb-1 p-1 font-bold text-sm" oninput="handleInput()">
-                            <input type="text" placeholder="Company & Location" class="w-full border-b mb-1 p-1 text-sm" oninput="handleInput()">
+                            <input type="text" placeholder="Company" class="w-full border-b mb-1 p-1 text-sm" oninput="handleInput()">
                             <input type="text" placeholder="Date" class="w-full border-b mb-1 p-1 text-sm" oninput="handleInput()">
-                            <textarea placeholder="Responsibilities (Enter for bullets)" class="w-full p-1 h-20 text-sm mt-1" oninput="handleInput()"></textarea>
+                            <textarea placeholder="Responsibilities (Enter for bullet)" class="w-full p-1 h-20 text-sm mt-1" oninput="handleInput()"></textarea>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="p-3 border rounded bg-gray-50">
+                    <div class="flex justify-between items-center mb-2"><h3 class="font-bold uppercase text-xs">5. Projects</h3><button onclick="addFields('proj-group')" class="bg-blue-600 text-white px-3 rounded-full font-bold shadow">+</button></div>
+                    <div id="proj-group">
+                        <div class="p-2 border bg-white rounded entry mb-2">
+                            <input type="text" placeholder="Project Title" class="w-full border-b mb-1 p-1 font-bold text-sm" oninput="handleInput()">
+                            <input type="text" placeholder="Date" class="w-full border-b mb-1 p-1 text-sm" oninput="handleInput()">
+                            <textarea placeholder="Description (Enter for bullet)" class="w-full p-1 h-20 text-sm mt-1" oninput="handleInput()"></textarea>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="p-3 border rounded bg-gray-50">
+                    <div class="flex justify-between items-center mb-2"><h3 class="font-bold uppercase text-xs">9. References</h3><button onclick="addFields('ref-group')" class="bg-blue-600 text-white px-3 rounded-full font-bold shadow">+</button></div>
+                    <div id="ref-group">
+                        <div class="p-2 border bg-white rounded entry mb-2">
+                            <input type="text" placeholder="Name" class="w-full border-b mb-1 p-1 font-bold text-sm" oninput="handleInput()">
+                            <input type="text" placeholder="Position" class="w-full border-b mb-1 p-1 text-sm" oninput="handleInput()">
+                            <input type="text" placeholder="Organization" class="w-full border-b mb-1 p-1 text-sm" oninput="handleInput()">
+                            <input type="text" placeholder="Phone/Email" class="w-full p-1 text-sm" oninput="handleInput()">
                         </div>
                     </div>
                 </section>
 
                 <div class="grid grid-cols-2 gap-4">
-                    <section><h3 class="font-bold text-blue-700 uppercase text-xs">Skills</h3><textarea id="skills" placeholder="List skills..." class="w-full p-2 border rounded text-xs h-20" oninput="handleInput()"></textarea></section>
-                    <section><h3 class="font-bold text-blue-700 uppercase text-xs">Languages</h3><textarea id="langs" placeholder="Malay, English..." class="w-full p-2 border rounded text-xs h-20" oninput="handleInput()"></textarea></section>
+                    <section><h3 class="font-bold text-blue-700 uppercase text-xs">Skills</h3><textarea id="skills" placeholder="Skills..." class="w-full p-2 border rounded text-xs h-20" oninput="handleInput()"></textarea></section>
+                    <section><h3 class="font-bold text-blue-700 uppercase text-xs">Languages</h3><textarea id="langs" placeholder="Languages..." class="w-full p-2 border rounded text-xs h-20" oninput="handleInput()"></textarea></section>
                 </div>
             </div>
 
@@ -135,16 +158,18 @@
             <section><h2>Professional Summary</h2><p id="out-summary" class="section-content"></p></section>
             <section><h2>Education</h2><div id="out-edu" class="section-content"></div></section>
             <section><h2>Work Experience</h2><div id="out-work" class="section-content"></div></section>
+            <section><h2>Projects</h2><div id="out-proj" class="section-content"></div></section>
             
             <div class="grid grid-cols-2 gap-8">
                 <section><h2>Skills</h2><p id="out-skills" class="section-content whitespace-pre-line"></p></section>
                 <section><h2>Languages</h2><p id="out-langs" class="section-content whitespace-pre-line"></p></section>
             </div>
+
+            <section><h2>References</h2><div id="out-ref" class="section-content grid grid-cols-2 gap-4"></div></section>
         </div>
     </div>
 
     <script>
-        // URL Apps Script Terbaru
         const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwkaWJPDdfWgEcWbzMpIoZPw7FHQGuz7rnIeL18eM1DGBI2cFtX3KVb-nWtV_vCu9fK1g/exec';
 
         window.onload = function() { loadDraft(); update(); };
@@ -160,6 +185,8 @@
             });
             data.edu = document.getElementById('edu-group').innerHTML;
             data.work = document.getElementById('work-group').innerHTML;
+            data.proj = document.getElementById('proj-group').innerHTML;
+            data.ref = document.getElementById('ref-group').innerHTML;
             
             localStorage.setItem('resume_draft', JSON.stringify(data));
             document.getElementById('status-draft').style.display = 'inline-block';
@@ -171,10 +198,12 @@
                 const data = JSON.parse(draft);
                 Object.keys(data).forEach(key => {
                     const el = document.getElementById(key);
-                    if (el && key !== 'edu' && key !== 'work') el.value = data[key];
+                    if (el && !['edu','work','proj','ref'].includes(key)) el.value = data[key];
                 });
                 if(data.edu) document.getElementById('edu-group').innerHTML = data.edu;
                 if(data.work) document.getElementById('work-group').innerHTML = data.work;
+                if(data.proj) document.getElementById('proj-group').innerHTML = data.proj;
+                if(data.ref) document.getElementById('ref-group').innerHTML = data.ref;
                 
                 document.querySelectorAll('.entry input, .entry textarea').forEach(el => el.oninput = handleInput);
             }
@@ -199,7 +228,9 @@
             document.getElementById('out-summary').innerText = document.getElementById('summary').value;
 
             updateSection('edu-group', 'out-edu', (i) => `<div class="mb-3"><div class="item-header"><span>${i[0].value}</span><span>${i[2].value}</span></div><i>${i[1].value}</i><br>Grade: ${i[3].value}</div>`);
-            updateListSection('work-group', 'out-work', (i, bullets) => `<div class="mb-4"><div class="item-header"><span>${i[0].value}</span><span>${i[2].value}</span></div><i>${i[1].value}</i><ul class="mt-1">${bullets}</ul></div>`);
+            updateListSection('work-group', 'out-work', (i, b) => `<div class="mb-4"><div class="item-header"><span>${i[0].value}</span><span>${i[2].value}</span></div><i>${i[1].value}</i><ul class="mt-1">${b}</ul></div>`);
+            updateListSection('proj-group', 'out-proj', (i, b) => `<div class="mb-4"><div class="item-header"><span>${i[0].value}</span><span>${i[1].value}</span></div><ul class="mt-1">${b}</ul></div>`);
+            updateSection('ref-group', 'out-ref', (i) => `<div class="text-[10pt]"><b>${i[0].value}</b><br>${i[1].value}<br>${i[2].value}<br>${i[3].value}</div>`);
 
             document.getElementById('out-skills').innerText = document.getElementById('skills').value;
             document.getElementById('out-langs').innerText = document.getElementById('langs').value;
@@ -228,8 +259,8 @@
         }
 
         function aiHelp(type) {
-            let p = `Write a professional ATS summary for a student in ${document.getElementById('prog').value}`;
-            navigator.clipboard.writeText(p); alert("AI Prompt copied to clipboard!");
+            let p = `Write ATS summary for ${document.getElementById('prog').value} student`;
+            navigator.clipboard.writeText(p); alert("AI Prompt copied!");
         }
 
         async function handleDownload() {
@@ -247,9 +278,9 @@
             };
             try { 
                 await fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(data) }); 
-                alert("Success! Your resume has been saved to the database. Opening Print dialog...");
+                alert("Saved to Database & Drive! Now printing...");
                 window.print(); 
-            } catch (err) { alert("Error connecting to server."); }
+            } catch (err) { alert("Error."); }
             btn.disabled = false; btn.innerText = "Download & Submit";
         }
     </script>
