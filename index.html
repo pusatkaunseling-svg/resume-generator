@@ -17,7 +17,6 @@
         .template-standard h2 { background: #1e3a8a !important; color: white !important; border: none !important; padding: 5px 10px !important; }
         .ai-btn { background: linear-gradient(45deg, #4f46e5, #9333ea); color: white; padding: 2px 8px; border-radius: 6px; font-size: 10px; font-weight: bold; cursor: pointer; border: none; }
         .hidden { display: none !important; }
-        /* Style Logo di Borang */
         .puska-header-logo { height: 60px; width: auto; object-fit: contain; }
     </style>
 </head>
@@ -26,13 +25,40 @@
         
         <div class="bg-white p-6 rounded-lg shadow no-print h-[90vh] overflow-y-auto">
             <div class="flex items-center gap-4 border-b-2 border-blue-800 pb-4 mb-6">
-                <img src="https://lh3.googleusercontent.com/d/1MvbeFj62QwwzGHvUCNrmjYqX6IrWTQxN" alt="Logo PUSKA" class="puska-header-logo">
+                <img src="https://pusatkaunseling-svg.github.io/resume-generator/logo-puska.png" alt="Logo PUSKA" class="puska-header-logo" onerror="this.src='https://lh3.googleusercontent.com/d/1MvbeFj62QwwzGHvUCNrmjYqX6IrWTQxN'">
                 <div>
                     <h1 class="text-2xl font-black text-blue-900 leading-none">PUSKA</h1>
                     <p class="text-sm font-bold text-gray-600 tracking-widest uppercase">Resume Generator</p>
                 </div>
             </div>
             
+            <div class="bg-blue-50 p-4 rounded-xl border border-blue-200 mb-6 space-y-3">
+                <div class="grid grid-cols-2 gap-2 text-sm">
+                    <div><label class="block text-[10px] font-bold text-gray-600 uppercase">Tahap Pengajian</label>
+                        <select id="level" class="w-full p-2 border rounded bg-white" onchange="handleInput()">
+                            <option value="Undergraduate">Undergraduate</option><option value="Diploma">Diploma</option><option value="Postgraduate">Postgraduate</option>
+                        </select>
+                    </div>
+                    <div><label class="block text-[10px] font-bold text-gray-600 uppercase">Tahun Pengajian</label>
+                        <select id="year" class="w-full p-2 border rounded bg-white" onchange="handleInput()">
+                            <option value="Year 1">Year 1</option><option value="Year 2">Year 2</option><option value="Year 3">Year 3</option><option value="Year 4">Year 4</option>
+                        </select>
+                    </div>
+                </div>
+                <div><label class="block text-[10px] font-bold text-gray-600 uppercase">Fakulti</label>
+                    <select id="faculty" class="w-full p-2 border rounded bg-white text-sm" onchange="handleInput()">
+                        <option value="Fakulti Kejuruteraan & Teknologi Elektrik">Fakulti Kejuruteraan & Teknologi Elektrik</option>
+                        <option value="Fakulti Kejuruteraan & Teknologi Elektronik">Fakulti Kejuruteraan & Teknologi Elektronik</option>
+                        <option value="Fakulti Kejuruteraan & Teknologi Kimia">Fakulti Kejuruteraan & Teknologi Kimia</option>
+                        <option value="Fakulti Kejuruteraan & Teknologi Mekanikal">Fakulti Kejuruteraan & Teknologi Mekanikal</option>
+                        <option value="Fakulti Kejuruteraan & Teknologi Awam">Fakulti Kejuruteraan & Teknologi Awam</option>
+                        <option value="Fakulti Komputeran Cerdas">Fakulti Komputeran Cerdas</option>
+                        <option value="Fakulti Perniagaan & Komunikasi">Fakulti Perniagaan & Komunikasi</option>
+                    </select>
+                </div>
+                <input type="text" id="prog" placeholder="Nama Program (cth: Kejuruteraan Awam)" class="w-full p-2 border rounded text-sm" oninput="handleInput()">
+            </div>
+
             <div class="bg-yellow-50 p-4 rounded-xl border border-yellow-200 mb-6">
                 <div class="flex justify-around bg-white p-2 rounded-lg border">
                     <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="tmpx" value="ats" checked onchange="toggleTemplate()"> <span class="text-sm font-bold">Template ATS</span></label>
@@ -51,56 +77,33 @@
                     <input type="text" id="email" placeholder="Email Address" class="w-full p-2 border rounded mb-2" oninput="handleInput()">
                     <input type="text" id="phone" placeholder="Phone Number" class="w-full p-2 border rounded mb-2" oninput="handleInput()">
                     <input type="text" id="address" placeholder="City, State" class="w-full p-2 border rounded mb-2" oninput="handleInput()">
-                    <input type="text" id="prog" placeholder="Kos Pengajian (cth: Kejuruteraan Awam)" class="w-full p-2 border rounded mb-2" oninput="handleInput()">
+                    <input type="text" id="linkedin" placeholder="LinkedIn URL" class="w-full p-2 border rounded mb-2" oninput="handleInput()">
                 </section>
 
                 <section class="p-4 border rounded-xl bg-white shadow-sm">
-                    <div class="flex justify-between items-center mb-2"><h3 class="font-bold border-b-2 border-blue-500 text-blue-700 uppercase text-xs">2. Summary</h3><button onclick="aiHelp('summary')" class="ai-btn">✨ AI ASSIST</button></div>
+                    <div class="flex justify-between items-center mb-2"><h3 class="font-bold border-b-2 border-blue-500 text-blue-700 uppercase text-xs">2. Summary</h3><button onclick="aiHelp('summary')" class="ai-btn">✨ AI HELP</button></div>
                     <textarea id="summary" placeholder="Summary..." class="w-full p-2 border rounded h-24 text-sm" oninput="handleInput()"></textarea>
                 </section>
 
-                <section class="p-4 border rounded-xl bg-gray-50 shadow-sm">
-                    <div class="flex justify-between items-center mb-2"><h3 class="font-bold uppercase text-xs">3. Education</h3><button onclick="addFields('edu-group')" class="bg-blue-600 text-white px-3 rounded-full font-bold shadow">+</button></div>
-                    <div id="edu-group"><div class="p-3 border bg-white rounded-lg entry mb-2">
-                        <input type="text" placeholder="Institution" class="w-full border-b mb-1 p-1 font-bold text-sm" oninput="handleInput()">
-                        <input type="text" placeholder="Degree" class="w-full border-b mb-1 p-1 text-sm" oninput="handleInput()">
-                        <input type="text" placeholder="Date" class="w-full border-b mb-1 p-1 text-sm" oninput="handleInput()">
-                        <div class="grid grid-cols-2 gap-2 mt-2"><input type="text" placeholder="CGPA" class="border rounded p-1 text-sm italic" oninput="handleInput()"><input type="text" placeholder="Grade" class="border rounded p-1 text-sm italic" oninput="handleInput()"></div>
-                    </div></div>
-                </section>
+                <section class="p-4 border rounded-xl bg-gray-50 shadow-sm"><div class="flex justify-between items-center mb-2"><h3 class="font-bold uppercase text-xs">3. Education</h3><button onclick="addFields('edu-group')" class="bg-blue-600 text-white px-3 rounded-full font-bold shadow">+</button></div><div id="edu-group"><div class="p-3 border bg-white rounded-lg entry mb-2"><input type="text" placeholder="Institution" class="w-full border-b mb-1 p-1 font-bold text-sm" oninput="handleInput()"><input type="text" placeholder="Degree" class="w-full border-b mb-1 p-1 text-sm" oninput="handleInput()"><input type="text" placeholder="Date" class="w-full border-b mb-1 p-1 text-sm" oninput="handleInput()"><div class="grid grid-cols-2 gap-2 mt-2"><input type="text" placeholder="CGPA" class="border rounded p-1 text-sm italic" oninput="handleInput()"><input type="text" placeholder="Grade" class="border rounded p-1 text-sm italic" oninput="handleInput()"></div></div></div></section>
 
-                <section class="p-4 border rounded-xl bg-gray-50 shadow-sm">
-                    <div class="flex justify-between items-center mb-2"><h3 class="font-bold uppercase text-xs">4. Work Experience</h3><button onclick="addFields('work-group')" class="bg-blue-600 text-white px-3 rounded-full font-bold shadow">+</button></div>
-                    <div id="work-group"><div class="p-3 border bg-white rounded-lg entry mb-2">
-                        <input type="text" placeholder="Job Title" class="w-full border-b mb-1 p-1 font-bold text-sm" oninput="handleInput()">
-                        <input type="text" placeholder="Company" class="w-full border-b mb-1 p-1 text-sm" oninput="handleInput()">
-                        <input type="text" placeholder="Date" class="w-full border-b mb-1 p-1 text-sm" oninput="handleInput()">
-                        <div class="flex justify-between items-center mt-2 mb-1"><span class="text-[10px] font-bold text-gray-400 uppercase">Responsibilities</span><button onclick="aiHelp('exp', this)" class="ai-btn">✨ AI ASSIST</button></div>
-                        <textarea placeholder="Huraian tugas..." class="w-full p-1 h-20 text-sm border rounded" oninput="handleInput()"></textarea>
-                    </div></div>
-                </section>
+                <section class="p-4 border rounded-xl bg-gray-50 shadow-sm"><div class="flex justify-between items-center mb-2"><h3 class="font-bold uppercase text-xs">4. Work Experience</h3><button onclick="addFields('work-group')" class="bg-blue-600 text-white px-3 rounded-full font-bold shadow">+</button></div><div id="work-group"><div class="p-3 border bg-white rounded-lg entry mb-2"><input type="text" placeholder="Job Title" class="w-full border-b mb-1 p-1 font-bold text-sm" oninput="handleInput()"><input type="text" placeholder="Company" class="w-full border-b mb-1 p-1 text-sm" oninput="handleInput()"><input type="text" placeholder="Date" class="w-full border-b mb-1 p-1 text-sm" oninput="handleInput()"><div class="flex justify-between items-center mt-2 mb-1"><span class="text-[10px] font-bold text-gray-400 uppercase">Responsibilities</span><button onclick="aiHelp('exp', this)" class="ai-btn">✨ AI ASSIST</button></div><textarea placeholder="Huraian tugas..." class="w-full p-1 h-20 text-sm border rounded" oninput="handleInput()"></textarea></div></div></section>
 
-                <section class="p-4 border rounded-xl bg-gray-50 shadow-sm">
-                    <div class="flex justify-between items-center mb-2"><h3 class="font-bold uppercase text-xs">5. Projects</h3><button onclick="addFields('proj-group')" class="bg-blue-600 text-white px-3 rounded-full font-bold shadow">+</button></div>
-                    <div id="proj-group"><div class="p-3 border bg-white rounded-lg entry mb-2">
-                        <input type="text" placeholder="Project Title" class="w-full border-b mb-1 p-1 font-bold text-sm" oninput="handleInput()">
-                        <input type="text" placeholder="Date" class="w-full border-b mb-1 p-1 text-sm" oninput="handleInput()">
-                        <div class="flex justify-between items-center mt-2 mb-1"><span class="text-[10px] font-bold text-gray-400 uppercase">Description</span><button onclick="aiHelp('proj', this)" class="ai-btn">✨ AI ASSIST</button></div>
-                        <textarea placeholder="Huraian projek..." class="w-full p-1 h-20 text-sm border rounded" oninput="handleInput()"></textarea>
-                    </div></div>
-                </section>
+                <section class="p-4 border rounded-xl bg-gray-50 shadow-sm"><div class="flex justify-between items-center mb-2"><h3 class="font-bold uppercase text-xs">5. Projects</h3><button onclick="addFields('proj-group')" class="bg-blue-600 text-white px-3 rounded-full font-bold shadow">+</button></div><div id="proj-group"><div class="p-3 border bg-white rounded-lg entry mb-2"><input type="text" placeholder="Project Title" class="w-full border-b mb-1 p-1 font-bold text-sm" oninput="handleInput()"><input type="text" placeholder="Date" class="w-full border-b mb-1 p-1 text-sm" oninput="handleInput()"><div class="flex justify-between items-center mt-2 mb-1"><span class="text-[10px] font-bold text-gray-400 uppercase">Description</span><button onclick="aiHelp('proj', this)" class="ai-btn">✨ AI ASSIST</button></div><textarea placeholder="Huraian projek..." class="w-full p-1 h-20 text-sm border rounded" oninput="handleInput()"></textarea></div></div></section>
+
+                <section class="p-4 border rounded-xl bg-gray-50 shadow-sm"><div class="flex justify-between items-center mb-2"><h3 class="font-bold uppercase text-xs">6. Certifications</h3><button onclick="addFields('cert-group')" class="bg-blue-600 text-white px-3 rounded-full font-bold shadow">+</button></div><div id="cert-group"><div class="p-3 border bg-white rounded-lg entry mb-2"><input type="text" placeholder="Cert Name" class="w-full border-b mb-1 p-1 font-bold text-sm" oninput="handleInput()"><input type="text" placeholder="Issuer/Organization" class="w-full p-1 text-sm border rounded" oninput="handleInput()"></div></div></section>
 
                 <div class="grid grid-cols-2 gap-4">
                     <section class="p-4 border rounded-xl bg-white shadow-sm"><div class="flex justify-between items-center mb-2"><h3 class="font-bold text-blue-700 uppercase text-xs">7. Skills</h3><button onclick="aiHelp('skills')" class="ai-btn">✨ AI</button></div><textarea id="skills" placeholder="Hard/Soft Skills" class="w-full p-2 border rounded text-xs h-20" oninput="handleInput()"></textarea></section>
                     <section class="p-4 border rounded-xl bg-white shadow-sm"><div class="flex justify-between items-center mb-2"><h3 class="font-bold text-blue-700 uppercase text-xs">8. Languages</h3><button onclick="aiHelp('langs')" class="ai-btn">✨ AI</button></div><textarea id="langs" placeholder="Penguasaan bahasa" class="w-full p-2 border rounded text-xs h-20" oninput="handleInput()"></textarea></section>
                 </div>
 
-                <section class="p-4 border rounded-xl bg-gray-50 shadow-sm"><div class="flex justify-between items-center mb-2"><h3 class="font-bold uppercase text-xs">9. References</h3><button onclick="addFields('ref-group')" class="bg-blue-600 text-white px-3 rounded-full font-bold shadow">+</button></div><div id="ref-group"><div class="p-3 border bg-white rounded-lg entry mb-2"><input type="text" placeholder="Name" class="w-full border-b mb-1 p-1 font-bold text-sm" oninput="handleInput()"><input type="text" placeholder="Position" class="w-full border-b mb-1 p-1 text-sm" oninput="handleInput()"><input type="text" placeholder="Email" class="w-full border-b mb-1 p-1 text-sm" oninput="handleInput()"><input type="text" placeholder="Phone" class="w-full p-1 text-sm" oninput="handleInput()"></div></div></section>
+                <section class="p-4 border rounded-xl bg-gray-50 shadow-sm"><div class="flex justify-between items-center mb-2"><h3 class="font-bold uppercase text-xs">9. References</h3><button onclick="addFields('ref-group')" class="bg-blue-600 text-white px-3 rounded-full font-bold shadow">+</button></div><div id="ref-group"><div class="p-3 border bg-white rounded-lg entry mb-2"><input type="text" placeholder="Name" class="w-full border-b mb-1 p-1 font-bold text-sm" oninput="handleInput()"><input type="text" placeholder="Position" class="w-full border-b mb-1 p-1 text-sm" oninput="handleInput()"><input type="text" placeholder="Email" class="w-full border-b mb-1 p-1 text-sm" oninput="handleInput()"><input type="text" placeholder="Phone" class="w-full p-1 text-sm border rounded" oninput="handleInput()"></div></div></section>
             </div>
 
             <div class="mt-8 flex gap-2">
                 <button onclick="clearDraft()" class="w-1/3 bg-gray-400 text-white py-4 rounded-xl font-bold uppercase text-sm">Reset</button>
-                <button onclick="handleDownload()" id="submitBtn" class="w-2/3 bg-blue-800 text-white py-4 rounded-xl font-bold uppercase tracking-widest text-sm shadow-xl hover:bg-black transition">Download & Submit</button>
+                <button onclick="handleDownload()" id="submitBtn" class="w-2/3 bg-blue-800 text-white py-4 rounded-xl font-bold uppercase tracking-widest text-sm shadow-xl">Download & Submit</button>
             </div>
         </div>
 
@@ -110,12 +113,14 @@
                 <div class="header-info w-full">
                     <h1 id="out-name">YOUR FULL NAME</h1>
                     <p style="font-size: 11pt; margin: 5px 0;"><span id="out-email">email@example.com</span> | <span id="out-phone">012-3456789</span> | <span id="out-address">Address</span></p>
+                    <p id="out-linkedin" style="color: blue; font-size: 10pt; font-style: italic;"></p>
                 </div>
             </header>
             <section><h2>Professional Summary</h2><p id="out-summary" class="section-content text-justify"></p></section>
             <section><h2>Education</h2><div id="out-edu" class="section-content"></div></section>
             <section><h2>Work Experience</h2><div id="out-work" class="section-content"></div></section>
             <section><h2>Projects</h2><div id="out-proj" class="section-content"></div></section>
+            <section><h2>Certifications</h2><div id="out-cert" class="section-content"></div></section>
             <div class="grid grid-cols-2 gap-8"><section><h2>Skills</h2><p id="out-skills" class="section-content whitespace-pre-line"></p></section><section><h2>Languages</h2><p id="out-langs" class="section-content whitespace-pre-line"></p></section></div>
             <section><h2>References</h2><div id="out-ref" class="section-content grid grid-cols-2 gap-4"></div></section>
         </div>
@@ -152,25 +157,27 @@
         function handleInput() { update(); saveDraft(); }
 
         function saveDraft() {
-            const inputs = ['name', 'email', 'phone', 'address', 'prog', 'summary', 'skills', 'langs'];
+            const inputs = ['level', 'year', 'faculty', 'prog', 'name', 'email', 'phone', 'address', 'linkedin', 'summary', 'skills', 'langs'];
             const data = { tmpl: document.querySelector('input[name="tmpx"]:checked').value };
             inputs.forEach(id => { const el = document.getElementById(id); if (el) data[id] = el.value; });
             data.edu = document.getElementById('edu-group').innerHTML;
             data.work = document.getElementById('work-group').innerHTML;
             data.proj = document.getElementById('proj-group').innerHTML;
+            data.cert = document.getElementById('cert-group').innerHTML;
             data.ref = document.getElementById('ref-group').innerHTML;
-            localStorage.setItem('puska_v11_final', JSON.stringify(data));
+            localStorage.setItem('puska_muktamat_final_v1', JSON.stringify(data));
         }
 
         function loadDraft() {
-            const draft = localStorage.getItem('puska_v11_final');
+            const draft = localStorage.getItem('puska_muktamat_final_v1');
             if (draft) {
                 const data = JSON.parse(draft);
                 if(data.tmpl) { document.querySelector(`input[name="tmpx"][value="${data.tmpl}"]`).checked = true; toggleTemplate(); }
-                Object.keys(data).forEach(key => { const el = document.getElementById(key); if (el && !['edu','work','proj','ref','tmpl'].includes(key)) el.value = data[key]; });
+                Object.keys(data).forEach(key => { const el = document.getElementById(key); if (el && !['edu','work','proj','cert','ref','tmpl'].includes(key)) el.value = data[key]; });
                 if(data.edu) document.getElementById('edu-group').innerHTML = data.edu;
                 if(data.work) document.getElementById('work-group').innerHTML = data.work;
                 if(data.proj) document.getElementById('proj-group').innerHTML = data.proj;
+                if(data.cert) document.getElementById('cert-group').innerHTML = data.cert;
                 if(data.ref) document.getElementById('ref-group').innerHTML = data.ref;
                 document.querySelectorAll('.entry input, .entry textarea').forEach(el => el.oninput = handleInput);
             }
@@ -189,6 +196,7 @@
             document.getElementById('out-email').innerText = document.getElementById('email').value || 'email@example.com';
             document.getElementById('out-phone').innerText = document.getElementById('phone').value || '012-3456789';
             document.getElementById('out-address').innerText = document.getElementById('address').value || 'Address';
+            document.getElementById('out-linkedin').innerText = document.getElementById('linkedin').value;
             document.getElementById('out-summary').innerText = document.getElementById('summary').value;
 
             updateSection('edu-group', 'out-edu', (i) => {
@@ -199,6 +207,7 @@
             });
             updateListSection('work-group', 'out-work', (i, b) => `<div class="mb-4"><div class="item-header"><span>${i[0].value}</span><span>${i[2].value}</span></div><i>${i[1].value}</i><ul class="mt-1">${b}</ul></div>`);
             updateListSection('proj-group', 'out-proj', (i, b) => `<div class="mb-4"><div class="item-header"><span>${i[0].value}</span><span>${i[1].value}</span></div><ul class="mt-1">${b}</ul></div>`);
+            updateSection('cert-group', 'out-cert', (i) => `<div class="mb-2"><b>${i[0].value}</b> - ${i[1].value}</div>`);
             updateSection('ref-group', 'out-ref', (i) => `<div class="text-[10pt]"><b>${i[0].value}</b><br>${i[1].value}<br>E: ${i[2].value} | P: ${i[3].value}</div>`);
             document.getElementById('out-skills').innerText = document.getElementById('skills').value;
             document.getElementById('out-langs').innerText = document.getElementById('langs').value;
@@ -220,19 +229,33 @@
         function aiHelp(type, btn) {
             let p = ""; let kos = document.getElementById('prog').value || "pelajar universiti";
             if(type==='summary') p = `Tuliskan 3 variasi professional summary untuk resume pelajar bidang ${kos}.`;
-            else if(type==='exp') p = `Tuliskan 5 huraian tugas dalam bullet points untuk jawatan ${btn.closest('.entry').querySelector('input').value || 'ini'}.`;
+            else if(type==='exp') p = `Tuliskan 5 responsibilities dalam bullet points untuk jawatan ${btn.closest('.entry').querySelector('input').value || 'ini'}.`;
             else if(type==='proj') p = `Huraikan 4 pencapaian utama untuk projek ${btn.closest('.entry').querySelector('input').value || 'ini'}.`;
-            else if(type==='skills') p = `Senaraikan 10 hard & soft skills relevan untuk pelajar ${kos}.`;
-            else if(type==='langs') p = `Tuliskan tahap penguasaan bahasa profesional untuk Melayu dan Inggeris.`;
+            else if(type==='skills') p = `Senaraikan 10 kemahiran relevan untuk pelajar ${kos}.`;
+            else if(type==='langs') p = `Tuliskan tahap penguasaan bahasa profesional.`;
             alert("COPY AYAT INI KE CHATGPT:\n\n" + p);
         }
 
-        function clearDraft() { if(confirm("Confirm Reset?")) { localStorage.removeItem('puska_v11_final'); location.reload(); } }
+        function clearDraft() { if(confirm("Confirm Reset?")) { localStorage.removeItem('puska_muktamat_final_v1'); location.reload(); } }
 
         async function handleDownload() {
             const btn = document.getElementById('submitBtn'); btn.innerText = "Saving..."; btn.disabled = true;
-            const data = { name: document.getElementById('name').value, email: document.getElementById('email').value, phone: document.getElementById('phone').value, htmlForPdf: document.getElementById('print-area').innerHTML };
-            try { await fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(data) }); window.print(); } catch (err) { alert("Error."); }
+            // Menghantar data ke Kolum A hingga I
+            const data = {
+                level: document.getElementById('level').value,
+                year: document.getElementById('year').value,
+                program: document.getElementById('prog').value,
+                faculty: document.getElementById('faculty').value,
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                htmlForPdf: document.getElementById('print-area').innerHTML
+            };
+            try { 
+                await fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(data) }); 
+                alert("Success! Data & Link saved to Google Sheet.");
+                window.print(); 
+            } catch (err) { alert("Error."); }
             btn.disabled = false; btn.innerText = "Download & Submit";
         }
     </script>
