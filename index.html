@@ -13,7 +13,7 @@
         .item-header { display: flex; justify-content: space-between; font-weight: bold; font-size: 11pt; }
         .resume-preview ul { list-style-type: disc !important; margin-left: 1.2rem !important; }
         
-        /* LOGO STYLE */
+        /* LOGO PUSKA STYLE */
         .resume-logo { display: block; margin: 0 auto 10px auto; max-width: 180px; height: auto; }
 
         /* TEMPLATE 2 (STANDARD WITH PHOTO) */
@@ -29,12 +29,13 @@
 <body class="bg-gray-100 p-4">
     <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div class="bg-white p-6 rounded-lg shadow no-print h-[90vh] overflow-y-auto">
-            <h1 class="text-2xl font-bold text-blue-800 border-b pb-2 mb-4">PUSKA RESUME GENERATOR</h1>
+            <h1 class="text-2xl font-bold text-blue-800 border-b pb-2 mb-4 uppercase">PUSKA RESUME GENERATOR</h1>
             
             <div class="bg-yellow-50 p-4 rounded-xl border border-yellow-200 mb-6">
+                <label class="block text-center text-xs font-bold uppercase mb-2">Pilih Rekabentuk</label>
                 <div class="flex justify-around bg-white p-2 rounded-lg border">
-                    <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="tmpx" value="ats" checked onchange="toggleTemplate()"> <span class="text-sm font-bold">Template 1 (ATS)</span></label>
-                    <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="tmpx" value="std" onchange="toggleTemplate()"> <span class="text-sm font-bold">Template 2 (Foto)</span></label>
+                    <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="tmpx" value="ats" checked onchange="toggleTemplate()"> <span class="text-sm font-bold">Template ATS</span></label>
+                    <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="tmpx" value="std" onchange="toggleTemplate()"> <span class="text-sm font-bold">Template Foto</span></label>
                 </div>
             </div>
 
@@ -91,8 +92,8 @@
                 <section class="p-4 border rounded-xl bg-gray-50 shadow-sm"><div class="flex justify-between items-center mb-2"><h3 class="font-bold uppercase text-xs">6. Certifications</h3><button onclick="addFields('cert-group')" class="bg-blue-600 text-white px-3 rounded-full font-bold shadow">+</button></div><div id="cert-group"><div class="p-3 border bg-white rounded-lg entry mb-2"><input type="text" placeholder="Cert Name" class="w-full border-b mb-1 p-1 font-bold text-sm" oninput="handleInput()"><input type="text" placeholder="Issuer" class="w-full p-1 text-sm" oninput="handleInput()"></div></div></section>
 
                 <div class="grid grid-cols-2 gap-4">
-                    <section class="p-4 border rounded-xl bg-white shadow-sm"><div class="flex justify-between items-center mb-2"><h3 class="font-bold text-blue-700 uppercase text-xs">7. Skills</h3><button onclick="aiHelp('skills')" class="ai-btn">✨ AI</button></div><textarea id="skills" placeholder="Skills..." class="w-full p-2 border rounded text-xs h-20" oninput="handleInput()"></textarea></section>
-                    <section class="p-4 border rounded-xl bg-white shadow-sm"><div class="flex justify-between items-center mb-2"><h3 class="font-bold text-blue-700 uppercase text-xs">8. Languages</h3><button onclick="aiHelp('langs')" class="ai-btn">✨ AI</button></div><textarea id="langs" placeholder="Languages..." class="w-full p-2 border rounded text-xs h-20" oninput="handleInput()"></textarea></section>
+                    <section class="p-4 border rounded-xl bg-white shadow-sm"><div class="flex justify-between items-center mb-2"><h3 class="font-bold text-blue-700 uppercase text-xs">7. Skills</h3><button onclick="aiHelp('skills')" class="ai-btn">✨ AI</button></div><textarea id="skills" placeholder="Hard/Soft Skills" class="w-full p-2 border rounded text-xs h-20" oninput="handleInput()"></textarea></section>
+                    <section class="p-4 border rounded-xl bg-white shadow-sm"><div class="flex justify-between items-center mb-2"><h3 class="font-bold text-blue-700 uppercase text-xs">8. Languages</h3><button onclick="aiHelp('langs')" class="ai-btn">✨ AI</button></div><textarea id="langs" placeholder="Malay, English, etc." class="w-full p-2 border rounded text-xs h-20" oninput="handleInput()"></textarea></section>
                 </div>
 
                 <section class="p-4 border rounded-xl bg-gray-50 shadow-sm"><div class="flex justify-between items-center mb-2"><h3 class="font-bold uppercase text-xs">9. References</h3><button onclick="addFields('ref-group')" class="bg-blue-600 text-white px-3 rounded-full font-bold shadow">+</button></div><div id="ref-group"><div class="p-3 border bg-white rounded-lg entry mb-2"><input type="text" placeholder="Name" class="w-full border-b mb-1 p-1 font-bold text-sm" oninput="handleInput()"><input type="text" placeholder="Position" class="w-full border-b mb-1 p-1 text-sm" oninput="handleInput()"><input type="text" placeholder="Email" class="w-full border-b mb-1 p-1 text-sm" oninput="handleInput()"><input type="text" placeholder="Phone" class="w-full p-1 text-sm" oninput="handleInput()"></div></div></section>
@@ -105,7 +106,7 @@
         </div>
 
         <div class="bg-white p-12 shadow-2xl resume-preview min-h-[29.7cm] border" id="print-area">
-            <img src="https://lh3.googleusercontent.com/d/1MvbeFj62QwwzGHvUCNrmjYqX6IrWTQxN" alt="PUSKA Logo" class="resume-logo">
+            <img src="https://lh3.googleusercontent.com/u/0/d/1MvbeFj62QwwzGHvUCNrmjYqX6IrWTQxN" alt="PUSKA Logo" class="resume-logo">
 
             <header id="resume-header" style="text-align: center;">
                 <img id="photo-preview" src="" class="hidden" style="width: 120px; height: 150px; object-fit: cover; border: 1px solid #ddd; margin-bottom: 10px;">
@@ -166,11 +167,11 @@
             data.proj = document.getElementById('proj-group').innerHTML;
             data.cert = document.getElementById('cert-group').innerHTML;
             data.ref = document.getElementById('ref-group').innerHTML;
-            localStorage.setItem('puska_v_final', JSON.stringify(data));
+            localStorage.setItem('puska_unimap_global_v1', JSON.stringify(data));
         }
 
         function loadDraft() {
-            const draft = localStorage.getItem('puska_v_final');
+            const draft = localStorage.getItem('puska_unimap_global_v1');
             if (draft) {
                 const data = JSON.parse(draft);
                 if(data.tmpl) { document.querySelector(`input[name="tmpx"][value="${data.tmpl}"]`).checked = true; toggleTemplate(); }
@@ -206,7 +207,7 @@
                 return `<div class="mb-3"><div class="item-header"><span>${i[0].value}</span><span>${i[2].value}</span></div><i>${i[1].value}</i><br>${cgpa}${sep}${grade}</div>`;
             });
             updateListSection('work-group', 'out-work', (i, b) => `<div class="mb-4"><div class="item-header"><span>${i[0].value}</span><span>${i[2].value}</span></div><i>${i[1].value}</i><ul class="mt-1">${b}</ul></div>`);
-            updateListSection('proj-group', 'out-proj', (i, b) => `<div class="mb-4"><div class="item-header"><span>${i[0].value}</span><span>${i[2].value}</span></div><ul class="mt-1">${b}</ul></div>`);
+            updateListSection('proj-group', 'out-proj', (i, b) => `<div class="mb-4"><div class="item-header"><span>${i[0].value}</span><span>${i[1].value}</span></div><ul class="mt-1">${b}</ul></div>`);
             updateSection('cert-group', 'out-cert', (i) => `<div class="mb-2"><b>${i[0].value}</b> - ${i[1].value}</div>`);
             updateSection('ref-group', 'out-ref', (i) => `<div class="text-[10pt]"><b>${i[0].value}</b><br>${i[1].value}<br>E: ${i[2].value} | P: ${i[3].value}</div>`);
             document.getElementById('out-skills').innerText = document.getElementById('skills').value;
@@ -228,19 +229,19 @@
 
         function aiHelp(type, btn) {
             let p = ""; let prog = document.getElementById('prog').value || "pelajar universiti";
-            if(type==='summary') p = `Tolong tuliskan 3 variasi professional summary untuk resume pelajar bidang ${prog}`;
-            else if(type==='exp') p = `Tolong tuliskan 5 responsibilities dalam bullet points untuk jawatan ${btn.closest('.entry').querySelector('input').value || 'pekerjaan ini'}`;
+            if(type==='summary') p = `Tolong tuliskan 3 variasi ringkasan profesional untuk resume bidang ${prog}`;
+            else if(type==='exp') p = `Tolong tuliskan 5 huraian tugas dalam bullet points untuk jawatan ${btn.closest('.entry').querySelector('input').value || 'ini'}`;
             else if(type==='proj') p = `Huraikan 4 pencapaian utama untuk projek ${btn.closest('.entry').querySelector('input').value || 'ini'} dalam bullet points teknikal.`;
-            else if(type==='skills') p = `Senaraikan 10 hard skills dan soft skills untuk resume bidang ${prog}.`;
-            else if(type==='langs') p = `Tuliskan tahap penguasaan bahasa yang profesional untuk Bahasa Melayu dan Inggeris.`;
-            alert("COPY & PASTE DI CHATGPT:\n\n" + p);
+            else if(type==='skills') p = `Senaraikan 10 kemahiran relevan untuk pelajar bidang ${prog}.`;
+            else if(type==='langs') p = `Bagaimana cara tulis penguasaan bahasa profesional dalam resume?`;
+            alert("SILA SALIN AYAT INI KE CHATGPT:\n\n" + p);
         }
 
-        function clearDraft() { if(confirm("Reset all?")) { localStorage.removeItem('puska_v_final'); location.reload(); } }
+        function clearDraft() { if(confirm("Confirm Reset?")) { localStorage.removeItem('puska_unimap_global_v1'); location.reload(); } }
 
         async function handleDownload() {
             const btn = document.getElementById('submitBtn'); btn.innerText = "Saving..."; btn.disabled = true;
-            const data = { name: document.getElementById('name').value, email: document.getElementById('email').value, phone: document.getElementById('phone').value, htmlForPdf: document.getElementById('print-area').innerHTML };
+            const data = { name: document.getElementById('name').value, email: document.getElementById('email').value, htmlForPdf: document.getElementById('print-area').innerHTML };
             try { await fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(data) }); window.print(); } catch (err) { alert("Error."); }
             btn.disabled = false; btn.innerText = "Download & Submit";
         }
