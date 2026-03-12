@@ -22,9 +22,9 @@
         .resume-preview li { font-size: 11pt; margin-bottom: 2px; }
 
         /* TEMPLATE 2 (STANDARD WITH PHOTO) */
-        .template-standard header { display: flex; align-items: center; gap: 20px; text-align: left !important; border-bottom: 3px solid #1e3a8a; padding-bottom: 15px; margin-bottom: 15px; }
-        .template-standard #photo-preview { width: 120px; height: 150px; border: 1px solid #ddd; object-fit: cover; display: block; flex-shrink: 0; }
-        .template-standard h2 { background: #1e3a8a; color: white; border: none; padding: 5px 10px; }
+        .template-standard header { display: flex !important; align-items: center !important; gap: 20px !important; text-align: left !important; border-bottom: 3px solid #1e3a8a !important; padding-bottom: 15px !important; margin-bottom: 15px !important; }
+        .template-standard #photo-preview { width: 120px; height: 150px; border: 1px solid #ddd; object-fit: cover; display: block !important; flex-shrink: 0; }
+        .template-standard h2 { background: #1e3a8a !important; color: white !important; border: none !important; padding: 5px 10px !important; }
 
         .hidden { display: none !important; }
         .ai-btn { background: linear-gradient(45deg, #4f46e5, #9333ea); color: white; padding: 2px 8px; border-radius: 6px; font-size: 10px; font-weight: bold; cursor: pointer; }
@@ -38,7 +38,7 @@
         <div class="bg-white p-6 rounded-lg shadow no-print h-[90vh] overflow-y-auto">
             <div class="flex justify-between items-center mb-4 border-b pb-2">
                 <h1 class="text-2xl font-bold text-blue-800 uppercase">Resume Builder</h1>
-                <div id="status-draft" class="draft-badge" style="display:none;">Saved</div>
+                <div id="status-draft" class="draft-badge" style="display:none;">Auto-Saved</div>
             </div>
 
             <div class="bg-yellow-50 p-4 rounded-xl border border-yellow-200 mb-6 shadow-sm">
@@ -57,11 +57,11 @@
             
             <div class="bg-blue-50 p-4 rounded-xl mb-6 border border-blue-200 space-y-3 text-sm">
                 <div id="photo-upload-sec" class="hidden">
-                    <label class="block text-xs font-bold text-blue-800 uppercase mb-1">Upload Photo</label>
+                    <label class="block text-xs font-bold text-blue-800 uppercase mb-1">Upload Passport Photo</label>
                     <input type="file" id="photo-input" accept="image/*" class="w-full text-xs p-2 bg-white rounded border" onchange="previewImage(this)">
                 </div>
                 <div class="grid grid-cols-2 gap-2">
-                    <div><label class="block text-xs font-bold text-gray-700 uppercase">Level</label><select id="level" class="w-full p-2 border rounded bg-white" onchange="handleInput()"><option value="Undergraduate">Undergraduate</option><option value="Diploma">Diploma</option></select></div>
+                    <div><label class="block text-xs font-bold text-gray-700 uppercase">Level</label><select id="level" class="w-full p-2 border rounded bg-white" onchange="handleInput()"><option value="Undergraduate">Undergraduate</option><option value="Diploma">Diploma</option><option value="Postgraduate">Postgraduate</option></select></div>
                     <div><label class="block text-xs font-bold text-gray-700 uppercase">Year</label><select id="year" class="w-full p-2 border rounded bg-white" onchange="handleInput()"><option value="Year 1">Year 1</option><option value="Year 2">Year 2</option><option value="Year 3">Year 3</option><option value="Year 4">Year 4</option></select></div>
                 </div>
                 <input type="text" id="prog" placeholder="Programme Name" class="w-full p-2 border rounded" oninput="handleInput()">
@@ -71,31 +71,31 @@
                 <section class="p-4 border rounded-xl bg-white shadow-sm">
                     <h3 class="font-bold border-b-2 border-blue-500 mb-3 text-blue-700 uppercase text-xs">1. Personal Info</h3>
                     <input type="text" id="name" placeholder="Full Name" class="w-full p-2 border rounded mb-2 font-bold uppercase" oninput="handleInput()">
-                    <input type="text" id="email" placeholder="Email" class="w-full p-2 border rounded mb-2" oninput="handleInput()">
-                    <input type="text" id="phone" placeholder="Phone" class="w-full p-2 border rounded mb-2" oninput="handleInput()">
-                    <input type="text" id="address" placeholder="City, State" class="w-full p-2 border rounded mb-2" oninput="handleInput()">
+                    <input type="text" id="email" placeholder="Email Address" class="w-full p-2 border rounded mb-2" oninput="handleInput()">
+                    <input type="text" id="phone" placeholder="Phone Number" class="w-full p-2 border rounded mb-2" oninput="handleInput()">
+                    <input type="text" id="address" placeholder="Address (City, State)" class="w-full p-2 border rounded mb-2" oninput="handleInput()">
                     <input type="text" id="linkedin" placeholder="LinkedIn URL" class="w-full p-2 border rounded mb-2" oninput="handleInput()">
                 </section>
 
                 <section class="p-4 border rounded-xl bg-white shadow-sm">
                     <div class="flex justify-between items-center mb-2"><h3 class="font-bold border-b-2 border-blue-500 text-blue-700 uppercase text-xs">2. Summary</h3><span onclick="aiHelp()" class="ai-btn">✨ AI HELP</span></div>
-                    <textarea id="summary" placeholder="Summary..." class="w-full p-2 border rounded h-24 text-sm" oninput="handleInput()"></textarea>
+                    <textarea id="summary" placeholder="Brief summary..." class="w-full p-2 border rounded h-24 text-sm" oninput="handleInput()"></textarea>
                 </section>
 
                 <section class="p-4 border rounded-xl bg-gray-50 shadow-sm"><div class="flex justify-between items-center mb-2"><h3 class="font-bold uppercase text-xs text-gray-700">3. Education</h3><button onclick="addFields('edu-group')" class="bg-blue-600 text-white px-3 rounded-full font-bold shadow hover:bg-black transition">+</button></div><div id="edu-group"><div class="p-3 border bg-white rounded-lg entry mb-2"><input type="text" placeholder="Institution" class="w-full border-b mb-1 p-1 font-bold text-sm" oninput="handleInput()"><input type="text" placeholder="Degree" class="w-full border-b mb-1 p-1 text-sm" oninput="handleInput()"><input type="text" placeholder="Date" class="w-full border-b mb-1 p-1 text-sm" oninput="handleInput()"><input type="text" placeholder="CGPA" class="w-full p-1 text-sm italic" oninput="handleInput()"></div></div></section>
 
                 <section class="p-4 border rounded-xl bg-gray-50 shadow-sm"><div class="flex justify-between items-center mb-2"><h3 class="font-bold uppercase text-xs text-gray-700">4. Experience</h3><button onclick="addFields('work-group')" class="bg-blue-600 text-white px-3 rounded-full font-bold shadow hover:bg-black transition">+</button></div><div id="work-group"><div class="p-3 border bg-white rounded-lg entry mb-2"><input type="text" placeholder="Job Title" class="w-full border-b mb-1 p-1 font-bold text-sm" oninput="handleInput()"><input type="text" placeholder="Company" class="w-full border-b mb-1 p-1 text-sm" oninput="handleInput()"><input type="text" placeholder="Date" class="w-full border-b mb-1 p-1 text-sm" oninput="handleInput()"><textarea placeholder="Responsibilities (Enter for bullet)" class="w-full p-1 h-20 text-sm mt-1" oninput="handleInput()"></textarea></div></div></section>
 
-                <section class="p-4 border rounded-xl bg-gray-50 shadow-sm"><div class="flex justify-between items-center mb-2"><h3 class="font-bold uppercase text-xs text-gray-700">5. Projects</h3><button onclick="addFields('proj-group')" class="bg-blue-600 text-white px-3 rounded-full font-bold shadow">+</button></div><div id="proj-group"><div class="p-3 border bg-white rounded-lg entry mb-2"><input type="text" placeholder="Project Title" class="w-full border-b mb-1 p-1 font-bold text-sm" oninput="handleInput()"><input type="text" placeholder="Date" class="w-full border-b mb-1 p-1 text-sm" oninput="handleInput()"><textarea placeholder="Description" class="w-full p-1 h-20 text-sm mt-1" oninput="handleInput()"></textarea></div></div></section>
+                <section class="p-4 border rounded-xl bg-gray-50 shadow-sm"><div class="flex justify-between items-center mb-2"><h3 class="font-bold uppercase text-xs text-gray-700">5. Projects</h3><button onclick="addFields('proj-group')" class="bg-blue-600 text-white px-3 rounded-full font-bold shadow hover:bg-black transition">+</button></div><div id="proj-group"><div class="p-3 border bg-white rounded-lg entry mb-2"><input type="text" placeholder="Project Title" class="w-full border-b mb-1 p-1 font-bold text-sm" oninput="handleInput()"><input type="text" placeholder="Date" class="w-full border-b mb-1 p-1 text-sm" oninput="handleInput()"><textarea placeholder="Description" class="w-full p-1 h-20 text-sm mt-1" oninput="handleInput()"></textarea></div></div></section>
 
-                <section class="p-4 border rounded-xl bg-gray-50 shadow-sm"><div class="flex justify-between items-center mb-2"><h3 class="font-bold uppercase text-xs text-gray-700">6. Certifications</h3><button onclick="addFields('cert-group')" class="bg-blue-600 text-white px-3 rounded-full font-bold shadow">+</button></div><div id="cert-group"><div class="p-3 border bg-white rounded-lg entry mb-2"><input type="text" placeholder="Cert Name" class="w-full border-b mb-1 p-1 font-bold text-sm" oninput="handleInput()"><input type="text" placeholder="Issuer" class="w-full border-b mb-1 p-1 text-sm" oninput="handleInput()"><input type="text" placeholder="Date" class="w-full p-1 text-sm" oninput="handleInput()"></div></div></section>
+                <section class="p-4 border rounded-xl bg-gray-50 shadow-sm"><div class="flex justify-between items-center mb-2"><h3 class="font-bold uppercase text-xs text-gray-700">6. Certifications</h3><button onclick="addFields('cert-group')" class="bg-blue-600 text-white px-3 rounded-full font-bold shadow hover:bg-black transition">+</button></div><div id="cert-group"><div class="p-3 border bg-white rounded-lg entry mb-2"><input type="text" placeholder="Cert Name" class="w-full border-b mb-1 p-1 font-bold text-sm" oninput="handleInput()"><input type="text" placeholder="Issuer" class="w-full border-b mb-1 p-1 text-sm" oninput="handleInput()"><input type="text" placeholder="Date" class="w-full p-1 text-sm" oninput="handleInput()"></div></div></section>
 
                 <div class="grid grid-cols-2 gap-4">
-                    <section class="p-4 border rounded-xl bg-white shadow-sm"><h3 class="font-bold text-blue-700 uppercase text-xs">7. Skills</h3><textarea id="skills" placeholder="Skills..." class="w-full p-2 border rounded text-xs h-20" oninput="handleInput()"></textarea></section>
-                    <section class="p-4 border rounded-xl bg-white shadow-sm"><h3 class="font-bold text-blue-700 uppercase text-xs">8. Languages</h3><textarea id="langs" placeholder="Languages..." class="w-full p-2 border rounded text-xs h-20" oninput="handleInput()"></textarea></section>
+                    <section class="p-4 border rounded-xl bg-white shadow-sm"><h3 class="font-bold text-blue-700 uppercase text-xs">Skills</h3><textarea id="skills" placeholder="Skills..." class="w-full p-2 border rounded text-xs h-20" oninput="handleInput()"></textarea></section>
+                    <section class="p-4 border rounded-xl bg-white shadow-sm"><h3 class="font-bold text-blue-700 uppercase text-xs">Languages</h3><textarea id="langs" placeholder="Languages..." class="w-full p-2 border rounded text-xs h-20" oninput="handleInput()"></textarea></section>
                 </div>
 
-                <section class="p-4 border rounded-xl bg-gray-50 shadow-sm"><div class="flex justify-between items-center mb-2"><h3 class="font-bold uppercase text-xs text-gray-700">9. References</h3><button onclick="addFields('ref-group')" class="bg-blue-600 text-white px-3 rounded-full font-bold shadow">+</button></div><div id="ref-group"><div class="p-3 border bg-white rounded-lg entry mb-2"><input type="text" placeholder="Name" class="w-full border-b mb-1 p-1 font-bold text-sm" oninput="handleInput()"><input type="text" placeholder="Position" class="w-full border-b mb-1 p-1 text-sm" oninput="handleInput()"><input type="text" placeholder="Phone/Email" class="w-full p-1 text-sm" oninput="handleInput()"></div></div></section>
+                <section class="p-4 border rounded-xl bg-gray-50 shadow-sm"><div class="flex justify-between items-center mb-2"><h3 class="font-bold uppercase text-xs text-gray-700">8. References</h3><button onclick="addFields('ref-group')" class="bg-blue-600 text-white px-3 rounded-full font-bold shadow hover:bg-black transition">+</button></div><div id="ref-group"><div class="p-3 border bg-white rounded-lg entry mb-2"><input type="text" placeholder="Name" class="w-full border-b mb-1 p-1 font-bold text-sm" oninput="handleInput()"><input type="text" placeholder="Position" class="w-full border-b mb-1 p-1 text-sm" oninput="handleInput()"><input type="text" placeholder="Phone/Email" class="w-full p-1 text-sm" oninput="handleInput()"></div></div></section>
             </div>
 
             <div class="mt-8 flex gap-2">
@@ -106,7 +106,7 @@
 
         <div class="bg-white p-12 shadow-2xl resume-preview min-h-[29.7cm] border" id="print-area">
             <header id="resume-header" style="text-align: center;">
-                <img id="photo-preview" src="" class="hidden" style="width: 120px; height: 150px; object-fit: cover; border: 1px solid #ddd; margin-bottom: 10px;">
+                <img id="photo-preview" src="" class="hidden">
                 <div class="header-info w-full">
                     <h1 id="out-name">YOUR FULL NAME</h1>
                     <p style="font-size: 11pt; margin: 5px 0;">
@@ -119,15 +119,15 @@
             <section><h2>Professional Summary</h2><p id="out-summary" class="section-content text-justify"></p></section>
             <section><h2>Education</h2><div id="out-edu" class="section-content"></div></section>
             <section><h2>Work Experience</h2><div id="out-work" class="section-content"></div></section>
-            <section><h2>Projects</h2><div id="out-proj" class="section-content"></div></section>
-            <section><h2>Certifications</h2><div id="out-cert" class="section-content"></div></section>
+            <section id="out-proj-sec"><h2>Projects</h2><div id="out-proj" class="section-content"></div></section>
+            <section id="out-cert-sec"><h2>Certifications</h2><div id="out-cert" class="section-content"></div></section>
             
             <div class="grid grid-cols-2 gap-8">
                 <section><h2>Skills</h2><p id="out-skills" class="section-content whitespace-pre-line"></p></section>
                 <section><h2>Languages</h2><p id="out-langs" class="section-content whitespace-pre-line"></p></section>
             </div>
-            
-            <section><h2>References</h2><div id="out-ref" class="section-content grid grid-cols-2 gap-4"></div></section>
+
+            <section id="out-ref-sec"><h2>References</h2><div id="out-ref" class="section-content grid grid-cols-2 gap-4"></div></section>
         </div>
     </div>
 
@@ -169,7 +169,7 @@
         function handleInput() { update(); saveDraft(); }
 
         function saveDraft() {
-            const inputs = ['level', 'year', 'prog', 'name', 'email', 'phone', 'address', 'linkedin', 'summary', 'skills', 'langs'];
+            const inputs = ['level', 'year', 'faculty', 'prog', 'name', 'email', 'phone', 'address', 'linkedin', 'summary', 'skills', 'langs'];
             const data = { tmpl: document.querySelector('input[name="tmpl"]:checked').value };
             inputs.forEach(id => { const el = document.getElementById(id); if (el) data[id] = el.value; });
             data.edu = document.getElementById('edu-group').innerHTML;
@@ -177,12 +177,12 @@
             data.proj = document.getElementById('proj-group').innerHTML;
             data.cert = document.getElementById('cert-group').innerHTML;
             data.ref = document.getElementById('ref-group').innerHTML;
-            localStorage.setItem('resume_draft_v4', JSON.stringify(data));
+            localStorage.setItem('resume_draft_v5', JSON.stringify(data));
             document.getElementById('status-draft').style.display = 'inline-block';
         }
 
         function loadDraft() {
-            const draft = localStorage.getItem('resume_draft_v4');
+            const draft = localStorage.getItem('resume_draft_v5');
             if (draft) {
                 const data = JSON.parse(draft);
                 if(data.tmpl) {
@@ -241,15 +241,15 @@
             document.getElementById(outId).innerHTML = h;
         }
 
-        function clearDraft() { if(confirm("Reset all?")) { localStorage.removeItem('resume_draft_v4'); location.reload(); } }
+        function clearDraft() { if(confirm("Reset all?")) { localStorage.removeItem('resume_draft_v5'); location.reload(); } }
         function aiHelp() { alert("AI Prompt: Write ATS summary for " + document.getElementById('prog').value); }
 
         async function handleDownload() {
             const btn = document.getElementById('submitBtn'); btn.innerText = "Saving..."; btn.disabled = true;
             const data = {
                 level: document.getElementById('level').value, year: document.getElementById('year').value, program: document.getElementById('prog').value,
-                name: document.getElementById('name').value, email: document.getElementById('email').value, phone: document.getElementById('phone').value,
-                htmlForPdf: document.getElementById('print-area').innerHTML
+                faculty: document.getElementById('faculty').value, name: document.getElementById('name').value, email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value, htmlForPdf: document.getElementById('print-area').innerHTML
             };
             try { await fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(data) }); window.print(); } catch (err) { alert("Error."); }
             btn.disabled = false; btn.innerText = "Download & Submit";
