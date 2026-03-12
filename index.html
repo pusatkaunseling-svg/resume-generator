@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PUSKA Resume Generator v4.5</title>
+    <title>PUSKA Resume Generator v4.5 OFFICIAL</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         /* CSS UNTUK CETAKAN PDF YANG TEPAT */
@@ -41,6 +41,8 @@
         .resume-preview ul { list-style-type: disc !important; margin-left: 1.2rem !important; }
         .hidden { display: none !important; }
         .puska-logo { max-height: 60px; width: auto; object-fit: contain; }
+        .section-content { font-size: 10.5pt; margin-bottom: 8px; }
+        .ai-btn { background: linear-gradient(45deg, #1e3a8a, #3b82f6); color: white; padding: 2px 8px; border-radius: 6px; font-size: 10px; font-weight: bold; cursor: pointer; border: none; }
     </style>
 </head>
 <body class="bg-gray-100 p-4">
@@ -51,11 +53,11 @@
                 <img src="https://drive.google.com/thumbnail?id=1MvbeFj62QwwzGHvUCNrmjYqX6IrWTQxN&sz=w200" alt="PUSKA" class="puska-logo">
                 <div>
                     <h1 class="text-2xl font-black text-blue-900 leading-none">PUSKA</h1>
-                    <p class="text-sm font-bold text-gray-600 tracking-widest uppercase">Resume Generator v4.5</p>
+                    <p class="text-sm font-bold text-gray-600 tracking-widest uppercase">RESUME GENERATOR v4.5</p>
                 </div>
             </div>
             
-            <div class="bg-blue-50 p-4 rounded-xl border border-blue-200 mb-6 space-y-3 shadow-inner">
+            <div class="bg-blue-50 p-4 rounded-xl border border-blue-200 mb-6 space-y-3">
                 <div class="grid grid-cols-2 gap-2 text-xs">
                     <div><label class="font-bold text-blue-900 uppercase">Level of Study</label>
                         <select id="level" class="w-full p-2 border rounded bg-white mt-1" onchange="runUpdate()">
@@ -135,7 +137,7 @@
                 </div>
             </div>
 
-            <div class="bg-yellow-50 p-3 rounded-lg border border-yellow-200 mb-6 flex justify-around">
+            <div class="bg-yellow-50 p-3 rounded-lg border border-yellow-200 mb-6 flex justify-around shadow-sm">
                 <label class="flex items-center gap-2 cursor-pointer font-bold text-sm"><input type="radio" name="tmpx" value="ats" checked onchange="toggleLayout()"> ATS Layout</label>
                 <label class="flex items-center gap-2 cursor-pointer font-bold text-sm"><input type="radio" name="tmpx" value="std" onchange="toggleLayout()"> Photo Layout</label>
             </div>
@@ -153,7 +155,7 @@
 
                 <section class="p-4 border rounded-xl bg-white shadow-sm">
                     <div class="flex justify-between items-center mb-2"><h3 class="font-bold border-b-2 border-blue-500 text-blue-900 uppercase text-xs">2. Summary</h3><button onclick="askAI('summary')" class="ai-btn">✨ AI HELP</button></div>
-                    <textarea id="summary" placeholder="Summary..." class="w-full p-2 border rounded h-24 text-sm" oninput="runUpdate()"></textarea>
+                    <textarea id="summary" placeholder="Brief professional summary..." class="w-full p-2 border rounded h-24 text-sm" oninput="runUpdate()"></textarea>
                 </section>
 
                 <section class="p-4 border rounded-xl bg-gray-50 shadow-sm">
@@ -182,12 +184,12 @@
 
                 <section class="p-4 border rounded-xl bg-gray-50 shadow-sm">
                     <div class="flex justify-between items-center mb-2"><h3 class="font-bold uppercase text-xs">6. Certifications</h3><button onclick="addEntry('cert-list')" class="bg-blue-600 text-white px-3 rounded-full shadow">+</button></div>
-                    <div id="cert-list"><div class="p-3 border bg-white rounded-lg entry mb-2"><input type="text" placeholder="Cert Name" class="w-full border-b mb-1 p-1 font-bold text-sm" oninput="runUpdate()"><input type="text" placeholder="Issuer" class="w-full p-1 text-sm border rounded" oninput="runUpdate()"></div></div>
+                    <div id="cert-list"><div class="p-3 border bg-white rounded-lg entry mb-2"><input type="text" placeholder="Certificate Name" class="w-full border-b mb-1 p-1 font-bold text-sm" oninput="runUpdate()"><input type="text" placeholder="Issuer" class="w-full p-1 text-sm border rounded" oninput="runUpdate()"></div></div>
                 </section>
 
                 <div class="grid grid-cols-2 gap-4">
-                    <section class="p-4 border rounded-xl bg-white shadow-sm"><div class="flex justify-between items-center mb-2"><h3 class="font-bold text-blue-900 uppercase text-xs">7. Skills</h3><button onclick="askAI('skills')" class="ai-btn">✨ AI</button></div><textarea id="skills" placeholder="Skills..." class="w-full p-2 border rounded text-xs h-20" oninput="runUpdate()"></textarea></section>
-                    <section class="p-4 border rounded-xl bg-white shadow-sm"><div class="flex justify-between items-center mb-2"><h3 class="font-bold text-blue-900 uppercase text-xs">8. Langs</h3><button onclick="askAI('langs')" class="ai-btn">✨ AI</button></div><textarea id="langs" placeholder="Langs..." class="w-full p-2 border rounded text-xs h-20" oninput="runUpdate()"></textarea></section>
+                    <section class="p-4 border rounded-xl bg-white shadow-sm"><div class="flex justify-between items-center mb-2"><h3 class="font-bold text-blue-900 uppercase text-xs">7. Skills</h3><button onclick="askAI('skills')" class="ai-btn">✨ AI</button></div><textarea id="skills" placeholder="Hard/Soft skills..." class="w-full p-2 border rounded text-xs h-20" oninput="runUpdate()"></textarea></section>
+                    <section class="p-4 border rounded-xl bg-white shadow-sm"><div class="flex justify-between items-center mb-2"><h3 class="font-bold text-blue-900 uppercase text-xs">8. Languages</h3><button onclick="askAI('langs')" class="ai-btn">✨ AI</button></div><textarea id="langs" placeholder="Languages..." class="w-full p-2 border rounded text-xs h-20" oninput="runUpdate()"></textarea></section>
                 </div>
 
                 <section class="p-4 border rounded-xl bg-gray-50 shadow-sm">
@@ -203,8 +205,8 @@
             </div>
 
             <div class="mt-8 flex gap-2">
-                <button onclick="resetAll()" class="w-1/3 bg-gray-400 text-white py-4 rounded-xl font-bold uppercase text-sm">Reset</button>
-                <button onclick="submitDatabase()" id="btnSubmit" class="w-2/3 bg-blue-900 text-white py-4 rounded-xl font-bold uppercase tracking-widest text-sm shadow-xl">Download & Submit</button>
+                <button onclick="resetAll()" class="w-1/3 bg-gray-400 text-white py-4 rounded-xl font-bold uppercase text-sm hover:bg-red-500 transition">Reset</button>
+                <button onclick="submitDatabase()" id="btnSubmit" class="w-2/3 bg-blue-800 text-white py-4 rounded-xl font-bold uppercase tracking-widest text-sm shadow-xl hover:bg-black transition">Download & Submit</button>
             </div>
         </div>
 
@@ -218,13 +220,13 @@
                         <p id="p-linkedin" style="color: blue; font-size: 10pt; font-style: italic;"></p>
                     </div>
                 </header>
-                <section><h2>Professional Summary</h2><p id="p-summary" class="text-justify text-[10.5pt]"></p></section>
-                <section><h2>Education</h2><div id="p-edu"></div></section>
-                <section><h2>Work Experience</h2><div id="p-work"></div></section>
-                <section><h2>Key Projects</h2><div id="p-proj"></div></section>
-                <section><h2>Certifications</h2><div id="p-cert"></div></section>
-                <div class="grid grid-cols-2 gap-8"><section><h2>Skills</h2><p id="p-skills" class="whitespace-pre-line text-[10.5pt]"></p></section><section><h2>Languages</h2><p id="p-langs" class="whitespace-pre-line text-[10.5pt]"></p></section></div>
-                <section><h2>References</h2><div id="p-ref" class="grid grid-cols-2 gap-4"></div></section>
+                <section><h2>Professional Summary</h2><p id="p-summary" class="section-content text-justify"></p></section>
+                <section><h2>Education</h2><div id="p-edu" class="section-content"></div></section>
+                <section><h2>Work Experience</h2><div id="p-work" class="section-content"></div></section>
+                <section><h2>Key Projects</h2><div id="p-proj" class="section-content"></div></section>
+                <section><h2>Certifications</h2><div id="p-cert" class="section-content"></div></section>
+                <div class="grid grid-cols-2 gap-8"><section><h2>Skills</h2><p id="p-skills" class="section-content whitespace-pre-line"></p></section><section><h2>Languages</h2><p id="p-langs" class="section-content whitespace-pre-line"></p></section></div>
+                <section><h2>References</h2><div id="p-ref" class="section-content grid grid-cols-2 gap-4"></div></section>
             </div>
         </div>
     </div>
@@ -278,11 +280,11 @@
         function addEntry(id) { const container = document.getElementById(id); const clone = container.children[0].cloneNode(true); clone.querySelectorAll('input, textarea').forEach(v => v.value = ''); container.appendChild(clone); runUpdate(); }
 
         function askAI(type, btn) {
-            let p = ""; let prog = document.getElementById('prog').value || "pelajar universiti";
-            if(type==='summary') p = `Write 3 professional resume summary for ${prog}.`;
-            else if(type==='exp') p = `Write 5 bullet points for ${btn.closest('.entry').querySelector('input').value}.`;
-            else p = "List 10 relevant skills for " + prog;
-            alert("Copy to ChatGPT:\n\n" + p);
+            let p = ""; let kos = document.getElementById('prog').value || "pelajar universiti";
+            if(type==='summary') p = `Write 3 professional resume summary for a student in ${kos} field.`;
+            else if(type==='exp') p = `Write 5 professional bullet points for responsibilities for the position of ${btn.closest('.entry').querySelector('input').value}.`;
+            else p = "List 10 relevant hard and soft skills for " + kos;
+            alert("Sila Copy & Paste ke ChatGPT:\n\n" + p);
         }
 
         function saveDraft() {
@@ -309,16 +311,15 @@
             }
         }
 
-        function resetAll() { if(confirm("Reset all data?")) { localStorage.removeItem('puska_v4_5_final'); location.reload(); } }
+        function resetAll() { if(confirm("Confirm reset all data?")) { localStorage.removeItem('puska_v4_5_final'); location.reload(); } }
 
         async function submitDatabase() {
             const btn = document.getElementById('btnSubmit');
             const name = document.getElementById('name').value;
             const email = document.getElementById('email').value;
-            if(!name || !email) { alert("Please fill in Name and Email."); return; }
-            btn.innerText = "Saving..."; btn.disabled = true;
+            if(!name || !email) { alert("Sila isi Nama dan Email."); return; }
+            btn.innerText = "Submitting..."; btn.disabled = true;
             
-            // PAYLOAD DATA - Template Type diperkukuhkan
             const isStd = document.querySelector('input[name="tmpx"]:checked').value === 'std';
             const layoutType = isStd ? "Photo Layout" : "ATS Layout";
 
@@ -336,10 +337,10 @@
 
             try { 
                 await fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) }); 
-                alert("✅ Success! Your data is saved. Now downloading your resume.");
+                alert("✅ Success! Data saved. downloading PDF...");
                 window.print(); 
             } catch(e) { 
-                alert("⚠️ Connection warning. Opening download window.");
+                alert("⚠️ Error connecting to server. Opening download window.");
                 window.print();
             } finally {
                 btn.disabled = false; btn.innerText = "Download & Submit";
