@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UniMAP Resume Generator - Professional v3</title>
+    <title>UniMAP Resume Generator - Professional v4</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @media print {
@@ -22,7 +22,8 @@
         .template-standard #photo-preview { width: 120px; height: 150px; border: 1px solid #ddd; object-fit: cover; display: block !important; flex-shrink: 0; }
         .template-standard h2 { background: #1e3a8a !important; color: white !important; border: none !important; padding: 5px 10px !important; }
         .hidden { display: none !important; }
-        .ai-btn { background: linear-gradient(45deg, #4f46e5, #9333ea); color: white; padding: 2px 8px; border-radius: 6px; font-size: 10px; font-weight: bold; cursor: pointer; border: none; }
+        .ai-btn { background: linear-gradient(45deg, #4f46e5, #9333ea); color: white; padding: 2px 8px; border-radius: 6px; font-size: 10px; font-weight: bold; cursor: pointer; border: none; transition: 0.3s; }
+        .ai-btn:hover { opacity: 0.8; transform: scale(1.05); }
         .draft-badge { background: #dcfce7; color: #166534; padding: 2px 8px; border-radius: 999px; font-size: 10px; font-weight: bold; }
     </style>
 </head>
@@ -77,8 +78,8 @@
                         <input type="text" placeholder="Degree" class="w-full border-b mb-1 p-1 text-sm" oninput="handleInput()">
                         <input type="text" placeholder="Date" class="w-full border-b mb-1 p-1 text-sm" oninput="handleInput()">
                         <div class="grid grid-cols-2 gap-2 mt-2">
-                            <input type="text" placeholder="CGPA (Uni)" class="border rounded p-1 text-sm italic" oninput="handleInput()">
-                            <input type="text" placeholder="Grade (SPM)" class="border rounded p-1 text-sm italic" oninput="handleInput()">
+                            <input type="text" placeholder="CGPA" class="border rounded p-1 text-sm italic" oninput="handleInput()">
+                            <input type="text" placeholder="Grade" class="border rounded p-1 text-sm italic" oninput="handleInput()">
                         </div>
                     </div></div>
                 </section>
@@ -107,16 +108,22 @@
                 <section class="p-4 border rounded-xl bg-gray-50 shadow-sm"><div class="flex justify-between items-center mb-2"><h3 class="font-bold uppercase text-xs text-gray-700">6. Certifications</h3><button onclick="addFields('cert-group')" class="bg-blue-600 text-white px-3 rounded-full font-bold shadow hover:bg-black transition">+</button></div><div id="cert-group"><div class="p-3 border bg-white rounded-lg entry mb-2"><input type="text" placeholder="Cert Name" class="w-full border-b mb-1 p-1 font-bold text-sm" oninput="handleInput()"><input type="text" placeholder="Issuer" class="w-full border-b mb-1 p-1 text-sm" oninput="handleInput()"><input type="text" placeholder="Date" class="w-full p-1 text-sm" oninput="handleInput()"></div></div></section>
 
                 <div class="grid grid-cols-2 gap-4">
-                    <section class="p-4 border rounded-xl bg-white shadow-sm"><h3 class="font-bold text-blue-700 uppercase text-xs">7. Skills</h3><textarea id="skills" placeholder="Skills..." class="w-full p-2 border rounded text-xs h-20" oninput="handleInput()"></textarea></section>
-                    <section class="p-4 border rounded-xl bg-white shadow-sm"><h3 class="font-bold text-blue-700 uppercase text-xs">8. Languages</h3><textarea id="langs" placeholder="Languages..." class="w-full p-2 border rounded text-xs h-20" oninput="handleInput()"></textarea></section>
+                    <section class="p-4 border rounded-xl bg-white shadow-sm">
+                        <div class="flex justify-between items-center mb-2"><h3 class="font-bold text-blue-700 uppercase text-xs">7. Skills</h3><button onclick="aiHelp('skills')" class="ai-btn">✨ AI</button></div>
+                        <textarea id="skills" placeholder="Hard & soft skills..." class="w-full p-2 border rounded text-xs h-20" oninput="handleInput()"></textarea>
+                    </section>
+                    <section class="p-4 border rounded-xl bg-white shadow-sm">
+                        <div class="flex justify-between items-center mb-2"><h3 class="font-bold text-blue-700 uppercase text-xs">8. Languages</h3><button onclick="aiHelp('langs')" class="ai-btn">✨ AI</button></div>
+                        <textarea id="langs" placeholder="Malay, English..." class="w-full p-2 border rounded text-xs h-20" oninput="handleInput()"></textarea>
+                    </section>
                 </div>
 
-                <section class="p-4 border rounded-xl bg-gray-50 shadow-sm"><div class="flex justify-between items-center mb-2"><h3 class="font-bold uppercase text-xs text-gray-700">9. References</h3><button onclick="addFields('ref-group')" class="bg-blue-600 text-white px-3 rounded-full font-bold shadow">+</button></div><div id="ref-group"><div class="p-3 border bg-white rounded-lg entry mb-2"><input type="text" placeholder="Name" class="w-full border-b mb-1 p-1 font-bold text-sm" oninput="handleInput()"><input type="text" placeholder="Position" class="w-full border-b mb-1 p-1 text-sm" oninput="handleInput()"><input type="text" placeholder="Organization" class="w-full border-b mb-1 p-1 text-sm" oninput="handleInput()"><input type="text" placeholder="Email" class="w-full border-b mb-1 p-1 text-sm" oninput="handleInput()"><input type="text" placeholder="Phone" class="w-full p-1 text-sm" oninput="handleInput()"></div></div></section>
+                <section class="p-4 border rounded-xl bg-gray-50 shadow-sm"><div class="flex justify-between items-center mb-2"><h3 class="font-bold uppercase text-xs text-gray-700">9. References</h3><button onclick="addFields('ref-group')" class="bg-blue-600 text-white px-3 rounded-full font-bold shadow hover:bg-black transition">+</button></div><div id="ref-group"><div class="p-3 border bg-white rounded-lg entry mb-2"><input type="text" placeholder="Name" class="w-full border-b mb-1 p-1 font-bold text-sm" oninput="handleInput()"><input type="text" placeholder="Position" class="w-full border-b mb-1 p-1 text-sm" oninput="handleInput()"><input type="text" placeholder="Organization" class="w-full border-b mb-1 p-1 text-sm" oninput="handleInput()"><input type="text" placeholder="Email" class="w-full border-b mb-1 p-1 text-sm" oninput="handleInput()"><input type="text" placeholder="Phone" class="w-full p-1 text-sm" oninput="handleInput()"></div></div></section>
             </div>
 
             <div class="mt-8 flex gap-2">
                 <button onclick="clearDraft()" class="w-1/3 bg-gray-400 text-white py-4 rounded-xl font-bold uppercase text-sm">Reset</button>
-                <button onclick="handleDownload()" id="submitBtn" class="w-2/3 bg-blue-800 text-white py-4 rounded-xl font-bold uppercase tracking-widest text-sm shadow-xl">Download & Submit</button>
+                <button onclick="handleDownload()" id="submitBtn" class="w-2/3 bg-blue-800 text-white py-4 rounded-xl font-bold uppercase tracking-widest text-sm shadow-xl hover:bg-black transition">Download & Submit</button>
             </div>
         </div>
 
@@ -178,12 +185,12 @@
             data.proj = document.getElementById('proj-group').innerHTML;
             data.cert = document.getElementById('cert-group').innerHTML;
             data.ref = document.getElementById('ref-group').innerHTML;
-            localStorage.setItem('v_unimap_final_muktamat', JSON.stringify(data));
+            localStorage.setItem('v_unimap_final_v5', JSON.stringify(data));
             document.getElementById('status-draft').style.display = 'inline-block';
         }
 
         function loadDraft() {
-            const draft = localStorage.getItem('v_unimap_final_muktamat');
+            const draft = localStorage.getItem('v_unimap_final_v5');
             if (draft) {
                 const data = JSON.parse(draft);
                 if(data.tmpl) { document.querySelector(`input[name="tmpl"][value="${data.tmpl}"]`).checked = true; toggleTemplate(); }
@@ -242,13 +249,16 @@
 
         function aiHelp(type, btn) {
             let p = "";
-            if(type==='summary') p = `Tolong tuliskan 3 variasi professional summary untuk resume pelajar bidang ${document.getElementById('prog').value || 'Universiti'}`;
+            let prog = document.getElementById('prog').value || "pelajar universiti";
+            if(type==='summary') p = `Tolong tuliskan 3 variasi professional summary untuk resume pelajar bidang ${prog}`;
             else if(type==='experience') p = `Tolong tuliskan 5 responsibilities yang berimpak tinggi dalam bullet points untuk jawatan ${btn.closest('.entry').querySelector('input').value || 'pekerjaan ini'}`;
             else if(type==='project') p = `Tolong huraikan 4 pencapaian utama untuk projek ${btn.closest('.entry').querySelector('input').value || 'ini'} dalam bentuk bullet points teknikal.`;
+            else if(type==='skills') p = `Senaraikan 10 hard skills dan soft skills yang paling relevan untuk resume pelajar bidang ${prog} dalam bentuk ringkas.`;
+            else if(type==='langs') p = `Bagaimana cara menulis tahap penguasaan bahasa (contoh: Professional Working Proficiency) untuk bahasa Melayu dan Inggeris dalam resume?`;
             alert("SILA SALIN AYAT INI DAN GUNAKAN DI CHATGPT:\n\n" + p);
         }
 
-        function clearDraft() { if(confirm("Reset all?")) { localStorage.removeItem('v_unimap_final_muktamat'); location.reload(); } }
+        function clearDraft() { if(confirm("Reset all?")) { localStorage.removeItem('v_unimap_final_v5'); location.reload(); } }
 
         async function handleDownload() {
             const btn = document.getElementById('submitBtn'); btn.innerText = "Saving..."; btn.disabled = true;
