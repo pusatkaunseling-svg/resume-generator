@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UniMAP Resume Generator - Global v1</title>
+    <title>PUSKA Resume Generator</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @media print { .no-print { display: none; } body { background: white; padding: 0; } .resume-preview { border: none !important; box-shadow: none !important; width: 100%; margin: 0; padding: 0; } }
@@ -12,9 +12,16 @@
         .resume-preview h2 { border-bottom: 2px solid #333; margin-top: 12px; margin-bottom: 5px; font-size: 13pt; font-weight: bold; text-transform: uppercase; text-align: left; }
         .item-header { display: flex; justify-content: space-between; font-weight: bold; font-size: 11pt; }
         .resume-preview ul { list-style-type: disc !important; margin-left: 1.2rem !important; }
+        
+        /* LOGO STYLE */
+        .resume-logo { display: block; margin: 0 auto 10px auto; max-width: 180px; height: auto; }
+
+        /* TEMPLATE 2 (STANDARD WITH PHOTO) */
         .template-standard header { display: flex !important; align-items: center !important; gap: 20px !important; text-align: left !important; border-bottom: 3px solid #1e3a8a !important; padding-bottom: 15px !important; margin-bottom: 15px !important; }
         .template-standard #photo-preview { width: 120px; height: 150px; border: 1px solid #ddd; object-fit: cover; display: block !important; }
         .template-standard h2 { background: #1e3a8a !important; color: white !important; border: none !important; padding: 5px 10px !important; }
+        .template-standard .resume-logo { margin: 0 0 10px 0; max-width: 150px; }
+
         .ai-btn { background: linear-gradient(45deg, #4f46e5, #9333ea); color: white; padding: 2px 8px; border-radius: 6px; font-size: 10px; font-weight: bold; cursor: pointer; border: none; }
         .hidden { display: none !important; }
     </style>
@@ -22,7 +29,7 @@
 <body class="bg-gray-100 p-4">
     <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div class="bg-white p-6 rounded-lg shadow no-print h-[90vh] overflow-y-auto">
-            <h1 class="text-2xl font-bold text-blue-800 border-b pb-2 mb-4">RESUME BUILDER V1</h1>
+            <h1 class="text-2xl font-bold text-blue-800 border-b pb-2 mb-4">PUSKA RESUME GENERATOR</h1>
             
             <div class="bg-yellow-50 p-4 rounded-xl border border-yellow-200 mb-6">
                 <div class="flex justify-around bg-white p-2 rounded-lg border">
@@ -98,6 +105,8 @@
         </div>
 
         <div class="bg-white p-12 shadow-2xl resume-preview min-h-[29.7cm] border" id="print-area">
+            <img src="https://lh3.googleusercontent.com/d/1MvbeFj62QwwzGHvUCNrmjYqX6IrWTQxN" alt="PUSKA Logo" class="resume-logo">
+
             <header id="resume-header" style="text-align: center;">
                 <img id="photo-preview" src="" class="hidden" style="width: 120px; height: 150px; object-fit: cover; border: 1px solid #ddd; margin-bottom: 10px;">
                 <div class="header-info w-full">
@@ -126,10 +135,13 @@
             const photoInputSec = document.getElementById('photo-upload-sec');
             const photoPreview = document.getElementById('photo-preview');
             const header = document.getElementById('resume-header');
+            const logo = document.querySelector('.resume-logo');
             if(tmpl === 'std') {
                 preview.classList.add('template-standard'); photoInputSec.classList.remove('hidden'); photoPreview.classList.remove('hidden'); header.style.textAlign = "left";
+                if(logo) logo.style.margin = "0 0 10px 0";
             } else {
                 preview.classList.remove('template-standard'); photoInputSec.classList.add('hidden'); photoPreview.classList.add('hidden'); header.style.textAlign = "center";
+                if(logo) logo.style.margin = "0 auto 10px auto";
             }
             update();
         }
@@ -154,11 +166,11 @@
             data.proj = document.getElementById('proj-group').innerHTML;
             data.cert = document.getElementById('cert-group').innerHTML;
             data.ref = document.getElementById('ref-group').innerHTML;
-            localStorage.setItem('unimap_v_global_1', JSON.stringify(data));
+            localStorage.setItem('puska_v_final', JSON.stringify(data));
         }
 
         function loadDraft() {
-            const draft = localStorage.getItem('unimap_v_global_1');
+            const draft = localStorage.getItem('puska_v_final');
             if (draft) {
                 const data = JSON.parse(draft);
                 if(data.tmpl) { document.querySelector(`input[name="tmpx"][value="${data.tmpl}"]`).checked = true; toggleTemplate(); }
@@ -194,7 +206,7 @@
                 return `<div class="mb-3"><div class="item-header"><span>${i[0].value}</span><span>${i[2].value}</span></div><i>${i[1].value}</i><br>${cgpa}${sep}${grade}</div>`;
             });
             updateListSection('work-group', 'out-work', (i, b) => `<div class="mb-4"><div class="item-header"><span>${i[0].value}</span><span>${i[2].value}</span></div><i>${i[1].value}</i><ul class="mt-1">${b}</ul></div>`);
-            updateListSection('proj-group', 'out-proj', (i, b) => `<div class="mb-4"><div class="item-header"><span>${i[0].value}</span><span>${i[1].value}</span></div><ul class="mt-1">${b}</ul></div>`);
+            updateListSection('proj-group', 'out-proj', (i, b) => `<div class="mb-4"><div class="item-header"><span>${i[0].value}</span><span>${i[2].value}</span></div><ul class="mt-1">${b}</ul></div>`);
             updateSection('cert-group', 'out-cert', (i) => `<div class="mb-2"><b>${i[0].value}</b> - ${i[1].value}</div>`);
             updateSection('ref-group', 'out-ref', (i) => `<div class="text-[10pt]"><b>${i[0].value}</b><br>${i[1].value}<br>E: ${i[2].value} | P: ${i[3].value}</div>`);
             document.getElementById('out-skills').innerText = document.getElementById('skills').value;
@@ -224,7 +236,7 @@
             alert("COPY & PASTE DI CHATGPT:\n\n" + p);
         }
 
-        function clearDraft() { if(confirm("Reset all?")) { localStorage.removeItem('unimap_v_global_1'); location.reload(); } }
+        function clearDraft() { if(confirm("Reset all?")) { localStorage.removeItem('puska_v_final'); location.reload(); } }
 
         async function handleDownload() {
             const btn = document.getElementById('submitBtn'); btn.innerText = "Saving..."; btn.disabled = true;
