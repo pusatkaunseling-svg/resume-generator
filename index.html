@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UniMAP Resume Generator - ATS & Standard</title>
+    <title>UniMAP Resume Generator - Professional</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @media print {
@@ -20,7 +20,6 @@
         .resume-preview ul { list-style-type: disc !important; margin-left: 1.2rem !important; }
         .resume-preview li { font-size: 11pt; margin-bottom: 2px; }
 
-        /* TEMPLATE 2 (STANDARD WITH PHOTO) */
         .template-standard header { display: flex !important; align-items: center !important; gap: 20px !important; text-align: left !important; border-bottom: 3px solid #1e3a8a !important; padding-bottom: 15px !important; margin-bottom: 15px !important; }
         .template-standard #photo-preview { width: 120px; height: 150px; border: 1px solid #ddd; object-fit: cover; display: block !important; flex-shrink: 0; }
         .template-standard h2 { background: #1e3a8a !important; color: white !important; border: none !important; padding: 5px 10px !important; }
@@ -36,8 +35,8 @@
         
         <div class="bg-white p-6 rounded-lg shadow no-print h-[90vh] overflow-y-auto">
             <div class="flex justify-between items-center mb-4 border-b pb-2">
-                <h1 class="text-2xl font-bold text-blue-800">RESUME BUILDER</h1>
-                <div id="status-draft" class="draft-badge" style="display:none;">Saved to Browser</div>
+                <h1 class="text-2xl font-bold text-blue-800 uppercase">Resume Builder</h1>
+                <div id="status-draft" class="draft-badge" style="display:none;">Auto-Saved</div>
             </div>
 
             <div class="bg-yellow-50 p-4 rounded-xl border border-yellow-200 mb-6">
@@ -58,15 +57,6 @@
                     <div><label class="block text-xs font-bold text-gray-700 uppercase">Year</label><select id="year" class="w-full p-2 border rounded bg-white" onchange="handleInput()"><option value="Year 1">Year 1</option><option value="Year 2">Year 2</option><option value="Year 3">Year 3</option><option value="Year 4">Year 4</option></select></div>
                 </div>
                 <input type="text" id="prog" placeholder="Programme Name" class="w-full p-2 border rounded" oninput="handleInput()">
-                <select id="faculty" class="w-full p-2 border rounded bg-white" onchange="handleInput()">
-                    <option value="Fakulti Kejuruteraan & Teknologi Elektrik">Fakulti Kejuruteraan & Teknologi Elektrik</option>
-                    <option value="Fakulti Kejuruteraan & Teknologi Elektronik">Fakulti Kejuruteraan & Teknologi Elektronik</option>
-                    <option value="Fakulti Kejuruteraan & Teknologi Kimia">Fakulti Kejuruteraan & Teknologi Kimia</option>
-                    <option value="Fakulti Kejuruteraan & Teknologi Mekanikal">Fakulti Kejuruteraan & Teknologi Mekanikal</option>
-                    <option value="Fakulti Kejuruteraan & Teknologi Awam">Fakulti Kejuruteraan & Teknologi Awam</option>
-                    <option value="Fakulti Komputeran Cerdas">Fakulti Komputeran Cerdas</option>
-                    <option value="Fakulti Perniagaan & Komunikasi">Fakulti Perniagaan & Komunikasi</option>
-                </select>
             </div>
 
             <div class="space-y-6">
@@ -80,15 +70,15 @@
                 </section>
 
                 <section class="p-4 border rounded-xl bg-white shadow-sm">
-                    <div class="flex justify-between items-center mb-2"><h3 class="font-bold border-b-2 border-blue-500 text-blue-700 uppercase text-xs">2. Summary</h3><span onclick="aiHelp()" class="ai-btn">✨ AI HELP</span></div>
+                    <div class="flex justify-between items-center mb-2"><h3 class="font-bold border-b-2 border-blue-500 text-blue-700 uppercase text-xs">2. Summary</h3><span onclick="aiHelp('summary')" class="ai-btn">✨ AI ASSIST</span></div>
                     <textarea id="summary" placeholder="Summary..." class="w-full p-2 border rounded h-24 text-sm" oninput="handleInput()"></textarea>
                 </section>
 
-                <section class="p-4 border rounded-xl bg-gray-50 shadow-sm"><div class="flex justify-between items-center mb-2"><h3 class="font-bold uppercase text-xs text-gray-700">3. Education</h3><button onclick="addFields('edu-group')" class="bg-blue-600 text-white px-3 rounded-full font-bold shadow hover:bg-black transition">+</button></div><div id="edu-group"><div class="p-3 border bg-white rounded-lg entry mb-2"><input type="text" placeholder="Institution" class="w-full border-b mb-1 p-1 font-bold text-sm" oninput="handleInput()"><input type="text" placeholder="Degree" class="w-full border-b mb-1 p-1 text-sm" oninput="handleInput()"><input type="text" placeholder="Date" class="w-full border-b mb-1 p-1 text-sm" oninput="handleInput()"><input type="text" placeholder="CGPA" class="w-full p-1 text-sm italic" oninput="handleInput()"></div></div></section>
+                <section class="p-4 border rounded-xl bg-gray-50 shadow-sm"><div class="flex justify-between items-center mb-2"><h3 class="font-bold uppercase text-xs text-gray-700">3. Education</h3><button onclick="addFields('edu-group')" class="bg-blue-600 text-white px-3 rounded-full font-bold shadow hover:bg-black transition">+</button></div><div id="edu-group"><div class="p-3 border bg-white rounded-lg entry mb-2"><input type="text" placeholder="Institution" class="w-full border-b mb-1 p-1 font-bold text-sm" oninput="handleInput()"><input type="text" placeholder="Degree" class="w-full border-b mb-1 p-1 text-sm" oninput="handleInput()"><input type="text" placeholder="Date" class="w-full border-b mb-1 p-1 text-sm" oninput="handleInput()"><div class="grid grid-cols-2 gap-2 mt-2"><input type="text" placeholder="CGPA (Uni)" class="border rounded p-1 text-sm italic" oninput="handleInput()"><input type="text" placeholder="Grade (SPM)" class="border rounded p-1 text-sm italic" oninput="handleInput()"></div></div></div></section>
 
-                <section class="p-4 border rounded-xl bg-gray-50 shadow-sm"><div class="flex justify-between items-center mb-2"><h3 class="font-bold uppercase text-xs text-gray-700">4. Experience</h3><button onclick="addFields('work-group')" class="bg-blue-600 text-white px-3 rounded-full font-bold shadow hover:bg-black transition">+</button></div><div id="work-group"><div class="p-3 border bg-white rounded-lg entry mb-2"><input type="text" placeholder="Job Title" class="w-full border-b mb-1 p-1 font-bold text-sm" oninput="handleInput()"><input type="text" placeholder="Company" class="w-full border-b mb-1 p-1 text-sm" oninput="handleInput()"><input type="text" placeholder="Date" class="w-full border-b mb-1 p-1 text-sm" oninput="handleInput()"><textarea placeholder="Responsibilities" class="w-full p-1 h-20 text-sm mt-1" oninput="handleInput()"></textarea></div></div></section>
+                <section class="p-4 border rounded-xl bg-gray-50 shadow-sm"><div class="flex justify-between items-center mb-2"><h3 class="font-bold uppercase text-xs text-gray-700">4. Work Experience</h3><button onclick="addFields('work-group')" class="bg-blue-600 text-white px-3 rounded-full font-bold shadow hover:bg-black transition">+</button></div><div id="work-group"><div class="p-3 border bg-white rounded-lg entry mb-2"><input type="text" placeholder="Job Title" class="w-full border-b mb-1 p-1 font-bold text-sm" oninput="handleInput()"><input type="text" placeholder="Company" class="w-full border-b mb-1 p-1 text-sm" oninput="handleInput()"><input type="text" placeholder="Date" class="w-full border-b mb-1 p-1 text-sm" oninput="handleInput()"><div class="flex justify-between items-center mt-2 mb-1"><span class="text-[10px] font-bold text-gray-500">RESPONSIBILITIES</span><span onclick="aiHelp('experience', this)" class="ai-btn">✨ AI ASSIST</span></div><textarea placeholder="Bullet points..." class="w-full p-1 h-20 text-sm border rounded" oninput="handleInput()"></textarea></div></div></section>
 
-                <section class="p-4 border rounded-xl bg-gray-50 shadow-sm"><div class="flex justify-between items-center mb-2"><h3 class="font-bold uppercase text-xs text-gray-700">5. Projects</h3><button onclick="addFields('proj-group')" class="bg-blue-600 text-white px-3 rounded-full font-bold shadow hover:bg-black transition">+</button></div><div id="proj-group"><div class="p-3 border bg-white rounded-lg entry mb-2"><input type="text" placeholder="Project Title" class="w-full border-b mb-1 p-1 font-bold text-sm" oninput="handleInput()"><input type="text" placeholder="Date" class="w-full border-b mb-1 p-1 text-sm" oninput="handleInput()"><textarea placeholder="Description" class="w-full p-1 h-20 text-sm mt-1" oninput="handleInput()"></textarea></div></div></section>
+                <section class="p-4 border rounded-xl bg-gray-50 shadow-sm"><div class="flex justify-between items-center mb-2"><h3 class="font-bold uppercase text-xs text-gray-700">5. Projects</h3><button onclick="addFields('proj-group')" class="bg-blue-600 text-white px-3 rounded-full font-bold shadow hover:bg-black transition">+</button></div><div id="proj-group"><div class="p-3 border bg-white rounded-lg entry mb-2"><input type="text" placeholder="Project Title" class="w-full border-b mb-1 p-1 font-bold text-sm" oninput="handleInput()"><input type="text" placeholder="Date" class="w-full border-b mb-1 p-1 text-sm" oninput="handleInput()"><div class="flex justify-between items-center mt-2 mb-1"><span class="text-[10px] font-bold text-gray-500">DESCRIPTION</span><span onclick="aiHelp('project', this)" class="ai-btn">✨ AI ASSIST</span></div><textarea placeholder="Bullet points..." class="w-full p-1 h-20 text-sm border rounded" oninput="handleInput()"></textarea></div></div></section>
 
                 <section class="p-4 border rounded-xl bg-gray-50 shadow-sm"><div class="flex justify-between items-center mb-2"><h3 class="font-bold uppercase text-xs text-gray-700">6. Certifications</h3><button onclick="addFields('cert-group')" class="bg-blue-600 text-white px-3 rounded-full font-bold shadow hover:bg-black transition">+</button></div><div id="cert-group"><div class="p-3 border bg-white rounded-lg entry mb-2"><input type="text" placeholder="Cert Name" class="w-full border-b mb-1 p-1 font-bold text-sm" oninput="handleInput()"><input type="text" placeholder="Issuer" class="w-full border-b mb-1 p-1 text-sm" oninput="handleInput()"><input type="text" placeholder="Date" class="w-full p-1 text-sm" oninput="handleInput()"></div></div></section>
 
@@ -128,7 +118,7 @@
                 <section><h2>Skills</h2><p id="out-skills" class="section-content whitespace-pre-line"></p></section>
                 <section><h2>Languages</h2><p id="out-langs" class="section-content whitespace-pre-line"></p></section>
             </div>
-
+            
             <section><h2>References</h2><div id="out-ref" class="section-content grid grid-cols-2 gap-6"></div></section>
         </div>
     </div>
@@ -171,7 +161,7 @@
         function handleInput() { update(); saveDraft(); }
 
         function saveDraft() {
-            const inputs = ['level', 'year', 'faculty', 'prog', 'name', 'email', 'phone', 'address', 'linkedin', 'summary', 'skills', 'langs'];
+            const inputs = ['level', 'year', 'prog', 'name', 'email', 'phone', 'address', 'linkedin', 'summary', 'skills', 'langs'];
             const data = { tmpl: document.querySelector('input[name="tmpl"]:checked').value };
             inputs.forEach(id => { const el = document.getElementById(id); if (el) data[id] = el.value; });
             data.edu = document.getElementById('edu-group').innerHTML;
@@ -179,12 +169,12 @@
             data.proj = document.getElementById('proj-group').innerHTML;
             data.cert = document.getElementById('cert-group').innerHTML;
             data.ref = document.getElementById('ref-group').innerHTML;
-            localStorage.setItem('resume_unimap_final_v1', JSON.stringify(data));
+            localStorage.setItem('resume_unimap_v3', JSON.stringify(data));
             document.getElementById('status-draft').style.display = 'inline-block';
         }
 
         function loadDraft() {
-            const draft = localStorage.getItem('resume_unimap_final_v1');
+            const draft = localStorage.getItem('resume_unimap_v3');
             if (draft) {
                 const data = JSON.parse(draft);
                 if(data.tmpl) {
@@ -220,7 +210,14 @@
             document.getElementById('out-linkedin').innerText = document.getElementById('linkedin').value;
             document.getElementById('out-summary').innerText = document.getElementById('summary').value;
 
-            updateSection('edu-group', 'out-edu', (i) => `<div class="mb-3"><div class="item-header"><span>${i[0].value}</span><span>${i[2].value}</span></div><i>${i[1].value}</i><br>Grade: ${i[3].value}</div>`);
+            // Update Education with split CGPA/Grade
+            updateSection('edu-group', 'out-edu', (i) => {
+                let cgpaTxt = i[3].value ? `CGPA: ${i[3].value}` : "";
+                let gradeTxt = i[4].value ? `Grade: ${i[4].value}` : "";
+                let separator = (cgpaTxt && gradeTxt) ? " | " : "";
+                return `<div class="mb-3"><div class="item-header"><span>${i[0].value}</span><span>${i[2].value}</span></div><i>${i[1].value}</i><br><span class="text-sm">${cgpaTxt}${separator}${gradeTxt}</span></div>`;
+            });
+
             updateListSection('work-group', 'out-work', (i, b) => `<div class="mb-4"><div class="item-header"><span>${i[0].value}</span><span>${i[2].value}</span></div><i>${i[1].value}</i><ul class="mt-1">${b}</ul></div>`);
             updateListSection('proj-group', 'out-proj', (i, b) => `<div class="mb-4"><div class="item-header"><span>${i[0].value}</span><span>${i[1].value}</span></div><ul class="mt-1">${b}</ul></div>`);
             updateSection('cert-group', 'out-cert', (i) => `<div class="mb-2"><div class="item-header"><span>${i[0].value}</span><span>${i[2].value}</span></div><i>${i[1].value}</i></div>`);
@@ -243,15 +240,29 @@
             document.getElementById(outId).innerHTML = h;
         }
 
-        function clearDraft() { if(confirm("Reset all?")) { localStorage.removeItem('resume_unimap_final_v1'); location.reload(); } }
-        function aiHelp() { alert("AI Prompt: Write ATS resume summary for " + document.getElementById('prog').value); }
+        function clearDraft() { if(confirm("Reset all?")) { localStorage.removeItem('resume_unimap_v3'); location.reload(); } }
+
+        function aiHelp(type, btn) {
+            let prompt = "";
+            if(type === 'summary') {
+                const p = document.getElementById('prog').value || "pelajar universiti";
+                prompt = `Tolong tuliskan 3 variasi ringkasan profesional (Summary) untuk resume pelajar bidang ${p} yang memfokuskan kepada kemahiran teknikal dan semangat belajar.`;
+            } else if(type === 'experience') {
+                const job = btn.closest('.entry').querySelector('input').value || "pekerjaan ini";
+                prompt = `Tolong senaraikan 5 huraian tugas (responsibilities) yang profesional dalam bentuk bullet points untuk jawatan ${job} supaya nampak hebat dalam resume ATS.`;
+            } else if(type === 'project') {
+                const proj = btn.closest('.entry').querySelector('input').value || "projek ini";
+                prompt = `Tolong huraikan 4 pencapaian atau ciri teknikal utama untuk projek bertajuk "${proj}" dalam bentuk bullet points yang menunjukkan impak dan kemahiran saya.`;
+            }
+            alert("AI PROMPT TELAH DIJANA:\n\n" + prompt + "\n\n(Sila salin ayat ini dan gunakan di ChatGPT/Gemini untuk huraian terbaik)");
+        }
 
         async function handleDownload() {
             const btn = document.getElementById('submitBtn'); btn.innerText = "Saving..."; btn.disabled = true;
             const data = {
                 level: document.getElementById('level').value, year: document.getElementById('year').value, program: document.getElementById('prog').value,
-                faculty: document.getElementById('faculty').value, name: document.getElementById('name').value, email: document.getElementById('email').value,
-                phone: document.getElementById('phone').value, htmlForPdf: document.getElementById('print-area').innerHTML
+                name: document.getElementById('name').value, email: document.getElementById('email').value, phone: document.getElementById('phone').value,
+                htmlForPdf: document.getElementById('print-area').innerHTML
             };
             try { await fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(data) }); window.print(); } catch (err) { alert("Error."); }
             btn.disabled = false; btn.innerText = "Download & Submit";
