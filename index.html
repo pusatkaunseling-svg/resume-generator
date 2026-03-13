@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PUSKA Resume Generator v4.7 OFFICIAL</title>
+    <title>PUSKA Resume Generator v4.7.1 OFFICIAL</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style id="resume-styles">
         /* CSS KHAS UNTUK CETAKAN & PREVIEW */
         @media print {
             @page { size: A4; margin: 0; }
             .no-print { display: none !important; }
-            body { background: white; padding: 0; margin: 0; }
+            body { background: white !important; padding: 0 !important; margin: 0 !important; }
             .resume-preview {
                 border: none !important;
                 box-shadow: none !important;
@@ -18,7 +18,8 @@
                 height: 297mm !important;
                 padding: 15mm !important;
                 margin: 0 !important;
-                overflow: hidden;
+                overflow: hidden !important;
+                display: block !important;
             }
             * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
         }
@@ -34,7 +35,6 @@
         .resume-preview h1 { font-size: 18pt; font-weight: bold; text-transform: uppercase; margin: 0; color: black; }
         .resume-preview h2 { border-bottom: 2px solid #333; margin-top: 12px; margin-bottom: 5px; font-size: 13pt; font-weight: bold; text-transform: uppercase; text-align: left; }
         
-        /* Template Standard (Foto) */
         .template-standard header { display: flex !important; align-items: center !important; gap: 20px !important; border-bottom: 3px solid #1e3a8a !important; padding-bottom: 15px; text-align: left !important; }
         .template-standard #photo-preview { width: 110px; height: 140px; border: 1px solid #ddd; object-fit: cover; display: block !important; }
         .template-standard h2 { background: #1e3a8a !important; color: white !important; border: none !important; padding: 5px 10px !important; }
@@ -55,7 +55,7 @@
                 <img src="https://drive.google.com/thumbnail?id=1MvbeFj62QwwzGHvUCNrmjYqX6IrWTQxN&sz=w200" alt="PUSKA" class="puska-logo">
                 <div>
                     <h1 class="text-2xl font-black text-blue-900 leading-none">PUSKA</h1>
-                    <p class="text-sm font-bold text-gray-600 tracking-widest uppercase">RESUME GENERATOR v4.7</p>
+                    <p class="text-sm font-bold text-gray-600 tracking-widest uppercase">RESUME GENERATOR v4.7.1</p>
                 </div>
             </div>
             
@@ -203,7 +203,7 @@
 
             <div class="mt-8 flex gap-2">
                 <button onclick="resetAll()" class="w-1/3 bg-gray-400 text-white py-4 rounded-xl font-bold uppercase text-sm">Reset</button>
-                <button onclick="submitDatabase()" id="btnSubmit" class="w-2/3 bg-blue-800 text-white py-4 rounded-xl font-bold uppercase tracking-widest text-sm shadow-xl hover:bg-black transition">Download & Submit</button>
+                <button onclick="submitDatabase()" id="btnSubmit" class="w-2/3 bg-blue-800 text-white py-4 rounded-xl font-bold uppercase tracking-widest text-sm shadow-xl">Download & Submit</button>
             </div>
         </div>
 
@@ -276,15 +276,11 @@
         function addEntry(id) { const container = document.getElementById(id); const clone = container.children[0].cloneNode(true); clone.querySelectorAll('input, textarea').forEach(v => v.value = ''); container.appendChild(clone); runUpdate(); }
 
         function askAI(type, btn) {
-            let p = ""; 
-            let kos = document.getElementById('prog').value || "pelajar universiti";
+            let p = ""; let kos = document.getElementById('prog').value || "pelajar universiti";
             if(type==='summary') p = `Write 3 professional resume summary for a student in ${kos} field.`;
             else if(type==='exp') p = `Write 5 professional bullet points for the position of ${btn.closest('.entry').querySelector('input').value}.`;
             else p = "List 10 relevant skills for " + kos;
-            
-            navigator.clipboard.writeText(p).then(() => {
-                alert("Prompt disalin! Paste di ChatGPT.\n\nPrompt: " + p);
-            }).catch(() => { prompt("Copy prompt:", p); });
+            navigator.clipboard.writeText(p).then(() => { alert("Prompt disalin! Paste di ChatGPT.\n\nPrompt: " + p); }).catch(() => { prompt("Copy prompt:", p); });
         }
 
         function saveDraft() {
@@ -295,11 +291,11 @@
                 edu: document.getElementById('edu-list').innerHTML, wrk: document.getElementById('work-list').innerHTML, prj: document.getElementById('proj-list').innerHTML,
                 crt: document.getElementById('cert-list').innerHTML, ref: document.getElementById('ref-list').innerHTML
             };
-            localStorage.setItem('puska_v4_7_final', JSON.stringify(data));
+            localStorage.setItem('puska_v4_7_1_final', JSON.stringify(data));
         }
 
         function loadDraft() {
-            const d = JSON.parse(localStorage.getItem('puska_v4_7_final'));
+            const d = JSON.parse(localStorage.getItem('puska_v4_7_1_final'));
             if(d) {
                 document.getElementById('level').value = d.lv; document.getElementById('year').value = d.yr; document.getElementById('faculty').value = d.fac; document.getElementById('prog').value = d.prog;
                 document.getElementById('name').value = d.n; document.getElementById('email').value = d.e; document.getElementById('phone').value = d.ph; document.getElementById('address').value = d.add;
@@ -311,49 +307,26 @@
             }
         }
 
-        function resetAll() { if(confirm("Reset all?")) { localStorage.removeItem('puska_v4_7_final'); location.reload(); } }
+        function resetAll() { if(confirm("Reset all?")) { localStorage.removeItem('puska_v4_7_1_final'); location.reload(); } }
 
         async function submitDatabase() {
             const btn = document.getElementById('btnSubmit');
             const name = document.getElementById('name').value;
             const email = document.getElementById('email').value;
             if(!name || !email) { alert("Sila isi Nama dan Email."); return; }
-            
             btn.innerText = "Saving..."; btn.disabled = true;
-            
             const layoutType = document.querySelector('input[name="tmpx"]:checked').value === 'std' ? "Photo Layout" : "ATS Layout";
-            
-            // SOLUSI ISU 2: Gabungkan CSS ke dalam HTML yang dihantar
             const css = document.getElementById('resume-styles').innerHTML;
-            const resumeHtml = `<style>${css}</style><div class="${document.getElementById('pdf-area').className}">${document.getElementById('pdf-area').innerHTML}</div>`;
-
+            const resumeHtml = `<style>${css}</style><div class="${document.getElementById('pdf-area').className}" style="width:210mm; padding:15mm; background:white;">${document.getElementById('pdf-area').innerHTML}</div>`;
             const payload = {
-                level: document.getElementById('level').value,
-                year: document.getElementById('year').value,
-                program: document.getElementById('prog').value,
-                faculty: document.getElementById('faculty').value,
-                name: name,
-                email: email,
-                phone: document.getElementById('phone').value,
-                templateType: layoutType, 
-                htmlForPdf: resumeHtml
+                level: document.getElementById('level').value, year: document.getElementById('year').value, program: document.getElementById('prog').value, faculty: document.getElementById('faculty').value,
+                name: name, email: email, phone: document.getElementById('phone').value, templateType: layoutType, htmlForPdf: resumeHtml
             };
-
             try { 
                 await fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) }); 
-                alert("✅ Berjaya simpan! Membuka tetingkap muat turun...");
-                
-                // SOLUSI ISU 1: Guna setTimeout supaya browser sempat render resume sebelum kotak print keluar
-                setTimeout(() => {
-                    window.print();
-                    btn.disabled = false; btn.innerText = "Download & Submit";
-                }, 1000);
-
-            } catch(e) { 
-                alert("⚠️ Error. Membuka tetingkap muat turun.");
-                window.print();
-                btn.disabled = false; btn.innerText = "Download & Submit";
-            }
+                alert("✅ Simpan Berjaya! Menjana PDF...");
+                setTimeout(() => { window.print(); btn.disabled = false; btn.innerText = "Download & Submit"; }, 1200);
+            } catch(e) { alert("⚠️ Error."); window.print(); btn.disabled = false; btn.innerText = "Download & Submit"; }
         }
     </script>
 </body>
