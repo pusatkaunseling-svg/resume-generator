@@ -21,15 +21,7 @@
             }
             * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
         }
-
-        .resume-preview {
-            font-family: 'Arial', sans-serif;
-            color: #1a1a1a;
-            line-height: 1.4;
-            background: white;
-            min-height: 297mm;
-            width: 100%;
-        }
+        .resume-preview { font-family: 'Arial', sans-serif; color: #1a1a1a; line-height: 1.4; background: white; min-height: 297mm; width: 100%; }
         .resume-preview h1 { font-size: 18pt; font-weight: bold; text-transform: uppercase; margin: 0; }
         .resume-preview h2 { border-bottom: 2px solid #333; margin-top: 12px; margin-bottom: 5px; font-size: 13pt; font-weight: bold; text-transform: uppercase; text-align: left; }
         .template-standard header { display: flex !important; align-items: center !important; gap: 20px !important; border-bottom: 3px solid #1e3a8a !important; padding-bottom: 15px; text-align: left !important; }
@@ -40,13 +32,11 @@
         .hidden { display: none !important; }
         .puska-logo { max-height: 60px; width: auto; object-fit: contain; }
         .section-content { font-size: 10.5pt; margin-bottom: 8px; }
-        .ai-btn { background: linear-gradient(45deg, #1e3a8a, #3b82f6); color: white; padding: 2px 8px; border-radius: 6px; font-size: 10px; font-weight: bold; cursor: pointer; border: none; transition: transform 0.2s; }
-        .ai-btn:active { transform: scale(0.95); }
+        .ai-btn { background: linear-gradient(45deg, #1e3a8a, #3b82f6); color: white; padding: 2px 8px; border-radius: 6px; font-size: 10px; font-weight: bold; cursor: pointer; border: none; }
     </style>
 </head>
 <body class="bg-gray-100 p-4">
     <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-6">
-        
         <div class="bg-white p-6 rounded-lg shadow no-print h-[90vh] overflow-y-auto border-t-8 border-blue-900">
             <div class="flex items-center gap-4 border-b-2 border-blue-900 pb-4 mb-6">
                 <img src="https://drive.google.com/thumbnail?id=1MvbeFj62QwwzGHvUCNrmjYqX6IrWTQxN&sz=w200" alt="PUSKA" class="puska-logo">
@@ -151,17 +141,14 @@
                     <input type="text" id="address" placeholder="Address (City, State)" class="w-full p-2 border rounded mb-2" oninput="runUpdate()">
                     <input type="text" id="linkedin" placeholder="LinkedIn URL" class="w-full p-2 border rounded mb-2" oninput="runUpdate()">
                 </section>
-
                 <section class="p-4 border rounded-xl bg-white shadow-sm">
                     <div class="flex justify-between items-center mb-2"><h3 class="font-bold border-b-2 border-blue-500 text-blue-900 uppercase text-xs">2. Summary</h3><button onclick="askAI('summary')" class="ai-btn">✨ AI HELP</button></div>
                     <textarea id="summary" placeholder="Summary..." class="w-full p-2 border rounded h-24 text-sm" oninput="runUpdate()"></textarea>
                 </section>
-
                 <section class="p-4 border rounded-xl bg-gray-50 shadow-sm">
                     <div class="flex justify-between items-center mb-2"><h3 class="font-bold uppercase text-xs">3. Education</h3><button onclick="addEntry('edu-list')" class="bg-blue-600 text-white px-3 rounded-full shadow">+</button></div>
                     <div id="edu-list"><div class="p-3 border bg-white rounded-lg entry mb-2"><input type="text" placeholder="Institution" class="w-full border-b mb-1 p-1 font-bold text-sm" oninput="runUpdate()"><input type="text" placeholder="Degree" class="w-full border-b mb-1 p-1 text-sm" oninput="runUpdate()"><input type="text" placeholder="Date" class="w-full border-b mb-1 p-1 text-sm" oninput="runUpdate()"><div class="grid grid-cols-2 gap-2 mt-2"><input type="text" placeholder="CGPA" class="border rounded p-1 text-xs" oninput="runUpdate()"><input type="text" placeholder="Grade" class="border rounded p-1 text-xs" oninput="runUpdate()"></div></div></div>
                 </section>
-
                 <section class="p-4 border rounded-xl bg-gray-50 shadow-sm">
                     <div class="flex justify-between items-center mb-2"><h3 class="font-bold uppercase text-xs">4. Work Experience</h3><button onclick="addEntry('work-list')" class="bg-blue-600 text-white px-3 rounded-full shadow">+</button></div>
                     <div id="work-list"><div class="p-3 border bg-white rounded-lg entry mb-2">
@@ -175,17 +162,14 @@
                         <textarea placeholder="Bullet points..." class="w-full p-1 h-20 text-sm border rounded" oninput="runUpdate()"></textarea>
                     </div></div>
                 </section>
-
                 <section class="p-4 border rounded-xl bg-gray-50 shadow-sm">
                     <div class="flex justify-between items-center mb-2"><h3 class="font-bold uppercase text-xs">5. Key Projects</h3><button onclick="addEntry('proj-list')" class="bg-blue-600 text-white px-3 rounded-full shadow">+</button></div>
                     <div id="proj-list"><div class="p-3 border bg-white rounded-lg entry mb-2"><input type="text" placeholder="Project Name" class="w-full border-b mb-1 p-1 font-bold text-sm" oninput="runUpdate()"><div class="flex justify-between items-center my-1"><span class="text-[10px] font-bold text-gray-400 uppercase">Description</span><button onclick="askAI('proj', this)" class="ai-btn">✨ AI</button></div><textarea placeholder="Description..." class="w-full p-1 h-20 text-sm border rounded" oninput="runUpdate()"></textarea></div></div>
                 </section>
-
                 <div class="grid grid-cols-2 gap-4">
-                    <section class="p-4 border rounded-xl bg-white shadow-sm"><div class="flex justify-between items-center mb-2"><h3 class="font-bold text-blue-900 uppercase text-xs">7. Skills</h3><button onclick="askAI('skills')" class="ai-btn">✨ AI</button></div><textarea id="skills" placeholder="Skills..." class="w-full p-2 border rounded text-xs h-20" oninput="runUpdate()"></textarea></section>
-                    <section class="p-4 border rounded-xl bg-white shadow-sm"><div class="flex justify-between items-center mb-2"><h3 class="font-bold text-blue-900 uppercase text-xs">8. Langs</h3><button onclick="askAI('langs')" class="ai-btn">✨ AI</button></div><textarea id="langs" placeholder="Langs..." class="w-full p-2 border rounded text-xs h-20" oninput="runUpdate()"></textarea></section>
+                    <section class="p-4 border rounded-xl bg-white shadow-sm"><div class="flex justify-between items-center mb-2"><h3 class="font-bold text-blue-900 uppercase text-xs">7. Skills</h3><button onclick="askAI('skills')" class="ai-btn">✨ AI</button></div><textarea id="skills" placeholder="Hard/Soft skills..." class="w-full p-2 border rounded text-xs h-20" oninput="runUpdate()"></textarea></section>
+                    <section class="p-4 border rounded-xl bg-white shadow-sm"><div class="flex justify-between items-center mb-2"><h3 class="font-bold text-blue-900 uppercase text-xs">8. Languages</h3><button onclick="askAI('langs')" class="ai-btn">✨ AI</button></div><textarea id="langs" placeholder="Languages..." class="w-full p-2 border rounded text-xs h-20" oninput="runUpdate()"></textarea></section>
                 </div>
-
                 <section class="p-4 border rounded-xl bg-gray-50 shadow-sm">
                     <div class="flex justify-between items-center mb-2"><h3 class="font-bold uppercase text-xs">9. References</h3><button onclick="addEntry('ref-list')" class="bg-blue-600 text-white px-3 rounded-full shadow">+</button></div>
                     <div id="ref-list"><div class="p-3 border bg-white rounded-lg entry mb-2">
@@ -197,7 +181,6 @@
                     </div></div>
                 </section>
             </div>
-
             <div class="mt-8 flex gap-2">
                 <button onclick="resetAll()" class="w-1/3 bg-gray-400 text-white py-4 rounded-xl font-bold uppercase text-sm">Reset</button>
                 <button onclick="submitDatabase()" id="btnSubmit" class="w-2/3 bg-blue-800 text-white py-4 rounded-xl font-bold uppercase tracking-widest text-sm shadow-xl hover:bg-black transition">Download & Submit</button>
@@ -227,9 +210,7 @@
 
     <script>
         const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzCXU3LLPd0tZsDMBVLXXOmXzYofCu6Hjg-82hPWKNNnVJKIgZDWEa7frwuyEmGNJ8OHQ/exec';
-
         window.onload = () => { loadDraft(); runUpdate(); };
-
         function toggleLayout() {
             const isStd = document.querySelector('input[name="tmpx"]:checked').value === 'std';
             const pdf = document.getElementById('pdf-area');
@@ -238,9 +219,7 @@
             else { pdf.classList.remove('template-standard'); document.getElementById('photo-area').classList.add('hidden'); head.style.textAlign = "center"; }
             runUpdate();
         }
-
         function loadPhoto(input) { if(input.files[0]) { const r = new FileReader(); r.onload = e => { document.getElementById('photo-preview').src = e.target.result; document.getElementById('photo-preview').classList.remove('hidden'); }; r.readAsDataURL(input.files[0]); } }
-
         function runUpdate() {
             document.getElementById('p-name').innerText = (document.getElementById('name').value || 'YOUR FULL NAME').toUpperCase();
             document.getElementById('p-email').innerText = document.getElementById('email').value || 'email@example.com';
@@ -248,35 +227,26 @@
             document.getElementById('p-address').innerText = document.getElementById('address').value || 'Address';
             document.getElementById('p-linkedin').innerText = document.getElementById('linkedin').value;
             document.getElementById('p-summary').innerText = document.getElementById('summary').value;
-
             fillSection('edu-list', 'p-edu', i => `<div class="mb-3 text-[10.5pt]"><div class="item-header"><span>${i[0].value}</span><span>${i[2].value}</span></div><i>${i[1].value}</i><br>${i[3].value ? 'CGPA: '+i[3].value : ''} ${i[4].value ? '| Grade: '+i[4].value : ''}</div>`);
-            
             fillList('work-list', 'p-work', (i, b) => {
                 let comp = i[1].value;
                 let loc = i[2].value;
                 let joined = comp + (loc ? ", " + loc : "");
                 return `<div class="mb-4 text-[10.5pt]"><div class="item-header"><span>${i[0].value}</span><span>${i[3].value}</span></div><i>${joined}</i><ul class="mt-1">${b}</ul></div>`;
             });
-
             fillList('proj-list', 'p-proj', (i, b) => `<div class="mb-4 text-[10.5pt]"><div class="item-header"><span>${i[0].value}</span></div><ul class="mt-1">${b}</ul></div>`);
             fillSection('cert-list', 'p-cert', i => `<div class="mb-1 text-[10.5pt]"><b>${i[0].value}</b> - ${i[1].value}</div>`);
             fillSection('ref-list', 'p-ref', i => `<div class="text-[10pt]"><b>${i[0].value}</b><br>${i[1].value}<br>${i[2].value}<br>E: ${i[3].value} | P: ${i[4].value}</div>`);
-
             document.getElementById('p-skills').innerText = document.getElementById('skills').value;
             document.getElementById('p-langs').innerText = document.getElementById('langs').value;
             saveDraft();
         }
-
         function fillSection(id, out, tmpl) { let h = ''; document.querySelectorAll(`#${id} .entry`).forEach(el => { const i = el.querySelectorAll('input'); if(i[0].value) h += tmpl(i); }); document.getElementById(out).innerHTML = h; }
         function fillList(id, out, tmpl) { let h = ''; document.querySelectorAll(`#${id} .entry`).forEach(el => { const i = el.querySelectorAll('input'); const t = el.querySelector('textarea').value; if(i[0].value) { const b = t.split('\n').filter(l => l.trim()).map(l => `<li>${l}</li>`).join(''); h += tmpl(i, b); } }); document.getElementById(out).innerHTML = h; }
-
         function addEntry(id) { const container = document.getElementById(id); const clone = container.children[0].cloneNode(true); clone.querySelectorAll('input, textarea').forEach(v => v.value = ''); container.appendChild(clone); runUpdate(); }
-
-        // FIX: AI ASSISTANT COPY FUNCTION
         function askAI(type, btn) {
             let p = ""; 
             let kos = document.getElementById('prog').value || "pelajar universiti";
-            
             if(type==='summary') p = `Write 3 professional resume summary variations for a student in ${kos} field.`;
             else if(type==='exp') {
                 let tajuk = btn.closest('.entry').querySelector('input').value || "this position";
@@ -288,16 +258,12 @@
             }
             else if(type==='skills') p = `List 10 relevant hard and soft skills for a ${kos} student.`;
             else p = "How to write professional language proficiency in a resume?";
-
-            // Copy to Clipboard Logic
             navigator.clipboard.writeText(p).then(() => {
-                alert("Prompt telah disalin (copied)!\nSila paste di ChatGPT/Gemini.\n\nPrompt: " + p);
+                alert("Prompt copied to clipboard!\nPaste in ChatGPT/Gemini.\n\nPrompt: " + p);
             }).catch(err => {
-                // Fallback jika browser blok clipboard
-                prompt("Sila copy prompt di bawah:", p);
+                prompt("Copy this prompt:", p);
             });
         }
-
         function saveDraft() {
             const data = {
                 lv: document.getElementById('level').value, yr: document.getElementById('year').value, fac: document.getElementById('faculty').value, prog: document.getElementById('prog').value,
@@ -308,7 +274,6 @@
             };
             localStorage.setItem('puska_v4_6_final', JSON.stringify(data));
         }
-
         function loadDraft() {
             const d = JSON.parse(localStorage.getItem('puska_v4_6_final'));
             if(d) {
@@ -321,19 +286,15 @@
                 document.querySelectorAll('.entry input, .entry textarea').forEach(el => el.oninput = runUpdate);
             }
         }
-
         function resetAll() { if(confirm("Confirm reset?")) { localStorage.removeItem('puska_v4_6_final'); location.reload(); } }
-
         async function submitDatabase() {
             const btn = document.getElementById('btnSubmit');
             const name = document.getElementById('name').value;
             const email = document.getElementById('email').value;
             if(!name || !email) { alert("Sila isi Nama dan Email."); return; }
             btn.innerText = "Saving..."; btn.disabled = true;
-            
             const isStd = document.querySelector('input[name="tmpx"]:checked').value === 'std';
             const layoutType = isStd ? "Photo Layout" : "ATS Layout";
-
             const payload = {
                 level: document.getElementById('level').value,
                 year: document.getElementById('year').value,
@@ -345,13 +306,12 @@
                 templateType: layoutType, 
                 htmlForPdf: document.getElementById('pdf-area').innerHTML
             };
-
             try { 
                 await fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) }); 
-                alert("✅ Berjaya simpan! Sekarang memuat turun PDF...");
+                alert("✅ Success! Data saved. downloading PDF...");
                 window.print(); 
             } catch(e) { 
-                alert("⚠️ Masalah rangkaian. Membuka tetingkap muat turun.");
+                alert("⚠️ Error. Opening download window.");
                 window.print();
             } finally {
                 btn.disabled = false; btn.innerText = "Download & Submit";
