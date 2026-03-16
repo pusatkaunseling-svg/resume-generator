@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PUSKA Resume Generator v6.3 OFFICIAL</title>
+    <title>PUSKA Resume Generator v6.4 OFFICIAL</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style id="resume-styles">
         .resume-preview {
@@ -30,18 +30,18 @@
                 <img src="https://drive.google.com/thumbnail?id=1MvbeFj62QwwzGHvUCNrmjYqX6IrWTQxN&sz=w200" alt="PUSKA" class="max-h-[60px]">
                 <div>
                     <h1 class="text-2xl font-black text-blue-900 leading-none">PUSKA</h1>
-                    <p class="text-sm font-bold text-gray-600 tracking-widest uppercase">RESUME GENERATOR v6.3</p>
+                    <p class="text-sm font-bold text-gray-600 tracking-widest uppercase">RESUME GENERATOR v6.4</p>
                 </div>
             </div>
 
-            <div class="bg-blue-50 p-4 rounded-xl border border-blue-200 mb-6 space-y-3 shadow-inner text-xs">
+            <div class="bg-blue-50 p-4 rounded-xl border border-blue-200 mb-6 space-y-3 text-xs shadow-inner">
                 <div class="grid grid-cols-2 gap-2">
-                    <div><label class="font-bold text-blue-900 uppercase">Level of Study</label>
+                    <div><label class="font-bold text-blue-900 uppercase">Level</label>
                         <select id="level" class="w-full p-2 border rounded bg-white mt-1" onchange="runUpdate()">
                             <option value="Undergraduate">Undergraduate</option><option value="Diploma">Diploma</option><option value="Postgraduate">Postgraduate</option>
                         </select>
                     </div>
-                    <div><label class="font-bold text-blue-900 uppercase">Year of Study</label>
+                    <div><label class="font-bold text-blue-900 uppercase">Year</label>
                         <select id="year" class="w-full p-2 border rounded bg-white mt-1" onchange="runUpdate()">
                             <option value="Year 1">Year 1</option><option value="Year 2">Year 2</option><option value="Year 3">Year 3</option><option value="Year 4">Year 4</option>
                         </select>
@@ -58,8 +58,8 @@
                         <option value="Faculty of Business & Communication">Faculty of Business & Communication</option>
                     </select>
                 </div>
-                <div><label class="font-bold text-blue-900 uppercase">Program Name</label>
-                    <select id="prog" class="w-full p-2 border rounded bg-white mt-1 font-semibold text-xs" onchange="runUpdate()">
+                <div><label class="font-bold text-blue-900 uppercase">Program</label>
+                    <select id="prog" class="w-full p-2 border rounded bg-white mt-1 font-semibold text-[11px]" onchange="runUpdate()">
                         <option value="">-- Select Program --</option>
                         <option value="Postgraduate (PhD)">Postgraduate (PhD)</option>
                         <option value="Postgraduate (Master)">Postgraduate (Master)</option>
@@ -131,44 +131,44 @@
                 </section>
 
                 <section class="p-4 border rounded-xl bg-white shadow-sm">
-                    <div class="flex justify-between items-center mb-2"><h3 class="font-bold border-b-2 border-blue-500 text-blue-900 uppercase text-xs">2. Summary</h3><button onclick="askAI('summary')" class="ai-btn">✨ AI</button></div>
+                    <div class="flex justify-between items-center mb-2"><h3 class="font-bold border-b-2 border-blue-500 text-blue-900 uppercase text-xs">2. Summary</h3><button onclick="askAI('summary')" class="ai-btn">✨ AI ASSIST</button></div>
                     <textarea id="summary" placeholder="Brief professional summary..." class="w-full p-2 border rounded h-24 text-sm" oninput="runUpdate()"></textarea>
                 </section>
 
                 <section class="p-4 border rounded-xl bg-gray-50 shadow-sm">
-                    <div class="flex justify-between items-center mb-2"><h3 class="font-bold uppercase text-xs">3. Education</h3><button onclick="addEntry('edu-list')" class="bg-blue-600 text-white px-3 rounded-full shadow">+</button></div>
+                    <div class="flex justify-between items-center mb-2"><h3 class="font-bold uppercase text-xs">3. Education</h3><button onclick="addEntry('edu-list')" class="bg-blue-600 text-white px-3 rounded-full shadow hover:bg-black transition">+</button></div>
                     <div id="edu-list"><div class="p-3 border bg-white rounded-lg entry mb-2">
                         <input type="text" placeholder="Institution" class="w-full border-b mb-1 p-1 font-bold text-sm" oninput="runUpdate()">
-                        <input type="text" placeholder="Degree / Course" class="w-full border-b mb-1 p-1 text-sm" oninput="runUpdate()">
+                        <input type="text" placeholder="Degree / Qualification" class="w-full border-b mb-1 p-1 text-sm" oninput="runUpdate()">
                         <div class="grid grid-cols-2 gap-2 mt-1">
-                            <input type="text" placeholder="Start Date" class="border-b p-1 text-xs" oninput="runUpdate()">
-                            <input type="text" placeholder="End/Expected Date" class="border-b p-1 text-xs" oninput="runUpdate()">
+                            <input type="text" placeholder="Start Year" class="border-b p-1 text-xs" oninput="runUpdate()">
+                            <input type="text" placeholder="End/Expected" class="border-b p-1 text-xs" oninput="runUpdate()">
                         </div>
                         <input type="text" placeholder="CGPA" class="w-full border-b mt-1 p-1 text-xs" oninput="runUpdate()">
                     </div></div>
                 </section>
 
                 <section class="p-4 border rounded-xl bg-gray-50 shadow-sm">
-                    <div class="flex justify-between items-center mb-2"><h3 class="font-bold uppercase text-xs">4. Work Experience</h3><button onclick="addEntry('work-list')" class="bg-blue-600 text-white px-3 rounded-full shadow">+</button></div>
+                    <div class="flex justify-between items-center mb-2"><h3 class="font-bold uppercase text-xs">4. Work Experience</h3><button onclick="addEntry('work-list')" class="bg-blue-600 text-white px-3 rounded-full shadow hover:bg-black transition">+</button></div>
                     <div id="work-list"><div class="p-3 border bg-white rounded-lg entry mb-2">
                         <input type="text" placeholder="Job Title" class="w-full border-b mb-1 p-1 font-bold text-sm" oninput="runUpdate()">
                         <div class="grid grid-cols-2 gap-2 mt-1">
-                            <input type="text" placeholder="Company Name" class="border-b p-1 text-sm" oninput="runUpdate()">
+                            <input type="text" placeholder="Company" class="border-b p-1 text-sm" oninput="runUpdate()">
                             <input type="text" placeholder="Location" class="border-b p-1 text-sm" oninput="runUpdate()">
                         </div>
                         <input type="text" placeholder="Date Range" class="w-full border-b mb-1 p-1 text-sm mt-1" oninput="runUpdate()">
                         <div class="flex justify-between items-center mt-1"><span class="text-[10px] text-gray-400 font-bold uppercase">Responsibilities</span><button onclick="askAI('exp', this)" class="ai-btn">✨ AI</button></div>
-                        <textarea placeholder="Bullet points of responsibilities..." class="w-full p-1 h-20 text-sm border rounded mt-1" oninput="runUpdate()"></textarea>
+                        <textarea placeholder="Bullet points..." class="w-full p-1 h-20 text-sm border rounded mt-1" oninput="runUpdate()"></textarea>
                     </div></div>
                 </section>
 
                 <section class="p-4 border rounded-xl bg-gray-50 shadow-sm">
-                    <div class="flex justify-between items-center mb-2"><h3 class="font-bold uppercase text-xs">5. Projects</h3><button onclick="addEntry('proj-list')" class="bg-blue-600 text-white px-3 rounded-full shadow">+</button></div>
+                    <div class="flex justify-between items-center mb-2"><h3 class="font-bold uppercase text-xs">5. Projects</h3><button onclick="addEntry('proj-list')" class="bg-blue-600 text-white px-3 rounded-full shadow hover:bg-black transition">+</button></div>
                     <div id="proj-list"><div class="p-3 border bg-white rounded-lg entry mb-2"><input type="text" placeholder="Project Name" class="w-full border-b mb-1 p-1 font-bold text-sm" oninput="runUpdate()"><textarea placeholder="Describe objective and results..." class="w-full p-1 h-16 text-sm border rounded" oninput="runUpdate()"></textarea></div></div>
                 </section>
 
                 <section class="p-4 border rounded-xl bg-gray-50 shadow-sm">
-                    <div class="flex justify-between items-center mb-2"><h3 class="font-bold uppercase text-xs">6. Certifications</h3><button onclick="addEntry('cert-list')" class="bg-blue-600 text-white px-3 rounded-full shadow">+</button></div>
+                    <div class="flex justify-between items-center mb-2"><h3 class="font-bold uppercase text-xs">6. Certifications</h3><button onclick="addEntry('cert-list')" class="bg-blue-600 text-white px-3 rounded-full shadow hover:bg-black transition">+</button></div>
                     <div id="cert-list"><div class="p-3 border bg-white rounded-lg entry mb-2">
                         <input type="text" placeholder="Certificate Name" class="w-full border-b mb-1 p-1 font-bold text-sm" oninput="runUpdate()">
                         <input type="text" placeholder="Issuer" class="w-full border-b mb-1 p-1 text-sm" oninput="runUpdate()">
@@ -189,11 +189,11 @@
 
                 <section class="p-4 border rounded-xl bg-white shadow-sm">
                     <h3 class="font-bold text-blue-900 uppercase text-xs mb-2">9. Languages</h3>
-                    <textarea id="langs" placeholder="e.g: English (Fluent), Malay (Native)" class="w-full p-2 border rounded text-xs h-16" oninput="runUpdate()"></textarea>
+                    <textarea id="langs" placeholder="e.g: English (Professional), Malay (Native)" class="w-full p-2 border rounded text-xs h-16" oninput="runUpdate()"></textarea>
                 </section>
 
                 <section class="p-4 border rounded-xl bg-gray-50 shadow-sm">
-                    <div class="flex justify-between items-center mb-2"><h3 class="font-bold uppercase text-xs">10. References</h3><button onclick="addEntry('ref-list')" class="bg-blue-600 text-white px-3 rounded-full shadow">+</button></div>
+                    <div class="flex justify-between items-center mb-2"><h3 class="font-bold uppercase text-xs">10. References</h3><button onclick="addEntry('ref-list')" class="bg-blue-600 text-white px-3 rounded-full shadow hover:bg-black transition">+</button></div>
                     <div id="ref-list"><div class="p-3 border bg-white rounded-lg entry mb-2">
                         <input type="text" placeholder="Referee Name" class="w-full border-b mb-1 p-1 font-bold text-sm" oninput="runUpdate()">
                         <div class="grid grid-cols-2 gap-2 mt-1">
@@ -201,7 +201,7 @@
                             <input type="text" placeholder="Organization" class="border-b p-1 text-xs" oninput="runUpdate()">
                         </div>
                         <div class="grid grid-cols-2 gap-2 mt-1">
-                            <input type="text" placeholder="Phone" class="border-b p-1 text-xs" oninput="runUpdate()">
+                            <input type="text" placeholder="Phone Number" class="border-b p-1 text-xs" oninput="runUpdate()">
                             <input type="text" placeholder="Email" class="border-b p-1 text-xs" oninput="runUpdate()">
                         </div>
                     </div></div>
@@ -275,7 +275,7 @@
         function fillList(id, out, tmpl) { let h = ''; document.querySelectorAll(`#${id} .entry`).forEach(el => { const i = el.querySelectorAll('input'); const t = el.querySelector('textarea').value; if(i[0].value) { const b = t.split('\n').filter(l => l.trim()).map(l => `<li>${l}</li>`).join(''); h += tmpl(i, b); } }); document.getElementById(out).innerHTML = h; }
         function addEntry(id) { const container = document.getElementById(id); const clone = container.children[0].cloneNode(true); clone.querySelectorAll('input, textarea').forEach(v => v.value = ''); container.appendChild(clone); runUpdate(); }
 
-        // IMPROVED AI ASSISTANT LOGIC
+        // AI ASSISTANT WITH PROMPT PREVIEW
         function askAI(type, btn) {
             let p = ""; 
             let kos = document.getElementById('prog').value || "university student";
@@ -290,7 +290,7 @@
             }
 
             navigator.clipboard.writeText(p).then(() => {
-                alert("AI Prompt Copied to Clipboard!\n\nPaste it into ChatGPT or Gemini to get your professional content.");
+                alert("THE FOLLOWING PROMPT HAS BEEN COPIED:\n\n\"" + p + "\"\n\nNow, go to ChatGPT/Gemini and paste it!");
             }).catch(() => {
                 prompt("Copy this prompt manually:", p);
             });
