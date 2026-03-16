@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PUSKA Resume Generator v6.0 OFFICIAL</title>
+    <title>PUSKA Resume Generator</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style id="resume-styles">
         .resume-preview {
@@ -30,7 +30,7 @@
                 <img src="https://drive.google.com/thumbnail?id=1MvbeFj62QwwzGHvUCNrmjYqX6IrWTQxN&sz=w200" alt="PUSKA" class="max-h-[60px]">
                 <div>
                     <h1 class="text-2xl font-black text-blue-900 leading-none">PUSKA</h1>
-                    <p class="text-sm font-bold text-gray-600 tracking-widest uppercase">RESUME GENERATOR v6.0</p>
+                    <p class="text-sm font-bold text-gray-600 tracking-widest uppercase">RESUME GENERATOR v6.1</p>
                 </div>
             </div>
 
@@ -66,14 +66,17 @@
                         <option value="Bachelor of Electronic Engineering">Bachelor of Electronic Engineering</option>
                         <option value="Bachelor of Electrical Engineering">Bachelor of Electrical Engineering</option>
                         <option value="Bachelor of Mechatronic Engineering">Bachelor of Mechatronic Engineering</option>
-                        <option value="Bachelor of Civil Engineering">Bachelor of Civil Engineering</option>
+                        <option value="Bachelor of Chemical Engineering">Bachelor of Chemical Engineering</option>
                         <option value="Bachelor of Mechanical Engineering">Bachelor of Mechanical Engineering</option>
                         <option value="Bachelor of Manufacturing Engineering">Bachelor of Manufacturing Engineering</option>
+                        <option value="Bachelor of New Media Communication">Bachelor of New Media Communication</option>
                         <option value="Bachelor of Business (International Business)">Bachelor of Business (International Business)</option>
                         <option value="Bachelor of Accounting">Bachelor of Accounting</option>
                         <option value="Bachelor of Data Science (Artificial Intelligence)">Bachelor of Data Science (Artificial Intelligence)</option>
                         <option value="Diploma in Computer Engineering">Diploma in Computer Engineering</option>
-                        </select>
+                        <option value="Diploma in Electronic Engineering">Diploma in Electronic Engineering</option>
+                        <option value="Diploma in Mechanical Engineering">Diploma in Mechanical Engineering</option>
+                    </select>
                 </div>
             </div>
 
@@ -102,8 +105,8 @@
                     <div class="flex justify-between items-center mb-2"><h3 class="font-bold uppercase text-xs">3. Education</h3><button onclick="addEntry('edu-list')" class="bg-blue-600 text-white px-3 rounded-full shadow">+</button></div>
                     <div id="edu-list"><div class="p-3 border bg-white rounded-lg entry mb-2">
                         <input type="text" placeholder="Institution" class="w-full border-b mb-1 p-1 font-bold text-sm" oninput="runUpdate()">
-                        <input type="text" placeholder="Degree" class="w-full border-b mb-1 p-1 text-sm" oninput="runUpdate()">
-                        <div class="grid grid-cols-2 gap-2">
+                        <input type="text" placeholder="Degree / Course" class="w-full border-b mb-1 p-1 text-sm" oninput="runUpdate()">
+                        <div class="grid grid-cols-2 gap-2 mt-1">
                             <input type="text" placeholder="Start Date" class="border-b p-1 text-xs" oninput="runUpdate()">
                             <input type="text" placeholder="End/Expected Date" class="border-b p-1 text-xs" oninput="runUpdate()">
                         </div>
@@ -116,24 +119,24 @@
                     <div id="work-list"><div class="p-3 border bg-white rounded-lg entry mb-2">
                         <input type="text" placeholder="Job Title" class="w-full border-b mb-1 p-1 font-bold text-sm" oninput="runUpdate()">
                         <div class="grid grid-cols-2 gap-2 mt-1">
-                            <input type="text" placeholder="Company" class="border-b p-1 text-sm" oninput="runUpdate()">
+                            <input type="text" placeholder="Company Name" class="border-b p-1 text-sm" oninput="runUpdate()">
                             <input type="text" placeholder="Location" class="border-b p-1 text-sm" oninput="runUpdate()">
                         </div>
-                        <input type="text" placeholder="Date Range" class="w-full border-b mb-1 p-1 text-sm" oninput="runUpdate()">
-                        <textarea placeholder="Bullet points..." class="w-full p-1 h-20 text-sm border rounded" oninput="runUpdate()"></textarea>
+                        <input type="text" placeholder="Date Range" class="w-full border-b mb-1 p-1 text-sm mt-1" oninput="runUpdate()">
+                        <textarea placeholder="Bullet points of responsibilities..." class="w-full p-1 h-20 text-sm border rounded" oninput="runUpdate()"></textarea>
                     </div></div>
                 </section>
 
                 <section class="p-4 border rounded-xl bg-gray-50 shadow-sm">
                     <div class="flex justify-between items-center mb-2"><h3 class="font-bold uppercase text-xs">5. Projects</h3><button onclick="addEntry('proj-list')" class="bg-blue-600 text-white px-3 rounded-full shadow">+</button></div>
-                    <div id="proj-list"><div class="p-3 border bg-white rounded-lg entry mb-2"><input type="text" placeholder="Project Name" class="w-full border-b mb-1 p-1 font-bold text-sm" oninput="runUpdate()"><textarea placeholder="Description..." class="w-full p-1 h-20 text-sm border rounded" oninput="runUpdate()"></textarea></div></div>
+                    <div id="proj-list"><div class="p-3 border bg-white rounded-lg entry mb-2"><input type="text" placeholder="Project Name" class="w-full border-b mb-1 p-1 font-bold text-sm" oninput="runUpdate()"><textarea placeholder="Describe objective and results..." class="w-full p-1 h-16 text-sm border rounded" oninput="runUpdate()"></textarea></div></div>
                 </section>
 
                 <section class="p-4 border rounded-xl bg-gray-50 shadow-sm">
                     <div class="flex justify-between items-center mb-2"><h3 class="font-bold uppercase text-xs">6. Certifications</h3><button onclick="addEntry('cert-list')" class="bg-blue-600 text-white px-3 rounded-full shadow">+</button></div>
                     <div id="cert-list"><div class="p-3 border bg-white rounded-lg entry mb-2">
                         <input type="text" placeholder="Certificate Name" class="w-full border-b mb-1 p-1 font-bold text-sm" oninput="runUpdate()">
-                        <input type="text" placeholder="Issuer" class="w-full border-b p-1 text-sm" oninput="runUpdate()">
+                        <input type="text" placeholder="Issuer" class="w-full border-b mb-1 p-1 text-sm" oninput="runUpdate()">
                         <input type="text" placeholder="Credential URL (Optional)" class="w-full p-1 text-xs border rounded bg-gray-50 mt-1" oninput="runUpdate()">
                     </div></div>
                 </section>
@@ -141,11 +144,11 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <section class="p-4 border rounded-xl bg-white shadow-sm">
                         <h3 class="font-bold text-blue-900 uppercase text-xs mb-2">7. Tech Skills</h3>
-                        <textarea id="tech_sk" placeholder="e.g: CCNA, Python, AutoCAD" class="w-full p-2 border rounded text-xs h-24" oninput="runUpdate()"></textarea>
+                        <textarea id="tech_sk" placeholder="e.g: Python, AutoCAD, CCNA" class="w-full p-2 border rounded text-xs h-24" oninput="runUpdate()"></textarea>
                     </section>
                     <section class="p-4 border rounded-xl bg-white shadow-sm">
                         <h3 class="font-bold text-blue-900 uppercase text-xs mb-2">8. Soft Skills</h3>
-                        <textarea id="soft_sk" placeholder="e.g: Teamwork, Communication" class="w-full p-2 border rounded text-xs h-24" oninput="runUpdate()"></textarea>
+                        <textarea id="soft_sk" placeholder="e.g: Leadership, Teamwork" class="w-full p-2 border rounded text-xs h-24" oninput="runUpdate()"></textarea>
                     </section>
                 </div>
 
@@ -157,9 +160,15 @@
                 <section class="p-4 border rounded-xl bg-gray-50 shadow-sm">
                     <div class="flex justify-between items-center mb-2"><h3 class="font-bold uppercase text-xs">10. References</h3><button onclick="addEntry('ref-list')" class="bg-blue-600 text-white px-3 rounded-full shadow">+</button></div>
                     <div id="ref-list"><div class="p-3 border bg-white rounded-lg entry mb-2">
-                        <input type="text" placeholder="Name" class="w-full border-b mb-1 p-1 font-bold text-sm" oninput="runUpdate()">
-                        <input type="text" placeholder="Position & Organization" class="w-full border-b mb-1 p-1 text-sm" oninput="runUpdate()">
-                        <input type="text" placeholder="Contact Info" class="w-full border-b p-1 text-sm" oninput="runUpdate()">
+                        <input type="text" placeholder="Referee Name" class="w-full border-b mb-1 p-1 font-bold text-sm" oninput="runUpdate()">
+                        <div class="grid grid-cols-2 gap-2 mt-1">
+                            <input type="text" placeholder="Position" class="border-b p-1 text-xs" oninput="runUpdate()">
+                            <input type="text" placeholder="Organization" class="border-b p-1 text-xs" oninput="runUpdate()">
+                        </div>
+                        <div class="grid grid-cols-2 gap-2 mt-1">
+                            <input type="text" placeholder="Phone Number" class="border-b p-1 text-xs" oninput="runUpdate()">
+                            <input type="text" placeholder="Email Address" class="border-b p-1 text-xs" oninput="runUpdate()">
+                        </div>
                     </div></div>
                 </section>
             </div>
@@ -224,7 +233,9 @@
             fillList('work-list', 'p-work', (i, b) => `<div class="mb-4 text-[10.5pt]"><div class="item-header"><span>${i[0].value}</span><span>${i[3].value}</span></div><i>${i[1].value}${i[2].value ? ', '+i[2].value : ''}</i><ul class="mt-1">${b}</ul></div>`);
             fillList('proj-list', 'p-proj', (i, b) => `<div class="mb-4 text-[10.5pt]"><div class="item-header"><span>${i[0].value}</span></div><ul class="mt-1">${b}</ul></div>`);
             fillSection('cert-list', 'p-cert', i => `<div class="mb-1 text-[10.5pt]"><b>${i[0].value}</b> - ${i[1].value}${i[2].value ? ' (Link: '+i[2].value+')' : ''}</div>`);
-            fillSection('ref-list', 'p-ref', i => `<div class="text-[10pt]"><b>${i[0].value}</b><br>${i[1].value}<br>${i[2].value}</div>`);
+            
+            // New References separation
+            fillSection('ref-list', 'p-ref', i => `<div class="text-[10pt]"><b>${i[0].value}</b><br>${i[1].value}, ${i[2].value}<br>P: ${i[3].value} | E: ${i[4].value}</div>`);
         }
 
         function fillSection(id, out, tmpl) { let h = ''; document.querySelectorAll(`#${id} .entry`).forEach(el => { const i = el.querySelectorAll('input'); if(i[0].value) h += tmpl(i); }); document.getElementById(out).innerHTML = h; }
@@ -232,11 +243,11 @@
         function addEntry(id) { const container = document.getElementById(id); const clone = container.children[0].cloneNode(true); clone.querySelectorAll('input, textarea').forEach(v => v.value = ''); container.appendChild(clone); runUpdate(); }
 
         function askAI(type) {
-            let p = `Write 3 professional resume summaries for a ${document.getElementById('prog').value || 'student'}.`;
-            navigator.clipboard.writeText(p).then(() => alert("Prompt copied!"));
+            let p = `Write 3 professional summaries for a student in ${document.getElementById('prog').value || 'university'}.`;
+            navigator.clipboard.writeText(p).then(() => alert("AI Prompt Copied!"));
         }
 
-        function resetAll() { if(confirm("Reset all?")) location.reload(); }
+        function resetAll() { if(confirm("Reset all data?")) location.reload(); }
 
         function printResume() {
             const content = document.getElementById('pdf-area').innerHTML;
@@ -253,7 +264,7 @@
             const email = document.getElementById('email').value;
             if(!name || !email) { alert("Enter Name & Email."); return; }
             const btn = document.getElementById('btnSubmit');
-            btn.innerText = "Saving..."; btn.disabled = true;
+            btn.innerText = "Submitting..."; btn.disabled = true;
             const css = document.getElementById('resume-styles').innerHTML;
             const fullHtml = `<html><head><style>${css}</style></head><body><div class="${document.getElementById('pdf-area').className}" style="width:210mm; padding:15mm; margin:auto; background:white;">${document.getElementById('pdf-area').innerHTML}</div></body></html>`;
 
@@ -262,7 +273,7 @@
                 faculty: document.getElementById('faculty').value, name: name, email: email, phone: document.getElementById('phone').value,
                 templateType: document.querySelector('input[name="tmpx"]:checked').value === 'std' ? "Photo Layout" : "ATS Layout", htmlForPdf: fullHtml
             };
-            try { await fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) }); alert("✅ Saved!"); printResume(); } 
+            try { await fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) }); alert("✅ Saved Successfully!"); printResume(); } 
             catch(e) { printResume(); }
             finally { btn.disabled = false; btn.innerText = "Download & Submit"; }
         }
