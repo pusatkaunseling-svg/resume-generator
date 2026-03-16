@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PUSKA Resume Generator v5.4 OFFICIAL</title>
+    <title>PUSKA Resume Generator v5.5 (English)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style id="resume-styles">
-        /* CSS PAPARAN SISTEM & HASIL AKHIR */
+        /* PREVIEW & PRINT CSS */
         .resume-preview {
             font-family: 'Arial', sans-serif; color: #1a1a1a; line-height: 1.4; background: white;
             min-height: 297mm; width: 100%; padding: 15mm; box-sizing: border-box; border: 1px solid #ddd;
@@ -31,87 +31,90 @@
                 <img src="https://drive.google.com/thumbnail?id=1MvbeFj62QwwzGHvUCNrmjYqX6IrWTQxN&sz=w200" alt="PUSKA" class="max-h-[60px]">
                 <div>
                     <h1 class="text-2xl font-black text-blue-900 leading-none">PUSKA</h1>
-                    <p class="text-sm font-bold text-gray-600 tracking-widest uppercase">RESUME GENERATOR v5.4</p>
+                    <p class="text-sm font-bold text-gray-600 tracking-widest uppercase">RESUME GENERATOR v5.5</p>
                 </div>
             </div>
 
-            <div class="bg-blue-50 p-4 rounded-xl border border-blue-200 mb-6 space-y-3">
+            <div class="bg-blue-50 p-4 rounded-xl border border-blue-200 mb-6 space-y-3 shadow-inner">
                 <div class="grid grid-cols-2 gap-2">
-                    <div><label class="font-bold text-blue-900 text-[10px] uppercase">Level</label>
-                        <select id="level" class="w-full p-2 border rounded bg-white" onchange="runUpdate()"><option value="Undergraduate">Undergraduate</option><option value="Diploma">Diploma</option><option value="Postgraduate">Postgraduate</option></select>
+                    <div><label class="font-bold text-blue-900 text-[10px] uppercase">Level of Study</label>
+                        <select id="level" class="w-full p-2 border rounded bg-white mt-1" onchange="runUpdate()">
+                            <option value="Undergraduate">Undergraduate</option><option value="Diploma">Diploma</option><option value="Postgraduate">Postgraduate</option>
+                        </select>
                     </div>
-                    <div><label class="font-bold text-blue-900 text-[10px] uppercase">Year</label>
-                        <select id="year" class="w-full p-2 border rounded bg-white" onchange="runUpdate()"><option value="Year 1">Year 1</option><option value="Year 2">Year 2</option><option value="Year 3">Year 3</option><option value="Year 4">Year 4</option></select>
+                    <div><label class="font-bold text-blue-900 text-[10px] uppercase">Year of Study</label>
+                        <select id="year" class="w-full p-2 border rounded bg-white mt-1" onchange="runUpdate()">
+                            <option value="Year 1">Year 1</option><option value="Year 2">Year 2</option><option value="Year 3">Year 3</option><option value="Year 4">Year 4</option>
+                        </select>
                     </div>
                 </div>
-                <div><label class="text-[10px] font-bold text-blue-900 uppercase">Fakulti</label>
-                    <select id="faculty" class="w-full p-2 border rounded bg-white text-sm" onchange="runUpdate()">
-                        <option value="Fakulti Kejuruteraan & Teknologi Elektrik">Fakulti Kejuruteraan & Teknologi Elektrik</option>
-                        <option value="Fakulti Kejuruteraan & Teknologi Elektronik">Fakulti Kejuruteraan & Teknologi Elektronik</option>
-                        <option value="Fakulti Kejuruteraan & Teknologi Kimia">Fakulti Kejuruteraan & Teknologi Kimia</option>
-                        <option value="Fakulti Kejuruteraan & Teknologi Mekanikal">Fakulti Kejuruteraan & Teknologi Mekanikal</option>
-                        <option value="Fakulti Kejuruteraan & Teknologi Awam">Fakulti Kejuruteraan & Teknologi Awam</option>
-                        <option value="Fakulti Komputeran Cerdas">Fakulti Komputeran Cerdas</option>
-                        <option value="Fakulti Perniagaan & Komunikasi">Fakulti Perniagaan & Komunikasi</option>
+                <div><label class="text-[10px] font-bold text-blue-900 uppercase">Faculty</label>
+                    <select id="faculty" class="w-full p-2 border rounded bg-white text-sm mt-1" onchange="runUpdate()">
+                        <option value="Faculty of Electrical Engineering & Technology">Faculty of Electrical Engineering & Technology</option>
+                        <option value="Faculty of Electronic Engineering & Technology">Faculty of Electronic Engineering & Technology</option>
+                        <option value="Faculty of Chemical Engineering & Technology">Faculty of Chemical Engineering & Technology</option>
+                        <option value="Faculty of Mechanical Engineering & Technology">Faculty of Mechanical Engineering & Technology</option>
+                        <option value="Faculty of Civil Engineering & Technology">Faculty of Civil Engineering & Technology</option>
+                        <option value="Faculty of Intelligent Computing">Faculty of Intelligent Computing</option>
+                        <option value="Faculty of Business & Communication">Faculty of Business & Communication</option>
                     </select>
                 </div>
-                <div><label class="text-[10px] font-bold text-blue-900 uppercase">Nama Program</label>
-                    <select id="prog" class="w-full p-2 border rounded bg-white text-sm font-semibold" onchange="runUpdate()">
-                        <option value="">-- Sila Pilih Program --</option>
-                        <option value="Pascasiswazah (PhD)">Pascasiswazah (PhD)</option>
-                        <option value="Pascasiswazah (Sarjana)">Pascasiswazah (Sarjana)</option>
-                        <option value="Sarjana Muda Kejuruteraan Alam Sekitar">Sarjana Muda Kejuruteraan Alam Sekitar</option>
-                        <option value="Sarjana Muda Teknologi Kejuruteraan Awam (Pembinaan)">Sarjana Muda Teknologi Kejuruteraan Awam (Pembinaan)</option>
-                        <option value="Sarjana Muda Teknologi Pembinaan Bangunan">Sarjana Muda Teknologi Pembinaan Bangunan</option>
-                        <option value="Sarjana Muda Kejuruteraan Mikroelektronik">Sarjana Muda Kejuruteraan Mikroelektronik</option>
-                        <option value="Sarjana Muda Kejuruteraan Komputer">Sarjana Muda Kejuruteraan Komputer</option>
-                        <option value="Sarjana Muda Kejuruteraan Elektronik Bioperubatan">Sarjana Muda Kejuruteraan Elektronik Bioperubatan</option>
-                        <option value="Sarjana Muda Kejuruteraan Elektronik">Sarjana Muda Kejuruteraan Elektronik</option>
-                        <option value="Sarjana Muda Teknologi Kejuruteraan Elektronik (Sistem Elektronik)">Sarjana Muda Teknologi Kejuruteraan Elektronik (Sistem Elektronik)</option>
-                        <option value="Sarjana Muda Teknologi Kejuruteraan Elektronik (Reka Bentuk Telekomunikasi Elektronik)">Sarjana Muda Teknologi Kejuruteraan Elektronik (Reka Bentuk Telekomunikasi Elektronik)</option>
-                        <option value="Sarjana Muda Teknologi Kejuruteraan Elektronik (Reka Bentuk Rangkaian Elektronik)">Sarjana Muda Teknologi Kejuruteraan Elektronik (Reka Bentuk Rangkaian Elektronik)</option>
-                        <option value="Sarjana Muda Teknologi Automasi Elektronik Industri">Sarjana Muda Teknologi Automasi Elektronik Industri</option>
-                        <option value="Sarjana Muda Kejuruteraan Elektrik">Sarjana Muda Kejuruteraan Elektrik</option>
-                        <option value="Sarjana Muda Kejuruteraan Mekatronik">Sarjana Muda Kejuruteraan Mekatronik</option>
-                        <option value="Sarjana Muda Teknologi Kejuruteraan Elektrik (Kuasa Industri)">Sarjana Muda Teknologi Kejuruteraan Elektrik (Kuasa Industri)</option>
-                        <option value="Sarjana Muda Teknologi Kejuruteraan Elektrik (Teknologi Robotik dan Automasi)">Sarjana Muda Teknologi Kejuruteraan Elektrik (Teknologi Robotik dan Automasi)</option>
-                        <option value="Sarjana Muda Teknologi Penyelenggaraan Sistem Elektrik">Sarjana Muda Teknologi Penyelenggaraan Sistem Elektrik</option>
-                        <option value="Sarjana Muda Kejuruteraan Bahan">Sarjana Muda Kejuruteraan Bahan</option>
-                        <option value="Sarjana Muda Kejuruteraan Kimia">Sarjana Muda Kejuruteraan Kimia</option>
-                        <option value="Sarjana Muda Kejuruteraan Polimer">Sarjana Muda Kejuruteraan Polimer</option>
-                        <option value="Sarjana Muda Teknologi Kejuruteraan Kimia (Teknologi Makanan)">Sarjana Muda Teknologi Kejuruteraan Kimia (Teknologi Makanan)</option>
-                        <option value="Sarjana Muda Teknologi Kejuruteraan Kimia (Proses Kimia Industri)">Sarjana Muda Teknologi Kejuruteraan Kimia (Proses Kimia Industri)</option>
-                        <option value="Sarjana Muda Teknologi Kejuruteraan Kimia (Bioteknologi Industri)">Sarjana Muda Teknologi Kejuruteraan Kimia (Bioteknologi Industri)</option>
-                        <option value="Sarjana Muda Kejuruteraan Mekanikal">Sarjana Muda Kejuruteraan Mekanikal</option>
-                        <option value="Sarjana Muda Kejuruteraan Pembuatan">Sarjana Muda Kejuruteraan Pembuatan</option>
-                        <option value="Sarjana Muda Kejuruteraan Pertanian">Sarjana Muda Kejuruteraan Pertanian</option>
-                        <option value="Sarjana Muda Teknologi Kejuruteraan Mekanikal (Pemesinan)">Sarjana Muda Teknologi Kejuruteraan Mekanikal (Pemesinan)</option>
-                        <option value="Sarjana Muda Teknologi Kejuruteraan Mekanikal (Sistem Pertanian)">Sarjana Muda Teknologi Kejuruteraan Mekanikal (Sistem Pertanian)</option>
-                        <option value="Sarjana Muda Teknologi Kejuruteraan Mekanikal (Reka Bentuk Produk)">Sarjana Muda Teknologi Kejuruteraan Mekanikal (Reka Bentuk Produk)</option>
-                        <option value="Sarjana Muda Teknologi Kejuruteraan Mekanikal (Pemprosesan Bahan)">Sarjana Muda Teknologi Kejuruteraan Mekanikal (Pemprosesan Bahan)</option>
-                        <option value="Sarjana Muda Teknologi dalam Pemesinan Industri">Sarjana Muda Teknologi dalam Pemesinan Industri</option>
-                        <option value="Sarjana Muda Teknologi dalam Automotif">Sarjana Muda Teknologi dalam Automotif</option>
-                        <option value="Sarjana Muda Teknologi dalam Kimpalan">Sarjana Muda Teknologi dalam Kimpalan</option>
-                        <option value="Sarjana Muda Komunikasi Media Baharu">Sarjana Muda Komunikasi Media Baharu</option>
-                        <option value="Sarjana Muda Perniagaan (Perniagaan Antarabangsa)">Sarjana Muda Perniagaan (Perniagaan Antarabangsa)</option>
-                        <option value="Sarjana Muda Perniagaan (Keusahawanan Kejuruteraan)">Sarjana Muda Perniagaan (Keusahawanan Kejuruteraan)</option>
-                        <option value="Diploma Kejuruteraan Komputer">Diploma Kejuruteraan Komputer</option>
-                        <option value="Diploma Kejuruteraan Elektronik">Diploma Kejuruteraan Elektronik</option>
-                        <option value="Diploma Kejuruteraan Elektrik">Diploma Kejuruteraan Elektrik</option>
-                        <option value="Diploma Kejuruteraan Mekatronik">Diploma Kejuruteraan Mekatronik</option>
-                        <option value="Diploma Teknologi Kejuruteraan Mekanikal">Diploma Teknologi Kejuruteraan Mekanikal</option>
-                        <option value="Diploma Kejuruteraan Pembuatan">Diploma Kejuruteraan Pembuatan</option>
-                        <option value="Diploma Kejuruteraan Bahan">Diploma Kejuruteraan Bahan</option>
-                        <option value="Sarjana Muda Kejuruteraan Awam">Sarjana Muda Kejuruteraan Awam</option>
-                        <option value="Sarjana Muda Perakaunan">Sarjana Muda Perakaunan</option>
-                        <option value="Sarjana Muda Teknologi Media Interaktif">Sarjana Muda Teknologi Media Interaktif</option>
-                        <option value="Sarjana Muda Sains Data (Kecerdasan Buatan)">Sarjana Muda Sains Data (Kecerdasan Buatan)</option>
-                        <option value="Sarjana Muda Sains Gunaan (Teknologi Bahan dan Metalurgi)">Sarjana Muda Sains Gunaan (Teknologi Bahan dan Metalurgi)</option>
+                <div><label class="text-[10px] font-bold text-blue-900 uppercase">Program Name</label>
+                    <select id="prog" class="w-full p-2 border rounded bg-white text-sm font-semibold mt-1" onchange="runUpdate()">
+                        <option value="">-- Select Program --</option>
+                        <option value="Postgraduate (PhD)">Postgraduate (PhD)</option>
+                        <option value="Postgraduate (Master)">Postgraduate (Master)</option>
+                        <option value="Bachelor of Environmental Engineering">Bachelor of Environmental Engineering</option>
+                        <option value="Bachelor of Civil Engineering Technology (Construction)">Bachelor of Civil Engineering Technology (Construction)</option>
+                        <option value="Bachelor of Building Construction Technology">Bachelor of Building Construction Technology</option>
+                        <option value="Bachelor of Microelectronic Engineering">Bachelor of Microelectronic Engineering</option>
+                        <option value="Bachelor of Computer Engineering">Bachelor of Computer Engineering</option>
+                        <option value="Bachelor of Biomedical Electronic Engineering">Bachelor of Biomedical Electronic Engineering</option>
+                        <option value="Bachelor of Electronic Engineering">Bachelor of Electronic Engineering</option>
+                        <option value="Bachelor of Electronic Engineering Technology (Electronic System)">Bachelor of Electronic Engineering Technology (Electronic System)</option>
+                        <option value="Bachelor of Electronic Engineering Technology (Electronic Telecommunication Design)">Bachelor of Electronic Engineering Technology (Electronic Telecommunication Design)</option>
+                        <option value="Bachelor of Electronic Engineering Technology (Electronic Network Design)">Bachelor of Electronic Engineering Technology (Electronic Network Design)</option>
+                        <option value="Bachelor of Industrial Electronic Automation Technology">Bachelor of Industrial Electronic Automation Technology</option>
+                        <option value="Bachelor of Electrical Engineering">Bachelor of Electrical Engineering</option>
+                        <option value="Bachelor of Mechatronic Engineering">Bachelor of Mechatronic Engineering</option>
+                        <option value="Bachelor of Electrical Engineering Technology (Industrial Power)">Bachelor of Electrical Engineering Technology (Industrial Power)</option>
+                        <option value="Bachelor of Electrical Engineering Technology (Robotics & Automation Technology)">Bachelor of Electrical Engineering Technology (Robotics & Automation Technology)</option>
+                        <option value="Bachelor of Electrical System Maintenance Technology">Bachelor of Electrical System Maintenance Technology</option>
+                        <option value="Bachelor of Materials Engineering">Bachelor of Materials Engineering</option>
+                        <option value="Bachelor of Chemical Engineering">Bachelor of Chemical Engineering</option>
+                        <option value="Bachelor of Polymer Engineering">Bachelor of Polymer Engineering</option>
+                        <option value="Bachelor of Chemical Engineering Technology (Food Technology)">Bachelor of Chemical Engineering Technology (Food Technology)</option>
+                        <option value="Bachelor of Chemical Engineering Technology (Industrial Chemical Process)">Bachelor of Chemical Engineering Technology (Industrial Chemical Process)</option>
+                        <option value="Bachelor of Chemical Engineering Technology (Industrial Biotechnology)">Bachelor of Chemical Engineering Technology (Industrial Biotechnology)</option>
+                        <option value="Bachelor of Mechanical Engineering">Bachelor of Mechanical Engineering</option>
+                        <option value="Bachelor of Manufacturing Engineering">Bachelor of Manufacturing Engineering</option>
+                        <option value="Bachelor of Agricultural Engineering">Bachelor of Agricultural Engineering</option>
+                        <option value="Bachelor of Mechanical Engineering Technology (Machining)">Bachelor of Mechanical Engineering Technology (Machining)</option>
+                        <option value="Bachelor of Mechanical Engineering Technology (Agricultural System)">Bachelor of Mechanical Engineering Technology (Agricultural System)</option>
+                        <option value="Bachelor of Mechanical Engineering Technology (Product Design)">Bachelor of Mechanical Engineering Technology (Product Design)</option>
+                        <option value="Bachelor of Mechanical Engineering Technology (Material Processing)">Bachelor of Mechanical Engineering Technology (Material Processing)</option>
+                        <option value="Bachelor of Technology in Industrial Machining">Bachelor of Technology in Industrial Machining</option>
+                        <option value="Bachelor of Technology in Automotive">Bachelor of Technology in Automotive</option>
+                        <option value="Bachelor of Technology in Welding">Bachelor of Technology in Welding</option>
+                        <option value="Bachelor of New Media Communication">Bachelor of New Media Communication</option>
+                        <option value="Bachelor of Business (International Business)">Bachelor of Business (International Business)</option>
+                        <option value="Bachelor of Business (Engineering Entrepreneurship)">Bachelor of Business (Engineering Entrepreneurship)</option>
+                        <option value="Bachelor of Accounting">Bachelor of Accounting</option>
+                        <option value="Bachelor of Interactive Media Technology">Bachelor of Interactive Media Technology</option>
+                        <option value="Bachelor of Data Science (Artificial Intelligence)">Bachelor of Data Science (Artificial Intelligence)</option>
+                        <option value="Bachelor of Applied Science (Materials Technology & Metallurgy)">Bachelor of Applied Science (Materials Technology & Metallurgy)</option>
+                        <option value="Diploma in Computer Engineering">Diploma in Computer Engineering</option>
+                        <option value="Diploma in Electronic Engineering">Diploma in Electronic Engineering</option>
+                        <option value="Diploma in Electrical Engineering">Diploma in Electrical Engineering</option>
+                        <option value="Diploma in Mechatronic Engineering">Diploma in Mechatronic Engineering</option>
+                        <option value="Diploma in Mechanical Engineering Technology">Diploma in Mechanical Engineering Technology</option>
+                        <option value="Diploma in Manufacturing Engineering">Diploma in Manufacturing Engineering</option>
+                        <option value="Diploma in Materials Engineering">Diploma in Materials Engineering</option>
                     </select>
                 </div>
             </div>
 
-            <div class="bg-yellow-50 p-3 rounded-lg border border-yellow-200 mb-6 flex justify-around">
+            <div class="bg-yellow-50 p-3 rounded-lg border border-yellow-200 mb-6 flex justify-around shadow-sm">
                 <label class="flex items-center gap-2 cursor-pointer font-bold text-sm"><input type="radio" name="tmpx" value="ats" checked onchange="toggleLayout()"> ATS Layout</label>
                 <label class="flex items-center gap-2 cursor-pointer font-bold text-sm"><input type="radio" name="tmpx" value="std" onchange="toggleLayout()"> Photo Layout</label>
             </div>
@@ -120,67 +123,67 @@
                 <section class="p-4 border rounded-xl bg-white shadow-sm entry">
                     <h3 class="font-bold border-b-2 border-blue-500 mb-3 text-blue-900 uppercase text-xs">1. Personal Info</h3>
                     <div id="photo-area" class="hidden mb-3 p-2 bg-gray-50 border rounded text-center"><input type="file" accept="image/*" class="text-xs" onchange="loadPhoto(this)"></div>
-                    <input type="text" id="name" placeholder="Nama Penuh" class="w-full p-2 border rounded mb-2 font-bold uppercase" oninput="runUpdate()">
-                    <input type="text" id="email" placeholder="Email" class="w-full p-2 border rounded mb-2" oninput="runUpdate()">
-                    <input type="text" id="phone" placeholder="No. Telefon" class="w-full p-2 border rounded mb-2" oninput="runUpdate()">
-                    <input type="text" id="address" placeholder="Alamat (Bandar, Negeri)" class="w-full p-2 border rounded mb-2" oninput="runUpdate()">
-                    <input type="text" id="linkedin" placeholder="LinkedIn URL" class="w-full p-2 border rounded mb-2" oninput="runUpdate()">
+                    <input type="text" id="name" placeholder="Full Name" class="w-full p-2 border rounded mb-2 font-bold uppercase" oninput="runUpdate()">
+                    <input type="text" id="email" placeholder="Email Address" class="w-full p-2 border rounded mb-2" oninput="runUpdate()">
+                    <input type="text" id="phone" placeholder="Phone Number" class="w-full p-2 border rounded mb-2" oninput="runUpdate()">
+                    <input type="text" id="address" placeholder="Address (City, State)" class="w-full p-2 border rounded mb-2" oninput="runUpdate()">
+                    <input type="text" id="linkedin" placeholder="LinkedIn URL (Optional)" class="w-full p-2 border rounded mb-2" oninput="runUpdate()">
                 </section>
 
                 <section class="p-4 border rounded-xl bg-white shadow-sm">
-                    <div class="flex justify-between items-center mb-2"><h3 class="font-bold border-b-2 border-blue-500 text-blue-900 uppercase text-xs">2. Professional Summary</h3><button onclick="askAI('summary')" class="ai-btn">✨ AI HELP</button></div>
-                    <textarea id="summary" placeholder="Ringkasan profil profesional anda..." class="w-full p-2 border rounded h-24 text-sm" oninput="runUpdate()"></textarea>
+                    <div class="flex justify-between items-center mb-2"><h3 class="font-bold border-b-2 border-blue-500 text-blue-900 uppercase text-xs">2. Professional Summary</h3><button onclick="askAI('summary')" class="ai-btn">✨ AI ASSIST</button></div>
+                    <textarea id="summary" placeholder="Briefly describe your career goals and key strengths..." class="w-full p-2 border rounded h-24 text-sm" oninput="runUpdate()"></textarea>
                 </section>
 
                 <section class="p-4 border rounded-xl bg-gray-50 shadow-sm">
                     <div class="flex justify-between items-center mb-2"><h3 class="font-bold uppercase text-xs">3. Education</h3><button onclick="addEntry('edu-list')" class="bg-blue-600 text-white px-3 rounded-full shadow">+</button></div>
-                    <div id="edu-list"><div class="p-3 border bg-white rounded-lg entry mb-2"><input type="text" placeholder="Institusi" class="w-full border-b mb-1 p-1 font-bold text-sm" oninput="runUpdate()"><input type="text" placeholder="Kelulusan" class="w-full border-b mb-1 p-1 text-sm" oninput="runUpdate()"><input type="text" placeholder="Tarikh (cth: 2020 - 2024)" class="w-full border-b mb-1 p-1 text-sm" oninput="runUpdate()"><div class="grid grid-cols-2 gap-2 mt-2"><input type="text" placeholder="CGPA" class="border rounded p-1 text-xs" oninput="runUpdate()"><input type="text" placeholder="Gred" class="border rounded p-1 text-xs" oninput="runUpdate()"></div></div></div>
+                    <div id="edu-list"><div class="p-3 border bg-white rounded-lg entry mb-2"><input type="text" placeholder="Institution" class="w-full border-b mb-1 p-1 font-bold text-sm" oninput="runUpdate()"><input type="text" placeholder="Degree / Course" class="w-full border-b mb-1 p-1 text-sm" oninput="runUpdate()"><input type="text" placeholder="Duration (e.g., 2021 - 2025)" class="w-full border-b mb-1 p-1 text-sm" oninput="runUpdate()"><div class="grid grid-cols-2 gap-2 mt-2"><input type="text" placeholder="CGPA" class="border rounded p-1 text-xs" oninput="runUpdate()"><input type="text" placeholder="Grade" class="border rounded p-1 text-xs" oninput="runUpdate()"></div></div></div>
                 </section>
 
                 <section class="p-4 border rounded-xl bg-gray-50 shadow-sm">
                     <div class="flex justify-between items-center mb-2"><h3 class="font-bold uppercase text-xs">4. Work Experience</h3><button onclick="addEntry('work-list')" class="bg-blue-600 text-white px-3 rounded-full shadow">+</button></div>
                     <div id="work-list"><div class="p-3 border bg-white rounded-lg entry mb-2">
-                        <input type="text" placeholder="Jawatan" class="w-full border-b mb-1 p-1 font-bold text-sm" oninput="runUpdate()">
+                        <input type="text" placeholder="Job Title" class="w-full border-b mb-1 p-1 font-bold text-sm" oninput="runUpdate()">
                         <div class="grid grid-cols-2 gap-2 mt-1">
-                            <input type="text" placeholder="Nama Syarikat" class="border-b p-1 text-sm" oninput="runUpdate()">
-                            <input type="text" placeholder="Lokasi" class="border-b p-1 text-sm" oninput="runUpdate()">
+                            <input type="text" placeholder="Company Name" class="border-b p-1 text-sm" oninput="runUpdate()">
+                            <input type="text" placeholder="Location" class="border-b p-1 text-sm" oninput="runUpdate()">
                         </div>
-                        <input type="text" placeholder="Tarikh (cth: Jan 2023 - Mac 2023)" class="w-full border-b mb-1 p-1 text-sm mt-1" oninput="runUpdate()">
-                        <div class="flex justify-between items-center my-1"><span class="text-[10px] font-bold text-gray-400 uppercase">Tanggungjawab</span><button onclick="askAI('exp', this)" class="ai-btn">✨ AI</button></div>
-                        <textarea placeholder="Bullet points..." class="w-full p-1 h-20 text-sm border rounded" oninput="runUpdate()"></textarea>
+                        <input type="text" placeholder="Period (e.g., Jan 2023 - Present)" class="w-full border-b mb-1 p-1 text-sm mt-1" oninput="runUpdate()">
+                        <div class="flex justify-between items-center my-1"><span class="text-[10px] font-bold text-gray-400 uppercase">Responsibilities</span><button onclick="askAI('exp', this)" class="ai-btn">✨ AI</button></div>
+                        <textarea placeholder="List your key responsibilities..." class="w-full p-1 h-20 text-sm border rounded" oninput="runUpdate()"></textarea>
                     </div></div>
                 </section>
 
                 <section class="p-4 border rounded-xl bg-gray-50 shadow-sm">
                     <div class="flex justify-between items-center mb-2"><h3 class="font-bold uppercase text-xs">5. Key Projects</h3><button onclick="addEntry('proj-list')" class="bg-blue-600 text-white px-3 rounded-full shadow">+</button></div>
-                    <div id="proj-list"><div class="p-3 border bg-white rounded-lg entry mb-2"><input type="text" placeholder="Nama Projek" class="w-full border-b mb-1 p-1 font-bold text-sm" oninput="runUpdate()"><div class="flex justify-between items-center my-1"><span class="text-[10px] font-bold text-gray-400 uppercase">Penerangan</span><button onclick="askAI('proj', this)" class="ai-btn">✨ AI</button></div><textarea placeholder="Penerangan projek..." class="w-full p-1 h-20 text-sm border rounded" oninput="runUpdate()"></textarea></div></div>
+                    <div id="proj-list"><div class="p-3 border bg-white rounded-lg entry mb-2"><input type="text" placeholder="Project Name" class="w-full border-b mb-1 p-1 font-bold text-sm" oninput="runUpdate()"><div class="flex justify-between items-center my-1"><span class="text-[10px] font-bold text-gray-400 uppercase">Description</span><button onclick="askAI('proj', this)" class="ai-btn">✨ AI</button></div><textarea placeholder="Describe the project objective and results..." class="w-full p-1 h-20 text-sm border rounded" oninput="runUpdate()"></textarea></div></div>
                 </section>
 
                 <section class="p-4 border rounded-xl bg-gray-50 shadow-sm">
                     <div class="flex justify-between items-center mb-2"><h3 class="font-bold uppercase text-xs">6. Certifications</h3><button onclick="addEntry('cert-list')" class="bg-blue-600 text-white px-3 rounded-full shadow">+</button></div>
-                    <div id="cert-list"><div class="p-3 border bg-white rounded-lg entry mb-2"><input type="text" placeholder="Nama Sijil" class="w-full border-b mb-1 p-1 font-bold text-sm" oninput="runUpdate()"><input type="text" placeholder="Pemberi Sijil" class="w-full p-1 text-sm border rounded" oninput="runUpdate()"></div></div>
+                    <div id="cert-list"><div class="p-3 border bg-white rounded-lg entry mb-2"><input type="text" placeholder="Certificate Name" class="w-full border-b mb-1 p-1 font-bold text-sm" oninput="runUpdate()"><input type="text" placeholder="Issuing Organization" class="w-full p-1 text-sm border rounded" oninput="runUpdate()"></div></div>
                 </section>
 
                 <div class="grid grid-cols-2 gap-4">
-                    <section class="p-4 border rounded-xl bg-white shadow-sm"><div class="flex justify-between items-center mb-2"><h3 class="font-bold text-blue-900 uppercase text-xs">7. Skills</h3><button onclick="askAI('skills')" class="ai-btn">✨ AI</button></div><textarea id="skills" placeholder="Hard/Soft skills..." class="w-full p-2 border rounded text-xs h-20" oninput="runUpdate()"></textarea></section>
-                    <section class="p-4 border rounded-xl bg-white shadow-sm"><div class="flex justify-between items-center mb-2"><h3 class="font-bold text-blue-900 uppercase text-xs">8. Languages</h3><button onclick="askAI('langs')" class="ai-btn">✨ AI</button></div><textarea id="langs" placeholder="Languages..." class="w-full p-2 border rounded text-xs h-20" oninput="runUpdate()"></textarea></section>
+                    <section class="p-4 border rounded-xl bg-white shadow-sm"><div class="flex justify-between items-center mb-2"><h3 class="font-bold text-blue-900 uppercase text-xs">7. Skills</h3><button onclick="askAI('skills')" class="ai-btn">✨ AI</button></div><textarea id="skills" placeholder="Technical & Soft skills..." class="w-full p-2 border rounded text-xs h-20" oninput="runUpdate()"></textarea></section>
+                    <section class="p-4 border rounded-xl bg-white shadow-sm"><div class="flex justify-between items-center mb-2"><h3 class="font-bold text-blue-900 uppercase text-xs">8. Languages</h3><button onclick="askAI('langs')" class="ai-btn">✨ AI</button></div><textarea id="langs" placeholder="Spoken & Written languages..." class="w-full p-2 border rounded text-xs h-20" oninput="runUpdate()"></textarea></section>
                 </div>
 
                 <section class="p-4 border rounded-xl bg-gray-50 shadow-sm">
                     <div class="flex justify-between items-center mb-2"><h3 class="font-bold uppercase text-xs">9. References</h3><button onclick="addEntry('ref-list')" class="bg-blue-600 text-white px-3 rounded-full shadow">+</button></div>
                     <div id="ref-list"><div class="p-3 border bg-white rounded-lg entry mb-2">
-                        <input type="text" placeholder="Nama Rujukan" class="w-full border-b mb-1 p-1 font-bold text-sm" oninput="runUpdate()">
-                        <input type="text" placeholder="Jawatan" class="w-full border-b mb-1 p-1 text-sm" oninput="runUpdate()">
-                        <input type="text" placeholder="Organisasi" class="w-full border-b mb-1 p-1 text-sm" oninput="runUpdate()">
+                        <input type="text" placeholder="Referee Name" class="w-full border-b mb-1 p-1 font-bold text-sm" oninput="runUpdate()">
+                        <input type="text" placeholder="Position" class="w-full border-b mb-1 p-1 text-sm" oninput="runUpdate()">
+                        <input type="text" placeholder="Organization" class="w-full border-b mb-1 p-1 text-sm" oninput="runUpdate()">
                         <input type="text" placeholder="Email" class="w-full border-b mb-1 p-1 text-sm" oninput="runUpdate()">
-                        <input type="text" placeholder="No. Telefon" class="w-full p-1 text-sm border rounded" oninput="runUpdate()">
+                        <input type="text" placeholder="Phone Number" class="w-full p-1 text-sm border rounded" oninput="runUpdate()">
                     </div></div>
                 </section>
             </div>
 
             <div class="mt-8 flex gap-2">
                 <button onclick="resetAll()" class="w-1/3 bg-gray-400 text-white py-4 rounded-xl font-bold uppercase text-sm">Reset</button>
-                <button onclick="submitDatabase()" id="btnSubmit" class="w-2/3 bg-blue-800 text-white py-4 rounded-xl font-bold uppercase tracking-widest text-sm shadow-xl">Download & Submit</button>
+                <button onclick="submitDatabase()" id="btnSubmit" class="w-2/3 bg-blue-800 text-white py-4 rounded-xl font-bold uppercase tracking-widest text-sm shadow-xl hover:bg-black transition">Download & Submit</button>
             </div>
         </div>
 
@@ -233,13 +236,11 @@
             document.getElementById('p-summary').innerText = document.getElementById('summary').value;
 
             fillSection('edu-list', 'p-edu', i => `<div class="mb-3 text-[10.5pt]"><div class="item-header"><span>${i[0].value}</span><span>${i[2].value}</span></div><i>${i[1].value}</i><br>${i[3].value ? 'CGPA: '+i[3].value : ''} ${i[4].value ? '| Grade: '+i[4].value : ''}</div>`);
-            
             fillList('work-list', 'p-work', (i, b) => {
                 let comp = i[1].value; let loc = i[2].value;
                 let joined = comp + (loc ? ", " + loc : "");
                 return `<div class="mb-4 text-[10.5pt]"><div class="item-header"><span>${i[0].value}</span><span>${i[3].value}</span></div><i>${joined}</i><ul class="mt-1">${b}</ul></div>`;
             });
-
             fillList('proj-list', 'p-proj', (i, b) => `<div class="mb-4 text-[10.5pt]"><div class="item-header"><span>${i[0].value}</span></div><ul class="mt-1">${b}</ul></div>`);
             fillSection('cert-list', 'p-cert', i => `<div class="mb-1 text-[10.5pt]"><b>${i[0].value}</b> - ${i[1].value}</div>`);
             fillSection('ref-list', 'p-ref', i => `<div class="text-[10pt]"><b>${i[0].value}</b><br>${i[1].value}<br>${i[2].value}<br>E: ${i[3].value} | P: ${i[4].value}</div>`);
@@ -254,52 +255,43 @@
         function addEntry(id) { const container = document.getElementById(id); const clone = container.children[0].cloneNode(true); clone.querySelectorAll('input, textarea').forEach(v => v.value = ''); container.appendChild(clone); runUpdate(); }
 
         function askAI(type, btn) {
-            let p = ""; let kos = document.getElementById('prog').value || "pelajar universiti";
+            let p = ""; let kos = document.getElementById('prog').value || "university student";
             if(type==='summary') p = `Write 3 professional resume summary for a student in ${kos} field.`;
-            else if(type==='exp') p = `Write 5 professional bullet points for ${btn.closest('.entry').querySelector('input').value}.`;
-            else if(type==='proj') p = `Describe achievements for project ${btn.closest('.entry').querySelector('input').value}.`;
+            else if(type==='exp') p = `Write 5 professional bullet points for the position of ${btn.closest('.entry').querySelector('input').value}.`;
             else p = "List 10 relevant skills for " + kos;
-            navigator.clipboard.writeText(p).then(() => alert("Prompt disalin! Paste di ChatGPT."));
+            navigator.clipboard.writeText(p).then(() => alert("Prompt copied! Paste it into ChatGPT/Gemini."));
         }
 
         function saveDraft() {
-            const data = { 
-                n: document.getElementById('name').value, e: document.getElementById('email').value,
-                l: document.getElementById('level').value, y: document.getElementById('year').value,
-                f: document.getElementById('faculty').value, p: document.getElementById('prog').value
-            };
-            localStorage.setItem('puska_v5_4_final', JSON.stringify(data));
+            const data = { n: document.getElementById('name').value, e: document.getElementById('email').value };
+            localStorage.setItem('puska_v5_5_en', JSON.stringify(data));
         }
-
         function loadDraft() {
-            const d = JSON.parse(localStorage.getItem('puska_v5_4_final'));
-            if(d) {
-                document.getElementById('name').value = d.n; document.getElementById('email').value = d.e;
-                document.getElementById('level').value = d.l; document.getElementById('year').value = d.y;
-                document.getElementById('faculty').value = d.f; document.getElementById('prog').value = d.p;
-            }
+            const d = JSON.parse(localStorage.getItem('puska_v5_5_en'));
+            if(d) { document.getElementById('name').value = d.n; document.getElementById('email').value = d.e; }
         }
 
-        function resetAll() { if(confirm("Reset semua?")) { localStorage.removeItem('puska_v5_4_final'); location.reload(); } }
+        function resetAll() { if(confirm("Reset all data?")) { localStorage.removeItem('puska_v5_5_en'); location.reload(); } }
 
+        // STABLE PRINT IN NEW WINDOW
         function printResume() {
-            const printContent = document.getElementById('pdf-area').innerHTML;
+            const content = document.getElementById('pdf-area').innerHTML;
             const css = document.getElementById('resume-styles').innerHTML;
             const layoutClass = document.getElementById('pdf-area').className;
-            const printWindow = window.open('', '', 'width=900,height=1000');
-            printWindow.document.write(`
-                <html><head><style>${css}</style><style>body { background: white; margin: 0; padding: 0; } .resume-preview { border:none; width: 210mm; min-height: 297mm; margin: auto; }</style></head>
-                <body onload="setTimeout(()=> { window.print(); window.close(); }, 500)">
-                <div class="${layoutClass}">${printContent}</div></body></html>
+            const printWin = window.open('', '', 'width=900,height=1000');
+            printWin.document.write(`
+                <html><head><style>${css}</style><style>body{background:white;margin:0;padding:0;}.resume-preview{border:none;width:210mm;min-height:297mm;margin:auto;}</style></head>
+                <body onload="setTimeout(()=>{window.print();window.close();},500)"><div class="${layoutClass}">${content}</div></body></html>
             `);
-            printWindow.document.close();
+            printWin.document.close();
         }
 
         async function submitDatabase() {
-            const btn = document.getElementById('btnSubmit');
             const name = document.getElementById('name').value;
             const email = document.getElementById('email').value;
-            if(!name || !email) { alert("Isi Nama & Email."); return; }
+            if(!name || !email) { alert("Please enter Name and Email."); return; }
+            
+            const btn = document.getElementById('btnSubmit');
             btn.innerText = "Saving..."; btn.disabled = true;
 
             const layoutType = document.querySelector('input[name="tmpx"]:checked').value === 'std' ? "Photo Layout" : "ATS Layout";
@@ -315,7 +307,7 @@
 
             try { 
                 await fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) }); 
-                alert("✅ Data Berjaya Disimpan! Membuka tetingkap cetakan...");
+                alert("✅ Data Saved! Opening print preview...");
                 printResume();
             } catch(e) { printResume(); }
             finally { btn.disabled = false; btn.innerText = "Download & Submit"; }
