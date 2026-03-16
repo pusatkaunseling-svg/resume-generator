@@ -3,81 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PUSKA Resume Generator v5.2 OFFICIAL</title>
+    <title>PUSKA Resume Generator v5.3 OFFICIAL</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style id="resume-styles">
-        /* CSS UNTUK PAPARAN SISTEM & PRINT */
+        /* CSS PAPARAN DALAM SISTEM */
         .resume-preview {
-            font-family: 'Arial', sans-serif;
-            color: #1a1a1a;
-            line-height: 1.4;
-            background: white;
-            min-height: 297mm;
-            width: 100%;
-            padding: 15mm;
-            box-sizing: border-box;
-            border: 1px solid #ddd;
+            font-family: 'Arial', sans-serif; color: #1a1a1a; line-height: 1.4; background: white;
+            min-height: 297mm; width: 100%; padding: 15mm; box-sizing: border-box; border: 1px solid #ddd;
         }
         .resume-preview h1 { font-size: 18pt; font-weight: bold; text-transform: uppercase; margin: 0; color: black; }
         .resume-preview h2 { border-bottom: 2px solid #333; margin-top: 12px; margin-bottom: 5px; font-size: 13pt; font-weight: bold; text-transform: uppercase; text-align: left; color: black; }
-        
         .template-standard header { display: flex !important; align-items: center !important; gap: 20px !important; border-bottom: 3px solid #1e3a8a !important; padding-bottom: 15px; text-align: left !important; }
         .template-standard #photo-preview { width: 110px; height: 140px; border: 1px solid #ddd; object-fit: cover; display: block !important; }
         .template-standard h2 { background: #1e3a8a !important; color: white !important; border: none !important; padding: 5px 10px !important; }
-
         .item-header { display: flex; justify-content: space-between; font-weight: bold; font-size: 11pt; }
         .resume-preview ul { list-style-type: disc !important; margin-left: 1.2rem !important; }
         .section-content { font-size: 10.5pt; margin-bottom: 8px; }
         .ai-btn { background: linear-gradient(45deg, #1e3a8a, #3b82f6); color: white; padding: 2px 8px; border-radius: 6px; font-size: 10px; font-weight: bold; cursor: pointer; border: none; }
-
-        /* TEKNIK BARU: MEMAKSA RESUME KELUAR SEMASA PRINT */
-        @media print {
-            body { background: none !important; margin: 0 !important; padding: 0 !important; }
-            .no-print { display: none !important; }
-            
-            /* Sembunyikan semua kecuali pdf-area */
-            div:not(#pdf-area), section, header, footer, button, nav { display: none !important; }
-            
-            #pdf-area {
-                display: block !important;
-                position: fixed !important;
-                left: 0 !important;
-                top: 0 !important;
-                width: 210mm !important;
-                height: 297mm !important;
-                padding: 15mm !important;
-                margin: 0 !important;
-                border: none !important;
-                box-shadow: none !important;
-                z-index: 9999 !important;
-            }
-            * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
-        }
+        .no-print { display: block; }
+        @media print { .no-print { display: none !important; } }
     </style>
 </head>
 <body class="bg-gray-100 p-4">
     <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-6 no-print">
         
-        <div class="bg-white p-6 rounded-lg shadow h-[90vh] overflow-y-auto border-t-8 border-blue-900 no-print">
+        <div class="bg-white p-6 rounded-lg shadow h-[90vh] overflow-y-auto border-t-8 border-blue-900">
             <div class="flex items-center gap-4 border-b-2 border-blue-900 pb-4 mb-6">
                 <img src="https://drive.google.com/thumbnail?id=1MvbeFj62QwwzGHvUCNrmjYqX6IrWTQxN&sz=w200" alt="PUSKA" class="max-h-[60px]">
                 <div>
                     <h1 class="text-2xl font-black text-blue-900 leading-none">PUSKA</h1>
-                    <p class="text-sm font-bold text-gray-600 tracking-widest uppercase">RESUME GENERATOR v5.2</p>
+                    <p class="text-sm font-bold text-gray-600 tracking-widest uppercase">RESUME GENERATOR v5.3</p>
                 </div>
             </div>
 
-            <div class="bg-blue-50 p-4 rounded-xl border border-blue-200 mb-6 space-y-3 no-print">
+            <div class="bg-blue-50 p-4 rounded-xl border border-blue-200 mb-6 space-y-3">
                 <div class="grid grid-cols-2 gap-2">
                     <div><label class="font-bold text-blue-900 text-[10px] uppercase">Level</label>
-                        <select id="level" class="w-full p-2 border rounded bg-white" onchange="runUpdate()">
-                            <option value="Undergraduate">Undergraduate</option><option value="Diploma">Diploma</option><option value="Postgraduate">Postgraduate</option>
-                        </select>
+                        <select id="level" class="w-full p-2 border rounded bg-white" onchange="runUpdate()"><option value="Undergraduate">Undergraduate</option><option value="Diploma">Diploma</option><option value="Postgraduate">Postgraduate</option></select>
                     </div>
                     <div><label class="font-bold text-blue-900 text-[10px] uppercase">Year</label>
-                        <select id="year" class="w-full p-2 border rounded bg-white" onchange="runUpdate()">
-                            <option value="Year 1">Year 1</option><option value="Year 2">Year 2</option><option value="Year 3">Year 3</option><option value="Year 4">Year 4</option>
-                        </select>
+                        <select id="year" class="w-full p-2 border rounded bg-white" onchange="runUpdate()"><option value="Year 1">Year 1</option><option value="Year 2">Year 2</option><option value="Year 3">Year 3</option><option value="Year 4">Year 4</option></select>
                     </div>
                 </div>
                 <div><label class="text-[10px] font-bold text-blue-900 uppercase">Fakulti</label>
@@ -94,122 +59,38 @@
                 <div><label class="text-[10px] font-bold text-blue-900 uppercase">Nama Program</label>
                     <select id="prog" class="w-full p-2 border rounded bg-white text-sm font-semibold" onchange="runUpdate()">
                         <option value="">-- Sila Pilih Program --</option>
-                        <option value="Pascasiswazah (PhD)">Pascasiswazah (PhD)</option>
-                        <option value="Pascasiswazah (Sarjana)">Pascasiswazah (Sarjana)</option>
-                        <option value="Sarjana Muda Kejuruteraan Alam Sekitar">Sarjana Muda Kejuruteraan Alam Sekitar</option>
-                        <option value="Sarjana Muda Teknologi Kejuruteraan Awam (Pembinaan)">Sarjana Muda Teknologi Kejuruteraan Awam (Pembinaan)</option>
-                        <option value="Sarjana Muda Teknologi Pembinaan Bangunan">Sarjana Muda Teknologi Pembinaan Bangunan</option>
                         <option value="Sarjana Muda Kejuruteraan Mikroelektronik">Sarjana Muda Kejuruteraan Mikroelektronik</option>
                         <option value="Sarjana Muda Kejuruteraan Komputer">Sarjana Muda Kejuruteraan Komputer</option>
-                        <option value="Sarjana Muda Kejuruteraan Elektronik Bioperubatan">Sarjana Muda Kejuruteraan Elektronik Bioperubatan</option>
-                        <option value="Sarjana Muda Kejuruteraan Elektronik">Sarjana Muda Kejuruteraan Elektronik</option>
-                        <option value="Sarjana Muda Teknologi Kejuruteraan Elektronik (Sistem Elektronik)">Sarjana Muda Teknologi Kejuruteraan Elektronik (Sistem Elektronik)</option>
-                        <option value="Sarjana Muda Teknologi Kejuruteraan Elektronik (Reka Bentuk Telekomunikasi Elektronik)">Sarjana Muda Teknologi Kejuruteraan Elektronik (Reka Bentuk Telekomunikasi Elektronik)</option>
-                        <option value="Sarjana Muda Teknologi Kejuruteraan Elektronik (Reka Bentuk Rangkaian Elektronik)">Sarjana Muda Teknologi Kejuruteraan Elektronik (Reka Bentuk Rangkaian Elektronik)</option>
-                        <option value="Sarjana Muda Teknologi Automasi Elektronik Industri">Sarjana Muda Teknologi Automasi Elektronik Industri</option>
-                        <option value="Sarjana Muda Kejuruteraan Elektrik">Sarjana Muda Kejuruteraan Elektrik</option>
-                        <option value="Sarjana Muda Kejuruteraan Mekatronik">Sarjana Muda Kejuruteraan Mekatronik</option>
-                        <option value="Sarjana Muda Teknologi Kejuruteraan Elektrik (Kuasa Industri)">Sarjana Muda Teknologi Kejuruteraan Elektrik (Kuasa Industri)</option>
-                        <option value="Sarjana Muda Teknologi Kejuruteraan Elektrik (Teknologi Robotik dan Automasi)">Sarjana Muda Teknologi Kejuruteraan Elektrik (Teknologi Robotik dan Automasi)</option>
-                        <option value="Sarjana Muda Teknologi Penyelenggaraan Sistem Elektrik">Sarjana Muda Teknologi Penyelenggaraan Sistem Elektrik</option>
-                        <option value="Sarjana Muda Kejuruteraan Bahan">Sarjana Muda Kejuruteraan Bahan</option>
-                        <option value="Sarjana Muda Kejuruteraan Kimia">Sarjana Muda Kejuruteraan Kimia</option>
-                        <option value="Sarjana Muda Kejuruteraan Polimer">Sarjana Muda Kejuruteraan Polimer</option>
-                        <option value="Sarjana Muda Teknologi Kejuruteraan Kimia (Teknologi Makanan)">Sarjana Muda Teknologi Kejuruteraan Kimia (Teknologi Makanan)</option>
-                        <option value="Sarjana Muda Teknologi Kejuruteraan Kimia (Proses Kimia Industri)">Sarjana Muda Teknologi Kejuruteraan Kimia (Proses Kimia Industri)</option>
-                        <option value="Sarjana Muda Teknologi Kejuruteraan Kimia (Bioteknologi Industri)">Sarjana Muda Teknologi Kejuruteraan Kimia (Bioteknologi Industri)</option>
-                        <option value="Sarjana Muda Kejuruteraan Mekanikal">Sarjana Muda Kejuruteraan Mekanikal</option>
-                        <option value="Sarjana Muda Kejuruteraan Pembuatan">Sarjana Muda Kejuruteraan Pembuatan</option>
-                        <option value="Sarjana Muda Kejuruteraan Pertanian">Sarjana Muda Kejuruteraan Pertanian</option>
-                        <option value="Sarjana Muda Teknologi Kejuruteraan Mekanikal (Pemesinan)">Sarjana Muda Teknologi Kejuruteraan Mekanikal (Pemesinan)</option>
-                        <option value="Sarjana Muda Teknologi Kejuruteraan Mekanikal (Sistem Pertanian)">Sarjana Muda Teknologi Kejuruteraan Mekanikal (Sistem Pertanian)</option>
-                        <option value="Sarjana Muda Teknologi Kejuruteraan Mekanikal (Reka Bentuk Produk)">Sarjana Muda Teknologi Kejuruteraan Mekanikal (Reka Bentuk Produk)</option>
-                        <option value="Sarjana Muda Teknologi Kejuruteraan Mekanikal (Pemprosesan Bahan)">Sarjana Muda Teknologi Kejuruteraan Mekanikal (Pemprosesan Bahan)</option>
-                        <option value="Sarjana Muda Teknologi dalam Pemesinan Industri">Sarjana Muda Teknologi dalam Pemesinan Industri</option>
-                        <option value="Sarjana Muda Teknologi dalam Automotif">Sarjana Muda Teknologi dalam Automotif</option>
-                        <option value="Sarjana Muda Teknologi dalam Kimpalan">Sarjana Muda Teknologi dalam Kimpalan</option>
-                        <option value="Sarjana Muda Komunikasi Media Baharu">Sarjana Muda Komunikasi Media Baharu</option>
-                        <option value="Sarjana Muda Perniagaan (Perniagaan Antarabangsa)">Sarjana Muda Perniagaan (Perniagaan Antarabangsa)</option>
-                        <option value="Sarjana Muda Perniagaan (Keusahawanan Kejuruteraan)">Sarjana Muda Perniagaan (Keusahawanan Kejuruteraan)</option>
-                        <option value="Diploma Kejuruteraan Komputer">Diploma Kejuruteraan Komputer</option>
-                        <option value="Diploma Kejuruteraan Elektronik">Diploma Kejuruteraan Elektronik</option>
-                        <option value="Diploma Kejuruteraan Elektrik">Diploma Kejuruteraan Elektrik</option>
-                        <option value="Diploma Kejuruteraan Mekatronik">Diploma Kejuruteraan Mekatronik</option>
-                        <option value="Diploma Teknologi Kejuruteraan Mekanikal">Diploma Teknologi Kejuruteraan Mekanikal</option>
-                        <option value="Diploma Kejuruteraan Pembuatan">Diploma Kejuruteraan Pembuatan</option>
-                        <option value="Diploma Kejuruteraan Bahan">Diploma Kejuruteraan Bahan</option>
-                        <option value="Sarjana Muda Kejuruteraan Awam">Sarjana Muda Kejuruteraan Awam</option>
                         <option value="Sarjana Muda Perakaunan">Sarjana Muda Perakaunan</option>
-                        <option value="Sarjana Muda Teknologi Media Interaktif">Sarjana Muda Teknologi Media Interaktif</option>
-                        <option value="Sarjana Muda Sains Data (Kecerdasan Buatan)">Sarjana Muda Sains Data (Kecerdasan Buatan)</option>
-                        <option value="Sarjana Muda Sains Gunaan (Teknologi Bahan dan Metalurgi)">Sarjana Muda Sains Gunaan (Teknologi Bahan dan Metalurgi)</option>
-                    </select>
+                        </select>
                 </div>
             </div>
 
-            <div class="bg-yellow-50 p-3 rounded-lg border border-yellow-200 mb-6 flex justify-around no-print">
+            <div class="bg-yellow-50 p-3 rounded-lg border border-yellow-200 mb-6 flex justify-around">
                 <label class="flex items-center gap-2 cursor-pointer font-bold text-sm"><input type="radio" name="tmpx" value="ats" checked onchange="toggleLayout()"> ATS Layout</label>
                 <label class="flex items-center gap-2 cursor-pointer font-bold text-sm"><input type="radio" name="tmpx" value="std" onchange="toggleLayout()"> Photo Layout</label>
             </div>
 
-            <div class="space-y-6 no-print">
+            <div class="space-y-6">
                 <section class="p-4 border rounded-xl bg-white shadow-sm entry">
                     <h3 class="font-bold border-b-2 border-blue-500 mb-3 text-blue-900 uppercase text-xs">1. Personal Info</h3>
                     <div id="photo-area" class="hidden mb-3 p-2 bg-gray-50 border rounded text-center"><input type="file" accept="image/*" class="text-xs" onchange="loadPhoto(this)"></div>
                     <input type="text" id="name" placeholder="Full Name" class="w-full p-2 border rounded mb-2 font-bold uppercase" oninput="runUpdate()">
                     <input type="text" id="email" placeholder="Email Address" class="w-full p-2 border rounded mb-2" oninput="runUpdate()">
                     <input type="text" id="phone" placeholder="Phone Number" class="w-full p-2 border rounded mb-2" oninput="runUpdate()">
-                    <input type="text" id="address" placeholder="Address (City, State)" class="w-full p-2 border rounded mb-2" oninput="runUpdate()">
-                    <input type="text" id="linkedin" placeholder="LinkedIn URL" class="w-full p-2 border rounded mb-2" oninput="runUpdate()">
+                    <input type="text" id="address" placeholder="Address" class="w-full p-2 border rounded mb-2" oninput="runUpdate()">
                 </section>
-
                 <section class="p-4 border rounded-xl bg-white shadow-sm">
                     <div class="flex justify-between items-center mb-2"><h3 class="font-bold border-b-2 border-blue-500 text-blue-900 uppercase text-xs">2. Summary</h3><button onclick="askAI('summary')" class="ai-btn">✨ AI HELP</button></div>
                     <textarea id="summary" placeholder="Summary..." class="w-full p-2 border rounded h-24 text-sm" oninput="runUpdate()"></textarea>
                 </section>
-
                 <section class="p-4 border rounded-xl bg-gray-50 shadow-sm">
                     <div class="flex justify-between items-center mb-2"><h3 class="font-bold uppercase text-xs">3. Education</h3><button onclick="addEntry('edu-list')" class="bg-blue-600 text-white px-3 rounded-full shadow">+</button></div>
-                    <div id="edu-list"><div class="p-3 border bg-white rounded-lg entry mb-2"><input type="text" placeholder="Institution" class="w-full border-b mb-1 p-1 font-bold text-sm" oninput="runUpdate()"><input type="text" placeholder="Degree" class="w-full border-b mb-1 p-1 text-sm" oninput="runUpdate()"><input type="text" placeholder="Date" class="w-full border-b mb-1 p-1 text-sm" oninput="runUpdate()"><div class="grid grid-cols-2 gap-2 mt-2"><input type="text" placeholder="CGPA" class="border rounded p-1 text-xs" oninput="runUpdate()"><input type="text" placeholder="Grade" class="border rounded p-1 text-xs" oninput="runUpdate()"></div></div></div>
-                </section>
-
-                <section class="p-4 border rounded-xl bg-gray-50 shadow-sm">
-                    <div class="flex justify-between items-center mb-2"><h3 class="font-bold uppercase text-xs">4. Work Experience</h3><button onclick="addEntry('work-list')" class="bg-blue-600 text-white px-3 rounded-full shadow">+</button></div>
-                    <div id="work-list"><div class="p-3 border bg-white rounded-lg entry mb-2">
-                        <input type="text" placeholder="Job Title" class="w-full border-b mb-1 p-1 font-bold text-sm" oninput="runUpdate()">
-                        <div class="grid grid-cols-2 gap-2 mt-1">
-                            <input type="text" placeholder="Company Name" class="border-b p-1 text-sm" oninput="runUpdate()">
-                            <input type="text" placeholder="Location" class="border-b p-1 text-sm" oninput="runUpdate()">
-                        </div>
-                        <input type="text" placeholder="Date" class="w-full border-b mb-1 p-1 text-sm mt-1" oninput="runUpdate()">
-                        <div class="flex justify-between items-center my-1"><span class="text-[10px] font-bold text-gray-400 uppercase">Responsibilities</span><button onclick="askAI('exp', this)" class="ai-btn">✨ AI</button></div>
-                        <textarea placeholder="Bullet points..." class="w-full p-1 h-20 text-sm border rounded" oninput="runUpdate()"></textarea>
-                    </div></div>
-                </section>
-
-                <section class="p-4 border rounded-xl bg-gray-50 shadow-sm">
-                    <div class="flex justify-between items-center mb-2"><h3 class="font-bold uppercase text-xs">5. Key Projects</h3><button onclick="addEntry('proj-list')" class="bg-blue-600 text-white px-3 rounded-full shadow">+</button></div>
-                    <div id="proj-list"><div class="p-3 border bg-white rounded-lg entry mb-2"><input type="text" placeholder="Project Name" class="w-full border-b mb-1 p-1 font-bold text-sm" oninput="runUpdate()"><div class="flex justify-between items-center my-1"><span class="text-[10px] font-bold text-gray-400 uppercase">Description</span><button onclick="askAI('proj', this)" class="ai-btn">✨ AI</button></div><textarea placeholder="Description..." class="w-full p-1 h-20 text-sm border rounded" oninput="runUpdate()"></textarea></div></div>
-                </section>
-
-                <div class="grid grid-cols-2 gap-4">
-                    <section class="p-4 border rounded-xl bg-white shadow-sm"><div class="flex justify-between items-center mb-2"><h3 class="font-bold text-blue-900 uppercase text-xs">7. Skills</h3><button onclick="askAI('skills')" class="ai-btn">✨ AI</button></div><textarea id="skills" placeholder="Skills..." class="w-full p-2 border rounded text-xs h-20" oninput="runUpdate()"></textarea></section>
-                    <section class="p-4 border rounded-xl bg-white shadow-sm"><div class="flex justify-between items-center mb-2"><h3 class="font-bold text-blue-900 uppercase text-xs">8. Languages</h3><button onclick="askAI('langs')" class="ai-btn">✨ AI</button></div><textarea id="langs" placeholder="Langs..." class="w-full p-2 border rounded text-xs h-20" oninput="runUpdate()"></textarea></section>
-                </div>
-
-                <section class="p-4 border rounded-xl bg-gray-50 shadow-sm">
-                    <div class="flex justify-between items-center mb-2"><h3 class="font-bold uppercase text-xs">9. References</h3><button onclick="addEntry('ref-list')" class="bg-blue-600 text-white px-3 rounded-full shadow">+</button></div>
-                    <div id="ref-list"><div class="p-3 border bg-white rounded-lg entry mb-2">
-                        <input type="text" placeholder="Name" class="w-full border-b mb-1 p-1 font-bold text-sm" oninput="runUpdate()">
-                        <input type="text" placeholder="Position" class="w-full border-b mb-1 p-1 text-sm" oninput="runUpdate()">
-                        <input type="text" placeholder="Org" class="w-full border-b mb-1 p-1 text-sm" oninput="runUpdate()">
-                        <input type="text" placeholder="Email" class="w-full border-b mb-1 p-1 text-sm" oninput="runUpdate()">
-                        <input type="text" placeholder="Phone" class="w-full p-1 text-sm border rounded" oninput="runUpdate()">
-                    </div></div>
+                    <div id="edu-list"><div class="p-3 border bg-white rounded-lg entry mb-2"><input type="text" placeholder="Institution" class="w-full border-b mb-1 p-1 font-bold text-sm" oninput="runUpdate()"><input type="text" placeholder="Degree" class="w-full border-b mb-1 p-1 text-sm" oninput="runUpdate()"><input type="text" placeholder="Date" class="w-full border-b mb-1 p-1 text-sm" oninput="runUpdate()"><input type="text" placeholder="CGPA" class="border rounded p-1 text-xs" oninput="runUpdate()"></div></div>
                 </section>
             </div>
 
-            <div class="mt-8 flex gap-2 no-print">
+            <div class="mt-8 flex gap-2">
                 <button onclick="resetAll()" class="w-1/3 bg-gray-400 text-white py-4 rounded-xl font-bold uppercase text-sm">Reset</button>
                 <button onclick="submitDatabase()" id="btnSubmit" class="w-2/3 bg-blue-800 text-white py-4 rounded-xl font-bold uppercase tracking-widest text-sm shadow-xl">Download & Submit</button>
             </div>
@@ -222,15 +103,10 @@
                     <div class="w-full">
                         <h1 id="p-name">YOUR FULL NAME</h1>
                         <p style="font-size: 11pt; margin: 5px 0;"><span id="p-email">email@example.com</span> | <span id="p-phone">012-3456789</span> | <span id="p-address">Address</span></p>
-                        <p id="p-linkedin" style="color: blue; font-size: 10pt; font-style: italic;"></p>
                     </div>
                 </header>
                 <section><h2>Professional Summary</h2><p id="p-summary" class="section-content text-justify"></p></section>
                 <section><h2>Education</h2><div id="p-edu" class="section-content"></div></section>
-                <section><h2>Work Experience</h2><div id="p-work" class="section-content"></div></section>
-                <section><h2>Key Projects</h2><div id="p-proj" class="section-content"></div></section>
-                <div class="grid grid-cols-2 gap-8"><section><h2>Skills</h2><p id="p-skills" class="section-content whitespace-pre-line"></p></section><section><h2>Languages</h2><p id="p-langs" class="section-content whitespace-pre-line"></p></section></div>
-                <section><h2>References</h2><div id="p-ref" class="section-content grid grid-cols-2 gap-4"></div></section>
             </div>
         </div>
     </div>
@@ -256,77 +132,77 @@
             document.getElementById('p-email').innerText = document.getElementById('email').value || 'email@example.com';
             document.getElementById('p-phone').innerText = document.getElementById('phone').value || '012-3456789';
             document.getElementById('p-address').innerText = document.getElementById('address').value || 'Address';
-            document.getElementById('p-linkedin').innerText = document.getElementById('linkedin').value;
             document.getElementById('p-summary').innerText = document.getElementById('summary').value;
 
-            fillSection('edu-list', 'p-edu', i => `<div class="mb-3 text-[10.5pt]"><div class="item-header"><span>${i[0].value}</span><span>${i[2].value}</span></div><i>${i[1].value}</i><br>${i[3].value ? 'CGPA: '+i[3].value : ''} ${i[4].value ? '| Grade: '+i[4].value : ''}</div>`);
-            fillList('work-list', 'p-work', (i, b) => `<div class="mb-4 text-[10.5pt]"><div class="item-header"><span>${i[0].value}</span><span>${i[3].value}</span></div><i>${i[1].value}${i[2].value ? ', '+i[2].value : ''}</i><ul class="mt-1">${b}</ul></div>`);
-            fillList('proj-list', 'p-proj', (i, b) => `<div class="mb-4 text-[10.5pt]"><div class="item-header"><span>${i[0].value}</span></div><ul class="mt-1">${b}</ul></div>`);
-            fillSection('ref-list', 'p-ref', i => `<div class="text-[10pt]"><b>${i[0].value}</b><br>${i[1].value}<br>${i[2].value}<br>E: ${i[3].value} | P: ${i[4].value}</div>`);
-
-            document.getElementById('p-skills').innerText = document.getElementById('skills').value;
-            document.getElementById('p-langs').innerText = document.getElementById('langs').value;
+            fillSection('edu-list', 'p-edu', i => `<div class="mb-3 text-[10.5pt]"><div class="item-header"><span>${i[0].value}</span><span>${i[2].value}</span></div><i>${i[1].value}</i><br>CGPA: ${i[3].value}</div>`);
             saveDraft();
         }
 
         function fillSection(id, out, tmpl) { let h = ''; document.querySelectorAll(`#${id} .entry`).forEach(el => { const i = el.querySelectorAll('input'); if(i[0].value) h += tmpl(i); }); document.getElementById(out).innerHTML = h; }
-        function fillList(id, out, tmpl) { let h = ''; document.querySelectorAll(`#${id} .entry`).forEach(el => { const i = el.querySelectorAll('input'); const t = el.querySelector('textarea').value; if(i[0].value) { const b = t.split('\n').filter(l => l.trim()).map(l => `<li>${l}</li>`).join(''); h += tmpl(i, b); } }); document.getElementById(out).innerHTML = h; }
-
         function addEntry(id) { const container = document.getElementById(id); const clone = container.children[0].cloneNode(true); clone.querySelectorAll('input, textarea').forEach(v => v.value = ''); container.appendChild(clone); runUpdate(); }
 
-        function askAI(type, btn) {
-            let p = ""; let kos = document.getElementById('prog').value || "pelajar universiti";
-            if(type==='summary') p = `Write 3 professional resume summary for a student in ${kos} field.`;
-            else if(type==='exp') p = `Write 5 professional bullet points for the position of ${btn.closest('.entry').querySelector('input').value}.`;
-            else p = "List 10 relevant skills for " + kos;
-            navigator.clipboard.writeText(p).then(() => { alert("Prompt copied! Paste to ChatGPT.\n\nPrompt: " + p); }).catch(() => { prompt("Copy prompt:", p); });
+        function askAI(type) {
+            let p = "Write 5 professional bullet points for resume summary.";
+            navigator.clipboard.writeText(p).then(() => alert("Prompt copied!"));
         }
 
         function saveDraft() {
-            const data = {
-                lv: document.getElementById('level').value, yr: document.getElementById('year').value, fac: document.getElementById('faculty').value, prg: document.getElementById('prog').value,
-                n: document.getElementById('name').value, e: document.getElementById('email').value, ph: document.getElementById('phone').value, add: document.getElementById('address').value,
-                li: document.getElementById('linkedin').value, sum: document.getElementById('summary').value, sk: document.getElementById('skills').value, ln: document.getElementById('langs').value,
-                edu: document.getElementById('edu-list').innerHTML, wrk: document.getElementById('work-list').innerHTML, prj: document.getElementById('proj-list').innerHTML, ref: document.getElementById('ref-list').innerHTML
-            };
-            localStorage.setItem('puska_v5_2_final', JSON.stringify(data));
+            const data = { n: document.getElementById('name').value, e: document.getElementById('email').value };
+            localStorage.setItem('puska_v5_3', JSON.stringify(data));
         }
 
         function loadDraft() {
-            const d = JSON.parse(localStorage.getItem('puska_v5_2_final'));
-            if(d) {
-                document.getElementById('level').value = d.lv; document.getElementById('year').value = d.yr; document.getElementById('faculty').value = d.fac; document.getElementById('prog').value = d.prg;
-                document.getElementById('name').value = d.n; document.getElementById('email').value = d.e; document.getElementById('phone').value = d.ph; document.getElementById('address').value = d.add;
-                document.getElementById('linkedin').value = d.li; document.getElementById('summary').value = d.sum; document.getElementById('skills').value = d.sk; document.getElementById('langs').value = d.ln;
-                document.getElementById('edu-list').innerHTML = d.edu; document.getElementById('work-list').innerHTML = d.wrk; document.getElementById('proj-list').innerHTML = d.prj; document.getElementById('ref-list').innerHTML = d.ref;
-                document.querySelectorAll('.entry input, .entry textarea').forEach(el => el.oninput = runUpdate);
-            }
+            const d = JSON.parse(localStorage.getItem('puska_v5_3'));
+            if(d) { document.getElementById('name').value = d.n; document.getElementById('email').value = d.e; }
         }
 
-        function resetAll() { if(confirm("Reset data?")) { localStorage.removeItem('puska_v5_2_final'); location.reload(); } }
+        function resetAll() { localStorage.removeItem('puska_v5_3'); location.reload(); }
+
+        // FUNGSI PRINT KHAS (TEKNIK POPUP STABIL)
+        function printResume() {
+            const printContent = document.getElementById('pdf-area').innerHTML;
+            const css = document.getElementById('resume-styles').innerHTML;
+            const layoutClass = document.getElementById('pdf-area').className;
+            
+            const printWindow = window.open('', '', 'width=900,height=1000');
+            printWindow.document.write(`
+                <html>
+                <head>
+                    <title>PUSKA Resume</title>
+                    <style>${css}</style>
+                    <style>
+                        body { background: white; padding: 0; margin: 0; }
+                        .resume-preview { width: 210mm; min-height: 297mm; border:none; margin: auto; }
+                    </style>
+                </head>
+                <body onload="window.print(); window.close();">
+                    <div class="${layoutClass}">${printContent}</div>
+                </body>
+                </html>
+            `);
+            printWindow.document.close();
+        }
 
         async function submitDatabase() {
-            const btn = document.getElementById('btnSubmit');
             const name = document.getElementById('name').value;
             const email = document.getElementById('email').value;
-            if(!name || !email) { alert("Sila isi Nama dan Email."); return; }
-            btn.innerText = "Submitting..."; btn.disabled = true;
+            if(!name || !email) { alert("Isi Nama & Email."); return; }
             
-            const layoutType = document.querySelector('input[name="tmpx"]:checked').value === 'std' ? "Photo Layout" : "ATS Layout";
-            const css = document.getElementById('resume-styles').innerHTML;
-            const resumeHtml = `<html><head><style>${css}</style></head><body><div class="${document.getElementById('pdf-area').className}" style="width:210mm; padding:15mm; margin:auto; background:white;">${document.getElementById('pdf-area').innerHTML}</div></body></html>`;
+            const btn = document.getElementById('btnSubmit');
+            btn.innerText = "Submitting..."; btn.disabled = true;
 
+            const layoutType = document.querySelector('input[name="tmpx"]:checked').value === 'std' ? "Photo Layout" : "ATS Layout";
             const payload = {
-                level: document.getElementById('level').value, year: document.getElementById('year').value, program: document.getElementById('prog').value, faculty: document.getElementById('faculty').value,
-                name: name, email: email, phone: document.getElementById('phone').value, templateType: layoutType, htmlForPdf: resumeHtml
+                level: document.getElementById('level').value, year: document.getElementById('year').value, name: name, email: email,
+                templateType: layoutType, htmlForPdf: document.getElementById('pdf-area').innerHTML
             };
 
             try { 
                 await fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) }); 
-                alert("✅ Success! Your data is saved. Now downloading your resume.");
-                window.print();
+                alert("✅ Data Saved! Opening printer...");
+                printResume(); // Panggil fungsi print baru
             } catch(e) { 
-                window.print();
+                printResume(); 
             } finally {
                 btn.disabled = false; btn.innerText = "Download & Submit";
             }
