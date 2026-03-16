@@ -3,30 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PUSKA Resume Generator v5.1 OFFICIAL</title>
+    <title>PUSKA Resume Generator v5.2 OFFICIAL</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style id="resume-styles">
-        /* LOGIK CETAKAN: SEMBUNYIKAN FORM, TUNJUK RESUME SAHAJA */
-        @media print {
-            @page { size: A4; margin: 0; }
-            body { background: white !important; visibility: hidden; }
-            .no-print { display: none !important; }
-            #pdf-area { 
-                visibility: visible !important; 
-                position: absolute !important; 
-                left: 0 !important; 
-                top: 0 !important; 
-                width: 210mm !important;
-                height: 297mm !important;
-                padding: 15mm !important;
-                margin: 0 !important;
-                border: none !important;
-            }
-            #pdf-area * { visibility: visible !important; }
-            * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
-        }
-
-        /* PAPARAN LIVE DALAM SISTEM */
+        /* CSS UNTUK PAPARAN SISTEM & PRINT */
         .resume-preview {
             font-family: 'Arial', sans-serif;
             color: #1a1a1a;
@@ -41,7 +21,6 @@
         .resume-preview h1 { font-size: 18pt; font-weight: bold; text-transform: uppercase; margin: 0; color: black; }
         .resume-preview h2 { border-bottom: 2px solid #333; margin-top: 12px; margin-bottom: 5px; font-size: 13pt; font-weight: bold; text-transform: uppercase; text-align: left; color: black; }
         
-        /* Template Standard (Photo) */
         .template-standard header { display: flex !important; align-items: center !important; gap: 20px !important; border-bottom: 3px solid #1e3a8a !important; padding-bottom: 15px; text-align: left !important; }
         .template-standard #photo-preview { width: 110px; height: 140px; border: 1px solid #ddd; object-fit: cover; display: block !important; }
         .template-standard h2 { background: #1e3a8a !important; color: white !important; border: none !important; padding: 5px 10px !important; }
@@ -49,22 +28,46 @@
         .item-header { display: flex; justify-content: space-between; font-weight: bold; font-size: 11pt; }
         .resume-preview ul { list-style-type: disc !important; margin-left: 1.2rem !important; }
         .section-content { font-size: 10.5pt; margin-bottom: 8px; }
-        .ai-btn { background: linear-gradient(45deg, #1e3a8a, #3b82f6); color: white; padding: 2px 8px; border-radius: 6px; font-size: 10px; font-weight: bold; cursor: pointer; }
+        .ai-btn { background: linear-gradient(45deg, #1e3a8a, #3b82f6); color: white; padding: 2px 8px; border-radius: 6px; font-size: 10px; font-weight: bold; cursor: pointer; border: none; }
+
+        /* TEKNIK BARU: MEMAKSA RESUME KELUAR SEMASA PRINT */
+        @media print {
+            body { background: none !important; margin: 0 !important; padding: 0 !important; }
+            .no-print { display: none !important; }
+            
+            /* Sembunyikan semua kecuali pdf-area */
+            div:not(#pdf-area), section, header, footer, button, nav { display: none !important; }
+            
+            #pdf-area {
+                display: block !important;
+                position: fixed !important;
+                left: 0 !important;
+                top: 0 !important;
+                width: 210mm !important;
+                height: 297mm !important;
+                padding: 15mm !important;
+                margin: 0 !important;
+                border: none !important;
+                box-shadow: none !important;
+                z-index: 9999 !important;
+            }
+            * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+        }
     </style>
 </head>
 <body class="bg-gray-100 p-4">
-    <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-6 no-print">
         
-        <div class="bg-white p-6 rounded-lg shadow no-print h-[90vh] overflow-y-auto border-t-8 border-blue-900">
+        <div class="bg-white p-6 rounded-lg shadow h-[90vh] overflow-y-auto border-t-8 border-blue-900 no-print">
             <div class="flex items-center gap-4 border-b-2 border-blue-900 pb-4 mb-6">
                 <img src="https://drive.google.com/thumbnail?id=1MvbeFj62QwwzGHvUCNrmjYqX6IrWTQxN&sz=w200" alt="PUSKA" class="max-h-[60px]">
                 <div>
                     <h1 class="text-2xl font-black text-blue-900 leading-none">PUSKA</h1>
-                    <p class="text-sm font-bold text-gray-600 tracking-widest uppercase">RESUME GENERATOR v5.1</p>
+                    <p class="text-sm font-bold text-gray-600 tracking-widest uppercase">RESUME GENERATOR v5.2</p>
                 </div>
             </div>
 
-            <div class="bg-blue-50 p-4 rounded-xl border border-blue-200 mb-6 space-y-3">
+            <div class="bg-blue-50 p-4 rounded-xl border border-blue-200 mb-6 space-y-3 no-print">
                 <div class="grid grid-cols-2 gap-2">
                     <div><label class="font-bold text-blue-900 text-[10px] uppercase">Level</label>
                         <select id="level" class="w-full p-2 border rounded bg-white" onchange="runUpdate()">
@@ -144,13 +147,13 @@
                 </div>
             </div>
 
-            <div class="bg-yellow-50 p-3 rounded-lg border border-yellow-200 mb-6 flex justify-around">
+            <div class="bg-yellow-50 p-3 rounded-lg border border-yellow-200 mb-6 flex justify-around no-print">
                 <label class="flex items-center gap-2 cursor-pointer font-bold text-sm"><input type="radio" name="tmpx" value="ats" checked onchange="toggleLayout()"> ATS Layout</label>
                 <label class="flex items-center gap-2 cursor-pointer font-bold text-sm"><input type="radio" name="tmpx" value="std" onchange="toggleLayout()"> Photo Layout</label>
             </div>
 
-            <div class="space-y-6">
-                <section class="p-4 border rounded-xl bg-white shadow-sm">
+            <div class="space-y-6 no-print">
+                <section class="p-4 border rounded-xl bg-white shadow-sm entry">
                     <h3 class="font-bold border-b-2 border-blue-500 mb-3 text-blue-900 uppercase text-xs">1. Personal Info</h3>
                     <div id="photo-area" class="hidden mb-3 p-2 bg-gray-50 border rounded text-center"><input type="file" accept="image/*" class="text-xs" onchange="loadPhoto(this)"></div>
                     <input type="text" id="name" placeholder="Full Name" class="w-full p-2 border rounded mb-2 font-bold uppercase" oninput="runUpdate()">
@@ -206,7 +209,7 @@
                 </section>
             </div>
 
-            <div class="mt-8 flex gap-2">
+            <div class="mt-8 flex gap-2 no-print">
                 <button onclick="resetAll()" class="w-1/3 bg-gray-400 text-white py-4 rounded-xl font-bold uppercase text-sm">Reset</button>
                 <button onclick="submitDatabase()" id="btnSubmit" class="w-2/3 bg-blue-800 text-white py-4 rounded-xl font-bold uppercase tracking-widest text-sm shadow-xl">Download & Submit</button>
             </div>
@@ -286,11 +289,11 @@
                 li: document.getElementById('linkedin').value, sum: document.getElementById('summary').value, sk: document.getElementById('skills').value, ln: document.getElementById('langs').value,
                 edu: document.getElementById('edu-list').innerHTML, wrk: document.getElementById('work-list').innerHTML, prj: document.getElementById('proj-list').innerHTML, ref: document.getElementById('ref-list').innerHTML
             };
-            localStorage.setItem('puska_v5_1_final', JSON.stringify(data));
+            localStorage.setItem('puska_v5_2_final', JSON.stringify(data));
         }
 
         function loadDraft() {
-            const d = JSON.parse(localStorage.getItem('puska_v5_1_final'));
+            const d = JSON.parse(localStorage.getItem('puska_v5_2_final'));
             if(d) {
                 document.getElementById('level').value = d.lv; document.getElementById('year').value = d.yr; document.getElementById('faculty').value = d.fac; document.getElementById('prog').value = d.prg;
                 document.getElementById('name').value = d.n; document.getElementById('email').value = d.e; document.getElementById('phone').value = d.ph; document.getElementById('address').value = d.add;
@@ -300,14 +303,13 @@
             }
         }
 
-        function resetAll() { if(confirm("Reset data?")) { localStorage.removeItem('puska_v5_1_final'); location.reload(); } }
+        function resetAll() { if(confirm("Reset data?")) { localStorage.removeItem('puska_v5_2_final'); location.reload(); } }
 
         async function submitDatabase() {
             const btn = document.getElementById('btnSubmit');
             const name = document.getElementById('name').value;
             const email = document.getElementById('email').value;
             if(!name || !email) { alert("Sila isi Nama dan Email."); return; }
-            
             btn.innerText = "Submitting..."; btn.disabled = true;
             
             const layoutType = document.querySelector('input[name="tmpx"]:checked').value === 'std' ? "Photo Layout" : "ATS Layout";
@@ -321,11 +323,8 @@
 
             try { 
                 await fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) }); 
-                alert("✅ Success! Data saved. Opening print window...");
-                
-                // STABILIZED PRINT: Trigger print on the current window
+                alert("✅ Success! Your data is saved. Now downloading your resume.");
                 window.print();
-                
             } catch(e) { 
                 window.print();
             } finally {
