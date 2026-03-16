@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PUSKA Resume Generator v6.2 OFFICIAL</title>
+    <title>PUSKA Resume Generator v6.3 OFFICIAL</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style id="resume-styles">
         .resume-preview {
@@ -30,7 +30,7 @@
                 <img src="https://drive.google.com/thumbnail?id=1MvbeFj62QwwzGHvUCNrmjYqX6IrWTQxN&sz=w200" alt="PUSKA" class="max-h-[60px]">
                 <div>
                     <h1 class="text-2xl font-black text-blue-900 leading-none">PUSKA</h1>
-                    <p class="text-sm font-bold text-gray-600 tracking-widest uppercase">RESUME GENERATOR v6.2</p>
+                    <p class="text-sm font-bold text-gray-600 tracking-widest uppercase">RESUME GENERATOR v6.3</p>
                 </div>
             </div>
 
@@ -157,7 +157,8 @@
                             <input type="text" placeholder="Location" class="border-b p-1 text-sm" oninput="runUpdate()">
                         </div>
                         <input type="text" placeholder="Date Range" class="w-full border-b mb-1 p-1 text-sm mt-1" oninput="runUpdate()">
-                        <textarea placeholder="Responsibilities (Bullet points)..." class="w-full p-1 h-20 text-sm border rounded mt-1" oninput="runUpdate()"></textarea>
+                        <div class="flex justify-between items-center mt-1"><span class="text-[10px] text-gray-400 font-bold uppercase">Responsibilities</span><button onclick="askAI('exp', this)" class="ai-btn">✨ AI</button></div>
+                        <textarea placeholder="Bullet points of responsibilities..." class="w-full p-1 h-20 text-sm border rounded mt-1" oninput="runUpdate()"></textarea>
                     </div></div>
                 </section>
 
@@ -177,11 +178,11 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <section class="p-4 border rounded-xl bg-white shadow-sm">
-                        <h3 class="font-bold text-blue-900 uppercase text-xs mb-2">7. Tech Skills</h3>
+                        <div class="flex justify-between items-center mb-2"><h3 class="font-bold text-blue-900 uppercase text-xs">7. Tech Skills</h3><button onclick="askAI('skills')" class="ai-btn">✨ AI</button></div>
                         <textarea id="tech_sk" placeholder="e.g: Python, AutoCAD, CCNA" class="w-full p-2 border rounded text-xs h-24" oninput="runUpdate()"></textarea>
                     </section>
                     <section class="p-4 border rounded-xl bg-white shadow-sm">
-                        <h3 class="font-bold text-blue-900 uppercase text-xs mb-2">8. Soft Skills</h3>
+                        <div class="flex justify-between items-center mb-2"><h3 class="font-bold text-blue-900 uppercase text-xs">8. Soft Skills</h3><button onclick="askAI('skills')" class="ai-btn">✨ AI</button></div>
                         <textarea id="soft_sk" placeholder="e.g: Leadership, Teamwork" class="w-full p-2 border rounded text-xs h-24" oninput="runUpdate()"></textarea>
                     </section>
                 </div>
@@ -274,12 +275,28 @@
         function fillList(id, out, tmpl) { let h = ''; document.querySelectorAll(`#${id} .entry`).forEach(el => { const i = el.querySelectorAll('input'); const t = el.querySelector('textarea').value; if(i[0].value) { const b = t.split('\n').filter(l => l.trim()).map(l => `<li>${l}</li>`).join(''); h += tmpl(i, b); } }); document.getElementById(out).innerHTML = h; }
         function addEntry(id) { const container = document.getElementById(id); const clone = container.children[0].cloneNode(true); clone.querySelectorAll('input, textarea').forEach(v => v.value = ''); container.appendChild(clone); runUpdate(); }
 
-        function askAI(type) {
-            let p = `Write 3 professional resume summaries for a student in ${document.getElementById('prog').value || 'university'}.`;
-            navigator.clipboard.writeText(p).then(() => alert("Prompt copied!"));
+        // IMPROVED AI ASSISTANT LOGIC
+        function askAI(type, btn) {
+            let p = ""; 
+            let kos = document.getElementById('prog').value || "university student";
+            
+            if(type==='summary') {
+                p = `Write 3 professional resume summary options for a final year student in ${kos}. Focus on career readiness and key academic strengths.`;
+            } else if(type==='exp') {
+                let job = btn.closest('.entry').querySelector('input').value || "Intern/Student";
+                p = `Write 5 professional resume bullet points for responsibilities and achievements as a ${job}. Use action verbs and focus on ${kos} industry standards.`;
+            } else if(type==='skills') {
+                p = `List the top 10 relevant technical and soft skills for a ${kos} graduate to include in a modern resume.`;
+            }
+
+            navigator.clipboard.writeText(p).then(() => {
+                alert("AI Prompt Copied to Clipboard!\n\nPaste it into ChatGPT or Gemini to get your professional content.");
+            }).catch(() => {
+                prompt("Copy this prompt manually:", p);
+            });
         }
 
-        function resetAll() { if(confirm("Reset data?")) location.reload(); }
+        function resetAll() { if(confirm("Reset all data?")) location.reload(); }
 
         function printResume() {
             const content = document.getElementById('pdf-area').innerHTML;
@@ -296,7 +313,7 @@
             const email = document.getElementById('email').value;
             if(!name || !email) { alert("Enter Name & Email."); return; }
             const btn = document.getElementById('btnSubmit');
-            btn.innerText = "Saving..."; btn.disabled = true;
+            btn.innerText = "Submitting..."; btn.disabled = true;
             const css = document.getElementById('resume-styles').innerHTML;
             const fullHtml = `<html><head><style>${css}</style></head><body><div class="${document.getElementById('pdf-area').className}" style="width:210mm; padding:15mm; margin:auto; background:white;">${document.getElementById('pdf-area').innerHTML}</div></body></html>`;
 
@@ -305,7 +322,7 @@
                 faculty: document.getElementById('faculty').value, name: name, email: email, phone: document.getElementById('phone').value,
                 templateType: document.querySelector('input[name="tmpx"]:checked').value === 'std' ? "Photo Layout" : "ATS Layout", htmlForPdf: fullHtml
             };
-            try { await fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) }); alert("✅ Saved!"); printResume(); } 
+            try { await fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) }); alert("✅ Saved Successfully!"); printResume(); } 
             catch(e) { printResume(); }
             finally { btn.disabled = false; btn.innerText = "Download & Submit"; }
         }
