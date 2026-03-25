@@ -3,14 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PUSKA Resume Generator v6.7 OFFICIAL</title>
+    <title>PUSKA Resume Generator - Official</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style id="resume-styles">
+        /* CSS UNTUK PREVIEW & PDF */
         .resume-preview {
             font-family: 'Arial', sans-serif; color: #1a1a1a; line-height: 1.4; background: white;
             min-height: 297mm; width: 100%; padding: 15mm; box-sizing: border-box; border: 1px solid #ddd;
         }
-        .resume-preview h1 { font-size: 18pt; font-weight: bold; text-transform: uppercase; margin: 0; color: black; }
+        .resume-preview h1 { font-size: 18pt; font-weight: bold; text-transform: uppercase; margin: 0; color: black; text-align: center; }
         .resume-preview h2 { border-bottom: 2px solid #333; margin-top: 12px; margin-bottom: 5px; font-size: 13pt; font-weight: bold; text-transform: uppercase; text-align: left; color: black; }
         .template-standard header { display: flex !important; align-items: center !important; gap: 20px !important; border-bottom: 3px solid #1e3a8a !important; padding-bottom: 15px; text-align: left !important; }
         .template-standard #photo-preview { width: 110px; height: 140px; border: 1px solid #ddd; object-fit: cover; display: block !important; }
@@ -30,18 +31,18 @@
                 <img src="https://drive.google.com/thumbnail?id=1MvbeFj62QwwzGHvUCNrmjYqX6IrWTQxN&sz=w200" alt="PUSKA" class="max-h-[60px]">
                 <div>
                     <h1 class="text-2xl font-black text-blue-900 leading-none">PUSKA</h1>
-                    <p class="text-sm font-bold text-gray-600 tracking-widest uppercase">RESUME GENERATOR v6.7</p>
+                    <p class="text-sm font-bold text-gray-600 tracking-widest uppercase">RESUME GENERATOR</p>
                 </div>
             </div>
 
-            <div class="bg-blue-50 p-4 rounded-xl border border-blue-200 mb-6 space-y-3 shadow-inner text-xs">
+            <div class="bg-blue-50 p-4 rounded-xl border border-blue-200 mb-6 space-y-3 text-xs shadow-inner">
                 <div class="grid grid-cols-2 gap-2">
-                    <div><label class="font-bold text-blue-900 uppercase">Level of Study</label>
+                    <div><label class="font-bold text-blue-900 uppercase">Level</label>
                         <select id="level" class="w-full p-2 border rounded bg-white mt-1" onchange="runUpdate()">
                             <option value="Undergraduate">Undergraduate</option><option value="Diploma">Diploma</option><option value="Postgraduate">Postgraduate</option>
                         </select>
                     </div>
-                    <div><label class="font-bold text-blue-900 uppercase">Year of Study</label>
+                    <div><label class="font-bold text-blue-900 uppercase">Year</label>
                         <select id="year" class="w-full p-2 border rounded bg-white mt-1" onchange="runUpdate()">
                             <option value="Year 1">Year 1</option><option value="Year 2">Year 2</option><option value="Year 3">Year 3</option><option value="Year 4">Year 4</option>
                         </select>
@@ -138,14 +139,14 @@
 
                 <section class="p-4 border rounded-xl bg-white shadow-sm">
                     <div class="flex justify-between items-center mb-2"><h3 class="font-bold border-b-2 border-blue-500 text-blue-900 uppercase text-xs">2. Summary</h3><button onclick="askAI('summary')" class="ai-btn">✨ AI ASSIST</button></div>
-                    <textarea id="summary" placeholder="Brief professional summary..." class="w-full p-2 border rounded h-24 text-sm" oninput="runUpdate()"></textarea>
+                    <textarea id="summary" placeholder="Summary..." class="w-full p-2 border rounded h-24 text-sm" oninput="runUpdate()"></textarea>
                 </section>
 
                 <section class="p-4 border rounded-xl bg-gray-50 shadow-sm">
                     <div class="flex justify-between items-center mb-2"><h3 class="font-bold uppercase text-xs">3. Education</h3><button onclick="addEntry('edu-list')" class="bg-blue-600 text-white px-3 rounded-full shadow hover:bg-black transition">+</button></div>
                     <div id="edu-list"><div class="p-3 border bg-white rounded-lg entry mb-2">
                         <input type="text" placeholder="Institution" class="w-full border-b mb-1 p-1 font-bold text-sm" oninput="runUpdate()">
-                        <input type="text" placeholder="Degree / Qualification" class="w-full border-b mb-1 p-1 text-sm" oninput="runUpdate()">
+                        <input type="text" placeholder="Degree / Course" class="w-full border-b mb-1 p-1 text-sm" oninput="runUpdate()">
                         <div class="grid grid-cols-2 gap-2 mt-1">
                             <input type="text" placeholder="Start Year" class="border-b p-1 text-xs" oninput="runUpdate()">
                             <input type="text" placeholder="End/Expected" class="border-b p-1 text-xs" oninput="runUpdate()">
@@ -159,7 +160,7 @@
                     <div id="work-list"><div class="p-3 border bg-white rounded-lg entry mb-2">
                         <input type="text" placeholder="Job Title" class="w-full border-b mb-1 p-1 font-bold text-sm" oninput="runUpdate()">
                         <div class="grid grid-cols-2 gap-2 mt-1">
-                            <input type="text" placeholder="Company" class="border-b p-1 text-sm" oninput="runUpdate()">
+                            <input type="text" placeholder="Company Name" class="border-b p-1 text-sm" oninput="runUpdate()">
                             <input type="text" placeholder="Location" class="border-b p-1 text-sm" oninput="runUpdate()">
                         </div>
                         <input type="text" placeholder="Date Range" class="w-full border-b mb-1 p-1 text-sm mt-1" oninput="runUpdate()">
@@ -170,28 +171,28 @@
 
                 <section class="p-4 border rounded-xl bg-gray-50 shadow-sm">
                     <div class="flex justify-between items-center mb-2"><h3 class="font-bold uppercase text-xs">5. Projects</h3><button onclick="addEntry('proj-list')" class="bg-blue-600 text-white px-3 rounded-full shadow hover:bg-black transition">+</button></div>
-                    <div id="proj-list"><div class="p-3 border bg-white rounded-lg entry mb-2"><input type="text" placeholder="Project Name" class="w-full border-b mb-1 p-1 font-bold text-sm" oninput="runUpdate()"><textarea placeholder="Objective & results..." class="w-full p-1 h-16 text-sm border rounded" oninput="runUpdate()"></textarea></div></div>
-                </section>
-
-                <section class="p-4 border rounded-xl bg-gray-50 shadow-sm">
-                    <div class="flex justify-between items-center mb-2"><h3 class="font-bold uppercase text-xs">6. Certifications</h3><button onclick="addEntry('cert-list')" class="bg-blue-600 text-white px-3 rounded-full shadow hover:bg-black transition">+</button></div>
-                    <div id="cert-list"><div class="p-3 border bg-white rounded-lg entry mb-2">
-                        <input type="text" placeholder="Certificate Name" class="w-full border-b mb-1 p-1 font-bold text-sm" oninput="runUpdate()">
-                        <input type="text" placeholder="Issuer" class="w-full border-b mb-1 p-1 text-sm" oninput="runUpdate()">
-                        <input type="text" placeholder="Credential URL (Optional)" class="w-full p-1 text-xs border rounded bg-gray-50 mt-1" oninput="runUpdate()">
-                    </div></div>
+                    <div id="proj-list"><div class="p-3 border bg-white rounded-lg entry mb-2"><input type="text" placeholder="Project Name" class="w-full border-b mb-1 p-1 font-bold text-sm" oninput="runUpdate()"><textarea placeholder="Describe objective and results..." class="w-full p-1 h-16 text-sm border rounded" oninput="runUpdate()"></textarea></div></div>
                 </section>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <section class="p-4 border rounded-xl bg-white shadow-sm">
-                        <div class="flex justify-between items-center mb-2"><h3 class="font-bold text-blue-900 uppercase text-xs">7. Tech Skills</h3><button onclick="askAI('skills')" class="ai-btn">✨ AI</button></div>
+                        <div class="flex justify-between items-center mb-2"><h3 class="font-bold text-blue-900 uppercase text-xs">6. Tech Skills</h3><button onclick="askAI('skills')" class="ai-btn">✨ AI</button></div>
                         <textarea id="tech_sk" placeholder="e.g: Python, AutoCAD, CCNA" class="w-full p-2 border rounded text-xs h-24" oninput="runUpdate()"></textarea>
                     </section>
                     <section class="p-4 border rounded-xl bg-white shadow-sm">
-                        <div class="flex justify-between items-center mb-2"><h3 class="font-bold text-blue-900 uppercase text-xs">8. Soft Skills</h3><button onclick="askAI('skills')" class="ai-btn">✨ AI</button></div>
+                        <div class="flex justify-between items-center mb-2"><h3 class="font-bold text-blue-900 uppercase text-xs">7. Soft Skills</h3><button onclick="askAI('skills')" class="ai-btn">✨ AI</button></div>
                         <textarea id="soft_sk" placeholder="e.g: Leadership, Teamwork" class="w-full p-2 border rounded text-xs h-24" oninput="runUpdate()"></textarea>
                     </section>
                 </div>
+
+                <section class="p-4 border rounded-xl bg-gray-50 shadow-sm">
+                    <div class="flex justify-between items-center mb-2"><h3 class="font-bold uppercase text-xs">8. Certifications</h3><button onclick="addEntry('cert-list')" class="bg-blue-600 text-white px-3 rounded-full shadow hover:bg-black transition">+</button></div>
+                    <div id="cert-list"><div class="p-3 border bg-white rounded-lg entry mb-2">
+                        <input type="text" placeholder="Certificate Name" class="w-full border-b mb-1 p-1 font-bold text-sm" oninput="runUpdate()">
+                        <input type="text" placeholder="Issuer" class="w-full border-b mb-1 p-1 text-sm" oninput="runUpdate()">
+                        <input type="text" placeholder="URL (Optional)" class="w-full p-1 text-xs border rounded bg-gray-50 mt-1" oninput="runUpdate()">
+                    </div></div>
+                </section>
 
                 <section class="p-4 border rounded-xl bg-white shadow-sm">
                     <h3 class="font-bold text-blue-900 uppercase text-xs mb-2">9. Languages</h3>
@@ -207,8 +208,8 @@
                             <input type="text" placeholder="Organization" class="border-b p-1 text-xs" oninput="runUpdate()">
                         </div>
                         <div class="grid grid-cols-2 gap-2 mt-1">
-                            <input type="text" placeholder="Phone" class="border-b p-1 text-xs" oninput="runUpdate()">
-                            <input type="text" placeholder="Email" class="border-b p-1 text-xs" oninput="runUpdate()">
+                            <input type="text" placeholder="Phone Number" class="border-b p-1 text-xs" oninput="runUpdate()">
+                            <input type="text" placeholder="Email Address" class="border-b p-1 text-xs" oninput="runUpdate()">
                         </div>
                     </div></div>
                 </section>
@@ -222,16 +223,15 @@
 
         <div class="bg-gray-200 flex justify-center overflow-y-auto no-print">
             <div class="bg-white resume-preview" id="pdf-area">
-                <header id="pdf-header" style="text-align: center;">
-                    <img id="photo-preview" src="" class="hidden">
-                    <div class="w-full">
+                <header id="pdf-header">
+                    <div class="w-full text-center">
                         <h1 id="p-name">YOUR FULL NAME</h1>
                         <p style="font-size: 11pt; margin: 5px 0;">
                             <span id="p-email">email@example.com</span> | 
                             <span id="p-phone">012-3456789</span> | 
-                            <span id="p-address">Location</span>
+                            <span id="p-address">LOCATION</span>
                         </p>
-                        <p id="p-linkedin-area" style="font-size: 10pt; margin-top: 2px;"></p>
+                        <div id="p-linkedin-area" style="font-size: 10pt; margin-top: 2px;"></div>
                     </div>
                 </header>
                 <section><h2>Professional Summary</h2><p id="p-summary" class="section-content text-justify"></p></section>
@@ -242,7 +242,8 @@
                     <section><h2>Technical Skills</h2><p id="p-tech" class="section-content whitespace-pre-line"></p></section>
                     <section><h2>Soft Skills</h2><p id="p-soft" class="section-content whitespace-pre-line"></p></section>
                 </div>
-                <section><h2>Certifications & Languages</h2><div id="p-cert"></div><p id="p-langs" class="section-content font-bold mt-2"></p></section>
+                <section><h2>Certifications</h2><div id="p-cert"></div></section>
+                <section><h2>Languages</h2><p id="p-langs" class="section-content"></p></section>
                 <section><h2>References</h2><div id="p-ref" class="grid grid-cols-2 gap-4"></div></section>
             </div>
         </div>
@@ -253,52 +254,40 @@
 
         window.onload = () => { runUpdate(); };
 
-        function toggleLayout() {
-            const isStd = document.querySelector('input[name="tmpx"]:checked').value === 'std';
-            const pdf = document.getElementById('pdf-area');
-            const head = document.getElementById('pdf-header');
-            if(isStd) { pdf.classList.add('template-standard'); document.getElementById('photo-area').classList.remove('hidden'); head.style.textAlign = "left"; }
-            else { pdf.classList.remove('template-standard'); document.getElementById('photo-area').classList.add('hidden'); head.style.textAlign = "center"; }
-            runUpdate();
-        }
-
-        function loadPhoto(input) { if(input.files[0]) { const r = new FileReader(); r.onload = e => { document.getElementById('photo-preview').src = e.target.result; document.getElementById('photo-preview').classList.remove('hidden'); }; r.readAsDataURL(input.files[0]); } }
-
         function runUpdate() {
             document.getElementById('p-name').innerText = (document.getElementById('name').value || 'YOUR FULL NAME').toUpperCase();
             document.getElementById('p-email').innerText = document.getElementById('email').value || 'email@example.com';
             document.getElementById('p-phone').innerText = document.getElementById('phone').value || '012-3456789';
-            document.getElementById('p-address').innerText = document.getElementById('address').value || 'Location';
-
-            // FIXED LINKEDIN (CLICKABLE & NO LABEL)
+            document.getElementById('p-address').innerText = (document.getElementById('address').value || 'LOCATION').toUpperCase();
+            
+            // LOGIK LINKEDIN AKTIF
             const liVal = document.getElementById('linkedin').value;
             const liArea = document.getElementById('p-linkedin-area');
             if (liVal) {
                 const secureLink = liVal.startsWith('http') ? liVal : `https://${liVal}`;
                 liArea.innerHTML = `<a href="${secureLink}" target="_blank" style="color: #1e3a8a; text-decoration: none;">${liVal}</a>`;
-            } else {
-                liArea.innerHTML = "";
-            }
+            } else { liArea.innerHTML = ""; }
 
             document.getElementById('p-summary').innerText = document.getElementById('summary').value;
             document.getElementById('p-tech').innerText = document.getElementById('tech_sk').value;
             document.getElementById('p-soft').innerText = document.getElementById('soft_sk').value;
-            document.getElementById('p-langs').innerText = document.getElementById('langs').value ? "Languages: " + document.getElementById('langs').value : "";
+            document.getElementById('p-langs').innerText = document.getElementById('langs').value;
 
             fillSection('edu-list', 'p-edu', i => `<div class="mb-3 text-[10.5pt]"><div class="item-header"><span>${i[0].value}</span><span>${i[2].value} - ${i[3].value}</span></div><i>${i[1].value}</i><br>CGPA: ${i[4].value}</div>`);
             fillList('work-list', 'p-work', (i, b) => `<div class="mb-4 text-[10.5pt]"><div class="item-header"><span>${i[0].value}</span><span>${i[3].value}</span></div><i>${i[1].value}${i[2].value ? ', '+i[2].value : ''}</i><ul class="mt-1">${b}</ul></div>`);
             fillList('proj-list', 'p-proj', (i, b) => `<div class="mb-4 text-[10.5pt]"><div class="item-header"><span>${i[0].value}</span></div><ul class="mt-1">${b}</ul></div>`);
             fillSection('cert-list', 'p-cert', i => `<div class="mb-1 text-[10.5pt]"><b>${i[0].value}</b> - ${i[1].value}${i[2].value ? ' (Link: '+i[2].value+')' : ''}</div>`);
-            fillSection('ref-list', 'p-ref', i => `<div class="text-[10pt]"><b>${i[0].value}</b><br>${i[1].value}, ${i[2].value}<br>P: ${i[3].value} | E: ${i[4].value}</div>`);
+            
+            // CLEAN REFERENCES (Tanpa label P/E)
+            fillSection('ref-list', 'p-ref', i => `<div class="text-[10pt]"><b>${i[0].value}</b><br>${i[1].value}, ${i[2].value}<br>${i[3].value} | ${i[4].value}</div>`);
         }
 
         function fillSection(id, out, tmpl) { let h = ''; document.querySelectorAll(`#${id} .entry`).forEach(el => { const i = el.querySelectorAll('input'); if(i[0].value) h += tmpl(i); }); document.getElementById(out).innerHTML = h; }
         function fillList(id, out, tmpl) { let h = ''; document.querySelectorAll(`#${id} .entry`).forEach(el => { const i = el.querySelectorAll('input'); const t = el.querySelector('textarea').value; if(i[0].value) { const b = t.split('\n').filter(l => l.trim()).map(l => `<li>${l}</li>`).join(''); h += tmpl(i, b); } }); document.getElementById(out).innerHTML = h; }
         function addEntry(id) { const container = document.getElementById(id); const clone = container.children[0].cloneNode(true); clone.querySelectorAll('input, textarea').forEach(v => v.value = ''); container.appendChild(clone); runUpdate(); }
-
+        
         function askAI(type, btn) {
-            let p = ""; 
-            let kos = document.getElementById('prog').value || "university student";
+            let p = ""; let kos = document.getElementById('prog').value || "university student";
             if(type==='summary') p = `Write 3 professional resume summary options for a final year student in ${kos}. Focus on career readiness and key academic strengths.`;
             else if(type==='exp') {
                 let job = btn.closest('.entry').querySelector('input').value || "Intern/Student";
@@ -310,6 +299,15 @@
             }).catch(() => { prompt("Copy manually:", p); });
         }
 
+        function toggleLayout() {
+            const isStd = document.querySelector('input[name="tmpx"]:checked').value === 'std';
+            const pdf = document.getElementById('pdf-area');
+            if(isStd) { pdf.classList.add('template-standard'); document.getElementById('photo-area').classList.remove('hidden'); }
+            else { pdf.classList.remove('template-standard'); document.getElementById('photo-area').classList.add('hidden'); }
+            runUpdate();
+        }
+
+        function loadPhoto(input) { if(input.files[0]) { const r = new FileReader(); r.onload = e => { document.getElementById('photo-preview').src = e.target.result; document.getElementById('photo-preview').classList.remove('hidden'); }; r.readAsDataURL(input.files[0]); } }
         function resetAll() { if(confirm("Reset all data?")) location.reload(); }
 
         function printResume() {
