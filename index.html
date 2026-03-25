@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PUSKA Resume Generator v6.4 OFFICIAL</title>
+    <title>PUSKA Resume Generator v6.6 OFFICIAL</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style id="resume-styles">
         .resume-preview {
@@ -30,18 +30,18 @@
                 <img src="https://drive.google.com/thumbnail?id=1MvbeFj62QwwzGHvUCNrmjYqX6IrWTQxN&sz=w200" alt="PUSKA" class="max-h-[60px]">
                 <div>
                     <h1 class="text-2xl font-black text-blue-900 leading-none">PUSKA</h1>
-                    <p class="text-sm font-bold text-gray-600 tracking-widest uppercase">RESUME GENERATOR v6.4</p>
+                    <p class="text-sm font-bold text-gray-600 tracking-widest uppercase">RESUME GENERATOR v6.6</p>
                 </div>
             </div>
 
-            <div class="bg-blue-50 p-4 rounded-xl border border-blue-200 mb-6 space-y-3 text-xs shadow-inner">
+            <div class="bg-blue-50 p-4 rounded-xl border border-blue-200 mb-6 space-y-3 shadow-inner text-xs">
                 <div class="grid grid-cols-2 gap-2">
-                    <div><label class="font-bold text-blue-900 uppercase">Level</label>
+                    <div><label class="font-bold text-blue-900 uppercase">Level of Study</label>
                         <select id="level" class="w-full p-2 border rounded bg-white mt-1" onchange="runUpdate()">
                             <option value="Undergraduate">Undergraduate</option><option value="Diploma">Diploma</option><option value="Postgraduate">Postgraduate</option>
                         </select>
                     </div>
-                    <div><label class="font-bold text-blue-900 uppercase">Year</label>
+                    <div><label class="font-bold text-blue-900 uppercase">Year of Study</label>
                         <select id="year" class="w-full p-2 border rounded bg-white mt-1" onchange="runUpdate()">
                             <option value="Year 1">Year 1</option><option value="Year 2">Year 2</option><option value="Year 3">Year 3</option><option value="Year 4">Year 4</option>
                         </select>
@@ -58,58 +58,64 @@
                         <option value="Faculty of Business & Communication">Faculty of Business & Communication</option>
                     </select>
                 </div>
-                <div><label class="font-bold text-blue-900 uppercase">Program</label>
-                    <select id="prog" class="w-full p-2 border rounded bg-white mt-1 font-semibold text-[11px]" onchange="runUpdate()">
+                <div><label class="font-bold text-blue-900 uppercase">Program Name</label>
+                    <select id="prog" class="w-full p-2 border rounded bg-white mt-1 font-semibold text-[10px]" onchange="runUpdate()">
                         <option value="">-- Select Program --</option>
-                        <option value="Postgraduate (PhD)">Postgraduate (PhD)</option>
-                        <option value="Postgraduate (Master)">Postgraduate (Master)</option>
-                        <option value="Bachelor of Environmental Engineering">Bachelor of Environmental Engineering</option>
-                        <option value="Bachelor of Civil Engineering Technology (Construction)">Bachelor of Civil Engineering Technology (Construction)</option>
-                        <option value="Bachelor of Building Construction Technology">Bachelor of Building Construction Technology</option>
-                        <option value="Bachelor of Microelectronic Engineering">Bachelor of Microelectronic Engineering</option>
-                        <option value="Bachelor of Computer Engineering">Bachelor of Computer Engineering</option>
-                        <option value="Bachelor of Biomedical Electronic Engineering">Bachelor of Biomedical Electronic Engineering</option>
-                        <option value="Bachelor of Electronic Engineering">Bachelor of Electronic Engineering</option>
-                        <option value="Bachelor of Electronic Engineering Technology (Electronic System)">Bachelor of Electronic Engineering Technology (Electronic System)</option>
-                        <option value="Bachelor of Electronic Engineering Technology (Telecommunications Design)">Bachelor of Electronic Engineering Technology (Telecommunications Design)</option>
-                        <option value="Bachelor of Electronic Engineering Technology (Network Design)">Bachelor of Electronic Engineering Technology (Network Design)</option>
-                        <option value="Bachelor of Industrial Electronic Automation Technology">Bachelor of Industrial Electronic Automation Technology</option>
-                        <option value="Bachelor of Electrical Engineering">Bachelor of Electrical Engineering</option>
-                        <option value="Bachelor of Mechatronic Engineering">Bachelor of Mechatronic Engineering</option>
-                        <option value="Bachelor of Electrical Engineering Technology (Industrial Power)">Bachelor of Electrical Engineering Technology (Industrial Power)</option>
-                        <option value="Bachelor of Electrical Engineering Technology (Robotics & Automation)">Bachelor of Electrical Engineering Technology (Robotics & Automation)</option>
-                        <option value="Bachelor of Electrical System Maintenance Technology">Bachelor of Electrical System Maintenance Technology</option>
-                        <option value="Bachelor of Materials Engineering">Bachelor of Materials Engineering</option>
-                        <option value="Bachelor of Chemical Engineering">Bachelor of Chemical Engineering</option>
-                        <option value="Bachelor of Polymer Engineering">Bachelor of Polymer Engineering</option>
-                        <option value="Bachelor of Chemical Engineering Technology (Food Technology)">Bachelor of Chemical Engineering Technology (Food Technology)</option>
-                        <option value="Bachelor of Chemical Engineering Technology (Industrial Process)">Bachelor of Chemical Engineering Technology (Industrial Process)</option>
-                        <option value="Bachelor of Chemical Engineering Technology (Industrial Biotechnology)">Bachelor of Chemical Engineering Technology (Industrial Biotechnology)</option>
-                        <option value="Bachelor of Mechanical Engineering">Bachelor of Mechanical Engineering</option>
-                        <option value="Bachelor of Manufacturing Engineering">Bachelor of Manufacturing Engineering</option>
-                        <option value="Bachelor of Agricultural Engineering">Bachelor of Agricultural Engineering</option>
-                        <option value="Bachelor of Mechanical Engineering Technology (Machining)">Bachelor of Mechanical Engineering Technology (Machining)</option>
-                        <option value="Bachelor of Mechanical Engineering Technology (Agricultural System)">Bachelor of Mechanical Engineering Technology (Agricultural System)</option>
-                        <option value="Bachelor of Mechanical Engineering Technology (Product Design)">Bachelor of Mechanical Engineering Technology (Product Design)</option>
-                        <option value="Bachelor of Mechanical Engineering Technology (Material Processing)">Bachelor of Mechanical Engineering Technology (Material Processing)</option>
-                        <option value="Bachelor of Technology in Industrial Machining">Bachelor of Technology in Industrial Machining</option>
-                        <option value="Bachelor of Technology in Automotive">Bachelor of Technology in Automotive</option>
-                        <option value="Bachelor of Technology in Welding">Bachelor of Technology in Welding</option>
-                        <option value="Bachelor of New Media Communication">Bachelor of New Media Communication</option>
-                        <option value="Bachelor of Business (International Business)">Bachelor of Business (International Business)</option>
-                        <option value="Bachelor of Business (Engineering Entrepreneurship)">Bachelor of Business (Engineering Entrepreneurship)</option>
-                        <option value="Bachelor of Accounting">Bachelor of Accounting</option>
-                        <option value="Bachelor of Interactive Media Technology">Bachelor of Interactive Media Technology</option>
-                        <option value="Bachelor of Data Science (Artificial Intelligence)">Bachelor of Data Science (Artificial Intelligence)</option>
-                        <option value="Bachelor of Applied Science (Materials Technology & Metallurgy)">Bachelor of Applied Science (Materials Technology & Metallurgy)</option>
-                        <option value="Bachelor of Civil Engineering">Bachelor of Civil Engineering</option>
-                        <option value="Diploma in Computer Engineering">Diploma in Computer Engineering</option>
-                        <option value="Diploma in Electronic Engineering">Diploma in Electronic Engineering</option>
-                        <option value="Diploma in Electrical Engineering">Diploma in Electrical Engineering</option>
-                        <option value="Diploma in Mechatronic Engineering">Diploma in Mechatronic Engineering</option>
-                        <option value="Diploma in Mechanical Engineering Technology">Diploma in Mechanical Engineering Technology</option>
-                        <option value="Diploma in Manufacturing Engineering">Diploma in Manufacturing Engineering</option>
-                        <option value="Diploma in Materials Engineering">Diploma in Materials Engineering</option>
+                        <optgroup label="Postgraduate">
+                            <option value="Postgraduate (PhD)">Postgraduate (PhD)</option>
+                            <option value="Postgraduate (Master)">Postgraduate (Master)</option>
+                        </optgroup>
+                        <optgroup label="Bachelor Degrees">
+                            <option value="Bachelor of Environmental Engineering">Bachelor of Environmental Engineering</option>
+                            <option value="Bachelor of Civil Engineering Technology (Construction)">Bachelor of Civil Engineering Technology (Construction)</option>
+                            <option value="Bachelor of Building Construction Technology">Bachelor of Building Construction Technology</option>
+                            <option value="Bachelor of Microelectronic Engineering">Bachelor of Microelectronic Engineering</option>
+                            <option value="Bachelor of Computer Engineering">Bachelor of Computer Engineering</option>
+                            <option value="Bachelor of Biomedical Electronic Engineering">Bachelor of Biomedical Electronic Engineering</option>
+                            <option value="Bachelor of Electronic Engineering">Bachelor of Electronic Engineering</option>
+                            <option value="Bachelor of Electronic Engineering Technology (Electronic System)">Bachelor of Electronic Engineering Technology (Electronic System)</option>
+                            <option value="Bachelor of Electronic Engineering Technology (Telecommunications Design)">Bachelor of Electronic Engineering Technology (Telecommunications Design)</option>
+                            <option value="Bachelor of Electronic Engineering Technology (Network Design)">Bachelor of Electronic Engineering Technology (Network Design)</option>
+                            <option value="Bachelor of Industrial Electronic Automation Technology">Bachelor of Industrial Electronic Automation Technology</option>
+                            <option value="Bachelor of Electrical Engineering">Bachelor of Electrical Engineering</option>
+                            <option value="Bachelor of Mechatronic Engineering">Bachelor of Mechatronic Engineering</option>
+                            <option value="Bachelor of Electrical Engineering Technology (Industrial Power)">Bachelor of Electrical Engineering Technology (Industrial Power)</option>
+                            <option value="Bachelor of Electrical Engineering Technology (Robotics & Automation)">Bachelor of Electrical Engineering Technology (Robotics & Automation)</option>
+                            <option value="Bachelor of Electrical System Maintenance Technology">Bachelor of Electrical System Maintenance Technology</option>
+                            <option value="Bachelor of Materials Engineering">Bachelor of Materials Engineering</option>
+                            <option value="Bachelor of Chemical Engineering">Bachelor of Chemical Engineering</option>
+                            <option value="Bachelor of Polymer Engineering">Bachelor of Polymer Engineering</option>
+                            <option value="Bachelor of Chemical Engineering Technology (Food Technology)">Bachelor of Chemical Engineering Technology (Food Technology)</option>
+                            <option value="Bachelor of Chemical Engineering Technology (Industrial Chemical Process)">Bachelor of Chemical Engineering Technology (Industrial Chemical Process)</option>
+                            <option value="Bachelor of Chemical Engineering Technology (Industrial Biotechnology)">Bachelor of Chemical Engineering Technology (Industrial Biotechnology)</option>
+                            <option value="Bachelor of Mechanical Engineering">Bachelor of Mechanical Engineering</option>
+                            <option value="Bachelor of Manufacturing Engineering">Bachelor of Manufacturing Engineering</option>
+                            <option value="Bachelor of Agricultural Engineering">Bachelor of Agricultural Engineering</option>
+                            <option value="Bachelor of Mechanical Engineering Technology (Machining)">Bachelor of Mechanical Engineering Technology (Machining)</option>
+                            <option value="Bachelor of Mechanical Engineering Technology (Agricultural System)">Bachelor of Mechanical Engineering Technology (Agricultural System)</option>
+                            <option value="Bachelor of Mechanical Engineering Technology (Product Design)">Bachelor of Mechanical Engineering Technology (Product Design)</option>
+                            <option value="Bachelor of Mechanical Engineering Technology (Material Processing)">Bachelor of Mechanical Engineering Technology (Material Processing)</option>
+                            <option value="Bachelor of Technology in Industrial Machining">Bachelor of Technology in Industrial Machining</option>
+                            <option value="Bachelor of Technology in Automotive">Bachelor of Technology in Automotive</option>
+                            <option value="Bachelor of Technology in Welding">Bachelor of Technology in Welding</option>
+                            <option value="Bachelor of New Media Communication">Bachelor of New Media Communication</option>
+                            <option value="Bachelor of Business (International Business)">Bachelor of Business (International Business)</option>
+                            <option value="Bachelor of Business (Engineering Entrepreneurship)">Bachelor of Business (Engineering Entrepreneurship)</option>
+                            <option value="Bachelor of Accounting">Bachelor of Accounting</option>
+                            <option value="Bachelor of Interactive Media Technology">Bachelor of Interactive Media Technology</option>
+                            <option value="Bachelor of Data Science (Artificial Intelligence)">Bachelor of Data Science (Artificial Intelligence)</option>
+                            <option value="Bachelor of Applied Science (Materials Technology & Metallurgy)">Bachelor of Applied Science (Materials Technology & Metallurgy)</option>
+                            <option value="Bachelor of Civil Engineering">Bachelor of Civil Engineering</option>
+                        </optgroup>
+                        <optgroup label="Diploma">
+                            <option value="Diploma in Computer Engineering">Diploma in Computer Engineering</option>
+                            <option value="Diploma in Electronic Engineering">Diploma in Electronic Engineering</option>
+                            <option value="Diploma in Electrical Engineering">Diploma in Electrical Engineering</option>
+                            <option value="Diploma in Mechatronic Engineering">Diploma in Mechatronic Engineering</option>
+                            <option value="Diploma in Mechanical Engineering Technology">Diploma in Mechanical Engineering Technology</option>
+                            <option value="Diploma in Manufacturing Engineering">Diploma in Manufacturing Engineering</option>
+                            <option value="Diploma in Materials Engineering">Diploma in Materials Engineering</option>
+                        </optgroup>
                     </select>
                 </div>
             </div>
@@ -127,7 +133,7 @@
                     <input type="text" id="email" placeholder="Email Address" class="w-full p-2 border rounded mb-2" oninput="runUpdate()">
                     <input type="text" id="phone" placeholder="Phone Number" class="w-full p-2 border rounded mb-2" oninput="runUpdate()">
                     <input type="text" id="address" placeholder="Address (City, State)" class="w-full p-2 border rounded mb-2" oninput="runUpdate()">
-                    <input type="text" id="linkedin" placeholder="LinkedIn URL" class="w-full p-2 border rounded mb-2" oninput="runUpdate()">
+                    <input type="text" id="linkedin" placeholder="LinkedIn URL (e.g. linkedin.com/in/username)" class="w-full p-2 border rounded mb-2" oninput="runUpdate()">
                 </section>
 
                 <section class="p-4 border rounded-xl bg-white shadow-sm">
@@ -139,7 +145,7 @@
                     <div class="flex justify-between items-center mb-2"><h3 class="font-bold uppercase text-xs">3. Education</h3><button onclick="addEntry('edu-list')" class="bg-blue-600 text-white px-3 rounded-full shadow hover:bg-black transition">+</button></div>
                     <div id="edu-list"><div class="p-3 border bg-white rounded-lg entry mb-2">
                         <input type="text" placeholder="Institution" class="w-full border-b mb-1 p-1 font-bold text-sm" oninput="runUpdate()">
-                        <input type="text" placeholder="Degree / Qualification" class="w-full border-b mb-1 p-1 text-sm" oninput="runUpdate()">
+                        <input type="text" placeholder="Degree / Course" class="w-full border-b mb-1 p-1 text-sm" oninput="runUpdate()">
                         <div class="grid grid-cols-2 gap-2 mt-1">
                             <input type="text" placeholder="Start Year" class="border-b p-1 text-xs" oninput="runUpdate()">
                             <input type="text" placeholder="End/Expected" class="border-b p-1 text-xs" oninput="runUpdate()">
@@ -153,7 +159,7 @@
                     <div id="work-list"><div class="p-3 border bg-white rounded-lg entry mb-2">
                         <input type="text" placeholder="Job Title" class="w-full border-b mb-1 p-1 font-bold text-sm" oninput="runUpdate()">
                         <div class="grid grid-cols-2 gap-2 mt-1">
-                            <input type="text" placeholder="Company" class="border-b p-1 text-sm" oninput="runUpdate()">
+                            <input type="text" placeholder="Company Name" class="border-b p-1 text-sm" oninput="runUpdate()">
                             <input type="text" placeholder="Location" class="border-b p-1 text-sm" oninput="runUpdate()">
                         </div>
                         <input type="text" placeholder="Date Range" class="w-full border-b mb-1 p-1 text-sm mt-1" oninput="runUpdate()">
@@ -163,12 +169,12 @@
                 </section>
 
                 <section class="p-4 border rounded-xl bg-gray-50 shadow-sm">
-                    <div class="flex justify-between items-center mb-2"><h3 class="font-bold uppercase text-xs">5. Projects</h3><button onclick="addEntry('proj-list')" class="bg-blue-600 text-white px-3 rounded-full shadow hover:bg-black transition">+</button></div>
-                    <div id="proj-list"><div class="p-3 border bg-white rounded-lg entry mb-2"><input type="text" placeholder="Project Name" class="w-full border-b mb-1 p-1 font-bold text-sm" oninput="runUpdate()"><textarea placeholder="Describe objective and results..." class="w-full p-1 h-16 text-sm border rounded" oninput="runUpdate()"></textarea></div></div>
+                    <div class="flex justify-between items-center mb-2"><h3 class="font-bold uppercase text-xs">5. Projects</h3><button onclick="addEntry('proj-list')" class="bg-blue-600 text-white px-3 rounded-full shadow">+</button></div>
+                    <div id="proj-list"><div class="p-3 border bg-white rounded-lg entry mb-2"><input type="text" placeholder="Project Name" class="w-full border-b mb-1 p-1 font-bold text-sm" oninput="runUpdate()"><textarea placeholder="Objective & results..." class="w-full p-1 h-16 text-sm border rounded" oninput="runUpdate()"></textarea></div></div>
                 </section>
 
                 <section class="p-4 border rounded-xl bg-gray-50 shadow-sm">
-                    <div class="flex justify-between items-center mb-2"><h3 class="font-bold uppercase text-xs">6. Certifications</h3><button onclick="addEntry('cert-list')" class="bg-blue-600 text-white px-3 rounded-full shadow hover:bg-black transition">+</button></div>
+                    <div class="flex justify-between items-center mb-2"><h3 class="font-bold uppercase text-xs">6. Certifications</h3><button onclick="addEntry('cert-list')" class="bg-blue-600 text-white px-3 rounded-full shadow">+</button></div>
                     <div id="cert-list"><div class="p-3 border bg-white rounded-lg entry mb-2">
                         <input type="text" placeholder="Certificate Name" class="w-full border-b mb-1 p-1 font-bold text-sm" oninput="runUpdate()">
                         <input type="text" placeholder="Issuer" class="w-full border-b mb-1 p-1 text-sm" oninput="runUpdate()">
@@ -178,11 +184,11 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <section class="p-4 border rounded-xl bg-white shadow-sm">
-                        <div class="flex justify-between items-center mb-2"><h3 class="font-bold text-blue-900 uppercase text-xs">7. Tech Skills</h3><button onclick="askAI('skills')" class="ai-btn">✨ AI</button></div>
+                        <h3 class="font-bold text-blue-900 uppercase text-xs mb-2">7. Tech Skills</h3>
                         <textarea id="tech_sk" placeholder="e.g: Python, AutoCAD, CCNA" class="w-full p-2 border rounded text-xs h-24" oninput="runUpdate()"></textarea>
                     </section>
                     <section class="p-4 border rounded-xl bg-white shadow-sm">
-                        <div class="flex justify-between items-center mb-2"><h3 class="font-bold text-blue-900 uppercase text-xs">8. Soft Skills</h3><button onclick="askAI('skills')" class="ai-btn">✨ AI</button></div>
+                        <h3 class="font-bold text-blue-900 uppercase text-xs mb-2">8. Soft Skills</h3>
                         <textarea id="soft_sk" placeholder="e.g: Leadership, Teamwork" class="w-full p-2 border rounded text-xs h-24" oninput="runUpdate()"></textarea>
                     </section>
                 </div>
@@ -193,7 +199,7 @@
                 </section>
 
                 <section class="p-4 border rounded-xl bg-gray-50 shadow-sm">
-                    <div class="flex justify-between items-center mb-2"><h3 class="font-bold uppercase text-xs">10. References</h3><button onclick="addEntry('ref-list')" class="bg-blue-600 text-white px-3 rounded-full shadow hover:bg-black transition">+</button></div>
+                    <div class="flex justify-between items-center mb-2"><h3 class="font-bold uppercase text-xs">10. References</h3><button onclick="addEntry('ref-list')" class="bg-blue-600 text-white px-3 rounded-full shadow">+</button></div>
                     <div id="ref-list"><div class="p-3 border bg-white rounded-lg entry mb-2">
                         <input type="text" placeholder="Referee Name" class="w-full border-b mb-1 p-1 font-bold text-sm" oninput="runUpdate()">
                         <div class="grid grid-cols-2 gap-2 mt-1">
@@ -201,7 +207,7 @@
                             <input type="text" placeholder="Organization" class="border-b p-1 text-xs" oninput="runUpdate()">
                         </div>
                         <div class="grid grid-cols-2 gap-2 mt-1">
-                            <input type="text" placeholder="Phone Number" class="border-b p-1 text-xs" oninput="runUpdate()">
+                            <input type="text" placeholder="Phone" class="border-b p-1 text-xs" oninput="runUpdate()">
                             <input type="text" placeholder="Email" class="border-b p-1 text-xs" oninput="runUpdate()">
                         </div>
                     </div></div>
@@ -221,7 +227,8 @@
                     <div class="w-full">
                         <h1 id="p-name">YOUR FULL NAME</h1>
                         <p style="font-size: 11pt; margin: 5px 0;"><span id="p-email">email@example.com</span> | <span id="p-phone">012-3456789</span></p>
-                        <p id="p-address" style="font-size: 10pt;"></p>
+                        <p id="p-linkedin" style="font-size: 10pt; color: #1e3a8a; margin-top: 2px;"></p>
+                        <p id="p-address" style="font-size: 10pt; color: #666;"></p>
                     </div>
                 </header>
                 <section><h2>Professional Summary</h2><p id="p-summary" class="section-content text-justify"></p></section>
@@ -259,6 +266,8 @@
             document.getElementById('p-email').innerText = document.getElementById('email').value || 'email@example.com';
             document.getElementById('p-phone').innerText = document.getElementById('phone').value || '012-3456789';
             document.getElementById('p-address').innerText = document.getElementById('address').value;
+            const li = document.getElementById('linkedin').value;
+            document.getElementById('p-linkedin').innerText = li ? "LinkedIn: " + li : "";
             document.getElementById('p-summary').innerText = document.getElementById('summary').value;
             document.getElementById('p-tech').innerText = document.getElementById('tech_sk').value;
             document.getElementById('p-soft').innerText = document.getElementById('soft_sk').value;
@@ -275,25 +284,14 @@
         function fillList(id, out, tmpl) { let h = ''; document.querySelectorAll(`#${id} .entry`).forEach(el => { const i = el.querySelectorAll('input'); const t = el.querySelector('textarea').value; if(i[0].value) { const b = t.split('\n').filter(l => l.trim()).map(l => `<li>${l}</li>`).join(''); h += tmpl(i, b); } }); document.getElementById(out).innerHTML = h; }
         function addEntry(id) { const container = document.getElementById(id); const clone = container.children[0].cloneNode(true); clone.querySelectorAll('input, textarea').forEach(v => v.value = ''); container.appendChild(clone); runUpdate(); }
 
-        // AI ASSISTANT WITH PROMPT PREVIEW
         function askAI(type, btn) {
-            let p = ""; 
-            let kos = document.getElementById('prog').value || "university student";
-            
-            if(type==='summary') {
-                p = `Write 3 professional resume summary options for a final year student in ${kos}. Focus on career readiness and key academic strengths.`;
-            } else if(type==='exp') {
+            let p = ""; let kos = document.getElementById('prog').value || "university student";
+            if(type==='summary') p = `Write 3 professional resume summary options for a final year student in ${kos}. Focus on career readiness and key academic strengths.`;
+            else if(type==='exp') {
                 let job = btn.closest('.entry').querySelector('input').value || "Intern/Student";
                 p = `Write 5 professional resume bullet points for responsibilities and achievements as a ${job}. Use action verbs and focus on ${kos} industry standards.`;
-            } else if(type==='skills') {
-                p = `List the top 10 relevant technical and soft skills for a ${kos} graduate to include in a modern resume.`;
-            }
-
-            navigator.clipboard.writeText(p).then(() => {
-                alert("THE FOLLOWING PROMPT HAS BEEN COPIED:\n\n\"" + p + "\"\n\nNow, go to ChatGPT/Gemini and paste it!");
-            }).catch(() => {
-                prompt("Copy this prompt manually:", p);
-            });
+            } else if(type==='skills') p = `List the top 10 relevant technical and soft skills for a ${kos} graduate to include in a modern resume.`;
+            navigator.clipboard.writeText(p).then(() => alert("THE FOLLOWING PROMPT HAS BEEN COPIED:\n\n\"" + p + "\"\n\nNow, go to ChatGPT/Gemini and paste it!"));
         }
 
         function resetAll() { if(confirm("Reset all data?")) location.reload(); }
