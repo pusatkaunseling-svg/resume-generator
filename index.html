@@ -32,7 +32,7 @@
         
         <div class="bg-white p-4 md:p-6 rounded-lg shadow lg:h-[90vh] lg:overflow-y-auto border-t-8 border-blue-900 no-print">
             <div class="flex items-center gap-4 border-b-2 border-blue-900 pb-4 mb-6">
-                <img src="https://drive.google.com/thumbnail?id=1MvbeFj62QwwzGHvUCNrmjYqX6IrWTQxN&sz=w200" alt="PUSKA" class="max-h-[50px] md:max-h-[60px]">
+                <img src="https://drive.google.com/thumbnail?id=1MvbeFj62QwwzGHvUCNrmjYqX6IrWTQxN&sz=w200" alt="PUSKA" class="max-h-[50px]">
                 <div>
                     <h1 class="text-xl md:text-2xl font-black text-blue-900 leading-none">PUSKA</h1>
                     <p class="text-[10px] md:text-sm font-bold text-gray-600 tracking-widest uppercase">RESUME GENERATOR</p>
@@ -63,17 +63,14 @@
                         <option value="Faculty of Business & Communication">Faculty of Business & Communication</option>
                     </select>
                 </div>
-                <div><label class="font-bold text-blue-900 uppercase">Program</label>
-                    <select id="prog" class="w-full p-2 border rounded bg-white mt-1 font-semibold text-[10px]" onchange="runUpdate()">
+                <div><label class="font-bold text-blue-900 uppercase">Program Name</label>
+                    <select id="prog" class="w-full p-2 border rounded bg-white mt-1 font-semibold" onchange="runUpdate()">
                         <option value="">-- Select Program --</option>
                         <optgroup label="Postgraduate">
                             <option value="Postgraduate (PhD)">Postgraduate (PhD)</option>
                             <option value="Postgraduate (Master)">Postgraduate (Master)</option>
                         </optgroup>
-                        <optgroup label="Bachelor Degrees">
-                            <option value="Bachelor of Environmental Engineering">Bachelor of Environmental Engineering</option>
-                            <option value="Bachelor of Civil Engineering Technology (Construction)">Bachelor of Civil Engineering Technology (Construction)</option>
-                            <option value="Bachelor of Building Construction Technology">Bachelor of Building Construction Technology</option>
+                        <optgroup label="Bachelor of Engineering / Engineering Technology">
                             <option value="Bachelor of Microelectronic Engineering">Bachelor of Microelectronic Engineering</option>
                             <option value="Bachelor of Computer Engineering">Bachelor of Computer Engineering</option>
                             <option value="Bachelor of Biomedical Electronic Engineering">Bachelor of Biomedical Electronic Engineering</option>
@@ -100,6 +97,12 @@
                             <option value="Bachelor of Mechanical Engineering Technology (Agricultural System)">Bachelor of Mechanical Engineering Technology (Agricultural System)</option>
                             <option value="Bachelor of Mechanical Engineering Technology (Product Design)">Bachelor of Mechanical Engineering Technology (Product Design)</option>
                             <option value="Bachelor of Mechanical Engineering Technology (Material Processing)">Bachelor of Mechanical Engineering Technology (Material Processing)</option>
+                            <option value="Bachelor of Civil Engineering">Bachelor of Civil Engineering</option>
+                            <option value="Bachelor of Civil Engineering Technology (Construction)">Bachelor of Civil Engineering Technology (Construction)</option>
+                            <option value="Bachelor of Building Construction Technology">Bachelor of Building Construction Technology</option>
+                            <option value="Bachelor of Environmental Engineering">Bachelor of Environmental Engineering</option>
+                        </optgroup>
+                        <optgroup label="Bachelor of Technology / Applied Science / Business / Computing">
                             <option value="Bachelor of Technology in Industrial Machining">Bachelor of Technology in Industrial Machining</option>
                             <option value="Bachelor of Technology in Automotive">Bachelor of Technology in Automotive</option>
                             <option value="Bachelor of Technology in Welding">Bachelor of Technology in Welding</option>
@@ -110,7 +113,6 @@
                             <option value="Bachelor of Interactive Media Technology">Bachelor of Interactive Media Technology</option>
                             <option value="Bachelor of Data Science (Artificial Intelligence)">Bachelor of Data Science (Artificial Intelligence)</option>
                             <option value="Bachelor of Applied Science (Materials Technology & Metallurgy)">Bachelor of Applied Science (Materials Technology & Metallurgy)</option>
-                            <option value="Bachelor of Civil Engineering">Bachelor of Civil Engineering</option>
                         </optgroup>
                         <optgroup label="Diploma">
                             <option value="Diploma in Computer Engineering">Diploma in Computer Engineering</option>
@@ -126,8 +128,8 @@
             </div>
 
             <div class="grid grid-cols-2 gap-2 mb-6">
-                <label class="flex items-center justify-center p-2 bg-yellow-50 border border-yellow-200 rounded-lg cursor-pointer font-bold text-xs"><input type="radio" name="tmpx" value="ats" checked onchange="toggleLayout()" class="mr-2"> ATS Link (J)</label>
-                <label class="flex items-center justify-center p-2 bg-yellow-50 border border-yellow-200 rounded-lg cursor-pointer font-bold text-xs"><input type="radio" name="tmpx" value="std" onchange="toggleLayout()" class="mr-2"> Photo Link (K)</label>
+                <label class="flex items-center justify-center p-2 bg-yellow-50 border border-yellow-200 rounded-lg cursor-pointer font-bold text-xs"><input type="radio" name="tmpx" value="ats" checked onchange="toggleLayout()" class="mr-2"> ATS Layout</label>
+                <label class="flex items-center justify-center p-2 bg-yellow-50 border border-yellow-200 rounded-lg cursor-pointer font-bold text-xs"><input type="radio" name="tmpx" value="std" onchange="toggleLayout()" class="mr-2"> Photo Layout</label>
             </div>
 
             <div class="space-y-6">
@@ -139,11 +141,6 @@
                     <input type="text" id="phone" placeholder="Phone Number" class="w-full p-2 border rounded mb-2 text-sm" oninput="runUpdate()">
                     <input type="text" id="address" placeholder="Location (City, State)" class="w-full p-2 border rounded mb-2 text-sm" oninput="runUpdate()">
                     <input type="text" id="linkedin" placeholder="LinkedIn URL" class="w-full p-2 border rounded mb-2 text-sm" oninput="runUpdate()">
-                </section>
-
-                <section class="p-4 border rounded-xl bg-white shadow-sm">
-                    <div class="flex justify-between items-center mb-2"><h3 class="font-bold border-b-2 border-blue-500 text-blue-900 uppercase text-xs">2. Summary</h3><button onclick="askAI('summary')" class="ai-btn">✨ AI</button></div>
-                    <textarea id="summary" placeholder="Brief summary..." class="w-full p-2 border rounded h-24 text-sm" oninput="runUpdate()"></textarea>
                 </section>
 
                 <section class="p-4 border rounded-xl bg-gray-50 shadow-sm">
@@ -160,22 +157,19 @@
                 </section>
 
                 <section class="p-4 border rounded-xl bg-gray-50 shadow-sm">
-                    <div class="flex justify-between items-center mb-2"><h3 class="font-bold uppercase text-[10px]">4. Work Experience</h3><button onclick="addEntry('work-list')" class="bg-blue-600 text-white px-3 rounded-full shadow hover:bg-black transition">+</button></div>
-                    <div id="work-list"><div class="p-3 border bg-white rounded-lg entry mb-2 text-sm">
-                        <input type="text" placeholder="Job Title" class="w-full border-b mb-1 font-bold" oninput="runUpdate()">
+                    <div class="flex justify-between items-center mb-2"><h3 class="font-bold uppercase text-[10px]">10. References</h3><button onclick="addEntry('ref-list')" class="bg-blue-600 text-white px-3 rounded-full shadow">+</button></div>
+                    <div id="ref-list"><div class="p-3 border bg-white rounded-lg entry mb-2 text-sm">
+                        <input type="text" placeholder="Referee Name" class="w-full border-b mb-1 font-bold" oninput="runUpdate()">
                         <div class="grid grid-cols-2 gap-2 mt-1">
-                            <input type="text" placeholder="Company" class="border-b" oninput="runUpdate()"><input type="text" placeholder="Location" class="border-b" oninput="runUpdate()">
+                            <input type="text" placeholder="Position" class="border-b text-xs" oninput="runUpdate()">
+                            <input type="text" placeholder="Organization" class="border-b text-xs" oninput="runUpdate()">
                         </div>
-                        <input type="text" placeholder="Date Range" class="w-full border-b mb-1 text-xs mt-1" oninput="runUpdate()">
-                        <div class="flex justify-between items-center mt-1"><span class="text-[10px] text-gray-400 font-bold uppercase">Responsibilities</span><button onclick="askAI('exp', this)" class="ai-btn">✨ AI</button></div>
-                        <textarea placeholder="Bullet points..." class="w-full p-1 h-20 border rounded mt-1 text-xs" oninput="runUpdate()"></textarea>
+                        <div class="grid grid-cols-2 gap-2 mt-1">
+                            <input type="text" placeholder="Phone Number" class="border-b text-xs" oninput="runUpdate()">
+                            <input type="text" placeholder="Email Address" class="border-b text-xs" oninput="runUpdate()">
+                        </div>
                     </div></div>
                 </section>
-
-                <section class="p-4 border rounded-xl bg-gray-50 shadow-sm"><div class="flex justify-between items-center mb-2"><h3 class="font-bold uppercase text-[10px]">5. Projects</h3><button onclick="addEntry('proj-list')" class="bg-blue-600 text-white px-3 rounded-full shadow">+</button></div><div id="proj-list"><div class="p-3 border bg-white rounded-lg entry mb-2"><input type="text" placeholder="Project Name" class="w-full border-b mb-1 font-bold text-sm" oninput="runUpdate()"><textarea placeholder="Description..." class="w-full p-1 h-16 border rounded text-xs" oninput="runUpdate()"></textarea></div></div></section>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4"><section class="p-4 border rounded-xl bg-white shadow-sm"><h3 class="font-bold text-blue-900 uppercase text-xs mb-2">6. Tech Skills</h3><textarea id="tech_sk" placeholder="Python, AutoCAD..." class="w-full p-2 border rounded text-xs h-24" oninput="runUpdate()"></textarea></section><section class="p-4 border rounded-xl bg-white shadow-sm"><h3 class="font-bold text-blue-900 uppercase text-xs mb-2">7. Soft Skills</h3><textarea id="soft_sk" placeholder="Leadership, Teamwork..." class="w-full p-2 border rounded text-xs h-24" oninput="runUpdate()"></textarea></section></div>
-                <section class="p-4 border rounded-xl bg-white shadow-sm"><h3 class="font-bold text-blue-900 uppercase text-xs mb-2">8. Languages</h3><textarea id="langs" placeholder="English, Malay..." class="w-full p-2 border rounded text-xs h-16" oninput="runUpdate()"></textarea></section>
-                <section class="p-4 border rounded-xl bg-gray-50 shadow-sm"><div class="flex justify-between items-center mb-2"><h3 class="font-bold uppercase text-[10px]">9. References</h3><button onclick="addEntry('ref-list')" class="bg-blue-600 text-white px-3 rounded-full shadow">+</button></div><div id="ref-list"><div class="p-3 border bg-white rounded-lg entry mb-2 text-sm"><input type="text" placeholder="Name" class="w-full border-b mb-1 font-bold" oninput="runUpdate()"><input type="text" placeholder="Position & Org" class="w-full border-b mb-1" oninput="runUpdate()"><div class="grid grid-cols-2 gap-2 mt-1"><input type="text" placeholder="Phone" class="border-b text-xs" oninput="runUpdate()"><input type="text" placeholder="Email" class="border-b text-xs" oninput="runUpdate()"></div></div></div></section>
             </div>
 
             <div class="mt-8 grid grid-cols-2 gap-3 pb-10">
@@ -190,24 +184,20 @@
                     <div class="w-full">
                         <h1 id="p-name">YOUR FULL NAME</h1>
                         <p style="font-size: 11pt; margin: 5px 0;">
-                            <span id="p-email">email@example.com</span> | <span id="p-phone">012-3456789</span> | <span id="p-address">LOCATION</span>
+                            <span id="p-email">email@example.com</span> | 
+                            <span id="p-phone">012-3456789</span> | 
+                            <span id="p-address">LOCATION</span>
                         </p>
                         <div id="p-linkedin-area" style="font-size: 10pt; margin-top: 2px;"></div>
                     </div>
                 </header>
-                <section><h2>Professional Summary</h2><p id="p-summary" class="section-content text-justify"></p></section>
                 <section><h2>Education</h2><div id="p-edu"></div></section>
-                <section><h2>Work Experience</h2><div id="p-work"></div></section>
-                <section><h2>Key Projects</h2><div id="p-proj"></div></section>
-                <div class="grid grid-cols-2 gap-8"><section><h2>Technical Skills</h2><p id="p-tech" class="section-content whitespace-pre-line"></p></section><section><h2>Soft Skills</h2><p id="p-soft" class="section-content whitespace-pre-line"></p></section></div>
-                <section><h2>Languages</h2><p id="p-langs" class="section-content"></p></section>
                 <section><h2>References</h2><div id="p-ref" class="grid grid-cols-2 gap-4"></div></section>
             </div>
         </div>
     </div>
 
     <script>
-        // SCRIPT URL TELAH DIKEMASKINI
         const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby1IqbLGUwj61TKhDL2jwtoBGW77w5uaZfSRpPtRjoBbrchI802Gu1qUOo_0y23cUCoog/exec';
 
         window.onload = () => { runUpdate(); };
@@ -225,22 +215,16 @@
                 liArea.innerHTML = `<a href="${secureLink}" target="_blank" style="color: #1e3a8a; text-decoration: none;">${liVal}</a>`;
             } else { liArea.innerHTML = ""; }
 
-            document.getElementById('p-summary').innerText = document.getElementById('summary').value;
-            document.getElementById('p-tech').innerText = document.getElementById('tech_sk').value;
-            document.getElementById('p-soft').innerText = document.getElementById('soft_sk').value;
-            document.getElementById('p-langs').innerText = document.getElementById('langs').value;
-
             fillSection('edu-list', 'p-edu', i => `<div class="mb-3 text-[10.5pt]"><div class="item-header"><span>${i[0].value}</span><span>${i[2].value} - ${i[3].value}</span></div><i>${i[1].value}</i><br>CGPA: ${i[4].value}</div>`);
-            fillList('work-list', 'p-work', (i, b) => `<div class="mb-4 text-[10.5pt]"><div class="item-header"><span>${i[0].value}</span><span>${i[3].value}</span></div><i>${i[1].value}${i[2].value ? ', '+i[2].value : ''}</i><ul class="mt-1">${b}</ul></div>`);
-            fillList('proj-list', 'p-proj', (i, b) => `<div class="mb-4 text-[10.5pt]"><div class="item-header"><span>${i[0].value}</span></div><ul class="mt-1">${b}</ul></div>`);
-            fillSection('ref-list', 'p-ref', i => `<div class="text-[10pt]"><b>${i[0].value}</b><br>${i[1].value}<br>${i[2].value} | ${i[3].value}</div>`);
+            
+            // ASINGKAN POSITION & ORGANIZATION SEPERTI YANG LAMA
+            fillSection('ref-list', 'p-ref', i => `<div class="text-[10pt]"><b>${i[0].value}</b><br>${i[1].value}, ${i[2].value}<br>${i[3].value} | ${i[4].value}</div>`);
         }
 
         async function submitDatabase() {
             const name = document.getElementById('name').value;
             const email = document.getElementById('email').value;
             if(!name || !email) { alert("Sila masukkan Nama & Email."); return; }
-            
             const btn = document.getElementById('btnSubmit');
             btn.innerText = "Submitting..."; btn.disabled = true;
 
@@ -249,8 +233,7 @@
 
             const payload = {
                 cgpa: document.getElementById('main_cgpa').value,
-                name: name,
-                email: email,
+                name: name, email: email,
                 phone: document.getElementById('phone').value,
                 level: document.getElementById('level').value,
                 year: document.getElementById('year').value,
@@ -262,8 +245,7 @@
 
             try { 
                 await fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) }); 
-                alert("✅ Data Berjaya Disimpan!"); 
-                printResume(); 
+                alert("✅ Data Disimpan!"); printResume(); 
             } catch(e) { printResume(); }
             finally { btn.disabled = false; btn.innerText = "Download & Submit"; }
         }
@@ -277,7 +259,6 @@
         }
 
         function fillSection(id, out, tmpl) { let h = ''; document.querySelectorAll(`#${id} .entry`).forEach(el => { const i = el.querySelectorAll('input'); if(i[0].value) h += tmpl(i); }); document.getElementById(out).innerHTML = h; }
-        function fillList(id, out, tmpl) { let h = ''; document.querySelectorAll(`#${id} .entry`).forEach(el => { const i = el.querySelectorAll('input'); const t = el.querySelector('textarea').value; if(i[0].value) { const b = t.split('\n').filter(l => l.trim()).map(l => `<li>${l}</li>`).join(''); h += tmpl(i, b); } }); document.getElementById(out).innerHTML = h; }
         function addEntry(id) { const container = document.getElementById(id); const clone = container.children[0].cloneNode(true); clone.querySelectorAll('input, textarea').forEach(v => v.value = ''); container.appendChild(clone); runUpdate(); }
         function toggleLayout() {
             const isStd = document.querySelector('input[name="tmpx"]:checked').value === 'std';
@@ -291,10 +272,6 @@
         function askAI(type, btn) {
             let p = ""; let kos = document.getElementById('prog').value || "university student";
             if(type==='summary') p = `Write 3 professional resume summary options for a final year student in ${kos}.`;
-            else if(type==='exp') {
-                let job = btn.closest('.entry').querySelector('input').value || "Intern";
-                p = `Write 5 professional bullet points for responsibilities as a ${job} in ${kos} field.`;
-            }
             navigator.clipboard.writeText(p).then(() => alert("PROMPT DISALIN!\n\n" + p));
         }
     </script>
