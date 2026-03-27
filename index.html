@@ -3,49 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PUSKA Resume Generator - Master v17.0</title>
+    <title>PUSKA Resume Generator - Final v18.0</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style id="resume-styles">
-        /* --- PAPARAN SKRIN (BROWSER) --- */
+        /* --- PAPARAN SKRIN (BROWSER VIEW) --- */
         .resume-preview {
             font-family: 'Arial', sans-serif; color: #1a1a1a; line-height: 1.4; background: white;
             width: 210mm; min-height: 297mm; padding: 20mm; box-sizing: border-box; 
             border: 1px solid #ddd; margin: auto; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
         .resume-preview h1 { font-size: 18pt; font-weight: bold; text-transform: uppercase; margin: 0; color: black; text-align: center; }
-        .resume-preview h2 { border-bottom: 2px solid #333; margin-top: 15px; margin-bottom: 8px; font-size: 13pt; font-weight: bold; text-transform: uppercase; text-align: left; color: black; }
+        .resume-preview h2 { border-bottom: 2px solid #333; margin-top: 15px; margin-bottom: 8px; font-size: 12pt; font-weight: bold; text-transform: uppercase; text-align: left; color: black; }
         .item-header { display: flex; justify-content: space-between; font-weight: bold; font-size: 11pt; }
         .resume-preview ul { list-style-type: disc !important; margin-left: 1.2rem !important; margin-top: 2px; }
         .section-content { font-size: 10.5pt; margin-bottom: 8px; }
 
-        /* --- LOGIK CETAKAN (MENGATASI ISU GAMBAR KECIL/TERAPUNG) --- */
+        /* --- SOLUSI PRINT: MENGELAKKAN RAKAN BLANK --- */
         @media print {
-            /* Sembunyikan segalanya */
-            html, body { background: white !important; margin: 0 !important; padding: 0 !important; height: auto !important; }
-            .no-print, header, footer, .lg\:grid-cols-2 > div:first-child { display: none !important; }
+            /* Sembunyikan semua elemen kecuali kotak resume */
+            body > *:not(.print-wrapper) { display: none !important; }
+            .no-print, .lg\:grid-cols-2 > div:first-child { display: none !important; }
             
-            /* Paksa container resume menjadi saiz kertas penuh */
-            .preview-container { padding: 0 !important; margin: 0 !important; display: block !important; width: 100% !important; height: auto !important; }
+            /* Paksa paparan penuh pada kertas */
+            html, body { background: white !important; margin: 0 !important; padding: 0 !important; width: 210mm; height: 297mm; }
             
             .resume-preview {
                 display: block !important;
-                visibility: visible !important;
-                width: 210mm !important; /* Saiz A4 Fizikal */
+                width: 210mm !important;
                 min-height: 297mm !important;
-                padding: 15mm !important; /* Margin dalaman kertas */
+                padding: 15mm !important;
                 border: none !important;
                 box-shadow: none !important;
-                position: relative !important;
                 margin: 0 !important;
-                left: 0 !important;
-                top: 0 !important;
-                transform: none !important; /* Buang sebarang scaling */
+                transform: none !important;
             }
             
             @page { size: A4 portrait; margin: 0; }
         }
 
-        /* Preview Scale untuk paparan skrin sahaja */
+        /* Scale preview untuk skrin komputer */
         @media (max-width: 1024px) {
             .preview-container { overflow-x: auto; background: #eee; padding: 10px; }
             .resume-preview { transform: scale(0.45); transform-origin: top center; }
@@ -53,81 +49,83 @@
     </style>
 </head>
 <body class="bg-gray-100">
-    <div class="max-w-full mx-auto grid grid-cols-1 lg:grid-cols-2 gap-0 no-print">
-        
-        <div class="bg-white p-6 lg:h-screen lg:overflow-y-auto border-r shadow-inner no-print">
-            <div class="flex items-center gap-4 mb-6">
-                <img src="https://drive.google.com/thumbnail?id=1MvbeFj62QwwzGHvUCNrmjYqX6IrWTQxN&sz=w200" alt="PUSKA" class="max-h-12">
-                <h1 class="text-2xl font-black text-blue-900 uppercase">PUSKA Master v17.0</h1>
-            </div>
-
-            <div class="bg-blue-900 p-4 rounded-xl mb-6 text-white space-y-3 shadow-lg">
-                <div class="grid grid-cols-2 gap-3 text-xs">
-                    <div><label class="font-bold uppercase">Level</label><select id="level" class="w-full p-2 rounded bg-white text-black mt-1"><option>Undergraduate</option><option>Diploma</option></select></div>
-                    <div><label class="font-bold uppercase">Year</label><select id="year" class="w-full p-2 rounded bg-white text-black mt-1"><option>Year 4</option></select></div>
+    <div class="print-wrapper">
+        <div class="max-w-full mx-auto grid grid-cols-1 lg:grid-cols-2 gap-0">
+            
+            <div class="bg-white p-6 lg:h-screen lg:overflow-y-auto border-r shadow-inner no-print">
+                <div class="flex items-center gap-4 mb-6">
+                    <img src="https://drive.google.com/thumbnail?id=1MvbeFj62QwwzGHvUCNrmjYqX6IrWTQxN&sz=w200" alt="PUSKA" class="max-h-12">
+                    <h1 class="text-2xl font-black text-blue-900 uppercase">PUSKA v18.0</h1>
                 </div>
-                <div class="grid grid-cols-3 gap-3 text-xs">
-                    <div class="col-span-2"><label class="font-bold uppercase">Faculty</label><select id="faculty" class="w-full p-2 rounded bg-white text-black mt-1"><option>Faculty of Intelligent Computing</option></select></div>
-                    <div><label class="font-bold uppercase text-yellow-400">CGPA</label><input type="text" id="main_cgpa" value="4.00" class="w-full p-2 rounded bg-white text-black mt-1 font-bold text-center" oninput="runUpdate()"></div>
+
+                <div class="bg-blue-900 p-4 rounded-xl mb-6 text-white space-y-3">
+                    <div class="grid grid-cols-2 gap-3 text-xs">
+                        <div><label class="font-bold uppercase">Level</label><select id="level" class="w-full p-2 rounded bg-white text-black mt-1"><option>Undergraduate</option><option>Diploma</option></select></div>
+                        <div><label class="font-bold uppercase">Year</label><select id="year" class="w-full p-2 rounded bg-white text-black mt-1"><option>Year 4</option></select></div>
+                    </div>
+                    <div class="grid grid-cols-3 gap-3 text-xs">
+                        <div class="col-span-2"><label class="font-bold uppercase">Faculty</label><select id="faculty" class="w-full p-2 rounded bg-white text-black mt-1"><option>Faculty of Intelligent Computing</option></select></div>
+                        <div><label class="font-bold uppercase text-yellow-400">CGPA</label><input type="text" id="main_cgpa" value="4.00" class="w-full p-2 rounded bg-white text-black mt-1 font-bold text-center" oninput="runUpdate()"></div>
+                    </div>
+                    <div><label class="font-bold uppercase text-xs">Program (49 Programs)</label>
+                        <select id="prog" class="w-full p-2 rounded bg-white text-black mt-1 font-semibold text-[10px]" onchange="runUpdate()">
+                            <option value="Bachelor of Data Science (Artificial Intelligence)">Bachelor of Data Science (Artificial Intelligence)</option>
+                            <option value="Bachelor of Electrical Engineering">Bachelor of Electrical Engineering</option>
+                            </select>
+                    </div>
                 </div>
-                <div><label class="font-bold uppercase text-xs">Program</label>
-                    <select id="prog" class="w-full p-2 rounded bg-white text-black mt-1 font-semibold" onchange="runUpdate()">
-                        <option>Bachelor of Data Science (Artificial Intelligence)</option>
-                        <option>Bachelor of Electrical Engineering</option>
-                    </select>
+
+                <div class="space-y-5">
+                    <section class="p-4 border rounded-xl bg-white shadow-sm">
+                        <h3 class="font-bold text-blue-900 uppercase text-xs mb-3 border-b pb-1">1. Personal Info</h3>
+                        <input type="text" id="name" placeholder="FULL NAME" value="MUHAMAD ZUL IZZAT BIN JAMIL" class="w-full p-2 border rounded mb-2 font-bold uppercase text-sm" oninput="runUpdate()">
+                        <input type="text" id="email" placeholder="email@unimap.edu.my" value="zulizzat@unimap.edu.my" class="w-full p-2 border rounded mb-2 text-sm" oninput="runUpdate()">
+                        <input type="text" id="phone" placeholder="0135828069" value="0135828069" class="w-full p-2 border rounded mb-2 text-sm" oninput="runUpdate()">
+                        <input type="text" id="address" placeholder="CITY, STATE" value="PASIR GUDANG, JOHOR" class="w-full p-2 border rounded mb-2 text-sm uppercase" oninput="runUpdate()">
+                        <input type="text" id="linkedin" placeholder="LinkedIn URL" value="https://www.linkedin.com/in/zulizzat/" class="w-full p-2 border rounded text-sm" oninput="runUpdate()">
+                    </section>
+
+                    <section class="p-4 border rounded-xl bg-white shadow-sm">
+                        <div class="flex justify-between items-center mb-2"><b>2. Summary</b><button onclick="askAI('summary')" class="bg-blue-600 text-white text-[10px] px-2 py-1 rounded">✨ AI</button></div>
+                        <textarea id="summary" class="w-full p-2 border rounded h-28 text-xs" oninput="runUpdate()">Final-year student with a strong foundation in machine learning, data analysis, and statistical modeling. Experienced in applying Python and data-driven techniques through academic projects.</textarea>
+                    </section>
+
+                    <section class="p-4 border rounded-xl bg-gray-50 shadow-sm"><div class="flex justify-between items-center mb-2"><b>3. Work Experience</b><button onclick="addEntry('work-list')" class="bg-blue-600 text-white px-2 rounded font-bold">+</button></div><div id="work-list"><div class="p-3 border bg-white rounded-lg entry mb-2 text-xs"><input type="text" placeholder="Job Title" value="Data Science Intern" class="w-full border-b mb-1 font-bold" oninput="runUpdate()"><input type="text" placeholder="Company, Location" value="Deloitte Touche Tohmatsu Limited, Penang" class="w-full border-b mb-1" oninput="runUpdate()"><input type="text" placeholder="Date" value="Jun 2025 - Sep 2025" class="w-full border-b mb-1" oninput="runUpdate()"><textarea placeholder="Responsibilities (one per line)..." class="w-full p-1 h-20 border rounded mt-1" oninput="runUpdate()">Developed and implemented machine learning models improving prediction accuracy by 15%</textarea></div></div></section>
+
+                    <section class="p-4 border rounded-xl bg-gray-50 shadow-sm"><div class="flex justify-between items-center mb-2"><b>4. Key Projects</b><button onclick="addEntry('proj-list')" class="bg-blue-600 text-white px-2 rounded font-bold">+</button></div><div id="proj-list"><div class="p-3 border bg-white rounded-lg entry mb-2 text-xs"><input type="text" placeholder="Project Name" value="Customer Churn Prediction" class="w-full border-b mb-1 font-bold" oninput="runUpdate()"><textarea placeholder="Details..." class="w-full p-1 h-20 border rounded mt-1" oninput="runUpdate()">Developed a ML model to predict churn achieving up to 85% accuracy</textarea></div></div></section>
+
+                    <section class="p-4 border rounded-xl bg-gray-50 shadow-sm"><b>5. Skills, Certs & Languages</b>
+                        <textarea id="tech_sk" placeholder="Tech Skills..." class="w-full p-2 border rounded h-16 text-xs mb-2 mt-2" oninput="runUpdate()">Power BI, Tableau, Matplotlib, Seaborn</textarea>
+                        <textarea id="soft_sk" placeholder="Soft Skills..." class="w-full p-2 border rounded h-16 text-xs mb-2" oninput="runUpdate()">Analytical Thinking, Problem-Solving, Teamwork & Collaboration</textarea>
+                        <textarea id="certs" placeholder="Certifications & Languages..." class="w-full p-2 border rounded h-16 text-xs" oninput="runUpdate()">Python for Data Science - DataCamp | Languages: English (professional), Bahasa Malaysia (native)</textarea>
+                    </section>
+
+                    <section class="p-4 border rounded-xl bg-gray-50 shadow-sm"><div class="flex justify-between items-center mb-2"><b>6. References</b><button onclick="addEntry('ref-list')" class="bg-blue-600 text-white px-2 rounded font-bold">+</button></div><div id="ref-list"><div class="p-3 border bg-white rounded-lg entry mb-2 text-xs"><input type="text" placeholder="Name" value="Ms. Siti Nurhaliza" class="w-full border-b mb-1 font-bold" oninput="runUpdate()"><input type="text" placeholder="Position" value="Internship Supervisor, Deloitte Malaysia" class="w-full border-b mb-1" oninput="runUpdate()"><input type="text" placeholder="Contact" value="P: +60 3-1234 5678 | E: siti.nurhaliza@deloitte.com" class="w-full border-b" oninput="runUpdate()"></div></div></section>
+                </div>
+
+                <div class="mt-10 grid grid-cols-2 gap-4 pb-20 no-print">
+                    <button onclick="location.reload()" class="bg-gray-400 text-white py-4 rounded-xl font-bold uppercase shadow">Reset</button>
+                    <button onclick="submitDatabase()" id="btnSubmit" class="bg-blue-800 text-white py-4 rounded-xl font-bold uppercase shadow-xl">Download & Submit</button>
                 </div>
             </div>
 
-            <div class="space-y-5">
-                <section class="p-4 border rounded-xl bg-white shadow-sm">
-                    <h3 class="font-bold text-blue-900 uppercase text-xs mb-3 border-b pb-1">1. Personal Info</h3>
-                    <input type="text" id="name" placeholder="FULL NAME" value="MUHAMAD ZUL IZZAT BIN JAMIL" class="w-full p-2 border rounded mb-2 font-bold uppercase text-sm" oninput="runUpdate()">
-                    <input type="text" id="email" placeholder="email@unimap.edu.my" value="zulizzat@unimap.edu.my" class="w-full p-2 border rounded mb-2 text-sm" oninput="runUpdate()">
-                    <input type="text" id="phone" placeholder="0135828069" value="0135828069" class="w-full p-2 border rounded mb-2 text-sm" oninput="runUpdate()">
-                    <input type="text" id="address" placeholder="PASIR GUDANG, JOHOR" value="PASIR GUDANG, JOHOR" class="w-full p-2 border rounded mb-2 text-sm uppercase" oninput="runUpdate()">
-                    <input type="text" id="linkedin" placeholder="LinkedIn URL" value="https://www.linkedin.com/in/zulizzat/" class="w-full p-2 border rounded text-sm" oninput="runUpdate()">
-                </section>
+            <div class="bg-gray-200 p-0 flex justify-center preview-container lg:h-screen lg:overflow-y-auto no-print">
+                <div class="bg-white resume-preview shadow-2xl" id="pdf-area">
+                    <header class="text-center">
+                        <h1 id="p-name">MUHAMAD ZUL IZZAT BIN JAMIL</h1>
+                        <p id="p-contact" style="font-size: 11pt; margin: 5px 0; font-weight: bold;">zulizzat@unimap.edu.my | 0135828069</p>
+                        <div id="p-linkedin-area" style="font-size: 10pt; margin-bottom: 5px;"></div>
+                        <p id="p-location" style="font-size: 10.5pt; font-weight: bold; text-transform: uppercase; border-top: 1px solid #eee; padding-top: 5px;"></p>
+                    </header>
 
-                <section class="p-4 border rounded-xl bg-white shadow-sm">
-                    <div class="flex justify-between items-center mb-2"><b>2. Summary</b><button onclick="askAI('summary')" class="ai-btn">✨ AI</button></div>
-                    <textarea id="summary" class="w-full p-2 border rounded h-28 text-xs" oninput="runUpdate()">Final-year student with a strong foundation in machine learning, data analysis, and statistical modeling. Experienced in applying Python and data-driven techniques through academic projects.</textarea>
-                </section>
-
-                <section class="p-4 border rounded-xl bg-gray-50 shadow-sm"><div class="flex justify-between items-center mb-2"><b>3. Work Experience</b><button onclick="addEntry('work-list')" class="bg-blue-600 text-white px-2 rounded font-bold">+</button></div><div id="work-list"><div class="p-3 border bg-white rounded-lg entry mb-2 text-xs"><input type="text" placeholder="Job Title" value="Data Science Intern" class="w-full border-b mb-1 font-bold" oninput="runUpdate()"><input type="text" placeholder="Company, Location" value="Deloitte Malaysia, Penang" class="w-full border-b mb-1" oninput="runUpdate()"><input type="text" placeholder="Date" value="Jun 2025 - Sep 2025" class="w-full border-b mb-1" oninput="runUpdate()"><textarea placeholder="Bullets..." class="w-full p-1 h-20 border rounded mt-1" oninput="runUpdate()">Developed and implemented machine learning models improving prediction accuracy by 15%.</textarea></div></div></section>
-
-                <section class="p-4 border rounded-xl bg-gray-50 shadow-sm"><div class="flex justify-between items-center mb-2"><b>4. Key Projects</b><button onclick="addEntry('proj-list')" class="bg-blue-600 text-white px-2 rounded font-bold">+</button></div><div id="proj-list"><div class="p-3 border bg-white rounded-lg entry mb-2 text-xs"><input type="text" placeholder="Project Name" value="Customer Churn Prediction" class="w-full border-b mb-1 font-bold" oninput="runUpdate()"><textarea placeholder="Bullets..." class="w-full p-1 h-16 border rounded mt-1" oninput="runUpdate()">Developed a ML model to predict churn achieving up to 85% accuracy.</textarea></div></div></section>
-
-                <section class="p-4 border rounded-xl bg-gray-50 shadow-sm"><div class="flex justify-between items-center mb-2"><b>5. Skills, Certs & Ref</b><button onclick="askAI('tech')" class="ai-btn">✨ AI</button></div>
-                    <textarea id="tech_sk" placeholder="Tech Skills..." class="w-full p-2 border rounded h-16 text-xs mb-2" oninput="runUpdate()">Python (Pandas, NumPy), SQL, Matplotlib, Seaborn, Power BI, Tableau</textarea>
-                    <textarea id="soft_sk" placeholder="Soft Skills..." class="w-full p-2 border rounded h-16 text-xs mb-2" oninput="runUpdate()">Analytical Thinking, Problem-Solving, Teamwork & Collaboration</textarea>
-                    <textarea id="certs" placeholder="Certs & Languages..." class="w-full p-2 border rounded h-16 text-xs" oninput="runUpdate()">Python for Data Science - DataCamp | Languages: English (professional), Bahasa Malaysia (native)</textarea>
-                </section>
-
-                <section class="p-4 border rounded-xl bg-gray-50 shadow-sm"><div class="flex justify-between items-center mb-2"><b>6. References</b><button onclick="addEntry('ref-list')" class="bg-blue-600 text-white px-2 rounded font-bold">+</button></div><div id="ref-list"><div class="p-3 border bg-white rounded-lg entry mb-2 text-xs"><input type="text" placeholder="Name" value="Ms. Siti Nurhaliza" class="w-full border-b mb-1 font-bold" oninput="runUpdate()"><input type="text" placeholder="Position" value="Internship Supervisor, Deloitte Malaysia" class="w-full border-b mb-1" oninput="runUpdate()"><input type="text" placeholder="Contact" value="P: +60 3-1234 5678 | E: siti.nurhaliza@deloitte.com" class="w-full border-b" oninput="runUpdate()"></div></div></section>
-            </div>
-
-            <div class="mt-10 grid grid-cols-2 gap-4 pb-20 no-print">
-                <button onclick="location.reload()" class="bg-gray-400 text-white py-4 rounded-xl font-bold uppercase shadow">Reset</button>
-                <button onclick="submitDatabase()" id="btnSubmit" class="bg-blue-800 text-white py-4 rounded-xl font-bold uppercase shadow-xl">Download & Submit</button>
-            </div>
-        </div>
-
-        <div class="bg-gray-200 p-0 flex justify-center preview-container lg:h-screen lg:overflow-y-auto no-print">
-            <div class="bg-white resume-preview shadow-2xl" id="pdf-area">
-                <header class="text-center">
-                    <h1 id="p-name">MUHAMAD ZUL IZZAT BIN JAMIL</h1>
-                    <p id="p-contact" style="font-size: 11pt; margin: 5px 0; font-weight: bold;">zulizzat@unimap.edu.my | 0135828069</p>
-                    <div id="p-linkedin-area" style="font-size: 10pt; margin-bottom: 5px;"></div>
-                    <p id="p-location" style="font-size: 10.5pt; font-weight: bold; text-transform: uppercase; border-top: 1px solid #eee; padding-top: 5px;"></p>
-                </header>
-
-                <section><h2>Professional Summary</h2><p id="p-summary" class="section-content text-justify"></p></section>
-                <section><h2>Education</h2><div id="p-edu"></div></section>
-                <section><h2>Work Experience</h2><div id="p-work"></div></section>
-                <section><h2>Key Projects</h2><div id="p-proj"></div></section>
-                <div class="grid grid-cols-2 gap-8"><section><h2>Technical Skills</h2><p id="p-tech" class="section-content whitespace-pre-line"></p></section><section><h2>Soft Skills</h2><p id="p-soft" class="section-content whitespace-pre-line"></p></section></div>
-                <section><h2>Certifications & Languages</h2><p id="p-certs" class="section-content whitespace-pre-line"></p></section>
-                <section><h2>References</h2><div id="p-ref"></div></section>
+                    <section><h2>Professional Summary</h2><p id="p-summary" class="section-content text-justify"></p></section>
+                    <section><h2>Education</h2><div id="p-edu"></div></section>
+                    <section><h2>Work Experience</h2><div id="p-work"></div></section>
+                    <section><h2>Key Projects</h2><div id="p-proj"></div></section>
+                    <div class="grid grid-cols-2 gap-8"><section><h2>Technical Skills</h2><p id="p-tech" class="section-content whitespace-pre-line"></p></section><section><h2>Soft Skills</h2><p id="p-soft" class="section-content whitespace-pre-line"></p></section></div>
+                    <section><h2>Certifications & Languages</h2><p id="p-certs" class="section-content whitespace-pre-line"></p></section>
+                    <section><h2>References</h2><div id="p-ref"></div></section>
+                </div>
             </div>
         </div>
     </div>
@@ -137,7 +135,7 @@
         window.onload = runUpdate;
 
         function runUpdate() {
-            document.getElementById('p-name').innerText = (document.getElementById('name').value || 'YOUR FULL NAME').toUpperCase();
+            document.getElementById('p-name').innerText = (document.getElementById('name').value || 'YOUR NAME').toUpperCase();
             document.getElementById('p-contact').innerText = `${document.getElementById('email').value || 'email@unimap.edu.my'} | ${document.getElementById('phone').value || '01X-XXXXXXX'}`;
             document.getElementById('p-location').innerText = document.getElementById('address').value || 'CITY, STATE';
             document.getElementById('p-summary').innerText = document.getElementById('summary').value;
