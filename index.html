@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PUSKA Resume System v29.0</title>
+    <title>PUSKA Resume System v30.0</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style id="resume-styles">
         /* --- FORMAT RESUME A4 --- */
@@ -34,7 +34,7 @@
 <body class="bg-gray-100">
     <div class="flex flex-col lg:flex-row h-screen">
         <div class="lg:w-1/2 p-6 bg-white overflow-y-auto border-r shadow-xl no-print">
-            <h1 class="text-2xl font-black text-blue-900 mb-6">PUSKA v29.0</h1>
+            <h1 class="text-2xl font-black text-blue-900 mb-6">PUSKA v30.0</h1>
 
             <div class="bg-blue-900 p-5 rounded-xl text-white mb-8 space-y-4 shadow-md">
                 <div class="grid grid-cols-2 gap-4">
@@ -53,9 +53,9 @@
                             <option>Faculty of Business & Communication</option>
                         </select>
                     </div>
-                    <div><label class="text-yellow-400">CGPA (SHEET)</label><input type="text" id="main_cgpa" placeholder="4.00" class="text-black text-center font-bold"></div>
+                    <div><label class="text-yellow-400">CGPA</label><input type="text" id="main_cgpa" placeholder="4.00" class="text-black text-center font-bold"></div>
                 </div>
-                <div><label class="text-white">PROGRAM (LIST OF 49)</label>
+                <div><label class="text-white">PROGRAM</label>
                     <select id="prog" class="text-black font-semibold text-[10px]" onchange="runUpdate()">
                         <optgroup label="Postgraduate"><option>PASCASISWAZAH (PHD)</option><option>PASCASISWAZAH (SARJANA)</option></optgroup>
                         <optgroup label="Bachelor Degrees">
@@ -79,7 +79,7 @@
                     <div class="space-y-4">
                         <div><label>FULL NAME</label><input type="text" id="fullName" placeholder="FULL NAME" class="font-bold uppercase" oninput="runUpdate()"></div>
                         <div class="grid grid-cols-2 gap-3">
-                            <div><label>EMAIL</label><input type="text" id="email" placeholder="student@unimap.edu.my" oninput="runUpdate()"></div>
+                            <div><label>EMAIL</label><input type="text" id="email" placeholder="email@gmail.com" oninput="runUpdate()"></div>
                             <div><label>PHONE</label><input type="text" id="phone" placeholder="01X-XXXXXXX" oninput="runUpdate()"></div>
                         </div>
                         <div class="grid grid-cols-2 gap-3">
@@ -150,11 +150,11 @@
                 <div class="grid grid-cols-1 gap-4">
                     <section class="p-5 border-2 border-gray-100 rounded-xl bg-white shadow-sm">
                         <label>7. TECHNICAL SKILL</label>
-                        <textarea id="tech_sk" class="h-20" placeholder="E.g. Python, AutoCAD, SQL" oninput="runUpdate()"></textarea>
+                        <textarea id="tech_sk" class="h-20" placeholder="E.g. Python, AutoCAD, SQL, Power BI" oninput="runUpdate()"></textarea>
                     </section>
                     <section class="p-5 border-2 border-gray-100 rounded-xl bg-white shadow-sm">
                         <label>8. SOFT SKILL</label>
-                        <textarea id="soft_sk" class="h-20" placeholder="E.g. Leadership, Problem Solving" oninput="runUpdate()"></textarea>
+                        <textarea id="soft_sk" class="h-20" placeholder="E.g. Critical Thinking, Leadership, Problem Solving" oninput="runUpdate()"></textarea>
                     </section>
                     <section class="p-5 border-2 border-gray-100 rounded-xl bg-white shadow-sm">
                         <label>9. LANGUAGE</label>
@@ -172,7 +172,7 @@
                                 <div><label>ORGANIZATION</label><input type="text" placeholder="UniMAP" oninput="runUpdate()"></div>
                             </div>
                             <div class="grid grid-cols-2 gap-2">
-                                <div><label>EMAIL</label><input type="text" placeholder="email@example.com" oninput="runUpdate()"></div>
+                                <div><label>EMAIL</label><input type="text" placeholder="email@gmail.com" oninput="runUpdate()"></div>
                                 <div><label>PHONE</label><input type="text" placeholder="01X-XXXXXXX" oninput="runUpdate()"></div>
                             </div>
                         </div>
@@ -213,7 +213,7 @@
 
         function runUpdate() {
             document.getElementById('p-name').innerText = (document.getElementById('fullName').value || 'FULL NAME').toUpperCase();
-            const email = document.getElementById('email').value || 'EMAIL';
+            const email = document.getElementById('email').value || 'email@gmail.com';
             const phone = document.getElementById('phone').value || 'PHONE';
             const loc = (document.getElementById('address').value || 'LOCATION').toUpperCase();
             document.getElementById('p-contact').innerText = `${email}  •  ${phone}  •  ${loc}`;
@@ -226,7 +226,7 @@
             fillSection('edu-list', 'p-edu', i => `<div class="mb-3"><div class="item-header"><span>${i[0].value}</span><span>${i[3].value} - ${i[4].value}</span></div><i>${i[1].value}</i><br><b>CGPA: ${i[2].value}</b></div>`);
             fillList('work-list', 'p-work', (i, b) => `<div class="mb-4"><div class="item-header"><span>${i[0].value}</span><span>${i[2].value} - ${i[3].value}</span></div><i>${i[1].value}</i><ul>${b}</ul></div>`);
             fillList('proj-list', 'p-proj', (i, b) => `<div class="mb-4"><div class="item-header"><span>${i[0].value}</span></div><ul>${b}</ul></div>`);
-            fillSection('cert-list', 'p-cert', i => `<div class="mb-1"><b>${i[0].value}</b> - ${i[1].value} ${i[2].value ? ' | <a href="'+i[2].value+'" style="color:blue;">Link</a>' : ''}</div>`);
+            fillSection('cert-list', 'p-cert', i => `<div class="mb-1"><b>${i[0].value}</b> - ${i[1].value} ${i[2].value ? ' | <small>'+i[2].value+'</small>' : ''}</div>`);
             fillSection('ref-list', 'p-ref', i => `<div class="text-[10pt] leading-tight"><b>${i[0].value}</b><br>${i[1].value}, ${i[2].value}<br>E: ${i[3].value} | P: ${i[4].value}</div>`);
         }
 
