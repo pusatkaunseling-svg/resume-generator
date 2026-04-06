@@ -3,291 +3,232 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PUSKA Resume System v39.0</title>
+    <title>PUSKA Resume System v40.0</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style id="resume-styles">
-        /* --- FORMAT RESUME (STABIL UNTUK PRINT & DRIVE) --- */
-        * { box-sizing: border-box; }
-        #pdf-area {
-            font-family: 'Arial', sans-serif; color: #1a1a1a; line-height: 1.4; background: white;
-            width: 100%; max-width: 800px; min-height: 1050px; padding: 50px; margin: auto;
-            border: 1px solid #efefef;
+        /* --- CORE PDF SETTINGS (FIX SIZE) --- */
+        @page {
+            size: A4;
+            margin: 0; /* Buang margin browser */
         }
-        #pdf-area h1 { font-size: 22pt; font-weight: bold; text-transform: uppercase; margin: 0; text-align: center; }
-        #pdf-area h2 { border-bottom: 2px solid #333; margin-top: 20px; margin-bottom: 8px; font-size: 13pt; font-weight: bold; text-transform: uppercase; text-align: left; }
+
+        * { box-sizing: border-box; -webkit-print-color-adjust: exact; }
+        
+        body { margin: 0; padding: 0; background: #f3f4f6; }
+
+        #pdf-area {
+            font-family: 'Arial', sans-serif; 
+            color: #1a1a1a; 
+            line-height: 1.4; 
+            background: white;
+            width: 210mm; /* Paksa saiz A4 */
+            min-height: 297mm;
+            padding: 20mm; /* Margin dalaman resume */
+            margin: 20px auto; /* Margin luar untuk view sahaja */
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        /* TYPOGRAPHY */
+        #pdf-area h1 { font-size: 22pt; font-weight: bold; text-transform: uppercase; margin: 0 0 5px 0; text-align: center; }
+        #pdf-area h2 { border-bottom: 2px solid #333; margin-top: 15px; margin-bottom: 8px; font-size: 13pt; font-weight: bold; text-transform: uppercase; text-align: left; }
         .item-header { display: flex; justify-content: space-between; font-weight: bold; font-size: 11pt; margin-top: 4px; }
-        #pdf-area ul { list-style-type: disc; margin-left: 20px; padding: 0; }
+        #pdf-area ul { list-style-type: disc; margin-left: 18px; padding: 0; }
         #pdf-area li { font-size: 10.5pt; margin-bottom: 2px; }
         .section-content { font-size: 10.5pt; margin-bottom: 8px; }
 
-        /* PHOTO LAYOUT (BLUE THEME) */
-        .template-photo header { border-bottom: 4px solid #1e3a8a; padding-bottom: 15px; text-align: left !important; display: flex !important; align-items: center; gap: 25px; margin-bottom: 15px; }
-        .template-photo #photo-preview { width: 110px; height: 140px; border: 1px solid #ddd; object-fit: cover; display: block !important; margin: 0 !important; }
+        /* PHOTO LAYOUT */
+        .template-photo header { border-bottom: 4px solid #1e3a8a; padding-bottom: 15px; text-align: left !important; display: flex !important; align-items: center; gap: 20px; margin-bottom: 15px; }
+        .template-photo #photo-preview { width: 35mm; height: 45mm; border: 1px solid #ddd; object-fit: cover; display: block !important; }
         .template-photo h2 { background: #1e3a8a !important; color: white !important; border: none !important; padding: 6px 12px !important; }
 
-        /* UI BORANG */
-        input, select, textarea { font-size: 13px !important; padding: 10px !important; border: 1px solid #d1d5db !important; border-radius: 8px !important; width: 100%; }
-        label { font-size: 11px; font-weight: 800; color: #4b5563; text-transform: uppercase; margin-bottom: 3px; display: block; }
+        /* FORM UI (SIDEBAR) */
+        .no-print { width: 100%; max-width: 600px; padding: 30px; background: white; border-right: 1px solid #ddd; }
+        input, select, textarea { font-size: 13px !important; padding: 10px !important; border: 1px solid #d1d5db !important; border-radius: 8px !important; width: 100%; margin-top: 4px; }
+        label { font-size: 11px; font-weight: 800; color: #4b5563; text-transform: uppercase; margin-top: 10px; display: block; }
         
         #ai-modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(4px); }
-        .modal-content { background: white; margin: 8% auto; padding: 25px; border-radius: 15px; width: 90%; max-width: 500px; box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
+        .modal-content { background: white; margin: 10% auto; padding: 25px; border-radius: 15px; width: 90%; max-width: 500px; }
+
+        /* PRINT PREVIEW ADJUSTMENT */
+        @media print {
+            body { background: white; }
+            .no-print { display: none !important; }
+            #pdf-area { 
+                margin: 0 !important; 
+                border: none !important; 
+                box-shadow: none !important;
+                width: 210mm !important; 
+                height: 297mm !important;
+            }
+        }
 
         @media (max-width: 1024px) {
-            .preview-container { overflow-x: auto; background: #333; padding: 10px; }
-            #pdf-area { transform: scale(0.45); transform-origin: top center; }
+            .preview-container { overflow-x: auto; padding: 20px; }
+            #pdf-area { transform: scale(0.4); transform-origin: top center; }
         }
-        @media print { .no-print { display: none !important; } #pdf-area { width: 100%; max-width: 100%; padding: 30px; margin: 0; border: none; box-shadow: none; } }
     </style>
 </head>
-<body class="bg-gray-200">
+<body>
 
     <div id="ai-modal">
-        <div class="modal-content">
-            <h3 class="font-black text-lg text-purple-700 uppercase mb-2">✨ AI Prompt Generator</h3>
-            <div id="prompt-text" class="p-4 bg-gray-50 border rounded-xl text-sm italic mb-6 leading-relaxed text-gray-700"></div>
+        <div class="modal-content text-center">
+            <h3 class="font-black text-lg text-purple-700 uppercase mb-4">✨ AI Prompt Generator</h3>
+            <div id="prompt-text" class="p-4 bg-gray-50 border rounded-xl text-sm italic mb-6 text-left text-gray-700"></div>
             <div class="flex gap-2">
-                <button onclick="copyAndClose()" class="flex-1 bg-purple-600 text-white font-bold py-3 rounded-xl hover:bg-purple-700 transition-all">SALIN & TUTUP</button>
-                <button onclick="closeModal()" class="px-6 bg-gray-200 rounded-xl font-bold text-gray-500">BATAL</button>
+                <button onclick="copyAndClose()" class="flex-1 bg-purple-600 text-white font-bold py-3 rounded-xl">SALIN & TUTUP</button>
+                <button onclick="closeModal()" class="px-6 bg-gray-200 rounded-xl font-bold">BATAL</button>
             </div>
         </div>
     </div>
 
-    <div class="flex flex-col lg:flex-row h-screen">
-        <div class="lg:w-1/2 p-6 bg-white overflow-y-auto border-r shadow-xl no-print">
-            <h1 class="text-2xl font-black text-blue-900 mb-6 uppercase">PUSKA v39.0</h1>
+    <div class="flex flex-col lg:flex-row h-screen overflow-hidden">
+        <div class="no-print overflow-y-auto">
+            <h1 class="text-2xl font-black text-blue-900 mb-6 uppercase">PUSKA v40.0</h1>
 
-            <div class="bg-blue-900 p-5 rounded-xl text-white mb-8 space-y-4 shadow-lg">
+            <div class="bg-blue-900 p-5 rounded-xl text-white mb-8 shadow-lg">
                 <div class="grid grid-cols-2 gap-4">
-                    <div><label class="text-blue-200">LEVEL</label><select id="level" class="text-black"><option>Undergraduate</option><option>Diploma</option><option>Postgraduate</option></select></div>
-                    <div><label class="text-blue-200">YEAR</label><select id="year" class="text-black"><option>Year 4</option><option>Year 3</option><option>Year 2</option><option>Year 1</option></select></div>
-                </div>
-                <div class="grid grid-cols-3 gap-4">
-                    <div class="col-span-2"><label class="text-blue-200">FACULTY</label><select id="faculty" class="text-black"><option>Faculty of Electrical Engineering & Technology</option><option>Faculty of Electronic Engineering & Technology</option><option>Faculty of Chemical Engineering & Technology</option><option>Faculty of Civil Engineering & Technology</option><option>Faculty of Mechanical Engineering & Technology</option><option>Faculty of Intelligent Computing</option><option>Faculty of Business & Communication</option></select></div>
-                    <div><label class="text-yellow-300">CGPA</label><input type="text" id="main_cgpa" placeholder="4.00" class="text-black text-center font-bold"></div>
+                    <div><label class="text-blue-200">LEVEL</label><select id="level" class="text-black"><option>Undergraduate</option><option>Diploma</option></select></div>
+                    <div><label class="text-blue-200">YEAR</label><select id="year" class="text-black"><option>Year 4</option><option>Year 3</option></select></div>
                 </div>
                 <div><label class="text-blue-200">PROGRAM</label>
-                    <select id="prog" class="text-black font-semibold text-[10px]" onchange="runUpdate()">
-                        <optgroup label="Postgraduate"><option>PASCASISWAZAH (PHD)</option><option>PASCASISWAZAH (SARJANA)</option></optgroup>
-                        <optgroup label="Bachelor Degrees">
-                            <option>SARJANA MUDA KEJURUTERAAN ALAM SEKITAR</option><option>SARJANA MUDA TEKNOLOGI KEJURUTERAAN AWAM (PEMBINAAN)</option><option>SARJANA MUDA TEKNOLOGI PEMBINAAN BANGUNAN</option><option>SARJANA MUDA KEJURUTERAAN MIKROELEKTRONIK</option><option>SARJANA MUDA KEJURUTERAAN KOMPUTER</option><option>SARJANA MUDA KEJURUTERAAN ELEKTRONIK BIOPERUBATAN</option><option>SARJANA MUDA KEJURUTERAAN ELEKTRONIK</option><option>SARJANA MUDA TEKNOLOGI KEJURUTERAAN ELEKTRONIK (SISTEM ELEKTRONIK)</option><option>SARJANA MUDA TEKNOLOGI KEJURUTERAAN ELEKTRONIK (REKA BENTUK TELEKOMUNIKASI ELEKTRONIK)</option><option>SARJANA MUDA TEKNOLOGI KEJURUTERAAN ELEKTRONIK (REKA BENTUK RANGKAIAN ELEKTRONIK)</option><option>SARJANA MUDA TEKNOLOGI DALAM AUTOMASI ELEKTRONIK INDUSTRI</option><option>SARJANA MUDA KEJURUTERAAN ELEKTRIK</option><option>SARJANA MUDA KEJURUTERAAN MEKATRONIK</option><option>SARJANA MUDA TEKNOLOGI KEJURUTERAAN ELEKTRIK (KUASA INDUSTRI)</option><option>SARJANA MUDA TEKNOLOGI KEJURUTERAAN ELEKTRIK (TEKNOLOGI ROBOTIK DAN AUTOMASI)</option><option>SARJANA MUDA TEKNOLOGI DALAM PENYELENGGARAAN SISTEM ELEKTRIK</option><option>SARJANA MUDA KEJURUTERAAN BAHAN</option><option>SARJANA MUDA KEJURUTERAAN KIMIA</option><option>SARJANA MUDA KEJURUTERAAN POLIMER</option><option>SARJANA MUDA TEKNOLOGI KEJURUTERAAN KIMIA (TEKNOLOGI MAKANAN)</option><option>SARJANA MUDA TEKNOLOGI KEJURUTERAAN KIMIA (PROSES KIMIA INDUSTRI)</option><option>SARJANA MUDA TEKNOLOGI KEJURUTERAAN KIMIA (BIOTEKNOLOGI INDUSTRI)</option><option>SARJANA MUDA KEJURUTERAAN MEKANIKAL</option><option>SARJANA MUDA KEJURUTERAAN PEMBUATAN</option><option>SARJANA MUDA KEJURUTERAAN PERTANIAN</option><option>SARJANA MUDA TEKNOLOGI KEJURUTERAAN MEKANIKAL (PEMESINAN)</option><option>SARJANA MUDA TEKNOLOGI KEJURUTERAAN MEKANIKAL (SISTEM PERTANIAN)</option><option>SARJANA MUDA TEKNOLOGI KEJURUTERAAN MEKANIKAL (REKA BENTUK PRODUK)</option><option>SARJANA MUDA TEKNOLOGI KEJURUTERAAN MEKANIKAL (PEMPROSESAN BAHAN)</option><option>SARJANA MUDA TEKNOLOGI DALAM PEMESINAN INDUSTRI</option><option>SARJANA MUDA TEKNOLOGI DALAM AUTOMOTIF</option><option>SARJANA MUDA TEKNOLOGI DALAM KIMPALAN</option><option>SARJANA MUDA KOMUNIKASI MEDIA BAHARU</option><option>SARJANA MUDA PERNIAGAAN (PERNIAGAAN ANTARABANGSA)</option><option>SARJANA MUDA PERNIAGAAN (KEJURUTERAAN KEUSAHAWANAN)</option><option>SARJANA MUDA KEJURUTERAAN AWAM</option><option>SARJANA MUDA PERAKAUNAN</option><option>SARJANA MUDA TEKNOLOGI MEDIA INTERAKTIF</option><option selected>SARJANA MUDA SAINS DATA (KECERDASAN BUATAN)</option><option>SARJANA MUDA SAINS GUNAAN (TEKNOLOGI BAHAN DAN METALURQI)</option>
-                        </optgroup>
-                        <optgroup label="Diplomas">
-                            <option>DIPLOMA KEJURUTERAAN KOMPUTER</option><option>DIPLOMA KEJURUTERAAN ELEKTRONIK</option><option>DIPLOMA KEJURUTERAAN ELEKTRIK</option><option>DIPLOMA KEJURUTERAAN MEKATRONIK</option><option>DIPLOMA TEKNOLOGI KEJURUTERAAN MEKANIKAL</option><option>DIPLOMA KEJURUTERAAN PEMBUATAN</option><option>DIPLOMA KEJURUTERAAN BAHAN</option>
-                        </optgroup>
+                    <select id="prog" class="text-black font-semibold text-[11px]" onchange="runUpdate()">
+                        <option selected>SARJANA MUDA SAINS DATA (KECERDASAN BUATAN)</option>
+                        <option>SARJANA MUDA KEJURUTERAAN ELEKTRIK</option>
                     </select>
                 </div>
+                <div><label class="text-yellow-300">CGPA</label><input type="text" id="main_cgpa" placeholder="4.00" class="text-black text-center font-bold" oninput="runUpdate()"></div>
             </div>
 
-            <div class="space-y-6">
-                <section class="p-5 border rounded-xl bg-white shadow-sm">
-                    <b class="text-blue-900 text-sm block border-b pb-2 mb-4">1. PERSONAL INFORMATION</b>
-                    <div class="grid grid-cols-2 gap-3 mb-5">
-                        <label class="cursor-pointer text-center font-bold border p-2 rounded-lg"><input type="radio" name="resType" value="ATS" checked onchange="toggleLayout()"> ATS</label>
-                        <label class="cursor-pointer text-center font-bold border p-2 rounded-lg"><input type="radio" name="resType" value="Photo" onchange="toggleLayout()"> PHOTO</label>
+            <section class="space-y-6">
+                <div class="p-5 border rounded-xl bg-gray-50 shadow-sm">
+                    <b class="text-blue-900 text-xs block border-b pb-2 mb-4 uppercase">Layout & Photo</b>
+                    <div class="flex gap-2 mb-4">
+                        <label class="flex-1 border p-2 rounded bg-white text-center cursor-pointer"><input type="radio" name="resType" value="ATS" checked onchange="toggleLayout()"> ATS</label>
+                        <label class="flex-1 border p-2 rounded bg-white text-center cursor-pointer"><input type="radio" name="resType" value="Photo" onchange="toggleLayout()"> PHOTO</label>
                     </div>
-                    <div id="photo-input-area" class="hidden mb-4 p-2 border-dashed border-2 rounded text-center"><input type="file" accept="image/*" onchange="loadPhoto(this)"></div>
-                    <div class="space-y-3">
-                        <label>FULL NAME</label><input type="text" id="fullName" placeholder="FULL NAME" class="font-bold uppercase" oninput="runUpdate()">
-                        <div class="grid grid-cols-2 gap-3">
-                            <div><label>EMAIL</label><input type="text" id="email" placeholder="email@gmail.com" oninput="runUpdate()"></div>
-                            <div><label>PHONE</label><input type="text" id="phone" placeholder="01X-XXXXXXX" oninput="runUpdate()"></div>
-                        </div>
-                        <div class="grid grid-cols-2 gap-3">
-                            <div><label>LOCATION</label><input type="text" id="address" placeholder="CITY, STATE" class="uppercase" oninput="runUpdate()"></div>
-                            <div><label>LINKEDIN URL</label><input type="text" id="linkedin" oninput="runUpdate()"></div>
-                        </div>
-                    </div>
-                </section>
-
-                <section class="p-5 border rounded-xl bg-white shadow-sm">
-                    <div class="flex justify-between items-center mb-1"><label>2. SUMMARY</label><button onclick="openAI('summary')" class="ai-btn">✨ AI HELP</button></div>
-                    <textarea id="summary" class="h-24" oninput="runUpdate()"></textarea>
-                </section>
-
-                <section class="p-5 border rounded-xl bg-gray-50">
-                    <div class="flex justify-between items-center mb-4"><b>3. EDUCATION</b><button onclick="addEntry('edu-list')" class="bg-blue-600 text-white px-3 py-1 rounded-lg font-bold">+</button></div>
-                    <div id="edu-list">
-                        <div class="p-3 border bg-white rounded-lg entry mb-2 space-y-2">
-                            <input type="text" placeholder="UNIVERSITY" class="font-bold" oninput="runUpdate()">
-                            <input type="text" placeholder="DEGREE" oninput="runUpdate()">
-                            <div class="grid grid-cols-3 gap-1"><input type="text" placeholder="CGPA" oninput="runUpdate()"><input type="text" placeholder="START" oninput="runUpdate()"><input type="text" placeholder="END/EXPECTED" oninput="runUpdate()"></div>
-                        </div>
-                    </div>
-                </section>
-
-                <section class="p-5 border rounded-xl bg-gray-50">
-                    <div class="flex justify-between items-center mb-4"><b>4. WORK EXPERIENCE</b><button onclick="addEntry('work-list')" class="bg-blue-600 text-white px-3 py-1 rounded-lg font-bold">+</button></div>
-                    <div id="work-list">
-                        <div class="p-3 border bg-white rounded-lg entry mb-2 space-y-2">
-                            <div class="grid grid-cols-2 gap-2"><input type="text" placeholder="POSITION" class="font-bold" oninput="runUpdate()"><input type="text" placeholder="COMPANY" oninput="runUpdate()"></div>
-                            <div class="grid grid-cols-2 gap-2"><input type="text" placeholder="START" oninput="runUpdate()"><input type="text" placeholder="END" oninput="runUpdate()"></div>
-                            <div class="flex justify-between items-center"><label>DESCRIPTION</label><button onclick="openAI('work')" class="ai-btn">✨ AI</button></div>
-                            <textarea class="h-20" oninput="runUpdate()"></textarea>
-                        </div>
-                    </div>
-                </section>
-
-                <section class="p-5 border rounded-xl bg-gray-50">
-                    <div class="flex justify-between items-center mb-4"><b>5. PROJECTS</b><button onclick="addEntry('proj-list')" class="bg-blue-600 text-white px-3 py-1 rounded-lg font-bold">+</button></div>
-                    <div id="proj-list">
-                        <div class="p-3 border bg-white rounded-lg entry mb-2 space-y-2">
-                            <input type="text" placeholder="PROJECT NAME" class="font-bold" oninput="runUpdate()">
-                            <div class="flex justify-between items-center"><label>DESCRIPTION</label><button onclick="openAI('project')" class="ai-btn">✨ AI</button></div>
-                            <textarea class="h-20" oninput="runUpdate()"></textarea>
-                        </div>
-                    </div>
-                </section>
-
-                <section class="p-5 border rounded-xl bg-gray-50">
-                    <div class="flex justify-between items-center mb-4"><b>6. CERTIFICATE</b><button onclick="addEntry('cert-list')" class="bg-blue-600 text-white px-3 py-1 rounded-lg font-bold">+</button></div>
-                    <div id="cert-list">
-                        <div class="p-3 border bg-white rounded-lg entry mb-2 space-y-2">
-                            <input type="text" placeholder="NAME" class="font-bold" oninput="runUpdate()">
-                            <input type="text" placeholder="ISSUED BY" oninput="runUpdate()">
-                            <input type="text" placeholder="URL LINK" oninput="runUpdate()">
-                        </div>
-                    </div>
-                </section>
-
-                <div class="grid grid-cols-1 gap-4">
-                    <section class="p-4 border rounded bg-white shadow-sm">
-                        <div class="flex justify-between items-center mb-1"><label>7. TECHNICAL SKILL</label><button onclick="openAI('tech')" class="ai-btn">✨</button></div>
-                        <textarea id="tech_sk" class="h-24" oninput="runUpdate()"></textarea>
-                    </section>
-                    <section class="p-4 border rounded bg-white shadow-sm">
-                        <div class="flex justify-between items-center mb-1"><label>8. SOFT SKILL</label><button onclick="openAI('soft')" class="ai-btn">✨</button></div>
-                        <textarea id="soft_sk" class="h-24" oninput="runUpdate()"></textarea>
-                    </section>
-                    <section class="p-4 border rounded bg-white shadow-sm">
-                        <label>9. LANGUAGE</label>
-                        <input type="text" id="lang_sk" placeholder="E.g. English (Fluent), Malay (Native)" oninput="runUpdate()">
-                    </section>
+                    <div id="photo-input-area" class="hidden"><input type="file" accept="image/*" onchange="loadPhoto(this)"></div>
                 </div>
 
-                <section class="p-5 border rounded-xl bg-gray-50">
-                    <div class="flex justify-between items-center mb-4"><b>10. REFERENCE</b><button onclick="addEntry('ref-list')" class="bg-blue-600 text-white px-3 py-1 rounded-lg font-bold">+</button></div>
-                    <div id="ref-list">
-                        <div class="p-3 border bg-white rounded-lg entry mb-2 space-y-2">
-                            <input type="text" placeholder="REFEREE NAME" class="font-bold" oninput="runUpdate()">
-                            <div class="grid grid-cols-2 gap-2"><input type="text" placeholder="POSITION" oninput="runUpdate()"><input type="text" placeholder="ORG" oninput="runUpdate()"></div>
-                            <div class="grid grid-cols-2 gap-2"><input type="text" placeholder="EMAIL" oninput="runUpdate()"><input type="text" placeholder="PHONE" oninput="runUpdate()"></div>
-                        </div>
-                    </div>
-                </section>
-            </div>
+                <div class="p-5 border rounded-xl bg-white shadow-sm">
+                    <label>Full Name</label><input type="text" id="fullName" placeholder="NAMA PENUH" class="font-bold uppercase" oninput="runUpdate()">
+                    <label>Email</label><input type="text" id="email" placeholder="email@gmail.com" oninput="runUpdate()">
+                    <label>Phone</label><input type="text" id="phone" placeholder="01X-XXXXXXX" oninput="runUpdate()">
+                    <label>Location</label><input type="text" id="address" placeholder="ARAU, PERLIS" oninput="runUpdate()">
+                    <label>LinkedIn</label><input type="text" id="linkedin" oninput="runUpdate()">
+                </div>
 
-            <div class="mt-12 grid grid-cols-2 gap-4 pb-20 no-print">
-                <button onclick="location.reload()" class="bg-gray-400 text-white py-4 rounded-xl font-bold uppercase">Reset</button>
-                <button onclick="submitDatabase()" id="btnSubmit" class="bg-blue-800 text-white py-4 rounded-xl font-bold uppercase shadow-xl hover:scale-105 transition-all">Submit & Download</button>
+                <div class="p-5 border rounded-xl bg-white shadow-sm">
+                    <div class="flex justify-between items-center"><label>Professional Summary</label><button onclick="openAI('summary')" class="text-[9px] bg-purple-600 text-white px-2 py-1 rounded">✨ AI HELP</button></div>
+                    <textarea id="summary" class="h-24" oninput="runUpdate()"></textarea>
+                </div>
+                
+                <div class="p-5 border rounded-xl bg-white shadow-sm">
+                    <div class="flex justify-between items-center"><label>Experience / Skills / References</label></div>
+                    <p class="text-[10px] text-gray-400 mt-1 italic">Sila tambah seksyen lain mengikut keperluan...</p>
+                    <textarea id="tech_sk" placeholder="Technical Skills" class="mt-2" oninput="runUpdate()"></textarea>
+                    <textarea id="soft_sk" placeholder="Soft Skills" class="mt-2" oninput="runUpdate()"></textarea>
+                </div>
+            </section>
+
+            <div class="mt-10 grid grid-cols-2 gap-4 pb-20">
+                <button onclick="location.reload()" class="bg-gray-400 text-white py-4 rounded-xl font-bold">RESET</button>
+                <button onclick="submitDatabase()" id="btnSubmit" class="bg-blue-800 text-white py-4 rounded-xl font-bold shadow-lg">SAVE & DOWNLOAD</button>
             </div>
         </div>
 
-        <div class="lg:w-1/2 flex justify-center preview-container overflow-y-auto bg-gray-400 no-print">
-            <div id="pdf-area" class="shadow-2xl">
+        <div class="flex-1 overflow-y-auto preview-container">
+            <div id="pdf-area">
                 <header class="text-center">
-                    <img id="photo-preview" src="" class="hidden" style="width:110px; height:140px; border:1px solid #ddd; object-fit:cover; margin:0 auto 10px;">
-                    <div class="w-full">
-                        <h1 id="p-name">FULL NAME</h1>
-                        <p id="p-contact" style="font-size: 11pt; margin: 10px 0; font-weight: bold; color: #333;"></p>
-                        <div id="p-linkedin" style="font-size: 10pt; color: #1e3a8a; font-weight: bold;"></div>
-                    </div>
+                    <img id="photo-preview" src="" class="hidden" style="margin: 0 auto 15px auto;">
+                    <h1 id="p-name">MUHAMAD ZUL IZZAT BIN JAMIL</h1>
+                    <p id="p-contact" style="font-size: 11pt; margin: 8px 0; font-weight: bold; color: #333;">email@gmail.com  •  01X-XXXXXXX  •  ARAU, PERLIS</p>
+                    <div id="p-linkedin" style="font-size: 10pt; color: #1e3a8a; font-weight: bold;"></div>
                 </header>
+
                 <section><h2>Professional Summary</h2><p id="p-summary" class="section-content text-justify"></p></section>
                 <section><h2>Education</h2><div id="p-edu"></div></section>
-                <section><h2>Work Experience</h2><div id="p-work"></div></section>
-                <section><h2>Key Projects</h2><div id="p-proj"></div></section>
-                <div class="grid grid-cols-2 gap-8"><section><h2>Technical Skills</h2><p id="p-tech" class="section-content whitespace-pre-line"></p></section><section><h2>Soft Skills</h2><p id="p-soft" class="section-content whitespace-pre-line"></p></section></div>
-                <section><h2>Certificates</h2><div id="p-cert"></div></section>
-                <section><h2>Languages</h2><p id="p-lang" class="section-content"></p></section>
-                <section><h2>References</h2><div id="p-ref" class="grid grid-cols-2 gap-4"></div></section>
+                <div class="grid grid-cols-2 gap-8">
+                    <section><h2>Technical Skills</h2><p id="p-tech" class="section-content whitespace-pre-line"></p></section>
+                    <section><h2>Soft Skills</h2><p id="p-soft" class="section-content whitespace-pre-line"></p></section>
+                </div>
             </div>
         </div>
     </div>
 
     <script>
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwGpZZltrXTLVN8NSWIAHgYBqWDrCAPVkbQtiaT7Fv4DaPjokW574FQ7braI6IVvGnDmg/exec";
-
-        function openAI(type) {
-            const name = document.getElementById('fullName').value || "pelajar";
-            const program = document.getElementById('prog').value;
-            let prompt = "";
-            if(type === 'summary') prompt = `I am ${name}, studying ${program}. Write a 3-line professional resume summary for me.`;
-            else if(type === 'work') prompt = `Write 3 professional bullet points for my work experience as a ${program} student.`;
-            else if(type === 'project') prompt = `Write a description for a ${program} student project (Problem, Tools, Result).`;
-            else if(type === 'tech') prompt = `List top 8 tech skills for a ${program} graduate (comma separated).`;
-            else if(type === 'soft') prompt = `List top 6 professional soft skills.`;
-            document.getElementById('prompt-text').innerText = prompt;
-            document.getElementById('ai-modal').style.display = "block";
-        }
-        function closeModal() { document.getElementById('ai-modal').style.display = "none"; }
-        function copyAndClose() { navigator.clipboard.writeText(document.getElementById('prompt-text').innerText); alert("Copied!"); closeModal(); }
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxz9VcCHwxozEolxrezxPHV8SdeXD9-8qnRxYymE_5ddROPHzhiBF25jWS5j-06-MGMHw/exec";
 
         function runUpdate() {
-            document.getElementById('p-name').innerText = (document.getElementById('fullName').value || 'FULL NAME').toUpperCase();
+            document.getElementById('p-name').innerText = (document.getElementById('fullName').value || 'MUHAMAD ZUL IZZAT BIN JAMIL').toUpperCase();
             const email = document.getElementById('email').value || 'email@gmail.com';
-            const phone = document.getElementById('phone').value || 'PHONE';
-            const loc = (document.getElementById('address').value || 'LOCATION').toUpperCase();
+            const phone = document.getElementById('phone').value || '01X-XXXXXXX';
+            const loc = (document.getElementById('address').value || 'ARAU, PERLIS').toUpperCase();
             document.getElementById('p-contact').innerText = `${email}  •  ${phone}  •  ${loc}`;
             document.getElementById('p-linkedin').innerText = document.getElementById('linkedin').value || '';
             document.getElementById('p-summary').innerText = document.getElementById('summary').value;
             document.getElementById('p-tech').innerText = document.getElementById('tech_sk').value;
             document.getElementById('p-soft').innerText = document.getElementById('soft_sk').value;
-            document.getElementById('p-lang').innerText = document.getElementById('lang_sk').value ? `Languages: ${document.getElementById('lang_sk').value}` : '';
-
-            fillSection('edu-list', 'p-edu', i => `<div class="mb-3"><div class="item-header"><span>${i[0].value}</span><span>${i[3].value} - ${i[4].value}</span></div><i>${i[1].value}</i><br><b>CGPA: ${i[2].value}</b></div>`);
-            fillList('work-list', 'p-work', (i, b) => `<div class="mb-4"><div class="item-header"><span>${i[0].value}</span><span>${i[2].value} - ${i[3].value}</span></div><i>${i[1].value}</i><ul>${b}</ul></div>`);
-            fillList('proj-list', 'p-proj', (i, b) => `<div class="mb-4"><div class="item-header"><span>${i[0].value}</span></div><ul>${b}</ul></div>`);
-            fillSection('cert-list', 'p-cert', i => `<div class="mb-1"><b>${i[0].value}</b> - ${i[1].value} ${i[2].value ? ' | Link: '+i[2].value : ''}</div>`);
-            fillSection('ref-list', 'p-ref', i => `<div class="text-[10pt] leading-tight mb-2"><b>${i[0].value}</b><br>${i[1].value}, ${i[2].value}<br>E: ${i[3].value} | P: ${i[4].value}</div>`);
+            
+            document.getElementById('p-edu').innerHTML = `<div class="item-header"><span>UNIVERSITI MALAYSIA PERLIS</span><span>2022 - 2026</span></div><i>${document.getElementById('prog').value}</i><br><b>CGPA: ${document.getElementById('main_cgpa').value}</b>`;
         }
 
         async function submitDatabase() {
             const btn = document.getElementById('btnSubmit');
             const resType = document.querySelector('input[name="resType"]:checked').value;
-            const fullName = document.getElementById('fullName').value;
-            if(!fullName) { alert("Sila isi Nama!"); return; }
             btn.innerText = "Processing..."; btn.disabled = true;
 
             const previewArea = document.getElementById('pdf-area');
             const previewClone = previewArea.cloneNode(true);
-            const imgClone = previewClone.querySelector('#photo-preview');
             if(resType === "ATS") {
-                if(imgClone) imgClone.remove();
+                const img = previewClone.querySelector('#photo-preview');
+                if(img) img.remove();
                 previewClone.querySelector('header').style.textAlign = "center";
             }
 
             const resumeStyles = document.getElementById('resume-styles').innerHTML;
-            const fullHtml = `<!DOCTYPE html><html><head><style>${resumeStyles} body { background: white; margin: 0; padding: 0; } #pdf-area { width: 100%; max-width: 800px; padding: 50px; box-shadow: none; border: none; margin: 0 auto; }</style></head><body>${previewClone.outerHTML}</body></html>`;
+            const fullHtml = `<!DOCTYPE html><html><head><style>${resumeStyles} body { background: white; } #pdf-area { margin: 0; border: none; box-shadow: none; }</style></head><body>${previewClone.outerHTML}</body></html>`;
 
             try {
-                await fetch(SCRIPT_URL, {
-                    method: 'POST', mode: 'no-cors',
-                    body: JSON.stringify({ 
-                        resumeType: resType, fullName: fullName, email: document.getElementById('email').value, 
-                        phone: document.getElementById('phone').value, cgpa: document.getElementById('main_cgpa').value, 
-                        level: document.getElementById('level').value, year: document.getElementById('year').value, 
-                        program: document.getElementById('prog').value, faculty: document.getElementById('faculty').value, 
-                        htmlContent: fullHtml 
-                    })
-                });
-                alert("Success! PDF saved to Drive.");
-                const win = window.open('', '_blank'); win.document.write(fullHtml); win.document.close(); win.setTimeout(() => win.print(), 500);
-            } catch (e) { alert("Error!"); } finally { btn.disabled = false; btn.innerText = "Submit & Download"; }
+                await fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify({ fullName: document.getElementById('fullName').value, resumeType: resType, htmlContent: fullHtml }) });
+                alert("Success!");
+                const win = window.open('', '_blank');
+                win.document.write(fullHtml);
+                win.document.close();
+                // Paksa print preview dengan saiz A4
+                win.setTimeout(() => { win.print(); win.close(); }, 500);
+            } catch (e) { alert("Error!"); } finally { btn.disabled = false; btn.innerText = "SAVE & DOWNLOAD"; }
         }
 
-        function fillSection(id, out, tmpl) { let h = ''; document.querySelectorAll(`#${id} .entry`).forEach(el => { const i = el.querySelectorAll('input'); if(i[0].value) h += tmpl(i); }); document.getElementById(out).innerHTML = h; }
-        function fillList(id, out, tmpl) { let h = ''; document.querySelectorAll(`#${id} .entry`).forEach(el => { const i = el.querySelectorAll('input'); const t = el.querySelector('textarea').value; if(i[0].value) { const b = t.split('\n').filter(l => l.trim()).map(l => `<li>${l}</li>`).join(''); h += tmpl(i, b); } }); document.getElementById(out).innerHTML = h; }
-        function addEntry(id) { const container = document.getElementById(id); const clone = container.children[0].cloneNode(true); clone.querySelectorAll('input, textarea').forEach(v => v.value = ''); container.appendChild(clone); runUpdate(); }
-        function toggleLayout() { 
-            const type = document.querySelector('input[name="resType"]:checked').value; 
-            const imgPreview = document.getElementById('photo-preview');
-            document.getElementById('pdf-area').className = (type === 'Photo') ? 'template-photo' : ''; 
-            document.getElementById('photo-input-area').classList.toggle('hidden', type === 'ATS'); 
-            if(type === 'ATS') { imgPreview.style.display = "none"; }
-            else if(imgPreview.src.startsWith('data:image')) { imgPreview.style.display = "block"; imgPreview.classList.remove('hidden'); }
-            runUpdate(); 
+        function toggleLayout() {
+            const type = document.querySelector('input[name="resType"]:checked').value;
+            const preview = document.getElementById('pdf-area');
+            const img = document.getElementById('photo-preview');
+            preview.className = (type === 'Photo') ? 'template-photo' : '';
+            document.getElementById('photo-input-area').classList.toggle('hidden', type === 'ATS');
+            if(type === 'ATS') img.classList.add('hidden');
+            else if(img.src.startsWith('data')) img.classList.remove('hidden');
+            runUpdate();
         }
-        function loadPhoto(i) { if(i.files[0]) { const r = new FileReader(); r.onload = e => { const img = document.getElementById('photo-preview'); img.src = e.target.result; img.style.display = "block"; img.classList.remove('hidden'); }; r.readAsDataURL(i.files[0]); } }
+
+        function loadPhoto(i) {
+            if(i.files[0]) {
+                const r = new FileReader();
+                r.onload = e => {
+                    const img = document.getElementById('photo-preview');
+                    img.src = e.target.result;
+                    img.classList.remove('hidden');
+                };
+                r.readAsDataURL(i.files[0]);
+            }
+        }
+
+        function openAI(t) {
+            document.getElementById('prompt-text').innerText = `Tolong tuliskan resume summary profesional untuk pelajar sains data...`;
+            document.getElementById('ai-modal').style.display = 'block';
+        }
+        function closeModal() { document.getElementById('ai-modal').style.display = 'none'; }
+        function copyAndClose() { navigator.clipboard.writeText(document.getElementById('prompt-text').innerText); closeModal(); }
+        
         window.onload = runUpdate;
     </script>
 </body>
