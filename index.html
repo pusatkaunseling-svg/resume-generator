@@ -57,8 +57,8 @@
         <div class="lg:w-1/2 p-6 bg-white overflow-y-auto border-r shadow-xl no-print">
             
             <div class="bg-blue-900 p-5 rounded-xl text-white mb-8 shadow-lg flex items-center gap-4">
-                <img src="https://i.ibb.co/3sXz6wT/logo-unimap.png" alt="UniMAP Logo" class="h-16 w-auto object-contain">
-                <h1 class="text-3xl font-black uppercase tracking-tighter">PUSKA Resume Helper</h1>
+                <img src="https://i.ibb.co/3sXz6wT/logo-unimap.png" alt="UniMAP Logo" class="h-14 w-auto brightness-0 invert">
+                <h1 class="text-2xl font-black uppercase tracking-tight">PUSKA Resume Helper</h1>
             </div>
 
             <div class="space-y-6">
@@ -161,7 +161,7 @@
 
                 <section class="p-5 border rounded-xl bg-white shadow-sm">
                     <div class="flex justify-between items-center mb-1"><label>2. SUMMARY</label><button onclick="openAI('summary')" class="ai-btn">✨ AI HELP</button></div>
-                    <textarea id="summary" class="h-24" placeholder="Example: Enthusiastic Bachelor of Data Science student at UniMAP with a solid foundation in machine learning and data visualization. Proven ability to analyze complex datasets during internship at TechCorp..." oninput="runUpdate()"></textarea>
+                    <textarea id="summary" class="h-24" placeholder="E.g. Motivated Bachelor of Data Science student at UniMAP with experience in Python and AI..." oninput="runUpdate()"></textarea>
                 </section>
 
                 <section class="p-5 border rounded-xl bg-gray-50 shadow-sm">
@@ -170,7 +170,7 @@
                         <div class="p-3 border bg-white rounded-lg entry mb-2 space-y-2">
                             <input type="text" placeholder="UNIVERSITY (E.G. Universiti Malaysia Perlis)" class="font-bold" oninput="runUpdate()">
                             <input type="text" placeholder="DEGREE (E.G. Bachelor of Data Science)" oninput="runUpdate()">
-                            <div class="grid grid-cols-3 gap-1"><input type="text" placeholder="CGPA" oninput="runUpdate()"><input type="text" placeholder="START" oninput="runUpdate()"><input type="text" placeholder="END/EXPECTED" oninput="runUpdate()"></div>
+                            <div class="grid grid-cols-3 gap-1"><input type="text" placeholder="CGPA" oninput="runUpdate()"><input type="text" placeholder="START" oninput="runUpdate()"><input type="text" placeholder="END" oninput="runUpdate()"></div>
                         </div>
                     </div>
                 </section>
@@ -179,13 +179,9 @@
                     <div class="flex justify-between items-center mb-4"><b>4. WORK EXPERIENCE</b><button onclick="addEntry('work-list')" class="bg-blue-600 text-white px-3 py-1 rounded-lg font-bold">+</button></div>
                     <div id="work-list">
                         <div class="p-3 border bg-white rounded-lg entry mb-2 space-y-2">
-                            <div class="grid grid-cols-2 gap-2"><input type="text" placeholder="POSITION (E.G. Data Analyst Intern)" class="font-bold" oninput="runUpdate()"><input type="text" placeholder="COMPANY (E.G. Petronas)" oninput="runUpdate()"></div>
-                            <div class="grid grid-cols-2 gap-2"><input type="text" placeholder="START" oninput="runUpdate()"><input type="text" placeholder="END/PRESENT" oninput="runUpdate()"></div>
+                            <div class="grid grid-cols-2 gap-2"><input type="text" placeholder="POSITION" class="font-bold" oninput="runUpdate()"><input type="text" placeholder="COMPANY" oninput="runUpdate()"></div>
                             <div class="flex justify-between items-center"><label>DESCRIPTION</label><button onclick="openAI('work')" class="ai-btn">✨ AI</button></div>
-                            <textarea class="h-20" placeholder="Example:
-Assisted in developing predictive models using Python.
-Visualized monthly sales data using Power BI for management reviews.
-Collaborated with the engineering team to optimize data collection processes." oninput="runUpdate()"></textarea>
+                            <textarea class="h-20" placeholder="Assisted in data analysis projects..." oninput="runUpdate()"></textarea>
                         </div>
                     </div>
                 </section>
@@ -194,12 +190,9 @@ Collaborated with the engineering team to optimize data collection processes." o
                     <div class="flex justify-between items-center mb-4"><b>5. PROJECTS</b><button onclick="addEntry('proj-list')" class="bg-blue-600 text-white px-3 py-1 rounded-lg font-bold">+</button></div>
                     <div id="proj-list">
                         <div class="p-3 border bg-white rounded-lg entry mb-2 space-y-2">
-                            <input type="text" placeholder="PROJECT NAME (E.G. Smart Irrigation System)" class="font-bold" oninput="runUpdate()">
+                            <input type="text" placeholder="PROJECT NAME" class="font-bold" oninput="runUpdate()">
                             <div class="flex justify-between items-center"><label>DESCRIPTION</label><button onclick="openAI('project')" class="ai-btn">✨ AI</button></div>
-                            <textarea class="h-20" placeholder="Example:
-Designed an IoT-based system using Arduino to monitor soil moisture.
-Reduced water consumption by 30% through automated irrigation scheduling.
-Integrated a mobile app for real-time monitoring using Blynk." oninput="runUpdate()"></textarea>
+                            <textarea class="h-20" placeholder="Developed an AI model for..." oninput="runUpdate()"></textarea>
                         </div>
                     </div>
                 </section>
@@ -208,9 +201,9 @@ Integrated a mobile app for real-time monitoring using Blynk." oninput="runUpdat
                     <div class="flex justify-between items-center mb-4"><b>6. CERTIFICATES</b><button onclick="addEntry('cert-list')" class="bg-blue-600 text-white px-3 py-1 rounded-lg font-bold">+</button></div>
                     <div id="cert-list">
                         <div class="p-3 border bg-white rounded-lg entry mb-2 space-y-2">
-                            <input type="text" placeholder="CERT NAME (E.G. Google Data Analytics Professional)" class="font-bold" oninput="runUpdate()">
-                            <input type="text" placeholder="ISSUED BY (E.G. Coursera)" oninput="runUpdate()">
-                            <input type="text" placeholder="URL (OPTIONAL)" oninput="runUpdate()">
+                            <input type="text" placeholder="CERT NAME" class="font-bold" oninput="runUpdate()">
+                            <input type="text" placeholder="ISSUED BY" oninput="runUpdate()">
+                            <input type="text" placeholder="URL" oninput="runUpdate()">
                         </div>
                     </div>
                 </section>
@@ -218,22 +211,22 @@ Integrated a mobile app for real-time monitoring using Blynk." oninput="runUpdat
                 <div class="grid grid-cols-1 gap-4">
                     <section class="p-4 border rounded bg-white shadow-sm">
                         <div class="flex justify-between items-center mb-1"><label>7. TECHNICAL SKILL</label><button onclick="openAI('tech')" class="ai-btn">✨ AI</button></div>
-                        <textarea id="tech_sk" class="h-20" placeholder="Example: Python, SQL, AutoCAD, MATLAB, Power BI, Machine Learning, PLC Programming" oninput="runUpdate()"></textarea>
+                        <textarea id="tech_sk" class="h-20" placeholder="Python, SQL, Machine Learning..." oninput="runUpdate()"></textarea>
                     </section>
                     <section class="p-4 border rounded bg-white shadow-sm">
                         <div class="flex justify-between items-center mb-1"><label>8. SOFT SKILL</label><button onclick="openAI('soft')" class="ai-btn">✨ AI</button></div>
-                        <textarea id="soft_sk" class="h-20" placeholder="Example: Leadership, Analytical Thinking, Team Collaboration, Problem Solving, Public Speaking" oninput="runUpdate()"></textarea>
+                        <textarea id="soft_sk" class="h-20" placeholder="Leadership, Communication..." oninput="runUpdate()"></textarea>
                     </section>
                     <section class="p-4 border rounded bg-white shadow-sm">
                         <label>9. LANGUAGE</label>
-                        <input type="text" id="lang_sk" placeholder="Example: Malay (Native), English (Professional), Mandarin (Basic)" oninput="runUpdate()">
+                        <input type="text" id="lang_sk" placeholder="Malay (Native), English (Fluent)" oninput="runUpdate()">
                     </section>
                 </div>
 
                 <section class="p-5 border rounded-xl bg-gray-50 shadow-sm">
                     <div class="flex justify-between items-center mb-4"><b>10. REFERENCE</b><button onclick="addEntry('ref-list')" class="bg-blue-600 text-white px-3 py-1 rounded-lg font-bold">+</button></div>
                     <div id="ref-list">
-                        <div class="p-3 border bg-white rounded-xl entry mb-2 space-y-2">
+                        <div class="p-3 border bg-white rounded-lg entry mb-2 space-y-2">
                             <input type="text" placeholder="REFEREE NAME" class="font-bold" oninput="runUpdate()">
                             <div class="grid grid-cols-2 gap-2"><input type="text" placeholder="POSITION" oninput="runUpdate()"><input type="text" placeholder="ORGANIZATION" oninput="runUpdate()"></div>
                             <div class="grid grid-cols-2 gap-2"><input type="text" placeholder="EMAIL" oninput="runUpdate()"><input type="text" placeholder="PHONE" oninput="runUpdate()"></div>
@@ -244,14 +237,14 @@ Integrated a mobile app for real-time monitoring using Blynk." oninput="runUpdat
 
             <div class="mt-12 grid grid-cols-2 gap-4 pb-20 no-print">
                 <button onclick="location.reload()" class="bg-gray-400 text-white py-4 rounded-xl font-bold uppercase">Reset</button>
-                <button onclick="submitDatabase()" id="btnSubmit" class="bg-blue-800 text-white py-4 rounded-xl font-bold uppercase shadow-xl hover:scale-105 transition-all">Submit & Download</button>
+                <button onclick="submitDatabase()" id="btnSubmit" class="bg-blue-800 text-white py-4 rounded-xl font-bold uppercase shadow-xl">Submit & Download</button>
             </div>
         </div>
 
         <div class="lg:w-1/2 flex justify-center preview-container overflow-y-auto bg-gray-300 no-print">
             <div id="pdf-area" class="shadow-2xl">
                 <header class="text-center">
-                    <img id="photo-preview" src="" class="hidden" style="width:110px; height:140px; border:1px solid #ddd; object-fit:cover; margin:0 auto 10px;">
+                    <img id="photo-preview" src="" class="hidden" style="width:35mm; height:45mm; border:1px solid #ddd; object-fit:cover; margin:0 auto 10px;">
                     <div class="w-full">
                         <h1 id="p-name">FULL NAME</h1>
                         <p id="p-contact" style="font-size: 11pt; margin: 10px 0; font-weight: bold; color: #333;"></p>
@@ -277,11 +270,11 @@ Integrated a mobile app for real-time monitoring using Blynk." oninput="runUpdat
             const name = document.getElementById('fullName').value || "pelajar";
             const program = document.getElementById('prog').value;
             let prompt = "";
-            if(type === 'summary') prompt = `I am ${name}, studying ${program}. Write a professional 3-line resume summary for me focusing on my academic achievements.`;
-            else if(type === 'work') prompt = `Write 3 professional bullet points for my work experience as a ${program} student.`;
+            if(type === 'summary') prompt = `I am ${name}, studying ${program}. Write a professional resume summary for me focusing on my academic background.`;
+            else if(type === 'work') prompt = `Write professional bullet points for my work experience as a ${program} student.`;
             else if(type === 'project') prompt = `Write a description for a ${program} project. Include Problem, Tools, and Result.`;
-            else if(type === 'tech') prompt = `List the top 8 technical skills for a ${program} graduate (comma separated).`;
-            else if(type === 'soft') prompt = `List the top 6 professional soft skills for a ${program} graduate.`;
+            else if(type === 'tech') prompt = `List the top technical skills for a ${program} graduate.`;
+            else if(type === 'soft') prompt = `List the top soft skills for a ${program} graduate.`;
             document.getElementById('prompt-text').innerText = prompt;
             document.getElementById('ai-modal').style.display = "block";
         }
@@ -300,42 +293,29 @@ Integrated a mobile app for real-time monitoring using Blynk." oninput="runUpdat
             document.getElementById('p-soft').innerText = document.getElementById('soft_sk').value;
             document.getElementById('p-lang').innerText = document.getElementById('lang_sk').value ? `Languages: ${document.getElementById('lang_sk').value}` : '';
 
-            fillSection('edu-list', 'p-edu', i => `<div class="mb-3"><div class="item-header"><span>${i[0].value}</span><span>${i[3].value} - ${i[4].value}</span></div><i>${i[1].value}</i><br><b>CGPA: ${i[2].value}</b></div>`);
-            fillList('work-list', 'p-work', (i, b) => `<div class="mb-4"><div class="item-header"><span>${i[0].value}</span><span>${i[2].value} - ${i[3].value}</span></div><i>${i[1].value}</i><ul>${b}</ul></div>`);
+            fillSection('edu-list', 'p-edu', i => `<div class="mb-3"><div class="item-header"><span>${i[0].value}</span><span>${i[2].value} - ${i[3].value}</span></div><i>${i[1].value}</i></div>`);
+            fillList('work-list', 'p-work', (i, b) => `<div class="mb-4"><div class="item-header"><span>${i[0].value}</span></div><i>${i[1].value}</i><ul>${b}</ul></div>`);
             fillList('proj-list', 'p-proj', (i, b) => `<div class="mb-4"><div class="item-header"><span>${i[0].value}</span></div><ul>${b}</ul></div>`);
-            fillSection('cert-list', 'p-cert', i => `<div class="mb-1"><b>${i[0].value}</b> - ${i[1].value} ${i[2].value ? ' | Link: '+i[2].value : ''}</div>`);
+            fillSection('cert-list', 'p-cert', i => `<div class="mb-1"><b>${i[0].value}</b> - ${i[1].value}</div>`);
             fillSection('ref-list', 'p-ref', i => `<div class="text-[10pt] leading-tight mb-2"><b>${i[0].value}</b><br>${i[1].value}, ${i[2].value}<br>E: ${i[3].value} | P: ${i[4].value}</div>`);
         }
 
         async function submitDatabase() {
             const btn = document.getElementById('btnSubmit');
             const resType = document.querySelector('input[name="resType"]:checked').value;
-            const fullName = document.getElementById('fullName').value;
-            if(!fullName) { alert("Sila isi Nama!"); return; }
+            if(!document.getElementById('fullName').value) { alert("Sila isi Nama!"); return; }
             btn.innerText = "Processing..."; btn.disabled = true;
 
             const previewArea = document.getElementById('pdf-area');
             const previewClone = previewArea.cloneNode(true);
             const imgClone = previewClone.querySelector('#photo-preview');
-            if(resType === "ATS") {
-                if(imgClone) imgClone.remove();
-                previewClone.querySelector('header').style.textAlign = "center";
-            }
+            if(resType === "ATS") { if(imgClone) imgClone.remove(); previewClone.querySelector('header').style.textAlign = "center"; }
 
             const resumeStyles = document.getElementById('resume-styles').innerHTML;
             const fullHtml = `<!DOCTYPE html><html><head><style>${resumeStyles} body { background: white; margin: 0; padding: 0; } #pdf-area { width: 210mm; min-height: 297mm; padding: 15mm; box-shadow: none; border: none; margin: 0 auto; }</style></head><body>${previewClone.outerHTML}</body></html>`;
 
             try {
-                await fetch(SCRIPT_URL, {
-                    method: 'POST', mode: 'no-cors',
-                    body: JSON.stringify({ 
-                        resumeType: resType, fullName: fullName, email: document.getElementById('email').value, 
-                        phone: document.getElementById('phone').value, cgpa: document.getElementById('main_cgpa').value, 
-                        level: document.getElementById('level').value, year: document.getElementById('year').value, 
-                        program: document.getElementById('prog').value, faculty: document.getElementById('faculty').value, 
-                        htmlContent: fullHtml 
-                    })
-                });
+                await fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify({ resumeType: resType, fullName: document.getElementById('fullName').value, htmlContent: fullHtml }) });
                 alert("Success! PDF saved to Drive.");
                 const win = window.open('', '_blank'); win.document.write(fullHtml); win.document.close(); win.setTimeout(() => win.print(), 500);
             } catch (e) { alert("Error!"); } finally { btn.disabled = false; btn.innerText = "Submit & Download"; }
@@ -349,8 +329,8 @@ Integrated a mobile app for real-time monitoring using Blynk." oninput="runUpdat
             const imgPreview = document.getElementById('photo-preview');
             document.getElementById('pdf-area').className = (type === 'Photo') ? 'template-photo' : ''; 
             document.getElementById('photo-input-area').classList.toggle('hidden', type === 'ATS'); 
-            if(type === 'ATS') { imgPreview.style.display = "none"; }
-            else if(imgPreview.src.startsWith('data:image')) { imgPreview.style.display = "block"; imgPreview.classList.remove('hidden'); }
+            if(type === 'ATS') imgPreview.style.display = "none";
+            else if(imgPreview.src.startsWith('data:image')) imgPreview.style.display = "block";
             runUpdate(); 
         }
         function loadPhoto(i) { if(i.files[0]) { const r = new FileReader(); r.onload = e => { const img = document.getElementById('photo-preview'); img.src = e.target.result; img.style.display = "block"; img.classList.remove('hidden'); }; r.readAsDataURL(i.files[0]); } }
