@@ -3,12 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PUSKA Resume System v38.0</title>
+    <title>PUSKA Resume System v39.0</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style id="resume-styles">
         /* --- FORMAT RESUME (STABIL UNTUK PRINT & DRIVE) --- */
         * { box-sizing: border-box; }
-        
         #pdf-area {
             font-family: 'Arial', sans-serif; color: #1a1a1a; line-height: 1.4; background: white;
             width: 100%; max-width: 800px; min-height: 1050px; padding: 50px; margin: auto;
@@ -21,7 +20,7 @@
         #pdf-area li { font-size: 10.5pt; margin-bottom: 2px; }
         .section-content { font-size: 10.5pt; margin-bottom: 8px; }
 
-        /* PHOTO LAYOUT (MOD BLUE) */
+        /* PHOTO LAYOUT (BLUE THEME) */
         .template-photo header { border-bottom: 4px solid #1e3a8a; padding-bottom: 15px; text-align: left !important; display: flex !important; align-items: center; gap: 25px; margin-bottom: 15px; }
         .template-photo #photo-preview { width: 110px; height: 140px; border: 1px solid #ddd; object-fit: cover; display: block !important; margin: 0 !important; }
         .template-photo h2 { background: #1e3a8a !important; color: white !important; border: none !important; padding: 6px 12px !important; }
@@ -37,10 +36,7 @@
             .preview-container { overflow-x: auto; background: #333; padding: 10px; }
             #pdf-area { transform: scale(0.45); transform-origin: top center; }
         }
-        @media print { 
-            .no-print { display: none !important; } 
-            #pdf-area { width: 100%; max-width: 100%; padding: 30px; margin: 0; border: none; box-shadow: none; }
-        }
+        @media print { .no-print { display: none !important; } #pdf-area { width: 100%; max-width: 100%; padding: 30px; margin: 0; border: none; box-shadow: none; } }
     </style>
 </head>
 <body class="bg-gray-200">
@@ -48,7 +44,6 @@
     <div id="ai-modal">
         <div class="modal-content">
             <h3 class="font-black text-lg text-purple-700 uppercase mb-2">✨ AI Prompt Generator</h3>
-            <p class="text-[10px] text-gray-400 mb-3 uppercase font-bold">Salin teks ini ke ChatGPT/Gemini:</p>
             <div id="prompt-text" class="p-4 bg-gray-50 border rounded-xl text-sm italic mb-6 leading-relaxed text-gray-700"></div>
             <div class="flex gap-2">
                 <button onclick="copyAndClose()" class="flex-1 bg-purple-600 text-white font-bold py-3 rounded-xl hover:bg-purple-700 transition-all">SALIN & TUTUP</button>
@@ -59,7 +54,7 @@
 
     <div class="flex flex-col lg:flex-row h-screen">
         <div class="lg:w-1/2 p-6 bg-white overflow-y-auto border-r shadow-xl no-print">
-            <h1 class="text-2xl font-black text-blue-900 mb-6 uppercase tracking-tighter">PUSKA v38.0</h1>
+            <h1 class="text-2xl font-black text-blue-900 mb-6 uppercase">PUSKA v39.0</h1>
 
             <div class="bg-blue-900 p-5 rounded-xl text-white mb-8 space-y-4 shadow-lg">
                 <div class="grid grid-cols-2 gap-4">
@@ -92,7 +87,7 @@
                     </div>
                     <div id="photo-input-area" class="hidden mb-4 p-2 border-dashed border-2 rounded text-center"><input type="file" accept="image/*" onchange="loadPhoto(this)"></div>
                     <div class="space-y-3">
-                        <div><label>FULL NAME</label><input type="text" id="fullName" placeholder="FULL NAME" class="font-bold uppercase" oninput="runUpdate()"></div>
+                        <label>FULL NAME</label><input type="text" id="fullName" placeholder="FULL NAME" class="font-bold uppercase" oninput="runUpdate()">
                         <div class="grid grid-cols-2 gap-3">
                             <div><label>EMAIL</label><input type="text" id="email" placeholder="email@gmail.com" oninput="runUpdate()"></div>
                             <div><label>PHONE</label><input type="text" id="phone" placeholder="01X-XXXXXXX" oninput="runUpdate()"></div>
@@ -126,7 +121,7 @@
                         <div class="p-3 border bg-white rounded-lg entry mb-2 space-y-2">
                             <div class="grid grid-cols-2 gap-2"><input type="text" placeholder="POSITION" class="font-bold" oninput="runUpdate()"><input type="text" placeholder="COMPANY" oninput="runUpdate()"></div>
                             <div class="grid grid-cols-2 gap-2"><input type="text" placeholder="START" oninput="runUpdate()"><input type="text" placeholder="END" oninput="runUpdate()"></div>
-                            <div class="flex justify-between items-center"><label>DESC</label><button onclick="openAI('work')" class="ai-btn">✨ AI</button></div>
+                            <div class="flex justify-between items-center"><label>DESCRIPTION</label><button onclick="openAI('work')" class="ai-btn">✨ AI</button></div>
                             <textarea class="h-20" oninput="runUpdate()"></textarea>
                         </div>
                     </div>
@@ -143,6 +138,17 @@
                     </div>
                 </section>
 
+                <section class="p-5 border rounded-xl bg-gray-50">
+                    <div class="flex justify-between items-center mb-4"><b>6. CERTIFICATE</b><button onclick="addEntry('cert-list')" class="bg-blue-600 text-white px-3 py-1 rounded-lg font-bold">+</button></div>
+                    <div id="cert-list">
+                        <div class="p-3 border bg-white rounded-lg entry mb-2 space-y-2">
+                            <input type="text" placeholder="NAME" class="font-bold" oninput="runUpdate()">
+                            <input type="text" placeholder="ISSUED BY" oninput="runUpdate()">
+                            <input type="text" placeholder="URL LINK" oninput="runUpdate()">
+                        </div>
+                    </div>
+                </section>
+
                 <div class="grid grid-cols-1 gap-4">
                     <section class="p-4 border rounded bg-white shadow-sm">
                         <div class="flex justify-between items-center mb-1"><label>7. TECHNICAL SKILL</label><button onclick="openAI('tech')" class="ai-btn">✨</button></div>
@@ -152,9 +158,13 @@
                         <div class="flex justify-between items-center mb-1"><label>8. SOFT SKILL</label><button onclick="openAI('soft')" class="ai-btn">✨</button></div>
                         <textarea id="soft_sk" class="h-24" oninput="runUpdate()"></textarea>
                     </section>
+                    <section class="p-4 border rounded bg-white shadow-sm">
+                        <label>9. LANGUAGE</label>
+                        <input type="text" id="lang_sk" placeholder="E.g. English (Fluent), Malay (Native)" oninput="runUpdate()">
+                    </section>
                 </div>
 
-                <section class="p-5 border rounded-xl bg-gray-50 shadow-sm">
+                <section class="p-5 border rounded-xl bg-gray-50">
                     <div class="flex justify-between items-center mb-4"><b>10. REFERENCE</b><button onclick="addEntry('ref-list')" class="bg-blue-600 text-white px-3 py-1 rounded-lg font-bold">+</button></div>
                     <div id="ref-list">
                         <div class="p-3 border bg-white rounded-lg entry mb-2 space-y-2">
@@ -187,25 +197,25 @@
                 <section><h2>Work Experience</h2><div id="p-work"></div></section>
                 <section><h2>Key Projects</h2><div id="p-proj"></div></section>
                 <div class="grid grid-cols-2 gap-8"><section><h2>Technical Skills</h2><p id="p-tech" class="section-content whitespace-pre-line"></p></section><section><h2>Soft Skills</h2><p id="p-soft" class="section-content whitespace-pre-line"></p></section></div>
+                <section><h2>Certificates</h2><div id="p-cert"></div></section>
+                <section><h2>Languages</h2><p id="p-lang" class="section-content"></p></section>
                 <section><h2>References</h2><div id="p-ref" class="grid grid-cols-2 gap-4"></div></section>
             </div>
         </div>
     </div>
 
     <script>
-        // --- GANTIKAN URL WEB APP ANDA DI SINI ---
         const SCRIPT_URL = "GANTIKAN_DENGAN_URL_WEB_APP_ANDA";
 
         function openAI(type) {
-            const name = document.getElementById('fullName').value || "the student";
+            const name = document.getElementById('fullName').value || "pelajar";
             const program = document.getElementById('prog').value;
             let prompt = "";
-            if(type === 'summary') prompt = `I am ${name}, studying ${program}. Write a 3-line professional resume summary highlighting my ambition.`;
-            else if(type === 'work') prompt = `Write 3 professional bullet points for my internship experience as a ${program} student.`;
+            if(type === 'summary') prompt = `I am ${name}, studying ${program}. Write a 3-line professional resume summary for me.`;
+            else if(type === 'work') prompt = `Write 3 professional bullet points for my work experience as a ${program} student.`;
             else if(type === 'project') prompt = `Write a description for a ${program} student project (Problem, Tools, Result).`;
             else if(type === 'tech') prompt = `List top 8 tech skills for a ${program} graduate (comma separated).`;
             else if(type === 'soft') prompt = `List top 6 professional soft skills.`;
-            
             document.getElementById('prompt-text').innerText = prompt;
             document.getElementById('ai-modal').style.display = "block";
         }
@@ -214,16 +224,20 @@
 
         function runUpdate() {
             document.getElementById('p-name').innerText = (document.getElementById('fullName').value || 'FULL NAME').toUpperCase();
-            const contact = `${document.getElementById('email').value || 'email@gmail.com'}  •  ${document.getElementById('phone').value || 'PHONE'}  •  ${(document.getElementById('address').value || 'LOCATION').toUpperCase()}`;
-            document.getElementById('p-contact').innerText = contact;
+            const email = document.getElementById('email').value || 'email@gmail.com';
+            const phone = document.getElementById('phone').value || 'PHONE';
+            const loc = (document.getElementById('address').value || 'LOCATION').toUpperCase();
+            document.getElementById('p-contact').innerText = `${email}  •  ${phone}  •  ${loc}`;
             document.getElementById('p-linkedin').innerText = document.getElementById('linkedin').value || '';
             document.getElementById('p-summary').innerText = document.getElementById('summary').value;
             document.getElementById('p-tech').innerText = document.getElementById('tech_sk').value;
             document.getElementById('p-soft').innerText = document.getElementById('soft_sk').value;
+            document.getElementById('p-lang').innerText = document.getElementById('lang_sk').value ? `Languages: ${document.getElementById('lang_sk').value}` : '';
 
             fillSection('edu-list', 'p-edu', i => `<div class="mb-3"><div class="item-header"><span>${i[0].value}</span><span>${i[3].value} - ${i[4].value}</span></div><i>${i[1].value}</i><br><b>CGPA: ${i[2].value}</b></div>`);
             fillList('work-list', 'p-work', (i, b) => `<div class="mb-4"><div class="item-header"><span>${i[0].value}</span><span>${i[2].value} - ${i[3].value}</span></div><i>${i[1].value}</i><ul>${b}</ul></div>`);
             fillList('proj-list', 'p-proj', (i, b) => `<div class="mb-4"><div class="item-header"><span>${i[0].value}</span></div><ul>${b}</ul></div>`);
+            fillSection('cert-list', 'p-cert', i => `<div class="mb-1"><b>${i[0].value}</b> - ${i[1].value} ${i[2].value ? ' | Link: '+i[2].value : ''}</div>`);
             fillSection('ref-list', 'p-ref', i => `<div class="text-[10pt] leading-tight mb-2"><b>${i[0].value}</b><br>${i[1].value}, ${i[2].value}<br>E: ${i[3].value} | P: ${i[4].value}</div>`);
         }
 
@@ -236,8 +250,6 @@
 
             const previewArea = document.getElementById('pdf-area');
             const previewClone = previewArea.cloneNode(true);
-            
-            // PEMBERSIH GAMBAR ATS (DELETE ELEMEN UNTUK ELAK KOTAK KOSONG)
             const imgClone = previewClone.querySelector('#photo-preview');
             if(resType === "ATS") {
                 if(imgClone) imgClone.remove();
@@ -245,7 +257,7 @@
             }
 
             const resumeStyles = document.getElementById('resume-styles').innerHTML;
-            const fullHtml = `<!DOCTYPE html><html><head><style>${resumeStyles} body { background: white; margin: 0; padding: 0; } #pdf-area { width: 100%; max-width: 800px; padding: 50px; box-shadow: none; border: none; }</style></head><body>${previewClone.outerHTML}</body></html>`;
+            const fullHtml = `<!DOCTYPE html><html><head><style>${resumeStyles} body { background: white; margin: 0; padding: 0; } #pdf-area { width: 100%; max-width: 800px; padding: 50px; box-shadow: none; border: none; margin: 0 auto; }</style></head><body>${previewClone.outerHTML}</body></html>`;
 
             try {
                 await fetch(SCRIPT_URL, {
