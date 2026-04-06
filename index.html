@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PUSKA Resume System v44.0</title>
+    <title>PUSKA Resume Helper</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style id="resume-styles">
         /* --- CORE PRINT SETTINGS --- */
@@ -55,86 +55,90 @@
 
     <div class="flex flex-col lg:flex-row h-screen overflow-hidden">
         <div class="lg:w-1/2 p-6 bg-white overflow-y-auto border-r shadow-xl no-print">
-            <h1 class="text-2xl font-black text-blue-900 mb-6 uppercase">PUSKA v44.0</h1>
-
-            <div class="bg-blue-900 p-5 rounded-xl text-white mb-8 space-y-4 shadow-lg">
-                <div class="grid grid-cols-2 gap-4">
-                    <div><label class="text-blue-200">LEVEL</label><select id="level" class="text-black"><option>Undergraduate</option><option>Diploma</option><option>Postgraduate</option></select></div>
-                    <div><label class="text-blue-200">YEAR</label><select id="year" class="text-black"><option>Year 4</option><option>Year 3</option><option>Year 2</option><option>Year 1</option></select></div>
-                </div>
-                <div class="grid grid-cols-3 gap-4">
-                    <div class="col-span-2"><label class="text-blue-200">FACULTY</label>
-                        <select id="faculty" class="text-black">
-                            <option>Faculty of Electrical Engineering & Technology</option>
-                            <option>Faculty of Electronic Engineering & Technology</option>
-                            <option>Faculty of Chemical Engineering & Technology</option>
-                            <option>Faculty of Civil Engineering & Technology</option>
-                            <option>Faculty of Mechanical Engineering & Technology</option>
-                            <option>Faculty of Intelligent Computing</option>
-                            <option>Faculty of Business & Communication</option>
-                        </select>
-                    </div>
-                    <div><label class="text-yellow-300">CGPA</label><input type="text" id="main_cgpa" placeholder="4.00" class="text-black text-center font-bold" oninput="runUpdate()"></div>
-                </div>
-                <div><label class="text-blue-200">PROGRAM (ENGLISH)</label>
-                    <select id="prog" class="text-black font-semibold text-[10px]" onchange="runUpdate()">
-                        <optgroup label="Postgraduate"><option>Postgraduate (PhD)</option><option>Postgraduate (Master)</option></optgroup>
-                        <optgroup label="Undergraduate">
-                            <option>Bachelor of Environmental Engineering</option>
-                            <option>Bachelor of Civil Engineering Technology (Construction)</option>
-                            <option>Bachelor of Building Construction Technology</option>
-                            <option>Bachelor of Microelectronic Engineering</option>
-                            <option>Bachelor of Computer Engineering</option>
-                            <option>Bachelor of Biomedical Electronic Engineering</option>
-                            <option>Bachelor of Electronic Engineering</option>
-                            <option>Bachelor of Electronic Engineering Technology (Electronic System)</option>
-                            <option>Bachelor of Electronic Engineering Technology (Electronic Telecommunication Design)</option>
-                            <option>Bachelor of Electronic Engineering Technology (Electronic Network Design)</option>
-                            <option>Bachelor of Industrial Electronic Automation Technology</option>
-                            <option>Bachelor of Electrical Engineering</option>
-                            <option>Bachelor of Mechatronic Engineering</option>
-                            <option>Bachelor of Electrical Engineering Technology (Industrial Power)</option>
-                            <option>Bachelor of Electrical Engineering Technology (Robotics & Automation Technology)</option>
-                            <option>Bachelor of Electrical System Maintenance Technology</option>
-                            <option>Bachelor of Materials Engineering</option>
-                            <option>Bachelor of Chemical Engineering</option>
-                            <option>Bachelor of Polymer Engineering</option>
-                            <option>Bachelor of Chemical Engineering Technology (Food Technology)</option>
-                            <option>Bachelor of Chemical Engineering Technology (Industrial Chemical Process)</option>
-                            <option>Bachelor of Chemical Engineering Technology (Industrial Biotechnology)</option>
-                            <option>Bachelor of Mechanical Engineering</option>
-                            <option>Bachelor of Manufacturing Engineering</option>
-                            <option>Bachelor of Agricultural Engineering</option>
-                            <option>Bachelor of Mechanical Engineering Technology (Machining)</option>
-                            <option>Bachelor of Mechanical Engineering Technology (Agricultural System)</option>
-                            <option>Bachelor of Mechanical Engineering Technology (Product Design)</option>
-                            <option>Bachelor of Mechanical Engineering Technology (Material Processing)</option>
-                            <option>Bachelor of Industrial Machining Technology</option>
-                            <option>Bachelor of Automotive Technology</option>
-                            <option>Bachelor of Welding Technology</option>
-                            <option>Bachelor of New Media Communication</option>
-                            <option>Bachelor of Business (International Business)</option>
-                            <option>Bachelor of Business (Engineering Entrepreneurship)</option>
-                            <option>Bachelor of Civil Engineering</option>
-                            <option>Bachelor of Accounting</option>
-                            <option>Bachelor of Interactive Media Technology</option>
-                            <option selected>Bachelor of Data Science (Artificial Intelligence)</option>
-                            <option>Bachelor of Applied Science (Materials & Metallurgy Technology)</option>
-                        </optgroup>
-                        <optgroup label="Diploma">
-                            <option>Diploma in Computer Engineering</option>
-                            <option>Diploma in Electronic Engineering</option>
-                            <option>Diploma in Electrical Engineering</option>
-                            <option>Diploma in Mechatronic Engineering</option>
-                            <option>Diploma in Mechanical Engineering Technology</option>
-                            <option>Diploma in Manufacturing Engineering</option>
-                            <option>Diploma in Materials Engineering</option>
-                        </optgroup>
-                    </select>
-                </div>
+            
+            <div class="bg-blue-900 p-5 rounded-xl text-white mb-8 shadow-lg flex items-center gap-4">
+                <img src="https://i.ibb.co/3sXz6wT/logo-unimap.png" alt="UniMAP Logo" class="h-16 w-auto object-contain">
+                <h1 class="text-3xl font-black uppercase tracking-tighter">PUSKA Resume Helper</h1>
             </div>
 
             <div class="space-y-6">
+                <div class="bg-gray-100 p-5 rounded-xl border-2 border-dashed border-gray-300 space-y-4 shadow-sm">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div><label>LEVEL</label><select id="level" class="text-black"><option>Undergraduate</option><option>Diploma</option><option>Postgraduate</option></select></div>
+                        <div><label>YEAR</label><select id="year" class="text-black"><option>Year 4</option><option>Year 3</option><option>Year 2</option><option>Year 1</option></select></div>
+                    </div>
+                    <div class="grid grid-cols-3 gap-4">
+                        <div class="col-span-2"><label>FACULTY</label>
+                            <select id="faculty" class="text-black">
+                                <option>Faculty of Electrical Engineering & Technology</option>
+                                <option>Faculty of Electronic Engineering & Technology</option>
+                                <option>Faculty of Chemical Engineering & Technology</option>
+                                <option>Faculty of Civil Engineering & Technology</option>
+                                <option>Faculty of Mechanical Engineering & Technology</option>
+                                <option>Faculty of Intelligent Computing</option>
+                                <option>Faculty of Business & Communication</option>
+                            </select>
+                        </div>
+                        <div><label class="text-blue-900 font-bold">CGPA</label><input type="text" id="main_cgpa" placeholder="4.00" class="text-black text-center font-bold" oninput="runUpdate()"></div>
+                    </div>
+                    <div><label>PROGRAM (ENGLISH)</label>
+                        <select id="prog" class="text-black font-semibold text-[10px]" onchange="runUpdate()">
+                            <optgroup label="Postgraduate"><option>Postgraduate (PhD)</option><option>Postgraduate (Master)</option></optgroup>
+                            <optgroup label="Undergraduate">
+                                <option>Bachelor of Environmental Engineering</option>
+                                <option>Bachelor of Civil Engineering Technology (Construction)</option>
+                                <option>Bachelor of Building Construction Technology</option>
+                                <option>Bachelor of Microelectronic Engineering</option>
+                                <option>Bachelor of Computer Engineering</option>
+                                <option>Bachelor of Biomedical Electronic Engineering</option>
+                                <option>Bachelor of Electronic Engineering</option>
+                                <option>Bachelor of Electronic Engineering Technology (Electronic System)</option>
+                                <option>Bachelor of Electronic Engineering Technology (Electronic Telecommunication Design)</option>
+                                <option>Bachelor of Electronic Engineering Technology (Electronic Network Design)</option>
+                                <option>Bachelor of Industrial Electronic Automation Technology</option>
+                                <option>Bachelor of Electrical Engineering</option>
+                                <option>Bachelor of Mechatronic Engineering</option>
+                                <option>Bachelor of Electrical Engineering Technology (Industrial Power)</option>
+                                <option>Bachelor of Electrical Engineering Technology (Robotics & Automation Technology)</option>
+                                <option>Bachelor of Electrical System Maintenance Technology</option>
+                                <option>Bachelor of Materials Engineering</option>
+                                <option>Bachelor of Chemical Engineering</option>
+                                <option>Bachelor of Polymer Engineering</option>
+                                <option>Bachelor of Chemical Engineering Technology (Food Technology)</option>
+                                <option>Bachelor of Chemical Engineering Technology (Industrial Chemical Process)</option>
+                                <option>Bachelor of Chemical Engineering Technology (Industrial Biotechnology)</option>
+                                <option>Bachelor of Mechanical Engineering</option>
+                                <option>Bachelor of Manufacturing Engineering</option>
+                                <option>Bachelor of Agricultural Engineering</option>
+                                <option>Bachelor of Mechanical Engineering Technology (Machining)</option>
+                                <option>Bachelor of Mechanical Engineering Technology (Agricultural System)</option>
+                                <option>Bachelor of Mechanical Engineering Technology (Product Design)</option>
+                                <option>Bachelor of Mechanical Engineering Technology (Material Processing)</option>
+                                <option>Bachelor of Industrial Machining Technology</option>
+                                <option>Bachelor of Automotive Technology</option>
+                                <option>Bachelor of Welding Technology</option>
+                                <option>Bachelor of New Media Communication</option>
+                                <option>Bachelor of Business (International Business)</option>
+                                <option>Bachelor of Business (Engineering Entrepreneurship)</option>
+                                <option>Bachelor of Civil Engineering</option>
+                                <option>Bachelor of Accounting</option>
+                                <option>Bachelor of Interactive Media Technology</option>
+                                <option selected>Bachelor of Data Science (Artificial Intelligence)</option>
+                                <option>Bachelor of Applied Science (Materials & Metallurgy Technology)</option>
+                            </optgroup>
+                            <optgroup label="Diploma">
+                                <option>Diploma in Computer Engineering</option>
+                                <option>Diploma in Electronic Engineering</option>
+                                <option>Diploma in Electrical Engineering</option>
+                                <option>Diploma in Mechatronic Engineering</option>
+                                <option>Diploma in Mechanical Engineering Technology</option>
+                                <option>Diploma in Manufacturing Engineering</option>
+                                <option>Diploma in Materials Engineering</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                </div>
+
                 <section class="p-5 border rounded-xl bg-white shadow-sm">
                     <b class="text-blue-900 text-sm block border-b pb-2 mb-4">1. PERSONAL INFORMATION</b>
                     <div class="grid grid-cols-2 gap-3 mb-5">
@@ -229,7 +233,7 @@ Integrated a mobile app for real-time monitoring using Blynk." oninput="runUpdat
                 <section class="p-5 border rounded-xl bg-gray-50 shadow-sm">
                     <div class="flex justify-between items-center mb-4"><b>10. REFERENCE</b><button onclick="addEntry('ref-list')" class="bg-blue-600 text-white px-3 py-1 rounded-lg font-bold">+</button></div>
                     <div id="ref-list">
-                        <div class="p-3 border bg-white rounded-lg entry mb-2 space-y-2">
+                        <div class="p-3 border bg-white rounded-xl entry mb-2 space-y-2">
                             <input type="text" placeholder="REFEREE NAME" class="font-bold" oninput="runUpdate()">
                             <div class="grid grid-cols-2 gap-2"><input type="text" placeholder="POSITION" oninput="runUpdate()"><input type="text" placeholder="ORGANIZATION" oninput="runUpdate()"></div>
                             <div class="grid grid-cols-2 gap-2"><input type="text" placeholder="EMAIL" oninput="runUpdate()"><input type="text" placeholder="PHONE" oninput="runUpdate()"></div>
@@ -247,7 +251,7 @@ Integrated a mobile app for real-time monitoring using Blynk." oninput="runUpdat
         <div class="lg:w-1/2 flex justify-center preview-container overflow-y-auto bg-gray-300 no-print">
             <div id="pdf-area" class="shadow-2xl">
                 <header class="text-center">
-                    <img id="photo-preview" src="" class="hidden" style="width:35mm; height:45mm; border:1px solid #ddd; object-fit:cover; margin:0 auto 10px;">
+                    <img id="photo-preview" src="" class="hidden" style="width:110px; height:140px; border:1px solid #ddd; object-fit:cover; margin:0 auto 10px;">
                     <div class="w-full">
                         <h1 id="p-name">FULL NAME</h1>
                         <p id="p-contact" style="font-size: 11pt; margin: 10px 0; font-weight: bold; color: #333;"></p>
