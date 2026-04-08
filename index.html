@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PUSKA Resume Helper</title>
+    <title>PUSKA Resume Assists</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style id="resume-styles">
         /* --- CORE PRINT SETTINGS --- */
@@ -139,23 +139,21 @@
                     </div>
                 </div>
 
-                <section class="p-5 border rounded-xl bg-white shadow-sm">
-                    <b class="text-blue-900 text-sm block border-b pb-2 mb-4">1. PERSONAL INFORMATION</b>
+                <section class="p-5 border rounded-xl bg-white">
+                    <b class="text-blue-900 text-sm block border-b pb-2 mb-4">1. PERSONAL</b>
                     <div class="grid grid-cols-2 gap-3 mb-5">
                         <label class="cursor-pointer text-center font-bold border p-2 rounded-lg"><input type="radio" name="resType" value="ATS" checked onchange="toggleLayout()"> ATS</label>
                         <label class="cursor-pointer text-center font-bold border p-2 rounded-lg"><input type="radio" name="resType" value="Photo" onchange="toggleLayout()"> PHOTO</label>
                     </div>
-                    <div id="photo-input-area" class="hidden mb-4 p-2 border-dashed border-2 rounded text-center"><input type="file" accept="image/*" onchange="loadPhoto(this)"></div>
-                    <div class="space-y-3">
-                        <label>FULL NAME</label><input type="text" id="fullName" class="font-bold uppercase" oninput="runUpdate()">
-                        <div class="grid grid-cols-2 gap-3">
-                            <div><label>EMAIL</label><input type="text" id="email" oninput="runUpdate()"></div>
-                            <div><label>PHONE</label><input type="text" id="phone" oninput="runUpdate()"></div>
-                        </div>
-                        <div class="grid grid-cols-2 gap-3">
-                            <div><label>LOCATION</label><input type="text" id="address" class="uppercase" oninput="runUpdate()"></div>
-                            <div><label>LINKEDIN URL</label><input type="text" id="linkedin" oninput="runUpdate()"></div>
-                        </div>
+                    <div id="photo-input-area" class="hidden mb-4"><input type="file" accept="image/*" onchange="loadPhoto(this)"></div>
+                    <input type="text" id="fullName" placeholder="FULL NAME" class="font-bold uppercase" oninput="runUpdate()">
+                    <div class="grid grid-cols-2 gap-3 mt-3">
+                        <input type="text" id="email" placeholder="EMAIL" oninput="runUpdate()">
+                        <input type="text" id="phone" placeholder="PHONE" oninput="runUpdate()">
+                    </div>
+                    <div class="grid grid-cols-2 gap-3 mt-3">
+                        <input type="text" id="address" placeholder="LOCATION" class="uppercase" oninput="runUpdate()">
+                        <input type="text" id="linkedin" placeholder="LINKEDIN URL" oninput="runUpdate()">
                     </div>
                 </section>
 
@@ -170,23 +168,25 @@
                         <div class="p-3 border bg-white rounded-lg entry mb-2 space-y-2">
                             <input type="text" placeholder="UNIVERSITY" class="font-bold" oninput="runUpdate()">
                             <input type="text" placeholder="DEGREE" oninput="runUpdate()">
-                            <div class="grid grid-cols-3 gap-1">
-                                <input type="text" placeholder="CGPA" oninput="runUpdate()">
-                                <input type="text" placeholder="START DATE" oninput="runUpdate()">
-                                <input type="text" placeholder="END DATE" oninput="runUpdate()">
-                            </div>
+                            <div class="grid grid-cols-3 gap-1"><input type="text" placeholder="CGPA" oninput="runUpdate()"><input type="text" placeholder="START" oninput="runUpdate()"><input type="text" placeholder="END" oninput="runUpdate()"></div>
                         </div>
                     </div>
                 </section>
 
                 <section class="p-5 border rounded-xl bg-gray-50 shadow-sm">
                     <div class="flex justify-between items-center mb-4"><b>4. WORK EXPERIENCE</b><button onclick="addEntry('work-list')" class="bg-blue-600 text-white px-3 py-1 rounded-lg font-bold">+</button></div>
-                    <div id="work-list"><div class="p-3 border bg-white rounded-lg entry mb-2 space-y-2"><div class="grid grid-cols-2 gap-2"><input type="text" placeholder="POSITION" class="font-bold" oninput="runUpdate()"><input type="text" placeholder="COMPANY" oninput="runUpdate()"></div><div class="grid grid-cols-2 gap-2"><input type="text" placeholder="START" oninput="runUpdate()"><input type="text" placeholder="END" oninput="runUpdate()"></div><textarea class="h-20" placeholder="Tasks..." oninput="runUpdate()"></textarea></div></div>
+                    <div id="work-list">
+                        <div class="p-3 border bg-white rounded-lg entry mb-2 space-y-2">
+                            <div class="grid grid-cols-2 gap-2"><input type="text" placeholder="POSITION" class="font-bold" oninput="runUpdate()"><input type="text" placeholder="COMPANY" oninput="runUpdate()"></div>
+                            <div class="grid grid-cols-2 gap-2"><input type="text" placeholder="START" oninput="runUpdate()"><input type="text" placeholder="END" oninput="runUpdate()"></div>
+                            <textarea class="h-20" placeholder="Tasks..." oninput="runUpdate()"></textarea>
+                        </div>
+                    </div>
                 </section>
 
                 <section class="p-5 border rounded-xl bg-gray-50 shadow-sm">
                     <div class="flex justify-between items-center mb-4"><b>5. PROJECTS</b><button onclick="addEntry('proj-list')" class="bg-blue-600 text-white px-3 py-1 rounded-lg font-bold">+</button></div>
-                    <div id="proj-list"><div class="p-3 border bg-white rounded-lg entry mb-2 space-y-2"><input type="text" placeholder="PROJECT NAME" class="font-bold" oninput="runUpdate()"><textarea class="h-20" placeholder="Details..." oninput="runUpdate()"></textarea></div></div>
+                    <div id="proj-list"><div class="p-3 border bg-white rounded-lg entry mb-2 space-y-2"><input type="text" placeholder="PROJECT NAME" class="font-bold" oninput="runUpdate()"><textarea class="h-20" placeholder="Description..." oninput="runUpdate()"></textarea></div></div>
                 </section>
 
                 <section class="p-5 border rounded-xl bg-gray-50 shadow-sm">
@@ -202,7 +202,13 @@
 
                 <section class="p-5 border rounded-xl bg-gray-50 shadow-sm">
                     <div class="flex justify-between items-center mb-4"><b>10. REFERENCE</b><button onclick="addEntry('ref-list')" class="bg-blue-600 text-white px-3 py-1 rounded-lg font-bold">+</button></div>
-                    <div id="ref-list"><div class="p-3 border bg-white rounded-lg entry mb-2 space-y-2"><input type="text" placeholder="NAME" class="font-bold" oninput="runUpdate()"><div class="grid grid-cols-2 gap-2"><input type="text" placeholder="POSITION" oninput="runUpdate()"><input type="text" placeholder="EMAIL" oninput="runUpdate()"></div></div></div>
+                    <div id="ref-list">
+                        <div class="p-3 border bg-white rounded-lg entry mb-2 space-y-2">
+                            <input type="text" placeholder="NAME" class="font-bold" oninput="runUpdate()">
+                            <div class="grid grid-cols-2 gap-2"><input type="text" placeholder="POSITION" oninput="runUpdate()"><input type="text" placeholder="ORGANIZATION" oninput="runUpdate()"></div>
+                            <div class="grid grid-cols-2 gap-2"><input type="text" placeholder="EMAIL" oninput="runUpdate()"><input type="text" placeholder="PHONE" oninput="runUpdate()"></div>
+                        </div>
+                    </div>
                 </section>
             </div>
 
@@ -238,8 +244,8 @@
         const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxhYgzIZEYDfzdj05HBoSiZa721NztImGWPuc0kn6vMXfMJdvOzkyZBaAu_Xm0QMY0L7g/exec";
 
         function openAI(type) {
-            const program = document.getElementById('prog').value;
-            let prompt = `Write a professional resume ${type} for a student in ${program} at UniMAP...`;
+            const prog = document.getElementById('prog').value;
+            let prompt = `Professional resume ${type} for ${prog} at UniMAP.`;
             document.getElementById('prompt-text').innerText = prompt;
             document.getElementById('ai-modal').style.display = "block";
         }
@@ -255,54 +261,42 @@
             document.getElementById('p-soft').innerText = document.getElementById('soft_sk').value;
             document.getElementById('p-lang').innerText = document.getElementById('lang_sk').value ? `Languages: ${document.getElementById('lang_sk').value}` : '';
 
-            // FIX EDUCATION PREVIEW
+            // Education Fix
             let eduH = '';
             document.querySelectorAll('#edu-list .entry').forEach(el => {
                 const i = el.querySelectorAll('input');
-                if(i[0].value) {
-                    eduH += `<div class="mb-3">
-                        <div class="item-header"><span>${i[0].value}</span><span>${i[3].value} - ${i[4].value}</span></div>
-                        <i>${i[1].value}</i><br>
-                        <b>CGPA: ${i[2].value}</b>
-                    </div>`;
-                }
+                if(i[0].value) eduH += `<div class="mb-3"><div class="item-header"><span>${i[0].value}</span><span>${i[3].value} - ${i[4].value}</span></div><i>${i[1].value}</i><br><b>CGPA: ${i[2].value}</b></div>`;
             });
             document.getElementById('p-edu').innerHTML = eduH;
 
             fillList('work-list', 'p-work', (i, b) => `<div class="mb-4"><div class="item-header"><span>${i[0].value}</span><span>${i[2].value} - ${i[3].value}</span></div><i>${i[1].value}</i><ul>${b}</ul></div>`);
             fillList('proj-list', 'p-proj', (i, b) => `<div class="mb-4"><div class="item-header"><span>${i[0].value}</span></div><ul>${b}</ul></div>`);
             fillSection('cert-list', 'p-cert', i => `<div class="mb-1"><b>${i[0].value}</b> - ${i[1].value}</div>`);
-            fillSection('ref-list', 'p-ref', i => `<div class="text-[10pt] leading-tight mb-2"><b>${i[0].value}</b><br>${i[1].value}<br>E: ${i[2].value}</div>`);
+            
+            // Reference Fix
+            let refH = '';
+            document.querySelectorAll('#ref-list .entry').forEach(el => {
+                const i = el.querySelectorAll('input');
+                if(i[0].value) refH += `<div class="text-[10pt] leading-tight mb-2"><b>${i[0].value}</b><br>${i[1].value}, ${i[2].value}<br>E: ${i[3].value} | P: ${i[4].value}</div>`;
+            });
+            document.getElementById('p-ref').innerHTML = refH;
         }
 
         async function submitDatabase() {
             const btn = document.getElementById('btnSubmit');
             const resType = document.querySelector('input[name="resType"]:checked').value;
-            if(!document.getElementById('fullName').value) { alert("Sila isi Nama!"); return; }
+            if(!document.getElementById('fullName').value) { alert("Isi Nama!"); return; }
             btn.innerText = "Processing..."; btn.disabled = true;
-
-            const previewArea = document.getElementById('pdf-area');
-            const previewClone = previewArea.cloneNode(true);
-            if(resType === "ATS") { previewClone.querySelector('#photo-preview')?.remove(); previewClone.querySelector('header').style.textAlign = "center"; }
-
-            const fullHtml = `<!DOCTYPE html><html><head><style>${document.getElementById('resume-styles').innerHTML} body { background: white; } #pdf-area { width: 210mm; min-height: 297mm; padding: 15mm; border: none; box-shadow: none; margin: 0 auto; }</style></head><body>${previewClone.outerHTML}</body></html>`;
-
-            try {
-                await fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify({ resumeType: resType, fullName: document.getElementById('fullName').value, htmlContent: fullHtml }) });
-                alert("Success!");
-                const win = window.open('', '_blank'); win.document.write(fullHtml); win.document.close(); win.setTimeout(() => win.print(), 500);
+            const fullHtml = `<!DOCTYPE html><html><head><style>${document.getElementById('resume-styles').innerHTML} body{background:white; margin:0;} #pdf-area{width:210mm; min-height:297mm; padding:15mm; border:none; box-shadow:none; margin:0 auto;}</style></head><body>${document.getElementById('pdf-area').outerHTML}</body></html>`;
+            try { await fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify({ resumeType: resType, fullName: document.getElementById('fullName').value, htmlContent: fullHtml }) });
+            alert("Success!"); const win = window.open('', '_blank'); win.document.write(fullHtml); win.document.close(); win.setTimeout(() => win.print(), 500);
             } catch (e) { alert("Error!"); } finally { btn.disabled = false; btn.innerText = "Submit & Download"; }
         }
 
         function fillSection(id, out, tmpl) { let h = ''; document.querySelectorAll(`#${id} .entry`).forEach(el => { const i = el.querySelectorAll('input'); if(i[0].value) h += tmpl(i); }); document.getElementById(out).innerHTML = h; }
         function fillList(id, out, tmpl) { let h = ''; document.querySelectorAll(`#${id} .entry`).forEach(el => { const i = el.querySelectorAll('input'); const t = el.querySelector('textarea').value; if(i[0].value) { const b = t.split('\n').filter(l => l.trim()).map(l => `<li>${l}</li>`).join(''); h += tmpl(i, b); } }); document.getElementById(out).innerHTML = h; }
         function addEntry(id) { const container = document.getElementById(id); const clone = container.children[0].cloneNode(true); clone.querySelectorAll('input, textarea').forEach(v => v.value = ''); container.appendChild(clone); runUpdate(); }
-        function toggleLayout() { 
-            const type = document.querySelector('input[name="resType"]:checked').value; 
-            document.getElementById('pdf-area').className = (type === 'Photo') ? 'template-photo' : ''; 
-            document.getElementById('photo-input-area').classList.toggle('hidden', type === 'ATS'); 
-            runUpdate(); 
-        }
+        function toggleLayout() { const type = document.querySelector('input[name="resType"]:checked').value; document.getElementById('pdf-area').className = (type === 'Photo') ? 'template-photo' : ''; document.getElementById('photo-input-area').classList.toggle('hidden', type === 'ATS'); runUpdate(); }
         function loadPhoto(i) { if(i.files[0]) { const r = new FileReader(); r.onload = e => { const img = document.getElementById('photo-preview'); img.src = e.target.result; img.style.display = "block"; img.classList.remove('hidden'); }; r.readAsDataURL(i.files[0]); } }
         window.onload = runUpdate;
     </script>
