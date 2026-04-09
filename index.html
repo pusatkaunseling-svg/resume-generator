@@ -331,7 +331,18 @@
             if(resType === "ATS") { previewClone.querySelector('#photo-preview')?.remove(); previewClone.querySelector('header').style.textAlign = "center"; }
 
             const fullHtml = `<!DOCTYPE html><html><head><style>${document.getElementById('resume-styles').innerHTML} body { background: white; margin: 0; } #pdf-area { width: 210mm; min-height: 297mm; padding: 15mm; border: none; box-shadow: none; margin: 0 auto; }</style></head><body>${previewClone.outerHTML}</body></html>`;
-
+            // SUSUN DATA UNTUK A-K
+            const payload = {
+                fullName: fullName,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                cgpa: document.getElementById('main_cgpa').value,
+                level: document.getElementById('level').value,
+                year: document.getElementById('year').value,
+                program: document.getElementById('prog').value,
+                faculty: document.getElementById('faculty').value,
+                resumeType: resType,
+                htmlContent: fullHtml
             try {
                 await fetch(SCRIPT_URL, { 
                     method: 'POST', mode: 'no-cors', 
