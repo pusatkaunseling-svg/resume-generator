@@ -199,7 +199,7 @@
                         <div class="p-3 border bg-white rounded-lg entry mb-2 space-y-2">
                             <input type="text" placeholder="PROJECT NAME" class="font-bold uppercase" oninput="runUpdate()">
                             <div class="flex justify-between items-center"><label>DETAILS</label><button onclick="openAI('project')" class="ai-btn">✨ AI HELP</button></div>
-                            <textarea class="h-20" oninput="runUpdate()"></textarea>
+                            <textarea class="h-20" placeholder="E.g. Developed automation scripts using Python..." oninput="runUpdate()"></textarea>
                         </div>
                     </div>
                 </section>
@@ -216,8 +216,8 @@
                 </section>
 
                 <div class="grid grid-cols-1 gap-4">
-                    <section class="p-4 border rounded bg-white shadow-sm"><div class="flex justify-between items-center"><label>7. TECH SKILLS</label><button onclick="openAI('tech')" class="ai-btn">✨ AI</button></div><textarea id="tech_sk" oninput="runUpdate()"></textarea></section>
-                    <section class="p-4 border rounded bg-white shadow-sm"><div class="flex justify-between items-center"><label>8. SOFT SKILLS</label><button onclick="openAI('soft')" class="ai-btn">✨ AI</button></div><textarea id="soft_sk" oninput="runUpdate()"></textarea></section>
+                    <section class="p-4 border rounded bg-white shadow-sm"><div class="flex justify-between items-center"><label>7. TECH SKILLS</label><button onclick="openAI('tech')" class="ai-btn">✨ AI</button></div><textarea id="tech_sk" placeholder="E.g. Python, SQL, AutoCAD, MATLAB, SolidWorks..." oninput="runUpdate()"></textarea></section>
+                    <section class="p-4 border rounded bg-white shadow-sm"><div class="flex justify-between items-center"><label>8. SOFT SKILLS</label><button onclick="openAI('soft')" class="ai-btn">✨ AI</button></div><textarea id="soft_sk" placeholder="E.g. Teamwork" oninput="runUpdate()"></textarea></section>
                     <section class="p-4 border rounded bg-white shadow-sm"><label>9. LANGUAGE</label><input type="text" id="lang_sk" oninput="runUpdate()"></section>
                 </div>
 
