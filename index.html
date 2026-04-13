@@ -295,10 +295,17 @@
             document.getElementById('p-lang').innerText = document.getElementById('lang_sk').value;
 
             // EDU
-            let eduH = '';
+           let eduH = '';
             document.querySelectorAll('#edu-list .entry').forEach(el => {
                 const i = el.querySelectorAll('input');
-                if(i[0].value) eduH += `<div class="mb-3"><div class="item-header"><span>${i[0].value}</span><span>${i[2].value} - ${i[3].value}</span></div><i>${i[1].value}</i><br><b>CGPA: ${i[2].value}</b></div>`;
+                if(i[0].value) {
+                    // Index 0: Uni, 1: Degree, 2: CGPA, 3: Start, 4: End
+                    eduH += `<div class="mb-3">
+                        <div class="item-header"><span>${i[0].value}</span><span>${i[3].value} - ${i[4].value}</span></div>
+                        <i>${i[1].value}</i><br>
+                        <b>CGPA: ${i[2].value}</b>
+                    </div>`;
+                }
             });
             document.getElementById('p-edu').innerHTML = eduH;
 
