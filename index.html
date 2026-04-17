@@ -166,7 +166,7 @@
 
                 <section class="p-5 border rounded-xl bg-white shadow-sm">
                     <div class="flex justify-between items-center"><label>2. Summary</label><button onclick="openAI('summary')" class="ai-btn">✨ AI HELP</button></div>
-                    <textarea id="summary" placeholder="Briefly describe yourself as a final-year student, including your course, key strengths, any relevant experience, and your career interests." class="h-24" oninput="runUpdate()"></textarea>
+                    <textarea id="summary" placeholder="Briefly describe yourself..." class="h-24" oninput="runUpdate()"></textarea>
                 </section>
 
                 <section class="p-5 border rounded-xl bg-gray-50 shadow-sm">
@@ -175,7 +175,11 @@
                         <div class="p-3 border bg-white rounded-lg entry mb-2 space-y-2">
                             <input type="text" placeholder="UNIVERSITY" class="font-bold uppercase" oninput="runUpdate()">
                             <input type="text" placeholder="DEGREE/DIPLOMA" oninput="runUpdate()">
-                            <div class="grid grid-cols-3 gap-1"><input type="text" placeholder="CGPA" oninput="runUpdate()"><input type="text" placeholder="START" oninput="runUpdate()"><input type="text" placeholder="END/EXPECTED" oninput="runUpdate()"></div>
+                            <div class="grid grid-cols-3 gap-1">
+                                <input type="text" placeholder="CGPA" oninput="runUpdate()">
+                                <input type="text" placeholder="START" oninput="runUpdate()">
+                                <input type="text" placeholder="END/EXPECTED" oninput="runUpdate()">
+                            </div>
                         </div>
                     </div>
                 </section>
@@ -188,7 +192,7 @@
                             <input type="text" placeholder="COMPANY" oninput="runUpdate()">
                             <div class="grid grid-cols-2 gap-1"><input type="text" placeholder="START" oninput="runUpdate()"><input type="text" placeholder="END/PRESENT" oninput="runUpdate()"></div>
                             <div class="flex justify-between items-center"><label>TASKS</label><button onclick="openAI('work')" class="ai-btn">✨ AI HELP</button></div>
-                            <textarea class="h-20"  placeholder="Describe your responsibilities and achievements using action verbs and industry-related keywords." oninput="runUpdate()"></textarea>
+                            <textarea class="h-20" oninput="runUpdate()"></textarea>
                         </div>
                     </div>
                 </section>
@@ -199,7 +203,7 @@
                         <div class="p-3 border bg-white rounded-lg entry mb-2 space-y-2">
                             <input type="text" placeholder="PROJECT NAME" class="font-bold uppercase" oninput="runUpdate()">
                             <div class="flex justify-between items-center"><label>DETAILS</label><button onclick="openAI('project')" class="ai-btn">✨ AI HELP</button></div>
-                            <textarea class="h-20" placeholder="Describe your projects, including your role, tools/technologies used, and key outcomes using industry-related keywords." oninput="runUpdate()"></textarea>
+                            <textarea class="h-20" oninput="runUpdate()"></textarea>
                         </div>
                     </div>
                 </section>
@@ -216,9 +220,9 @@
                 </section>
 
                 <div class="grid grid-cols-1 gap-4">
-                    <section class="p-4 border rounded bg-white shadow-sm"><div class="flex justify-between items-center"><label>7. TECH SKILLS</label><button onclick="openAI('tech')" class="ai-btn">✨ AI</button></div><textarea id="tech_sk" placeholder="Python, SQL, AutoCAD, MATLAB, SolidWorks..." oninput="runUpdate()"></textarea></section>
-                    <section class="p-4 border rounded bg-white shadow-sm"><div class="flex justify-between items-center"><label>8. SOFT SKILLS</label><button onclick="openAI('soft')" class="ai-btn">✨ AI</button></div><textarea id="soft_sk" placeholder="List your key soft skills such as communication, teamwork, problem-solving, and time management." oninput="runUpdate()"></textarea></section>
-                    <section class="p-4 border rounded bg-white shadow-sm"><label>9. LANGUAGE</label><input type="text" id="lang_sk" placeholder="English (Fluent), Malay (Native)" oninput="runUpdate()"></section>
+                    <section class="p-4 border rounded bg-white shadow-sm"><div class="flex justify-between items-center"><label>7. TECH SKILLS</label><button onclick="openAI('tech')" class="ai-btn">✨ AI</button></div><textarea id="tech_sk" oninput="runUpdate()"></textarea></section>
+                    <section class="p-4 border rounded bg-white shadow-sm"><div class="flex justify-between items-center"><label>8. SOFT SKILLS</label><button onclick="openAI('soft')" class="ai-btn">✨ AI</button></div><textarea id="soft_sk" oninput="runUpdate()"></textarea></section>
+                    <section class="p-4 border rounded bg-white shadow-sm"><label>9. LANGUAGE</label><input type="text" id="lang_sk" oninput="runUpdate()"></section>
                 </div>
 
                 <section class="p-5 border rounded-xl bg-gray-50 shadow-sm">
@@ -270,11 +274,11 @@
         function openAI(type) {
             const prog = document.getElementById('prog').value;
             let prompt = "";
-            if(type === 'summary') prompt = `Write a professional 3-line resume summary for a ${prog} student.`;
-            else if(type === 'work') prompt = `3 bullet points for an intern in ${prog}.`;
-            else if(type === 'project') prompt = `Description for a project in ${prog} (Tools, Results).`;
-            else if(type === 'tech') prompt = `List 8 technical skills for ${prog}.`;
-            else if(type === 'soft') prompt = `List 6 professional soft skills.`;
+            if(type === 'summary') prompt = `Write a professional resume summary for a ${prog} student.`;
+            else if(type === 'work') prompt = `Bullet points for work experience for ${prog}.`;
+            else if(type === 'project') prompt = `Description for a technical project for ${prog}.`;
+            else if(type === 'tech') prompt = `Technical skills for ${prog}.`;
+            else if(type === 'soft') prompt = `Soft skills for a university graduate.`;
             document.getElementById('prompt-text').innerText = prompt;
             document.getElementById('ai-modal').style.display = "block";
         }
@@ -287,19 +291,21 @@
             const phone = document.getElementById('phone').value || '01X-XXXXXXX';
             const loc = (document.getElementById('address').value || 'ARAU, PERLIS').toUpperCase();
             document.getElementById('p-contact').innerText = `${email}  •  ${phone}  •  ${loc}`;
+            
             const li = document.getElementById('linkedin').value;
             document.getElementById('p-linkedin-preview').innerHTML = li ? `<a href="${li.startsWith('http')?li:'https://'+li}" target="_blank" style="color: #1e3a8a; text-decoration: underline;">${li}</a>` : '';
+            
             document.getElementById('p-summary').innerText = document.getElementById('summary').value;
             document.getElementById('p-tech').innerText = document.getElementById('tech_sk').value;
             document.getElementById('p-soft').innerText = document.getElementById('soft_sk').value;
             document.getElementById('p-lang').innerText = document.getElementById('lang_sk').value;
 
-            // EDU
-           let eduH = '';
+            // --- FIXED EDUCATION LOGIC ---
+            let eduH = '';
             document.querySelectorAll('#edu-list .entry').forEach(el => {
                 const i = el.querySelectorAll('input');
                 if(i[0].value) {
-                    // Index 0: Uni, 1: Degree, 2: CGPA, 3: Start, 4: End
+                    // i[0]: Uni, i[1]: Degree, i[2]: CGPA, i[3]: Start, i[4]: End
                     eduH += `<div class="mb-3">
                         <div class="item-header"><span>${i[0].value}</span><span>${i[3].value} - ${i[4].value}</span></div>
                         <i>${i[1].value}</i><br>
@@ -309,7 +315,10 @@
             });
             document.getElementById('p-edu').innerHTML = eduH;
 
+            // WORK
             fillList('work-list', 'p-work', (i, b) => `<div class="mb-4"><div class="item-header"><span>${i[0].value}</span><span>${i[2].value} - ${i[3].value}</span></div><i>${i[1].value}</i><ul>${b}</ul></div>`);
+            
+            // PROJECTS
             fillList('proj-list', 'p-proj', (i, b) => `<div class="mb-4"><div class="item-header"><span>${i[0].value}</span></div><ul>${b}</ul></div>`);
             
             // CERT
