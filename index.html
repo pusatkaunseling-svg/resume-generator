@@ -1,388 +1,379 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PUSKA Resume Helper</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style id="resume-styles">
-        /* --- CORE PRINT SETTINGS --- */
-        @page { size: A4; margin: 0; }
-        * { box-sizing: border-box; -webkit-print-color-adjust: exact; }
-        body { background: #e5e7eb; margin: 0; padding: 0; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PUSKA Resume Helper</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style id="resume-styles">
+        /* --- CORE PRINT SETTINGS --- */
+        @page { size: A4; margin: 0; }
+        * { box-sizing: border-box; -webkit-print-color-adjust: exact; }
+        body { background: #e5e7eb; margin: 0; padding: 0; }
 
-        #pdf-area {
-            font-family: 'Arial', sans-serif; color: black; line-height: 1.4; background: white;
-            width: 210mm; min-height: 297mm; padding: 15mm; margin: 20px auto;
-            box-shadow: 0 0 20px rgba(0,0,0,0.3); position: relative;
-        }
+        #pdf-area {
+            font-family: 'Arial', sans-serif; color: black; line-height: 1.4; background: white;
+            width: 210mm; min-height: 297mm; padding: 15mm; margin: 20px auto;
+            box-shadow: 0 0 20px rgba(0,0,0,0.3); position: relative;
+        }
 
-        /* --- ALIGNMENT FIX (CENTER) --- */
-        #pdf-area header { 
-            width: 100%; display: flex; flex-direction: column; 
-            align-items: center; justify-content: center; text-align: center; 
-            margin-bottom: 10px;
-        }
-        #p-contact { font-size: 10.5pt; margin: 5px 0; color: #333; width: 100%; text-align: center; }
-        #p-linkedin-preview { font-size: 10pt; font-weight: bold; width: 100%; text-align: center; }
+        /* --- ALIGNMENT FIX (CENTER) --- */
+        #pdf-area header { 
+            width: 100%; display: flex; flex-direction: column; 
+            align-items: center; justify-content: center; text-align: center; 
+            margin-bottom: 10px;
+        }
+        #p-contact { font-size: 10.5pt; margin: 5px 0; color: #333; width: 100%; text-align: center; }
+        #p-linkedin-preview { font-size: 10pt; font-weight: bold; width: 100%; text-align: center; }
 
-        /* --- TYPOGRAPHY --- */
-        #pdf-area h1 { font-size: 20pt; font-weight: bold; text-transform: uppercase; margin: 0; width: 100%; }
-        #pdf-area h2 { border-bottom: 2px solid #333; margin-top: 15px; margin-bottom: 8px; font-size: 13pt; font-weight: bold; text-transform: uppercase; text-align: left; }
-        .item-header { display: flex; justify-content: space-between; font-weight: bold; font-size: 11pt; margin-top: 4px; }
-        #pdf-area ul { list-style-type: disc !important; margin-left: 1.2rem !important; padding: 0; }
-        .section-content { font-size: 10.5pt; margin-bottom: 8px; }
+        /* --- TYPOGRAPHY --- */
+        #pdf-area h1 { font-size: 20pt; font-weight: bold; text-transform: uppercase; margin: 0; width: 100%; }
+        #pdf-area h2 { border-bottom: 2px solid #333; margin-top: 15px; margin-bottom: 8px; font-size: 13pt; font-weight: bold; text-transform: uppercase; text-align: left; }
+        .item-header { display: flex; justify-content: space-between; font-weight: bold; font-size: 11pt; margin-top: 4px; }
+        #pdf-area ul { list-style-type: disc !important; margin-left: 1.2rem !important; padding: 0; }
+        .section-content { font-size: 10.5pt; margin-bottom: 8px; }
 
-        /* --- PHOTO LAYOUT --- */
-        .template-photo header { 
-            flex-direction: row !important; text-align: left !important;
-            align-items: center !important; justify-content: flex-start !important;
-            border-bottom: 4px solid #1e3a8a; padding-bottom: 15px;
-        }
-        .template-photo #photo-preview { width: 35mm; height: 45mm; border: 1px solid #ddd; object-fit: cover; display: block !important; margin-right: 25px !important; }
-        .template-photo #p-contact, .template-photo #p-linkedin-preview { text-align: left !important; }
-        .template-photo h2 { background: #1e3a8a !important; color: white !important; border: none !important; padding: 6px 12px !important; }
+        /* --- PHOTO LAYOUT --- */
+        .template-photo header { 
+            flex-direction: row !important; text-align: left !important;
+            align-items: center !important; justify-content: flex-start !important;
+            border-bottom: 4px solid #1e3a8a; padding-bottom: 15px;
+        }
+        .template-photo #photo-preview { width: 35mm; height: 45mm; border: 1px solid #ddd; object-fit: cover; display: block !important; margin-right: 25px !important; }
+        .template-photo #p-contact, .template-photo #p-linkedin-preview { text-align: left !important; }
+        .template-photo h2 { background: #1e3a8a !important; color: white !important; border: none !important; padding: 6px 12px !important; }
 
-        /* --- FORM UI --- */
-        input, select, textarea { font-size: 13px !important; padding: 10px !important; border: 1px solid #d1d5db !important; border-radius: 8px !important; width: 100%; }
-        label { font-size: 11px; font-weight: 800; color: #4b5563; text-transform: uppercase; margin-bottom: 2px; display: block; margin-top: 8px; }
-        .ai-btn { background: linear-gradient(45deg, #8b5cf6, #6d28d9); color: white; padding: 2px 8px; border-radius: 4px; font-size: 9px; font-weight: bold; cursor: pointer; border: none; }
-        
-        #ai-modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(4px); }
-        .modal-content { background: white; margin: 10% auto; padding: 25px; border-radius: 15px; width: 90%; max-width: 500px; }
+        /* --- FORM UI --- */
+        input, select, textarea { font-size: 13px !important; padding: 10px !important; border: 1px solid #d1d5db !important; border-radius: 8px !important; width: 100%; }
+        label { font-size: 11px; font-weight: 800; color: #4b5563; text-transform: uppercase; margin-bottom: 2px; display: block; margin-top: 8px; }
+        .ai-btn { background: linear-gradient(45deg, #8b5cf6, #6d28d9); color: white; padding: 2px 8px; border-radius: 4px; font-size: 9px; font-weight: bold; cursor: pointer; border: none; }
+        
+        #ai-modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(4px); }
+        .modal-content { background: white; margin: 10% auto; padding: 25px; border-radius: 15px; width: 90%; max-width: 500px; }
 
-        @media screen and (max-width: 1024px) { 
-            .preview-container { background: #374151; padding: 10px; overflow-x: auto; } 
-            #pdf-area { transform: scale(0.42); transform-origin: top center; margin: 0 auto; } 
-        }
-    </style>
+        @media screen and (max-width: 1024px) { 
+            .preview-container { background: #374151; padding: 10px; overflow-x: auto; } 
+            #pdf-area { transform: scale(0.42); transform-origin: top center; margin: 0 auto; } 
+        }
+    </style>
 </head>
 <body>
 
-    <div id="ai-modal">
-        <div class="modal-content text-center">
-            <h3 class="font-black text-lg text-purple-700 uppercase mb-4">✨ AI Prompt Generator</h3>
-            <div id="prompt-text" class="p-4 bg-gray-50 border rounded-xl text-sm italic mb-6 text-left text-gray-700 leading-relaxed"></div>
-            <div class="flex gap-2">
-                <button onclick="copyAndClose()" class="flex-1 bg-purple-600 text-white font-bold py-3 rounded-xl uppercase">Copy & Close</button>
-                <button onclick="closeModal()" class="px-6 bg-gray-200 rounded-xl font-bold uppercase">Cancel</button>
-            </div>
-        </div>
-    </div>
+    <div id="ai-modal">
+        <div class="modal-content text-center">
+            <h3 class="font-black text-lg text-purple-700 uppercase mb-4">✨ AI Prompt Generator</h3>
+            <div id="prompt-text" class="p-4 bg-gray-50 border rounded-xl text-sm italic mb-6 text-left text-gray-700 leading-relaxed"></div>
+            <div class="flex gap-2">
+                <button onclick="copyAndClose()" class="flex-1 bg-purple-600 text-white font-bold py-3 rounded-xl uppercase">Copy & Close</button>
+                <button onclick="closeModal()" class="px-6 bg-gray-200 rounded-xl font-bold uppercase">Cancel</button>
+            </div>
+        </div>
+    </div>
 
-    <div class="flex flex-col lg:flex-row h-screen overflow-hidden">
-        <div class="lg:w-1/2 p-6 bg-white overflow-y-auto border-r shadow-xl no-print">
-            
-            <div class="bg-blue-900 p-5 rounded-xl text-white mb-8 shadow-lg flex items-center gap-4">
-                <img src="https://i.ibb.co/3sXz6wT/logo-unimap.png" alt="UniMAP" class="h-10 w-auto brightness-200">
-                <h1 class="text-xl font-black uppercase">PUSKA Resume Helper</h1>
-            </div>
+    <div class="flex flex-col lg:flex-row h-screen overflow-hidden">
+        <div class="lg:w-1/2 p-6 bg-white overflow-y-auto border-r shadow-xl no-print">
+            
+            <div class="bg-blue-900 p-5 rounded-xl text-white mb-8 shadow-lg flex items-center gap-4">
+                <img src="https://i.ibb.co/3sXz6wT/logo-unimap.png" alt="UniMAP" class="h-10 w-auto brightness-200">
+                <h1 class="text-xl font-black uppercase">PUSKA Resume Helper</h1>
+            </div>
 
-            <div class="space-y-6">
-                <div class="bg-gray-50 p-5 rounded-xl border-2 border-dashed border-gray-300">
-                    <div class="grid grid-cols-2 gap-4">
-                        <div><label>LEVEL</label><select id="level"><option>Undergraduate</option><option>Diploma</option><option>Postgraduate</option></select></div>
-                        <div><label>YEAR</label><select id="year"><option>Year 4</option><option>Year 3</option><option>Year 2</option><option>Year 1</option></select></div>
-                    </div>
-                    <label>FACULTY</label>
-                    <select id="faculty">
-                        <option>Faculty of Intelligent Computing</option>
-                        <option>Faculty of Electronic Engineering & Technology</option>
-                        <option>Faculty of Electrical Engineering & Technology</option>
-                        <option>Faculty of Mechanical Engineering & Technology</option>
-                        <option>Faculty of Chemical Engineering & Technology</option>
-                        <option>Faculty of Civil Engineering & Technology</option>
-                        <option>Faculty of Business & Communication</option>
-                    </select>
-                    <label>PROGRAM (SORTED BACHELOR TO DIPLOMA)</label>
-                    <select id="prog" class="font-semibold text-[10px]" onchange="runUpdate()">
-                        <optgroup label="BACHELOR DEGREES">
-                            <option selected>Bachelor of Data Science (Artificial Intelligence)</option>
-                            <option>Bachelor of Computer Engineering</option>
-                            <option>Bachelor of Microelectronic Engineering</option>
-                            <option>Bachelor of Electronic Engineering</option>
-                            <option>Bachelor of Mechatronic Engineering</option>
-                            <option>Bachelor of Electrical Engineering</option>
-                            <option>Bachelor of Mechanical Engineering</option>
-                            <option>Bachelor of Manufacturing Engineering</option>
-                            <option>Bachelor of Civil Engineering</option>
-                            <option>Bachelor of Chemical Engineering</option>
-                            <option>Bachelor of Polymer Engineering</option>
-                            <option>Bachelor of Materials Engineering</option>
-                            <option>Bachelor of Environmental Engineering</option>
-                            <option>Bachelor of Biomedical Electronic Engineering</option>
-                            <option>Bachelor of Accounting</option>
-                            <option>Bachelor of New Media Communication</option>
-                            <option>Bachelor of Business (International Business)</option>
-                            <option>Bachelor of Business (Engineering Entrepreneurship)</option>
-                            <option>Bachelor of Interactive Media Technology</option>
-                            <option>Bachelor of Agricultural Engineering</option>
-                            <option>Bachelor of Automotive Technology</option>
-                            <option>Bachelor of Welding Technology</option>
-                            <option>Bachelor of Electronic Engineering Technology (Electronic System)</option>
-                            <option>Bachelor of Electronic Engineering Technology (Telecommunication Design)</option>
-                            <option>Bachelor of Electronic Engineering Technology (Network Design)</option>
-                            <option>Bachelor of Electrical Engineering Technology (Industrial Power)</option>
-                            <option>Bachelor of Electrical Engineering Technology (Robotics & Automation)</option>
-                            <option>Bachelor of Electrical System Maintenance Technology</option>
-                            <option>Bachelor of Mechanical Engineering Technology (Machining)</option>
-                            <option>Bachelor of Mechanical Engineering Technology (Product Design)</option>
-                            <option>Bachelor of Industrial Machining Technology</option>
-                            <option>Bachelor of Chemical Engineering Technology (Food Technology)</option>
-                            <option>Bachelor of Chemical Engineering Technology (Industrial Process)</option>
-                            <option>Bachelor of Chemical Engineering Technology (Biotechnology)</option>
-                            <option>Bachelor of Applied Science (Materials & Metallurgy Technology)</option>
-                            <option>Bachelor of Civil Engineering Technology (Construction)</option>
-                            <option>Bachelor of Building Construction Technology</option>
-                        </optgroup>
-                        <optgroup label="DIPLOMA PROGRAMS">
-                            <option>Diploma in Computer Engineering</option>
-                            <option>Diploma in Electronic Engineering</option>
-                            <option>Diploma in Electrical Engineering</option>
-                            <option>Diploma in Mechatronic Engineering</option>
-                            <option>Diploma in Mechanical Engineering Technology</option>
-                            <option>Diploma in Manufacturing Engineering</option>
-                            <option>Diploma in Materials Engineering</option>
-                        </optgroup>
-                    </select>
-                    <label>CGPA</label><input type="text" id="main_cgpa" placeholder="3.85" class="text-center font-bold" oninput="runUpdate()">
-                </div>
+            <div class="space-y-6">
+                <div class="bg-gray-50 p-5 rounded-xl border-2 border-dashed border-gray-300">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div><label>LEVEL</label><select id="level"><option>Undergraduate</option><option>Diploma</option><option>Postgraduate</option></select></div>
+                        <div><label>YEAR</label><select id="year"><option>Year 4</option><option>Year 3</option><option>Year 2</option><option>Year 1</option></select></div>
+                    </div>
+                    <label>FACULTY</label>
+                    <select id="faculty">
+                        <option>Faculty of Intelligent Computing</option>
+                        <option>Faculty of Electronic Engineering & Technology</option>
+                        <option>Faculty of Electrical Engineering & Technology</option>
+                        <option>Faculty of Mechanical Engineering & Technology</option>
+                        <option>Faculty of Chemical Engineering & Technology</option>
+                        <option>Faculty of Civil Engineering & Technology</option>
+                        <option>Faculty of Business & Communication</option>
+                    </select>
+                    <label>PROGRAM (SORTED BACHELOR TO DIPLOMA)</label>
+                    <select id="prog" class="font-semibold text-[10px]" onchange="runUpdate()">
+                        <optgroup label="BACHELOR DEGREES">
+                            <option selected>Bachelor of Data Science (Artificial Intelligence)</option>
+                            <option>Bachelor of Computer Engineering</option>
+                            <option>Bachelor of Microelectronic Engineering</option>
+                            <option>Bachelor of Electronic Engineering</option>
+                            <option>Bachelor of Mechatronic Engineering</option>
+                            <option>Bachelor of Electrical Engineering</option>
+                            <option>Bachelor of Mechanical Engineering</option>
+                            <option>Bachelor of Manufacturing Engineering</option>
+                            <option>Bachelor of Civil Engineering</option>
+                            <option>Bachelor of Chemical Engineering</option>
+                            <option>Bachelor of Polymer Engineering</option>
+                            <option>Bachelor of Materials Engineering</option>
+                            <option>Bachelor of Environmental Engineering</option>
+                            <option>Bachelor of Biomedical Electronic Engineering</option>
+                            <option>Bachelor of Accounting</option>
+                            <option>Bachelor of New Media Communication</option>
+                            <option>Bachelor of Business (International Business)</option>
+                            <option>Bachelor of Business (Engineering Entrepreneurship)</option>
+                            <option>Bachelor of Interactive Media Technology</option>
+                            <option>Bachelor of Agricultural Engineering</option>
+                            <option>Bachelor of Automotive Technology</option>
+                            <option>Bachelor of Welding Technology</option>
+                            <option>Bachelor of Electronic Engineering Technology (Electronic System)</option>
+                            <option>Bachelor of Electronic Engineering Technology (Telecommunication Design)</option>
+                            <option>Bachelor of Electronic Engineering Technology (Network Design)</option>
+                            <option>Bachelor of Electrical Engineering Technology (Industrial Power)</option>
+                            <option>Bachelor of Electrical Engineering Technology (Robotics & Automation)</option>
+                            <option>Bachelor of Electrical System Maintenance Technology</option>
+                            <option>Bachelor of Mechanical Engineering Technology (Machining)</option>
+                            <option>Bachelor of Mechanical Engineering Technology (Product Design)</option>
+                            <option>Bachelor of Industrial Machining Technology</option>
+                            <option>Bachelor of Chemical Engineering Technology (Food Technology)</option>
+                            <option>Bachelor of Chemical Engineering Technology (Industrial Process)</option>
+                            <option>Bachelor of Chemical Engineering Technology (Biotechnology)</option>
+                            <option>Bachelor of Applied Science (Materials & Metallurgy Technology)</option>
+                            <option>Bachelor of Civil Engineering Technology (Construction)</option>
+                            <option>Bachelor of Building Construction Technology</option>
+                        </optgroup>
+                        <optgroup label="DIPLOMA PROGRAMS">
+                            <option>Diploma in Computer Engineering</option>
+                            <option>Diploma in Electronic Engineering</option>
+                            <option>Diploma in Electrical Engineering</option>
+                            <option>Diploma in Mechatronic Engineering</option>
+                            <option>Diploma in Mechanical Engineering Technology</option>
+                            <option>Diploma in Manufacturing Engineering</option>
+                            <option>Diploma in Materials Engineering</option>
+                        </optgroup>
+                    </select>
+                    <label>CGPA</label><input type="text" id="main_cgpa" placeholder="3.85" class="text-center font-bold" oninput="runUpdate()">
+                </div>
 
-                <section class="p-5 border rounded-xl bg-white shadow-sm">
-                    <b class="text-blue-900 text-xs block mb-4 uppercase">1. Personal Information</b>
-                    <div class="grid grid-cols-2 gap-3 mb-5">
-                        <label class="cursor-pointer text-center font-bold border p-2 rounded-lg"><input type="radio" name="resType" value="ATS" checked onchange="toggleLayout()"> ATS</label>
-                        <label class="cursor-pointer text-center font-bold border p-2 rounded-lg"><input type="radio" name="resType" value="Photo" onchange="toggleLayout()"> PHOTO</label>
-                    </div>
-                    <div id="photo-input-area" class="hidden mb-4 p-2 border-dashed border-2 rounded text-center"><input type="file" accept="image/*" onchange="loadPhoto(this)"></div>
-                    <label>FULL NAME</label><input type="text" id="fullName" placeholder="MUHAMAD ADAM BIN ALI" class="font-bold uppercase" oninput="runUpdate()">
-                    <div class="grid grid-cols-2 gap-3 mt-3">
-                        <input type="text" id="email" placeholder="adam@gmail.com" oninput="runUpdate()">
-                        <input type="text" id="phone" placeholder="012-3456789" oninput="runUpdate()">
-                    </div>
-                    <input type="text" id="address" placeholder="LOCATION (ARAU, PERLIS)" class="mt-2 uppercase" oninput="runUpdate()">
-                    <input type="text" id="linkedin" placeholder="LINKEDIN URL" class="mt-2" oninput="runUpdate()">
-                </section>
+                <section class="p-5 border rounded-xl bg-white shadow-sm">
+                    <b class="text-blue-900 text-xs block mb-4 uppercase">1. Personal Information</b>
+                    <div class="grid grid-cols-2 gap-3 mb-5">
+                        <label class="cursor-pointer text-center font-bold border p-2 rounded-lg"><input type="radio" name="resType" value="ATS" checked onchange="toggleLayout()"> ATS</label>
+                        <label class="cursor-pointer text-center font-bold border p-2 rounded-lg"><input type="radio" name="resType" value="Photo" onchange="toggleLayout()"> PHOTO</label>
+                    </div>
+                    <div id="photo-input-area" class="hidden mb-4 p-2 border-dashed border-2 rounded text-center"><input type="file" accept="image/*" onchange="loadPhoto(this)"></div>
+                    <label>FULL NAME</label><input type="text" id="fullName" placeholder="MUHAMAD ADAM BIN ALI" class="font-bold uppercase" oninput="runUpdate()">
+                    <div class="grid grid-cols-2 gap-3 mt-3">
+                        <input type="text" id="email" placeholder="adam@gmail.com" oninput="runUpdate()">
+                        <input type="text" id="phone" placeholder="012-3456789" oninput="runUpdate()">
+                    </div>
+                    <input type="text" id="address" placeholder="LOCATION (ARAU, PERLIS)" class="mt-2 uppercase" oninput="runUpdate()">
+                    <input type="text" id="linkedin" placeholder="LINKEDIN URL" class="mt-2" oninput="runUpdate()">
+                </section>
 
-                <section class="p-5 border rounded-xl bg-white shadow-sm">
-                    <div class="flex justify-between items-center"><label>2. Summary</label><button onclick="openAI('summary')" class="ai-btn">✨ AI HELP</button></div>
-                    <textarea id="summary" placeholder="Briefly describe yourself..." class="h-24" oninput="runUpdate()"></textarea>
-                </section>
+                <section class="p-5 border rounded-xl bg-white shadow-sm">
+                    <div class="flex justify-between items-center"><label>2. Summary</label><button onclick="openAI('summary')" class="ai-btn">✨ AI HELP</button></div>
+                    <textarea id="summary" placeholder="Briefly describe yourself as a final-year student, including your course, key strengths, any relevant experience, and your career interests." class="h-24" oninput="runUpdate()"></textarea>
+                </section>
 
-                <section class="p-5 border rounded-xl bg-gray-50 shadow-sm">
-                    <div class="flex justify-between items-center mb-4"><b>3. EDUCATION</b><button onclick="addEntry('edu-list')" class="bg-blue-600 text-white px-3 py-1 rounded-lg">+</button></div>
-                    <div id="edu-list">
-                        <div class="p-3 border bg-white rounded-lg entry mb-2 space-y-2">
-                            <input type="text" placeholder="UNIVERSITY" class="font-bold uppercase" oninput="runUpdate()">
-                            <input type="text" placeholder="DEGREE/DIPLOMA" oninput="runUpdate()">
-                            <div class="grid grid-cols-3 gap-1">
-                                <input type="text" placeholder="CGPA" oninput="runUpdate()">
-                                <input type="text" placeholder="START" oninput="runUpdate()">
-                                <input type="text" placeholder="END/EXPECTED" oninput="runUpdate()">
-                            </div>
-                        </div>
-                    </div>
-                </section>
+                <section class="p-5 border rounded-xl bg-gray-50 shadow-sm">
+                    <div class="flex justify-between items-center mb-4"><b>3. EDUCATION</b><button onclick="addEntry('edu-list')" class="bg-blue-600 text-white px-3 py-1 rounded-lg">+</button></div>
+                    <div id="edu-list">
+                        <div class="p-3 border bg-white rounded-lg entry mb-2 space-y-2">
+                            <input type="text" placeholder="UNIVERSITY" class="font-bold uppercase" oninput="runUpdate()">
+                            <input type="text" placeholder="DEGREE/DIPLOMA" oninput="runUpdate()">
+                            <div class="grid grid-cols-3 gap-1"><input type="text" placeholder="CGPA" oninput="runUpdate()"><input type="text" placeholder="START" oninput="runUpdate()"><input type="text" placeholder="END/EXPECTED" oninput="runUpdate()"></div>
+                        </div>
+                    </div>
+                </section>
 
-                <section class="p-5 border rounded-xl bg-gray-50 shadow-sm">
-                    <div class="flex justify-between items-center mb-4"><b>4. WORK EXPERIENCE</b><button onclick="addEntry('work-list')" class="bg-blue-600 text-white px-3 py-1 rounded-lg">+</button></div>
-                    <div id="work-list">
-                        <div class="p-3 border bg-white rounded-lg entry mb-2 space-y-2">
-                            <input type="text" placeholder="POSITION" class="font-bold uppercase" oninput="runUpdate()">
-                            <input type="text" placeholder="COMPANY" oninput="runUpdate()">
-                            <div class="grid grid-cols-2 gap-1"><input type="text" placeholder="START" oninput="runUpdate()"><input type="text" placeholder="END/PRESENT" oninput="runUpdate()"></div>
-                            <div class="flex justify-between items-center"><label>TASKS</label><button onclick="openAI('work')" class="ai-btn">✨ AI HELP</button></div>
-                            <textarea class="h-20" oninput="runUpdate()"></textarea>
-                        </div>
-                    </div>
-                </section>
+                <section class="p-5 border rounded-xl bg-gray-50 shadow-sm">
+                    <div class="flex justify-between items-center mb-4"><b>4. WORK EXPERIENCE</b><button onclick="addEntry('work-list')" class="bg-blue-600 text-white px-3 py-1 rounded-lg">+</button></div>
+                    <div id="work-list">
+                        <div class="p-3 border bg-white rounded-lg entry mb-2 space-y-2">
+                            <input type="text" placeholder="POSITION" class="font-bold uppercase" oninput="runUpdate()">
+                            <input type="text" placeholder="COMPANY" oninput="runUpdate()">
+                            <div class="grid grid-cols-2 gap-1"><input type="text" placeholder="START" oninput="runUpdate()"><input type="text" placeholder="END/PRESENT" oninput="runUpdate()"></div>
+                            <div class="flex justify-between items-center"><label>TASKS</label><button onclick="openAI('work')" class="ai-btn">✨ AI HELP</button></div>
+                            <textarea class="h-20"  placeholder="Describe your responsibilities and achievements using action verbs and industry-related keywords." oninput="runUpdate()"></textarea>
+                        </div>
+                    </div>
+                </section>
 
-                <section class="p-5 border rounded-xl bg-gray-50 shadow-sm">
-                    <div class="flex justify-between items-center mb-4"><b>5. PROJECTS</b><button onclick="addEntry('proj-list')" class="bg-blue-600 text-white px-3 py-1 rounded-lg">+</button></div>
-                    <div id="proj-list">
-                        <div class="p-3 border bg-white rounded-lg entry mb-2 space-y-2">
-                            <input type="text" placeholder="PROJECT NAME" class="font-bold uppercase" oninput="runUpdate()">
-                            <div class="flex justify-between items-center"><label>DETAILS</label><button onclick="openAI('project')" class="ai-btn">✨ AI HELP</button></div>
-                            <textarea class="h-20" oninput="runUpdate()"></textarea>
-                        </div>
-                    </div>
-                </section>
+                <section class="p-5 border rounded-xl bg-gray-50 shadow-sm">
+                    <div class="flex justify-between items-center mb-4"><b>5. PROJECTS</b><button onclick="addEntry('proj-list')" class="bg-blue-600 text-white px-3 py-1 rounded-lg">+</button></div>
+                    <div id="proj-list">
+                        <div class="p-3 border bg-white rounded-lg entry mb-2 space-y-2">
+                            <input type="text" placeholder="PROJECT NAME" class="font-bold uppercase" oninput="runUpdate()">
+                            <div class="flex justify-between items-center"><label>DETAILS</label><button onclick="openAI('project')" class="ai-btn">✨ AI HELP</button></div>
+                            <textarea class="h-20" placeholder="Describe your projects, including your role, tools/technologies used, and key outcomes using industry-related keywords." oninput="runUpdate()"></textarea>
+                        </div>
+                    </div>
+                </section>
 
-                <section class="p-5 border rounded-xl bg-gray-50 shadow-sm">
-                    <div class="flex justify-between items-center mb-4"><b>6. CERTIFICATES</b><button onclick="addEntry('cert-list')" class="bg-blue-600 text-white px-3 py-1 rounded-lg">+</button></div>
-                    <div id="cert-list">
-                        <div class="p-3 border bg-white rounded-lg entry mb-2 space-y-2">
-                            <input type="text" placeholder="CERT NAME" class="font-bold" oninput="runUpdate()">
-                            <input type="text" placeholder="ISSUED BY" oninput="runUpdate()">
-                            <input type="text" placeholder="URL LINK (OPTIONAL)" oninput="runUpdate()">
-                        </div>
-                    </div>
-                </section>
+                <section class="p-5 border rounded-xl bg-gray-50 shadow-sm">
+                    <div class="flex justify-between items-center mb-4"><b>6. CERTIFICATES</b><button onclick="addEntry('cert-list')" class="bg-blue-600 text-white px-3 py-1 rounded-lg">+</button></div>
+                    <div id="cert-list">
+                        <div class="p-3 border bg-white rounded-lg entry mb-2 space-y-2">
+                            <input type="text" placeholder="CERT NAME" class="font-bold" oninput="runUpdate()">
+                            <input type="text" placeholder="ISSUED BY" oninput="runUpdate()">
+                            <input type="text" placeholder="URL LINK (OPTIONAL)" oninput="runUpdate()">
+                        </div>
+                    </div>
+                </section>
 
-                <div class="grid grid-cols-1 gap-4">
-                    <section class="p-4 border rounded bg-white shadow-sm"><div class="flex justify-between items-center"><label>7. TECH SKILLS</label><button onclick="openAI('tech')" class="ai-btn">✨ AI</button></div><textarea id="tech_sk" oninput="runUpdate()"></textarea></section>
-                    <section class="p-4 border rounded bg-white shadow-sm"><div class="flex justify-between items-center"><label>8. SOFT SKILLS</label><button onclick="openAI('soft')" class="ai-btn">✨ AI</button></div><textarea id="soft_sk" oninput="runUpdate()"></textarea></section>
-                    <section class="p-4 border rounded bg-white shadow-sm"><label>9. LANGUAGE</label><input type="text" id="lang_sk" oninput="runUpdate()"></section>
-                </div>
+                <div class="grid grid-cols-1 gap-4">
+                    <section class="p-4 border rounded bg-white shadow-sm"><div class="flex justify-between items-center"><label>7. TECH SKILLS</label><button onclick="openAI('tech')" class="ai-btn">✨ AI</button></div><textarea id="tech_sk" placeholder="Python, SQL, AutoCAD, MATLAB, SolidWorks..." oninput="runUpdate()"></textarea></section>
+                    <section class="p-4 border rounded bg-white shadow-sm"><div class="flex justify-between items-center"><label>8. SOFT SKILLS</label><button onclick="openAI('soft')" class="ai-btn">✨ AI</button></div><textarea id="soft_sk" placeholder="List your key soft skills such as communication, teamwork, problem-solving, and time management." oninput="runUpdate()"></textarea></section>
+                    <section class="p-4 border rounded bg-white shadow-sm"><label>9. LANGUAGE</label><input type="text" id="lang_sk" placeholder="English (Fluent), Malay (Native)" oninput="runUpdate()"></section>
+                </div>
 
-                <section class="p-5 border rounded-xl bg-gray-50 shadow-sm">
-                    <div class="flex justify-between items-center mb-4"><b>10. REFERENCE</b><button onclick="addEntry('ref-list')" class="bg-blue-600 text-white px-3 py-1 rounded-lg">+</button></div>
-                    <div id="ref-list">
-                        <div class="p-3 border bg-white rounded-lg entry mb-2 space-y-2">
-                            <input type="text" placeholder="NAME" class="font-bold uppercase" oninput="runUpdate()">
-                            <div class="grid grid-cols-2 gap-2"><input type="text" placeholder="POSITION" oninput="runUpdate()"><input type="text" placeholder="ORGANIZATION" oninput="runUpdate()"></div>
-                            <div class="grid grid-cols-2 gap-2"><input type="text" placeholder="EMAIL" oninput="runUpdate()"><input type="text" placeholder="PHONE" oninput="runUpdate()"></div>
-                        </div>
-                    </div>
-                </section>
-            </div>
+                <section class="p-5 border rounded-xl bg-gray-50 shadow-sm">
+                    <div class="flex justify-between items-center mb-4"><b>10. REFERENCE</b><button onclick="addEntry('ref-list')" class="bg-blue-600 text-white px-3 py-1 rounded-lg">+</button></div>
+                    <div id="ref-list">
+                        <div class="p-3 border bg-white rounded-lg entry mb-2 space-y-2">
+                            <input type="text" placeholder="NAME" class="font-bold uppercase" oninput="runUpdate()">
+                            <div class="grid grid-cols-2 gap-2"><input type="text" placeholder="POSITION" oninput="runUpdate()"><input type="text" placeholder="ORGANIZATION" oninput="runUpdate()"></div>
+                            <div class="grid grid-cols-2 gap-2"><input type="text" placeholder="EMAIL" oninput="runUpdate()"><input type="text" placeholder="PHONE" oninput="runUpdate()"></div>
+                        </div>
+                    </div>
+                </section>
+            </div>
 
-            <div class="mt-12 grid grid-cols-2 gap-4 pb-20 no-print">
-                <button onclick="location.reload()" class="bg-gray-400 text-white py-4 rounded-xl font-bold uppercase">Reset</button>
-                <button onclick="submitDatabase()" id="btnSubmit" class="bg-blue-800 text-white py-4 rounded-xl font-bold uppercase shadow-xl hover:scale-105 transition-all">Submit & Download</button>
-            </div>
-        </div>
+            <div class="mt-12 grid grid-cols-2 gap-4 pb-20 no-print">
+                <button onclick="location.reload()" class="bg-gray-400 text-white py-4 rounded-xl font-bold uppercase">Reset</button>
+                <button onclick="submitDatabase()" id="btnSubmit" class="bg-blue-800 text-white py-4 rounded-xl font-bold uppercase shadow-xl hover:scale-105 transition-all">Submit & Download</button>
+            </div>
+        </div>
 
-        <div class="lg:w-1/2 flex justify-center preview-container overflow-y-auto bg-gray-400 no-print">
-            <div id="pdf-area" class="shadow-2xl">
-                <header>
-                    <img id="photo-preview" src="" class="hidden">
-                    <div id="header-text-block" style="width:100%;">
-                        <h1 id="p-name">FULL NAME</h1>
-                        <p id="p-contact"></p>
-                        <div id="p-linkedin-preview"></div>
-                    </div>
-                </header>
-                <section><h2>Professional Summary</h2><p id="p-summary" class="section-content text-justify"></p></section>
-                <section><h2>Education</h2><div id="p-edu"></div></section>
-                <section><h2>Work Experience</h2><div id="p-work"></div></section>
-                <section><h2>Key Projects</h2><div id="p-proj"></div></section>
-                <div class="grid grid-cols-2 gap-8">
-                    <section><h2>Technical Skills</h2><p id="p-tech" class="section-content whitespace-pre-line"></p></section>
-                    <section><h2>Soft Skills</h2><p id="p-soft" class="section-content whitespace-pre-line"></p></section>
-                </div>
-                <section><h2>Certificates</h2><div id="p-cert"></div></section>
-                <section><h2>Languages</h2><p id="p-lang" class="section-content"></p></section>
-                <section><h2>References</h2><div id="p-ref" class="grid grid-cols-2 gap-4"></div></section>
-            </div>
-        </div>
-    </div>
+        <div class="lg:w-1/2 flex justify-center preview-container overflow-y-auto bg-gray-400 no-print">
+            <div id="pdf-area" class="shadow-2xl">
+                <header>
+                    <img id="photo-preview" src="" class="hidden">
+                    <div id="header-text-block" style="width:100%;">
+                        <h1 id="p-name">FULL NAME</h1>
+                        <p id="p-contact"></p>
+                        <div id="p-linkedin-preview"></div>
+                    </div>
+                </header>
+                <section><h2>Professional Summary</h2><p id="p-summary" class="section-content text-justify"></p></section>
+                <section><h2>Education</h2><div id="p-edu"></div></section>
+                <section><h2>Work Experience</h2><div id="p-work"></div></section>
+                <section><h2>Key Projects</h2><div id="p-proj"></div></section>
+                <div class="grid grid-cols-2 gap-8">
+                    <section><h2>Technical Skills</h2><p id="p-tech" class="section-content whitespace-pre-line"></p></section>
+                    <section><h2>Soft Skills</h2><p id="p-soft" class="section-content whitespace-pre-line"></p></section>
+                </div>
+                <section><h2>Certificates</h2><div id="p-cert"></div></section>
+                <section><h2>Languages</h2><p id="p-lang" class="section-content"></p></section>
+                <section><h2>References</h2><div id="p-ref" class="grid grid-cols-2 gap-4"></div></section>
+            </div>
+        </div>
+    </div>
 
-    <script>
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw_A9uwuqbAmDxrjF2PlFJN09uZXXZRY0ghAh-3jh6BPDeeXt-P8c7evj-Y-RM7BmYGxg/exec";
+    <script>
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz-cw9CmPnj-_I8AtJNyDPIhtXYihkNdHbftWEe2TZq__4bbaGwrd2K9VhkbjVL2PgWHQ/exec";
 
-        function openAI(type) {
-            const prog = document.getElementById('prog').value;
-            let prompt = "";
-            if(type === 'summary') prompt = `Write a professional resume summary for a ${prog} student.`;
-            else if(type === 'work') prompt = `Bullet points for work experience for ${prog}.`;
-            else if(type === 'project') prompt = `Description for a technical project for ${prog}.`;
-            else if(type === 'tech') prompt = `Technical skills for ${prog}.`;
-            else if(type === 'soft') prompt = `Soft skills for a university graduate.`;
-            document.getElementById('prompt-text').innerText = prompt;
-            document.getElementById('ai-modal').style.display = "block";
-        }
-        function closeModal() { document.getElementById('ai-modal').style.display = "none"; }
-        function copyAndClose() { navigator.clipboard.writeText(document.getElementById('prompt-text').innerText); alert("Disalin!"); closeModal(); }
+        function openAI(type) {
+            const prog = document.getElementById('prog').value;
+            let prompt = "";
+            if(type === 'summary') prompt = `Write a professional 3-line resume summary for a ${prog} student.`;
+            else if(type === 'work') prompt = `3 bullet points for an intern in ${prog}.`;
+            else if(type === 'project') prompt = `Description for a project in ${prog} (Tools, Results).`;
+            else if(type === 'tech') prompt = `List 8 technical skills for ${prog}.`;
+            else if(type === 'soft') prompt = `List 6 professional soft skills.`;
+            document.getElementById('prompt-text').innerText = prompt;
+            document.getElementById('ai-modal').style.display = "block";
+        }
+        function closeModal() { document.getElementById('ai-modal').style.display = "none"; }
+        function copyAndClose() { navigator.clipboard.writeText(document.getElementById('prompt-text').innerText); alert("Disalin!"); closeModal(); }
 
-        function runUpdate() {
-            document.getElementById('p-name').innerText = (document.getElementById('fullName').value || 'FULL NAME').toUpperCase();
-            const email = document.getElementById('email').value || 'email@gmail.com';
-            const phone = document.getElementById('phone').value || '01X-XXXXXXX';
-            const loc = (document.getElementById('address').value || 'ARAU, PERLIS').toUpperCase();
-            document.getElementById('p-contact').innerText = `${email}  •  ${phone}  •  ${loc}`;
-            
-            const li = document.getElementById('linkedin').value;
-            document.getElementById('p-linkedin-preview').innerHTML = li ? `<a href="${li.startsWith('http')?li:'https://'+li}" target="_blank" style="color: #1e3a8a; text-decoration: underline;">${li}</a>` : '';
-            
-            document.getElementById('p-summary').innerText = document.getElementById('summary').value;
-            document.getElementById('p-tech').innerText = document.getElementById('tech_sk').value;
-            document.getElementById('p-soft').innerText = document.getElementById('soft_sk').value;
-            document.getElementById('p-lang').innerText = document.getElementById('lang_sk').value;
+        function runUpdate() {
+            document.getElementById('p-name').innerText = (document.getElementById('fullName').value || 'FULL NAME').toUpperCase();
+            const email = document.getElementById('email').value || 'email@gmail.com';
+            const phone = document.getElementById('phone').value || '01X-XXXXXXX';
+            const loc = (document.getElementById('address').value || 'ARAU, PERLIS').toUpperCase();
+            document.getElementById('p-contact').innerText = `${email}  •  ${phone}  •  ${loc}`;
+            const li = document.getElementById('linkedin').value;
+            document.getElementById('p-linkedin-preview').innerHTML = li ? `<a href="${li.startsWith('http')?li:'https://'+li}" target="_blank" style="color: #1e3a8a; text-decoration: underline;">${li}</a>` : '';
+            document.getElementById('p-summary').innerText = document.getElementById('summary').value;
+            document.getElementById('p-tech').innerText = document.getElementById('tech_sk').value;
+            document.getElementById('p-soft').innerText = document.getElementById('soft_sk').value;
+            document.getElementById('p-lang').innerText = document.getElementById('lang_sk').value;
 
-            // --- FIXED EDUCATION LOGIC ---
-            let eduH = '';
-            document.querySelectorAll('#edu-list .entry').forEach(el => {
-                const i = el.querySelectorAll('input');
-                if(i[0].value) {
-                    // i[0]: Uni, i[1]: Degree, i[2]: CGPA, i[3]: Start, i[4]: End
-                    eduH += `<div class="mb-3">
-                        <div class="item-header"><span>${i[0].value}</span><span>${i[3].value} - ${i[4].value}</span></div>
-                        <i>${i[1].value}</i><br>
-                        <b>CGPA: ${i[2].value}</b>
-                    </div>`;
-                }
-            });
-            document.getElementById('p-edu').innerHTML = eduH;
+            // EDU
+           let eduH = '';
+            document.querySelectorAll('#edu-list .entry').forEach(el => {
+                const i = el.querySelectorAll('input');
+                if(i[0].value) {
+                    // Index 0: Uni, 1: Degree, 2: CGPA, 3: Start, 4: End
+                    eduH += `<div class="mb-3">
+                        <div class="item-header"><span>${i[0].value}</span><span>${i[3].value} - ${i[4].value}</span></div>
+                        <i>${i[1].value}</i><br>
+                        <b>CGPA: ${i[2].value}</b>
+                    </div>`;
+                }
+            });
+            document.getElementById('p-edu').innerHTML = eduH;
 
-            // WORK
-            fillList('work-list', 'p-work', (i, b) => `<div class="mb-4"><div class="item-header"><span>${i[0].value}</span><span>${i[2].value} - ${i[3].value}</span></div><i>${i[1].value}</i><ul>${b}</ul></div>`);
-            
-            // PROJECTS
-            fillList('proj-list', 'p-proj', (i, b) => `<div class="mb-4"><div class="item-header"><span>${i[0].value}</span></div><ul>${b}</ul></div>`);
-            
-            // CERT
-            let certH = '';
-            document.querySelectorAll('#cert-list .entry').forEach(el => {
-                const i = el.querySelectorAll('input');
-                if(i[0].value) {
-                    const l = i[2].value ? ` | <a href="${i[2].value.startsWith('http')?i[2].value:'https://'+i[2].value}" target="_blank" style="color:blue;font-size:9pt">View Link</a>` : '';
-                    certH += `<div class="mb-1"><b>${i[0].value}</b> - ${i[1].value}${l}</div>`;
-                }
-            });
-            document.getElementById('p-cert').innerHTML = certH;
+            fillList('work-list', 'p-work', (i, b) => `<div class="mb-4"><div class="item-header"><span>${i[0].value}</span><span>${i[2].value} - ${i[3].value}</span></div><i>${i[1].value}</i><ul>${b}</ul></div>`);
+            fillList('proj-list', 'p-proj', (i, b) => `<div class="mb-4"><div class="item-header"><span>${i[0].value}</span></div><ul>${b}</ul></div>`);
+            
+            // CERT
+            let certH = '';
+            document.querySelectorAll('#cert-list .entry').forEach(el => {
+                const i = el.querySelectorAll('input');
+                if(i[0].value) {
+                    const l = i[2].value ? ` | <a href="${i[2].value.startsWith('http')?i[2].value:'https://'+i[2].value}" target="_blank" style="color:blue;font-size:9pt">View Link</a>` : '';
+                    certH += `<div class="mb-1"><b>${i[0].value}</b> - ${i[1].value}${l}</div>`;
+                }
+            });
+            document.getElementById('p-cert').innerHTML = certH;
 
-            // REF
-            let refH = '';
-            document.querySelectorAll('#ref-list .entry').forEach(el => {
-                const i = el.querySelectorAll('input');
-                if(i[0].value) refH += `<div class="text-[9pt] leading-tight mb-2"><b>${i[0].value}</b><br>${i[1].value}, ${i[2].value}<br>E: ${i[3].value} | P: ${i[4].value}</div>`;
-            });
-            document.getElementById('p-ref').innerHTML = refH;
-        }
+            // REF
+            let refH = '';
+            document.querySelectorAll('#ref-list .entry').forEach(el => {
+                const i = el.querySelectorAll('input');
+                if(i[0].value) refH += `<div class="text-[9pt] leading-tight mb-2"><b>${i[0].value}</b><br>${i[1].value}, ${i[2].value}<br>E: ${i[3].value} | P: ${i[4].value}</div>`;
+            });
+            document.getElementById('p-ref').innerHTML = refH;
+        }
 
-        async function submitDatabase() {
-            const btn = document.getElementById('btnSubmit');
-            const resType = document.querySelector('input[name="resType"]:checked').value;
-            const fullName = document.getElementById('fullName').value;
-            if(!fullName) { alert("Sila isi Nama!"); return; }
-            btn.innerText = "Processing..."; btn.disabled = true;
+        async function submitDatabase() {
+            const btn = document.getElementById('btnSubmit');
+            const resType = document.querySelector('input[name="resType"]:checked').value;
+            const fullName = document.getElementById('fullName').value;
+            if(!fullName) { alert("Sila isi Nama!"); return; }
+            btn.innerText = "Processing..."; btn.disabled = true;
 
-            const previewClone = document.getElementById('pdf-area').cloneNode(true);
-            if(resType === "ATS") {
-                const img = previewClone.querySelector('#photo-preview');
-                if(img) img.remove();
-            }
+            const previewClone = document.getElementById('pdf-area').cloneNode(true);
+            if(resType === "ATS") {
+                const img = previewClone.querySelector('#photo-preview');
+                if(img) img.remove();
+            }
 
-            const fullHtml = `<!DOCTYPE html><html><head><style>${document.getElementById('resume-styles').innerHTML} body{background:white;margin:0;} #pdf-area{width:210mm;min-height:297mm;padding:15mm;border:none;box-shadow:none;margin:0 auto;}</style></head><body>${previewClone.outerHTML}</body></html>`;
+            const fullHtml = `<!DOCTYPE html><html><head><style>${document.getElementById('resume-styles').innerHTML} body{background:white;margin:0;} #pdf-area{width:210mm;min-height:297mm;padding:15mm;border:none;box-shadow:none;margin:0 auto;}</style></head><body>${previewClone.outerHTML}</body></html>`;
 
-            const payload = {
-                fullName: fullName, email: document.getElementById('email').value, phone: document.getElementById('phone').value,
-                cgpa: document.getElementById('main_cgpa').value, level: document.getElementById('level').value, year: document.getElementById('year').value,
-                program: document.getElementById('prog').value, faculty: document.getElementById('faculty').value,
-                resumeType: resType, htmlContent: fullHtml
-            };
+            const payload = {
+                fullName: fullName, email: document.getElementById('email').value, phone: document.getElementById('phone').value,
+                cgpa: document.getElementById('main_cgpa').value, level: document.getElementById('level').value, year: document.getElementById('year').value,
+                program: document.getElementById('prog').value, faculty: document.getElementById('faculty').value,
+                resumeType: resType, htmlContent: fullHtml
+            };
 
-            try {
-                await fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) });
-                const printWin = window.open('', '_blank');
-                printWin.document.write(fullHtml);
-                printWin.document.close();
-                printWin.onload = function() { setTimeout(() => { printWin.print(); btn.disabled = false; btn.innerText = "Submit & Download"; }, 500); };
-            } catch (e) { alert("Error!"); btn.disabled = false; btn.innerText = "Submit & Download"; }
-        }
+            try {
+                await fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) });
+                const printWin = window.open('', '_blank');
+                printWin.document.write(fullHtml);
+                printWin.document.close();
+                printWin.onload = function() { setTimeout(() => { printWin.print(); btn.disabled = false; btn.innerText = "Submit & Download"; }, 500); };
+            } catch (e) { alert("Error!"); btn.disabled = false; btn.innerText = "Submit & Download"; }
+        }
 
-        function fillList(id, out, tmpl) { let h = ''; document.querySelectorAll(`#${id} .entry`).forEach(el => { const i = el.querySelectorAll('input'); const t = el.querySelector('textarea').value; if(i[0].value) { const b = t.split('\n').filter(l => l.trim()).map(l => `<li>${l}</li>`).join(''); h += tmpl(i, b); } }); document.getElementById(out).innerHTML = h; }
-        function addEntry(id) { const container = document.getElementById(id); const clone = container.children[0].cloneNode(true); clone.querySelectorAll('input, textarea').forEach(v => v.value = ''); container.appendChild(clone); runUpdate(); }
-        function toggleLayout() { 
-            const type = document.querySelector('input[name="resType"]:checked').value; 
-            document.getElementById('pdf-area').className = (type === 'Photo') ? 'template-photo' : ''; 
-            document.getElementById('photo-input-area').classList.toggle('hidden', type === 'ATS'); 
-            if(type === 'ATS') document.getElementById('photo-preview').classList.add('hidden');
-            runUpdate(); 
-        }
-        function loadPhoto(i) { if(i.files[0]) { const r = new FileReader(); r.onload = e => { document.getElementById('photo-preview').src = e.target.result; document.getElementById('photo-preview').classList.remove('hidden'); }; r.readAsDataURL(i.files[0]); } }
-        window.onload = runUpdate;
-    </script>
+        function fillList(id, out, tmpl) { let h = ''; document.querySelectorAll(`#${id} .entry`).forEach(el => { const i = el.querySelectorAll('input'); const t = el.querySelector('textarea').value; if(i[0].value) { const b = t.split('\n').filter(l => l.trim()).map(l => `<li>${l}</li>`).join(''); h += tmpl(i, b); } }); document.getElementById(out).innerHTML = h; }
+        function addEntry(id) { const container = document.getElementById(id); const clone = container.children[0].cloneNode(true); clone.querySelectorAll('input, textarea').forEach(v => v.value = ''); container.appendChild(clone); runUpdate(); }
+        function toggleLayout() { 
+            const type = document.querySelector('input[name="resType"]:checked').value; 
+            document.getElementById('pdf-area').className = (type === 'Photo') ? 'template-photo' : ''; 
+            document.getElementById('photo-input-area').classList.toggle('hidden', type === 'ATS'); 
+            if(type === 'ATS') document.getElementById('photo-preview').classList.add('hidden');
+            runUpdate(); 
+        }
+        function loadPhoto(i) { if(i.files[0]) { const r = new FileReader(); r.onload = e => { document.getElementById('photo-preview').src = e.target.result; document.getElementById('photo-preview').classList.remove('hidden'); }; r.readAsDataURL(i.files[0]); } }
+        window.onload = runUpdate;
+    </script>
 </body>
 </html>
