@@ -13,8 +13,33 @@
 
         #pdf-area {
             font-family: 'Arial', sans-serif; color: black; line-height: 1.4; background: white;
-            width: 210mm; min-height: 297mm; padding: 15mm; margin: 20px auto;
-            box-shadow: 0 0 20px rgba(0,0,0,0.3); position: relative;
+            width: 210mm; 
+            min-height: 297mm; 
+            padding: 15mm; 
+            margin: 20px auto;
+            box-shadow: 0 0 20px rgba(0,0,0,0.3); 
+            position: relative;
+            
+            /* --- TAMBAHAN LIMIT 2 MUKA SURAT --- */
+            max-height: 594mm; /* Tinggi tepat 2 muka surat A4 */
+            overflow: hidden;  /* Potong teks jika lebih 2 muka surat */
+        }
+
+        /* Penanda aras muka surat untuk rujukan pelajar semasa mengisi (Hanya nampak di skrin) */
+        @media screen {
+            #pdf-area::after {
+                content: "--- HAD AKHIR 2 MUKA SURAT ---";
+                position: absolute;
+                top: 585mm; 
+                left: 0;
+                width: 100%;
+                border-top: 2px dashed #ff0000;
+                color: #ff0000;
+                font-size: 12px;
+                text-align: center;
+                z-index: 999;
+                pointer-events: none;
+                background: rgba(255, 255, 255, 0.8);
         }
 
         /* --- ALIGNMENT FIX (CENTER) --- */
