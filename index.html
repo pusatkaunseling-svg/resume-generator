@@ -13,33 +13,8 @@
 
         #pdf-area {
             font-family: 'Arial', sans-serif; color: black; line-height: 1.4; background: white;
-            width: 210mm; 
-            min-height: 297mm; 
-            padding: 15mm; 
-            margin: 20px auto;
-            box-shadow: 0 0 20px rgba(0,0,0,0.3); 
-            position: relative;
-            
-            /* --- TAMBAHAN LIMIT 2 MUKA SURAT --- */
-            max-height: 594mm; /* Tinggi tepat 2 muka surat A4 */
-            overflow: hidden;  /* Potong teks jika lebih 2 muka surat */
-        }
-
-        /* Penanda aras muka surat untuk rujukan pelajar semasa mengisi (Hanya nampak di skrin) */
-        @media screen {
-            #pdf-area::after {
-                content: "--- HAD AKHIR 2 MUKA SURAT ---";
-                position: absolute;
-                top: 585mm; 
-                left: 0;
-                width: 100%;
-                border-top: 2px dashed #ff0000;
-                color: #ff0000;
-                font-size: 12px;
-                text-align: center;
-                z-index: 999;
-                pointer-events: none;
-                background: rgba(255, 255, 255, 0.8);
+            width: 210mm; min-height: 297mm; padding: 15mm; margin: 20px auto;
+            box-shadow: 0 0 20px rgba(0,0,0,0.3); position: relative;
         }
 
         /* --- ALIGNMENT FIX (CENTER) --- */
@@ -182,10 +157,10 @@
                     <div id="photo-input-area" class="hidden mb-4 p-2 border-dashed border-2 rounded text-center"><input type="file" accept="image/*" onchange="loadPhoto(this)"></div>
                     <label>FULL NAME</label><input type="text" id="fullName" placeholder="MUHAMAD ADAM BIN ALI" class="font-bold uppercase" oninput="runUpdate()">
                     <div class="grid grid-cols-2 gap-3 mt-3">
-                        <input type="text" id="email" placeholder="adam@gmail.com" oninput="runUpdate()">
+                        <input type="text" id="email" placeholder="PROFESIONAL EMAIL. EXAMPLE:adam@gmail.com" oninput="runUpdate()">
                         <input type="text" id="phone" placeholder="012-3456789" oninput="runUpdate()">
                     </div>
-                    <input type="text" id="address" placeholder="LOCATION (ARAU, PERLIS)" class="mt-2 uppercase" oninput="runUpdate()">
+                    <input type="text" id="address" placeholder="LOCATION TOWN AND STATE (ARAU, PERLIS)" class="mt-2 uppercase" oninput="runUpdate()">
                     <input type="text" id="linkedin" placeholder="LINKEDIN URL" class="mt-2" oninput="runUpdate()">
                 </section>
 
