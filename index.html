@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PUSKA Resume Helper v105.0</title>
+    <title>PUSKA Resume Helper</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style id="resume-styles">
-        @page { size: A4; margin: 12.7mm; }
+        @page { size: A4; margin: 12mm; }
         * { box-sizing: border-box; -webkit-print-color-adjust: exact; }
         body { background: #e5e7eb; margin: 0; padding: 0; }
         #pdf-area {
@@ -18,8 +18,8 @@
         #pdf-area h1 { font-size: 16pt; font-weight: bold; text-transform: uppercase; margin: 0; text-align: center; width: 100%; letter-spacing: 1px; }
         #p-contact { font-size: 9pt; margin: 4px 0; color: #333; text-align: center; width: 100%; }
         #p-linkedin-preview { font-size: 9pt; font-weight: bold; text-align: center; width: 100%; margin-bottom: 5px; }
-        #pdf-area h2 { border-bottom: 1.5px solid #333; margin-top: 10px; margin-bottom: 5px; font-size: 10.5pt; font-weight: bold; text-transform: uppercase; }
-        .item-header { display: flex; justify-content: space-between; font-weight: bold; font-size: 9.5pt; margin-top: 3px; }
+        #pdf-area h2 { border-bottom: 1.5px solid #333; margin-top: 10px; margin-bottom: 5px; font-size: 10pt; font-weight: bold; text-transform: uppercase; }
+        .item-header { display: flex; justify-content: space-between; font-weight: bold; font-size: 9pt; margin-top: 3px; }
         #pdf-area ul { list-style-type: disc !important; margin-left: 1.2rem !important; padding: 0; }
         .section-content { font-size: 9pt; margin-bottom: 6px; }
         #pdf-area section, .mb-4, .mb-3, .entry-preview { page-break-inside: avoid; break-inside: avoid; }
@@ -133,26 +133,26 @@
                         <label class="cursor-pointer border p-2 rounded text-center"><input type="radio" name="resType" value="Photo" onchange="toggleLayout()"> PHOTO</label>
                     </div>
                     <div id="photo-input-area" class="hidden mb-4"><input type="file" accept="image/*" onchange="loadPhoto(this)"></div>
-                    <label>FULL NAME</label><input type="text" id="fullName" class="font-bold uppercase" oninput="runUpdate()">
+                    <label>FULL NAME</label><input type="text" id="fullName" placeholder="ISMAIL BIN MAIL" class="font-bold uppercase" oninput="runUpdate()">
                     <div class="grid grid-cols-2 gap-2 mt-2">
-                        <input type="text" id="email" placeholder="Email" oninput="runUpdate()">
+                        <input type="text" id="email" placeholder="PROFESIONAL EMAIL (EXAMPLE: ismail@gmail.com)" oninput="runUpdate()">
                         <input type="text" id="phone" placeholder="Phone" oninput="runUpdate()">
                     </div>
-                    <input type="text" id="address" placeholder="LOCATION CITY AND STATE (E.X:ARAU, PERLIS)" class="mt-2 uppercase" oninput="runUpdate()">
+                    <input type="text" id="address" placeholder="LOCATION CITY AND STATE (EXAMPLE:ARAU, PERLIS)" class="mt-2 uppercase" oninput="runUpdate()">
                     <input type="text" id="linkedin" placeholder="LINKEDIN URL" class="mt-2" oninput="runUpdate()">
                 </section>
 
                 <section class="p-4 border rounded-xl shadow-sm bg-white">
                     <div class="flex justify-between items-center"><label>2. SUMMARY</label><button onclick="openAI('summary', event)" class="ai-btn">✨ AI</button></div>
-                    <textarea id="summary" class="h-20" placeholder="Professional summary..." oninput="runUpdate()"></textarea>
+                    <textarea id="summary" class="h-20" placeholder="Write a short summary (2–4 sentences) about yourself, your field of study, key skills, and career goals. Mention the type of internship or entry-level role you are seeking." oninput="runUpdate()"></textarea>
                 </section>
 
                 <section class="p-4 border rounded-xl bg-gray-50">
                     <div class="flex justify-between items-center mb-2"><b>3. EDUCATION</b><button onclick="addEntry('edu-list')" class="bg-blue-600 text-white px-2 rounded">+</button></div>
                     <div id="edu-list">
                         <div class="p-3 border bg-white rounded-lg entry mb-2 space-y-2">
-                            <input type="text" placeholder="UNIVERSITY" class="font-bold uppercase" oninput="runUpdate()">
-                            <input type="text" placeholder="DEGREE" oninput="runUpdate()">
+                            <input type="text" placeholder="UNIVERSITI MALAYSIA PERLIS" class="font-bold uppercase" oninput="runUpdate()">
+                            <input type="text" placeholder="NAME OF DEGREE / NAME OF DIPLOMA" oninput="runUpdate()">
                             <div class="grid grid-cols-3 gap-1"><input type="text" placeholder="CGPA" oninput="runUpdate()"><input type="text" placeholder="START" oninput="runUpdate()"><input type="text" placeholder="END/EXPECTED" oninput="runUpdate()"></div>
                         </div>
                     </div>
@@ -166,7 +166,7 @@
                             <input type="text" placeholder="COMPANY" oninput="runUpdate()">
                             <div class="grid grid-cols-2 gap-1"><input type="text" placeholder="START" oninput="runUpdate()"><input type="text" placeholder="END/PRESENT" oninput="runUpdate()"></div>
                             <button onclick="openAI('work', event)" class="ai-btn mt-1">✨ AI HELP</button>
-                            <textarea class="h-20 mt-1" placeholder="Job tasks (bullet points)..." oninput="runUpdate()"></textarea>
+                            <textarea class="h-20 mt-1" placeholder="Include any internships, part-time jobs, or relevant work experience. State your role, organization, duration, and key contributions. Focus on what you learned and achieved." oninput="runUpdate()"></textarea>
                         </div>
                     </div>
                 </section>
@@ -177,7 +177,7 @@
                         <div class="p-3 border bg-white rounded-lg entry mb-2 space-y-2">
                             <input type="text" placeholder="PROJECT NAME" class="font-bold uppercase" oninput="runUpdate()">
                             <button onclick="openAI('project', event)" class="ai-btn mt-1">✨ AI HELP</button>
-                            <textarea class="h-20 mt-1" placeholder="Project details..." oninput="runUpdate()"></textarea>
+                            <textarea class="h-20 mt-1" placeholder="Describe academic or personal projects related to your field. Highlight your role, tools or skills used, and outcomes or results." oninput="runUpdate()"></textarea>
                         </div>
                     </div>
                 </section>
@@ -188,14 +188,15 @@
                         <div class="p-3 border bg-white rounded-lg entry mb-2 space-y-2">
                             <input type="text" placeholder="CERT NAME" class="font-bold" oninput="runUpdate()">
                             <input type="text" placeholder="ISSUER" oninput="runUpdate()">
+                            <input type="text" placeholder="URL (OPTIONAL)" oninput="runUpdate()">
                         </div>
                     </div>
                 </section>
 
                 <section class="p-4 border rounded shadow-sm bg-white">
                     <div class="grid grid-cols-2 gap-4">
-                        <div><label>7. TECH SKILLS</label><textarea id="tech_sk" oninput="runUpdate()"></textarea></div>
-                        <div><label>8. SOFT SKILLS</label><textarea id="soft_sk" oninput="runUpdate()"></textarea></div>
+                        <div><label>7. TECH SKILLS</label><textarea id="tech_sk" placeholder="Use specific keywords such as Microsoft Excel, AutoCAD, Python, Canva, or SPSS." oninput="runUpdate()"></textarea></div>
+                        <div><label>8. SOFT SKILLS</label><textarea id="soft_sk" placeholder="List your soft skills (e.g., communication, teamwork, leadership)." oninput="runUpdate()"></textarea></div>
                     </div>
                 </section>
 
@@ -206,6 +207,8 @@
                             <input type="text" placeholder="ACTIVITY NAME" class="font-bold uppercase" oninput="runUpdate()">
                             <input type="text" placeholder="ORGANIZER" oninput="runUpdate()">
                             <input type="text" placeholder="YEAR" oninput="runUpdate()">
+                            <textarea class="h-20 mt-1" placeholder="Add involvement in clubs, programs, or volunteer work. Highlight leadership roles, teamwork, or event participation." oninput="runUpdate()"></textarea>
+                        </div>
                         </div>
                     </div>
                 </section>
@@ -215,8 +218,10 @@
                     <div id="ref-list">
                         <div class="p-3 border bg-white rounded-lg entry mb-2 space-y-2">
                             <input type="text" placeholder="NAME" class="font-bold uppercase" oninput="runUpdate()">
-                            <input type="text" placeholder="POSITION & ORG" oninput="runUpdate()">
-                            <input type="text" placeholder="EMAIL / PHONE" oninput="runUpdate()">
+                            <input type="text" placeholder="POSITION" oninput="runUpdate()">
+                            <input type="text" placeholder="ORGANIZATION" oninput="runUpdate()">
+                            <input type="text" placeholder="EMAIL" oninput="runUpdate()">
+                            <input type="text" placeholder="PHONE" oninput="runUpdate()">
                         </div>
                     </div>
                 </section>
@@ -256,7 +261,7 @@
     </div>
 
     <script>
-        const SCRIPT_URL = "GANTIKAN_DENGAN_URL_WEB_APP_ANDA";
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxP0nLz0K39vvKXlXaHiNpsFC6ph9amrRCFSIcLHcHbC7waebzlb6i_18pJqowuT_L2ag/exec";
 
         function openAI(type, event) {
             const prog = document.getElementById('prog').value;
