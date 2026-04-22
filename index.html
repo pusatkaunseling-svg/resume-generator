@@ -23,15 +23,18 @@
             align-items: center; justify-content: center; text-align: center; 
             margin-bottom: 10px;
         }
-        #p-contact { font-size: 10.5pt; margin: 5px 0; color: #333; width: 100%; text-align: center; }
+        #p-contact { font-size: 10pt; margin: 5px 0; color: #333; width: 100%; text-align: center; }
         #p-linkedin-preview { font-size: 10pt; font-weight: bold; width: 100%; text-align: center; }
 
         /* --- TYPOGRAPHY --- */
-        #pdf-area h1 { font-size: 14pt; font-weight: bold; text-transform: uppercase; margin: 0; width: 100%; }
-        #pdf-area h2 { border-bottom: 2px solid #333; margin-top: 15px; margin-bottom: 8px; font-size: 11pt; font-weight: bold; text-transform: uppercase; text-align: left; }
+        #pdf-area h1 { font-size: 11pt; font-weight: bold; text-transform: uppercase; margin: 0; width: 100%; }
+        #pdf-area h2 { border-bottom: 2px solid #333; margin-top: 15px; margin-bottom: 8px; font-size: 10pt; font-weight: bold; text-transform: uppercase; text-align: left; }
         .item-header { display: flex; justify-content: space-between; font-weight: bold; font-size: 10pt; margin-top: 4px; }
         #pdf-area ul { list-style-type: disc !important; margin-left: 1.2rem !important; padding: 0; }
         .section-content { font-size: 10.5pt; margin-bottom: 8px; }
+
+        /* --- PAGE BREAK LOGIC --- */
+        #pdf-area section, .mb-4, .mb-3 { page-break-inside: avoid; break-inside: avoid; }
 
         /* --- PHOTO LAYOUT --- */
         .template-photo header { 
@@ -199,7 +202,7 @@
                         <div class="p-3 border bg-white rounded-lg entry mb-2 space-y-2">
                             <input type="text" placeholder="PROJECT NAME" class="font-bold uppercase" oninput="runUpdate()">
                             <div class="flex justify-between items-center"><label>DETAILS</label><button onclick="openAI('project')" class="ai-btn">✨ AI HELP</button></div>
-                            <textarea class="h-20" placeholder="Describe your projects, including your role, tools/technologies used, and key outcomes using industry-related keywords." oninput="runUpdate()"></textarea>
+                            <textarea class="h-20" placeholder="Describe academic or personal projects related to your field. Highlight your role, tools or skills used, and outcomes or results." oninput="runUpdate()"></textarea>
                         </div>
                     </div>
                 </section>
@@ -265,13 +268,13 @@
     </div>
 
     <script>
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbydhGqCOmEf-Pyve3XyQJ1glow0N5zmXoiL6Ihph-98M5GTkION1hwSCqlxzXdmzeykCA/exec";
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyUHaqoh1sSS6TC-0fgsTPHYlLXSvS0iQ5c6FZnzF6eqKoAR3v9YLrLfomi856fTeklLA/exec";
 
         function openAI(type) {
             const prog = document.getElementById('prog').value;
             let prompt = "";
-            if(type === 'summary') prompt = `Write a professional 3-line resume summary for a ${prog} student.`;
-            else if(type === 'work') prompt = `3 bullet points for an intern in ${prog}.`;
+            if(type === 'summary') prompt = `Write a professional 3-4 line resume summary for a ${prog} student.`;
+            else if(type === 'work') prompt = `3 bullet points for ${work}.`;
             else if(type === 'project') prompt = `Description for a project in ${prog} (Tools, Results).`;
             else if(type === 'tech') prompt = `List 8 technical skills for ${prog}.`;
             else if(type === 'soft') prompt = `List 6 professional soft skills.`;
