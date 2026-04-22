@@ -27,11 +27,11 @@
         #p-linkedin-preview { font-size: 10pt; font-weight: bold; width: 100%; text-align: center; }
 
         /* --- TYPOGRAPHY --- */
-        #pdf-area h1 { font-size: 11pt; font-weight: bold; text-transform: uppercase; margin: 0; width: 100%; }
-        #pdf-area h2 { border-bottom: 2px solid #333; margin-top: 15px; margin-bottom: 8px; font-size: 10pt; font-weight: bold; text-transform: uppercase; text-align: left; }
-        .item-header { display: flex; justify-content: space-between; font-weight: bold; font-size: 10pt; margin-top: 4px; }
+        #pdf-area h1 { font-size: 14pt; font-weight: bold; text-transform: uppercase; margin: 0; width: 100%; }
+        #pdf-area h2 { border-bottom: 2px solid #333; margin-top: 15px; margin-bottom: 8px; font-size: 11pt; font-weight: bold; text-transform: uppercase; text-align: left; }
+        .item-header { display: flex; justify-content: space-between; font-weight: bold; font-size: 11pt; margin-top: 4px; }
         #pdf-area ul { list-style-type: disc !important; margin-left: 1.2rem !important; padding: 0; }
-        .section-content { font-size: 10.5pt; margin-bottom: 8px; }
+        .section-content { font-size: 10pt; margin-bottom: 8px; }
 
         /* --- PAGE BREAK LOGIC --- */
         #pdf-area section, .mb-4, .mb-3 { page-break-inside: avoid; break-inside: avoid; }
@@ -223,7 +223,21 @@
                     <section class="p-4 border rounded bg-white shadow-sm"><div class="flex justify-between items-center"><label>8. SOFT SKILLS</label><button onclick="openAI('soft')" class="ai-btn">✨ AI</button></div><textarea id="soft_sk" placeholder="List your key soft skills such as communication, teamwork, problem-solving, and time management." oninput="runUpdate()"></textarea></section>
                     <section class="p-4 border rounded bg-white shadow-sm"><label>9. LANGUAGE</label><input type="text" id="lang_sk" placeholder="English (Fluent), Malay (Native)" oninput="runUpdate()"></section>
                 </div>
-
+                
+                <section class="p-5 border rounded-xl bg-gray-50 shadow-sm mt-4">
+                    <div class="flex justify-between items-center mb-4">
+                        <b>12. EXTRA ACTIVITIES</b>
+                        <button onclick="addEntry('act-list')" class="bg-blue-600 text-white px-3 py-1 rounded-lg">+</button>
+                    </div>
+                    <div id="act-list">
+                        <div class="p-3 border bg-white rounded-lg entry mb-2 space-y-2">
+                            <input type="text" placeholder="ACTIVITY NAME" class="font-bold" oninput="runUpdate()">
+                            <input type="text" placeholder="ORGANIZER / VENUE" oninput="runUpdate()">
+                            <input type="text" placeholder="YEAR" oninput="runUpdate()">
+                        </div>
+                    </div>
+                </section>
+                
                 <section class="p-5 border rounded-xl bg-gray-50 shadow-sm">
                     <div class="flex justify-between items-center mb-4"><b>10. REFERENCE</b><button onclick="addEntry('ref-list')" class="bg-blue-600 text-white px-3 py-1 rounded-lg">+</button></div>
                     <div id="ref-list">
@@ -262,6 +276,7 @@
                 </div>
                 <section><h2>Certificates</h2><div id="p-cert"></div></section>
                 <section><h2>Languages</h2><p id="p-lang" class="section-content"></p></section>
+                <section><h2>Extra Activities</h2><p id="p-act"></div></section>
                 <section><h2>References</h2><div id="p-ref" class="grid grid-cols-2 gap-4"></div></section>
             </div>
         </div>
@@ -280,6 +295,11 @@
             else if(type === 'soft') prompt = `List 6 professional soft skills.`;
             document.getElementById('prompt-text').innerText = prompt;
             document.getElementById('ai-modal').style.display = "block";
+            else if(type === 'activity') {
+            const entry = event.target.closest('.entry');
+            const actName = entry.querySelectorAll('input')[0].value || "an activity";
+            prompt = `Write a professional 1-line description for my involvement in '${actName}' on my resume.`;
+                
         }
         function closeModal() { document.getElementById('ai-modal').style.display = "none"; }
         function copyAndClose() { navigator.clipboard.writeText(document.getElementById('prompt-text').innerText); alert("Disalin!"); closeModal(); }
@@ -326,6 +346,25 @@
             });
             document.getElementById('p-cert').innerHTML = certH;
 
+            // Logik untuk paparkan Extra Activities
+            let actH = '';
+            document.querySelectorAll('#act-list .entry').forEach(el => {
+                const i = el.querySelectorAll('input');
+                if(i[0].value) { 
+                    actH += `<div class="mb-2 entry-preview">
+                        <div class="item-header">
+                            <span>${i[0].value}, ${i[1].value}</span>
+                            <span>${i[2].value}</span>
+                        </div>
+                    </div>`;
+                }
+            });
+            const actDiv = document.getElementById('p-act');
+            const actSec = document.getElementById('s-act');
+            if(actDiv && actSec) {
+                actDiv.innerHTML = actH;
+                actSec.style.display = actH ? 'block' : 'none';
+            
             // REF
             let refH = '';
             document.querySelectorAll('#ref-list .entry').forEach(el => {
