@@ -69,26 +69,55 @@
                     <label>PROGRAM PENGAJIAN (UNIMAP)</label>
                     <select id="prog" onchange="runUpdate()" class="text-[10px] font-bold">
                         <optgroup label="BACHELOR PROGRAMS">
-                            <option selected>Bachelor of Data Science (Artificial Intelligence) with Honours</option>
-                            <option>Bachelor of Computer Engineering with Honours</option>
-                            <option>Bachelor of Microelectronic Engineering with Honours</option>
-                            <option>Bachelor of Electronic Engineering with Honours</option>
-                            <option>Bachelor of Mechatronic Engineering with Honours</option>
-                            <option>Bachelor of Electrical Engineering with Honours</option>
-                            <option>Bachelor of Mechanical Engineering with Honours</option>
-                            <option>Bachelor of Manufacturing Engineering with Honours</option>
-                            <option>Bachelor of Civil Engineering with Honours</option>
-                            <option>Bachelor of Chemical Engineering with Honours</option>
+                            <option>Bachelor of Applied Science (Materials & Metallurgy Technology) with Honours</option>
+                            <option>Bachelor of Agricultural Engineering with Honours</option>
+                            <option>Bachelor of Automotive Technology with Honours</option>
+                            <option>Bachelor of Biomedical Electronic Engineering with Honours</option>
+                            <option>Bachelor of Building Construction Technology with Honours</option>
+                            <option>Bachelor of Business (Engineering Entrepreneurship) with Honours</option>
                             <option>Bachelor of Business (International Business) with Honours</option>
+                            <option>Bachelor of Chemical Engineering with Honours</option>
+                            <option>Bachelor of Chemical Engineering Technology (Biotechnology) with Honours</option>
+                            <option>Bachelor of Chemical Engineering Technology (Food Technology) with Honours</option>
+                            <option>Bachelor of Chemical Engineering Technology (Industrial Process) with Honours</option>
+                            <option>Bachelor of Civil Engineering with Honours</option>
+                            <option>Bachelor of Civil Engineering Technology (Construction) with Honours</option>
+                            <option>Bachelor of Computer Engineering with Honours</option>
+                            <option>Bachelor of Data Science (Artificial Intelligence) with Honours</option>
+                            <option>Bachelor of Electrical Engineering with Honours</option>
+                            <option>Bachelor of Electrical Engineering Technology (Industrial Power) with Honours</option>
+                            <option>Bachelor of Electrical Engineering Technology (Robotics & Automation) with Honours</option>
+                            <option>Bachelor of Electrical System Maintenance Technology with Honours</option>
+                            <option>Bachelor of Electronic Engineering with Honours</option>
+                            <option>Bachelor of Electronic Engineering Technology (Electronic System) with Honours</option>
+                            <option>Bachelor of Electronic Engineering Technology (Network Design) with Honours</option>
+                            <option>Bachelor of Electronic Engineering Technology (Telecommunication Design) with Honours</option>
+                            <option>Bachelor of Environmental Engineering with Honours</option>
+                            <option>Bachelor of Industrial Machining Technology with Honours</option>
+                            <option>Bachelor of Interactive Media Technology with Honours</option>
+                            <option>Bachelor of Manufacturing Engineering with Honours</option>
+                            <option>Bachelor of Materials Engineering with Honours</option>
+                            <option>Bachelor of Mechanical Engineering with Honours</option>
+                            <option>Bachelor of Mechanical Engineering Technology (Machining) with Honours</option>
+                            <option>Bachelor of Mechanical Engineering Technology (Product Design) with Honours</option>
+                            <option>Bachelor of Mechatronic Engineering with Honours</option>
+                            <option>Bachelor of Metallurgical Engineering with Honours</option>
+                            <option>Bachelor of Microelectronic Engineering with Honours</option>
                             <option>Bachelor of New Media Communication with Honours</option>
-                        </optgroup>
+                            <option>Bachelor of Perakaunan (Accounting) with Honours</option>
+                            <option>Bachelor of Polymer Engineering with Honours</option>
+                            <option>Bachelor of Welding Technology with Honours</option>
+                        
                         <optgroup label="DIPLOMA PROGRAMS">
+                            <option>Diploma in Civil Engineering</option>
                             <option>Diploma in Computer Engineering</option>
-                            <option>Diploma in Electronic Engineering</option>
                             <option>Diploma in Electrical Engineering</option>
-                            <option>Diploma in Mechatronic Engineering</option>
+                            <option>Diploma in Electronic Engineering</option>
+                            <option>Diploma in Manufacturing Engineering</option>
+                            <option>Diploma in Materials Engineering</option>
                             <option>Diploma in Mechanical Engineering Technology</option>
-                        </optgroup>
+                            <option>Diploma in Mechatronic Engineering</option>
+                            <option>Diploma in Metallurgical Engineering</option>
                     </select>
                     <div class="grid grid-cols-3 gap-2 mt-2">
                         <div><label>CGPA</label><input type="text" id="main_cgpa" placeholder="3.85" oninput="runUpdate()"></div>
@@ -109,7 +138,7 @@
                         <input type="text" id="email" placeholder="Email" oninput="runUpdate()">
                         <input type="text" id="phone" placeholder="Phone" oninput="runUpdate()">
                     </div>
-                    <input type="text" id="address" placeholder="LOCATION (ARAU, PERLIS)" class="mt-2 uppercase" oninput="runUpdate()">
+                    <input type="text" id="address" placeholder="LOCATION CITY AND STATE (E.X:ARAU, PERLIS)" class="mt-2 uppercase" oninput="runUpdate()">
                     <input type="text" id="linkedin" placeholder="LINKEDIN URL" class="mt-2" oninput="runUpdate()">
                 </section>
 
@@ -124,7 +153,7 @@
                         <div class="p-3 border bg-white rounded-lg entry mb-2 space-y-2">
                             <input type="text" placeholder="UNIVERSITY" class="font-bold uppercase" oninput="runUpdate()">
                             <input type="text" placeholder="DEGREE" oninput="runUpdate()">
-                            <div class="grid grid-cols-3 gap-1"><input type="text" placeholder="CGPA" oninput="runUpdate()"><input type="text" placeholder="START" oninput="runUpdate()"><input type="text" placeholder="END" oninput="runUpdate()"></div>
+                            <div class="grid grid-cols-3 gap-1"><input type="text" placeholder="CGPA" oninput="runUpdate()"><input type="text" placeholder="START" oninput="runUpdate()"><input type="text" placeholder="END/EXPECTED" oninput="runUpdate()"></div>
                         </div>
                     </div>
                 </section>
@@ -135,7 +164,7 @@
                         <div class="p-3 border bg-white rounded-lg entry mb-2 space-y-2">
                             <input type="text" placeholder="POSITION" class="font-bold uppercase" oninput="runUpdate()">
                             <input type="text" placeholder="COMPANY" oninput="runUpdate()">
-                            <div class="grid grid-cols-2 gap-1"><input type="text" placeholder="START" oninput="runUpdate()"><input type="text" placeholder="END" oninput="runUpdate()"></div>
+                            <div class="grid grid-cols-2 gap-1"><input type="text" placeholder="START" oninput="runUpdate()"><input type="text" placeholder="END/PRESENT" oninput="runUpdate()"></div>
                             <button onclick="openAI('work', event)" class="ai-btn mt-1">✨ AI HELP</button>
                             <textarea class="h-20 mt-1" placeholder="Job tasks (bullet points)..." oninput="runUpdate()"></textarea>
                         </div>
