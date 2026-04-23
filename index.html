@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PUSKA Resume Helper v140.0</title>
+    <title>PUSKA Resume Helper</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style id="resume-styles">
         @page { size: A4; margin: 12.7mm; }
@@ -71,14 +71,13 @@
                     <label>FACULTY (UNTUK REKOD DATABASE)</label>
                     <select id="faculty" onchange="runUpdate()">
                         <option value="" disabled selected>--- SILA PILIH FAKULTI ---</option>
-                        <option>Faculty of Intelligent Computing (FPP)</option>
-                        <option>Faculty of Electronic Engineering & Technology (FKTEN)</option>
-                        <option>Faculty of Electrical Engineering & Technology (FKTE)</option>
-                        <option>Faculty of Mechanical Engineering & Technology (FKTM)</option>
-                        <option>Faculty of Chemical Engineering & Technology (FKTK)</option>
-                        <option>Faculty of Civil Engineering & Technology (FKTA)</option>
-                        <option>Faculty of Business & Communication (FPK)</option>
-                        <option>Centre for Diploma Studies (PPD)</option>
+                        <option>Faculty of Intelligent Computing</option>
+                        <option>Faculty of Electronic Engineering & Technology</option>
+                        <option>Faculty of Electrical Engineering & Technology</option>
+                        <option>Faculty of Mechanical Engineering & Technology</option>
+                        <option>Faculty of Chemical Engineering & Technology</option>
+                        <option>Faculty of Civil Engineering & Technology</option>
+                        <option>Faculty of Business & Communication)</option>
                     </select>
 
                     <label>PROGRAM PENGAJIAN</label>
@@ -126,7 +125,7 @@
                                 <option>PhD</option>
                             </select>
                         </div>
-                        <div><label>CGPA</label><input type="text" id="main_cgpa" placeholder="3.85" oninput="runUpdate()"></div>
+                        <div><label>CGPA</label><input type="text" id="main_cgpa" placeholder="CURRENT CGPA" oninput="runUpdate()"></div>
                     </div>
                 </div>
 
@@ -137,24 +136,24 @@
                     </div>
                     <div id="photo-input-area" class="hidden mb-4"><input type="file" onchange="loadPhoto(this)"></div>
                     <label>FULL NAME</label><input type="text" id="fullName" class="uppercase font-bold" oninput="runUpdate()">
-                    <input type="text" id="email" placeholder="Email" oninput="runUpdate()">
+                    <input type="text" id="email" placeholder="Profesional Email (email@gmail.com)" oninput="runUpdate()">
                     <input type="text" id="phone" placeholder="Phone" oninput="runUpdate()">
-                    <input type="text" id="address" placeholder="CITY, STATE" class="uppercase" oninput="runUpdate()">
+                    <input type="text" id="address" placeholder="CITY, STATE ONLY (ARAU,PERLIS)" class="uppercase" oninput="runUpdate()">
                     <input type="text" id="linkedin" placeholder="LinkedIn URL" oninput="runUpdate()">
                 </section>
 
                 <section class="p-4 border rounded-xl bg-white">
                     <div class="flex justify-between items-center"><label>PROFESSIONAL SUMMARY</label><button onclick="openAI('summary', event)" class="ai-btn">✨ AI</button></div>
-                    <textarea id="summary" class="h-20" oninput="runUpdate()"></textarea>
+                    <textarea id="summary" class="h-20" placeholder="Briefly describe your background, studies, and key skills" oninput="runUpdate()"></textarea>
                 </section>
 
                 <section class="p-4 border rounded-xl bg-gray-50">
                     <div class="flex justify-between items-center mb-2"><b>EDUCATION</b><button onclick="addEntry('edu-list')" class="bg-blue-600 text-white px-2 rounded">+</button></div>
                     <div id="edu-list">
                         <div class="p-3 border bg-white rounded-lg entry mb-2 space-y-1">
-                            <input type="text" placeholder="UNIVERSITY" class="font-bold uppercase" oninput="runUpdate()">
-                            <input type="text" placeholder="COURSE" oninput="runUpdate()">
-                            <div class="grid grid-cols-3 gap-1"><input type="text" placeholder="CGPA" oninput="runUpdate()"><input type="text" placeholder="START" oninput="runUpdate()"><input type="text" placeholder="END" oninput="runUpdate()"></div>
+                            <input type="text" placeholder="UNIVERSITI MALAYSIA PERLIS" class="font-bold uppercase" oninput="runUpdate()">
+                            <input type="text" placeholder="NAME OF DEGREE / NAME OF DIPLOMA" oninput="runUpdate()">
+                            <div class="grid grid-cols-3 gap-1"><input type="text" placeholder="CGPA" oninput="runUpdate()"><input type="text" placeholder="START" oninput="runUpdate()"><input type="text" placeholder="END/EXPECTED" oninput="runUpdate()"></div>
                         </div>
                     </div>
                 </section>
@@ -176,8 +175,7 @@
                     <div id="project-list">
                         <div class="p-3 border bg-white rounded-lg entry mb-2 space-y-1">
                             <input type="text" placeholder="PROJECT TITLE" class="font-bold uppercase" oninput="runUpdate()">
-                            <input type="text" placeholder="ROLE/TOOLS" oninput="runUpdate()">
-                            <textarea class="h-16" placeholder="Details..." oninput="runUpdate()"></textarea>
+                            <textarea class="h-16" placeholder="Summarize the project scope, your responsibilities, and results achieved" oninput="runUpdate()"></textarea>
                         </div>
                     </div>
                 </section>
@@ -194,12 +192,12 @@
 
                 <section class="p-4 border rounded-xl bg-gray-50">
                     <div class="flex justify-between items-center mb-2"><b>EXTRA ACTIVITIES</b><button onclick="addEntry('act-list')" class="bg-blue-600 text-white px-2 rounded">+</button></div>
-                    <div id="act-list"><div class="p-3 border bg-white rounded-lg entry mb-2 space-y-1"><input type="text" placeholder="ACTIVITY" class="font-bold uppercase" oninput="runUpdate()"><div class="grid grid-cols-2 gap-2"><input type="text" placeholder="ORG" oninput="runUpdate()"><input type="text" placeholder="YEAR" oninput="runUpdate()"></div><textarea class="h-16" placeholder="Details..." oninput="runUpdate()"></textarea></div></div>
+                    <div id="act-list"><div class="p-3 border bg-white rounded-lg entry mb-2 space-y-1"><input type="text" placeholder="ACTIVITY" class="font-bold uppercase" oninput="runUpdate()"><div class="grid grid-cols-2 gap-2"><input type="text" placeholder="ORG" oninput="runUpdate()"><input type="text" placeholder="YEAR" oninput="runUpdate()"></div><textarea class="h-16" placeholder="State your role in the activity and briefly explain what you did" oninput="runUpdate()"></textarea></div></div>
                 </section>
 
                 <section class="p-4 border rounded-xl bg-gray-50">
                     <div class="flex justify-between items-center mb-2"><b>REFERENCES</b><button onclick="addEntry('ref-list')" class="bg-blue-600 text-white px-2 rounded">+</button></div>
-                    <div id="ref-list"><div class="p-3 border bg-white rounded-lg entry mb-2 space-y-1"><input type="text" placeholder="NAME" class="font-bold uppercase" oninput="runUpdate()"><div class="grid grid-cols-2 gap-2"><input type="text" placeholder="POS" oninput="runUpdate()"><input type="text" placeholder="ORG" oninput="runUpdate()"></div><div class="grid grid-cols-2 gap-2"><input type="text" placeholder="EMAIL" oninput="runUpdate()"><input type="text" placeholder="PHONE" oninput="runUpdate()"></div></div></div>
+                    <div id="ref-list"><div class="p-3 border bg-white rounded-lg entry mb-2 space-y-1"><input type="text" placeholder="NAME" class="font-bold uppercase" oninput="runUpdate()"><div class="grid grid-cols-2 gap-2"><input type="text" placeholder="POS" oninput="runUpdate()"><input type="text" placeholder="ORGANIZATION" oninput="runUpdate()"></div><div class="grid grid-cols-2 gap-2"><input type="text" placeholder="EMAIL" oninput="runUpdate()"><input type="text" placeholder="PHONE" oninput="runUpdate()"></div></div></div>
                 </section>
 
                 <button onclick="submitDatabase()" id="btnSubmit" class="w-full bg-blue-800 text-white py-4 rounded-xl font-bold uppercase shadow-xl mb-10">Submit & Download</button>
