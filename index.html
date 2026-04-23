@@ -67,9 +67,9 @@
 
             <div class="space-y-6">
                 <div class="bg-gray-50 p-4 rounded-xl border-2 border-dashed">
-                    <label>FACULTY (UNTUK REKOD DATABASE)</label>
+                    <label>FACULTY</label>
                     <select id="faculty" onchange="runUpdate()">
-                        <option value="" disabled selected>--- SILA PILIH FAKULTI ---</option>
+                        <option value="" disabled selected>--- SELECT FACULTY ---</option>
                         <option>Faculty of Intelligent Computing</option>
                         <option>Faculty of Electronic Engineering & Technology</option>
                         <option>Faculty of Electrical Engineering & Technology</option>
@@ -79,14 +79,57 @@
                         <option>Faculty of Business & Communication</option>
                     </select>
 
-                    <label>PROGRAM PENGAJIAN</label>
+                    <label>PROGRAME OF STUDY</label>
                     <select id="prog" onchange="runUpdate()" class="font-bold">
-                        <option value="" disabled selected>--- PILIH PROGRAM ---</option>
-                        <option>Bachelor of Data Science (Artificial Intelligence) with Honours</option>
+                        <option value="" disabled selected>--- SELECT PROGRAM ---</option>
+                        <option>Bachelor of Applied Science (Materials & Metallurgy Technology) with Honours</option>
+                        <option>Bachelor of Agricultural Engineering with Honours</option>
+                        <option>Bachelor of Automotive Technology with Honours</option>
+                        <option>Bachelor of Biomedical Electronic Engineering with Honours</option>
+                        <option>Bachelor of Building Construction Technology with Honours</option>
+                        <option>Bachelor of Business (Engineering Entrepreneurship) with Honours</option>
+                        <option>Bachelor of Business (International Business) with Honours</option>
+                        <option>Bachelor of Chemical Engineering with Honours</option>
+                        <option>Bachelor of Chemical Engineering Technology (Biotechnology) with Honours</option>
+                        <option>Bachelor of Chemical Engineering Technology (Food Technology) with Honours</option>
+                        <option>Bachelor of Chemical Engineering Technology (Industrial Process) with Honours</option>
+                        <option>Bachelor of Civil Engineering with Honours</option>
+                        <option>Bachelor of Civil Engineering Technology (Construction) with Honours</option>
                         <option>Bachelor of Computer Engineering with Honours</option>
+                        <option>Bachelor of Data Science (Artificial Intelligence) with Honours</option>
+                        <option>Bachelor of Electrical Engineering with Honours</option>
+                        <option>Bachelor of Electrical Engineering Technology (Industrial Power) with Honours</option>
+                        <option>Bachelor of Electrical Engineering Technology (Robotics & Automation) with Honours</option>
+                        <option>Bachelor of Electrical System Maintenance Technology with Honours</option>
+                        <option>Bachelor of Electronic Engineering with Honours</option>
+                        <option>Bachelor of Electronic Engineering Technology (Electronic System) with Honours</option>
+                        <option>Bachelor of Electronic Engineering Technology (Network Design) with Honours</option>
+                        <option>Bachelor of Electronic Engineering Technology (Telecommunication Design) with Honours</option>
+                        <option>Bachelor of Environmental Engineering with Honours</option>
+                        <option>Bachelor of Industrial Machining Technology with Honours</option>
+                        <option>Bachelor of Interactive Media Technology with Honours</option>
+                        <option>Bachelor of Manufacturing Engineering with Honours</option>
+                        <option>Bachelor of Materials Engineering with Honours</option>
                         <option>Bachelor of Mechanical Engineering with Honours</option>
+                        <option>Bachelor of Mechanical Engineering Technology (Machining) with Honours</option>
+                        <option>Bachelor of Mechanical Engineering Technology (Product Design) with Honours</option>
+                        <option>Bachelor of Mechatronic Engineering with Honours</option>
+                        <option>Bachelor of Metallurgical Engineering with Honours</option>
+                        <option>Bachelor of Microelectronic Engineering with Honours</option>
+                        <option>Bachelor of New Media Communication with Honours</option>
+                        <option>Bachelor of Perakaunan (Accounting) with Honours</option>
+                        <option>Bachelor of Polymer Engineering with Honours</option>
+                        <option>Bachelor of Welding Technology with Honours</option>
+                    
+                        <option>Diploma in Civil Engineering</option>
                         <option>Diploma in Computer Engineering</option>
                         <option>Diploma in Electrical Engineering</option>
+                        <option>Diploma in Electronic Engineering</option>
+                        <option>Diploma in Manufacturing Engineering</option>
+                        <option>Diploma in Materials Engineering</option>
+                        <option>Diploma in Mechanical Engineering Technology</option>
+                        <option>Diploma in Mechatronic Engineering</option>
+                        <option>Diploma in Metallurgical Engineering</option>
                     </select>
                     
                     <div class="grid grid-cols-2 gap-2 mt-2">
@@ -109,27 +152,16 @@
                         <label class="cursor-pointer border p-2 rounded text-center"><input type="radio" name="resType" value="Photo" onchange="toggleLayout()"> PHOTO</label>
                     </div>
                     <div id="photo-input-area" class="hidden mb-4"><input type="file" onchange="loadPhoto(this)"></div>
-                    <label>FULL NAME</label><input type="text" id="fullName" class="uppercase font-bold" oninput="runUpdate()">
-                    <input type="text" id="email" placeholder="Email" oninput="runUpdate()">
+                    <label>FULL NAME</label><input type="text" id="fullName" placeholder="ISMAIL BIN MAIL" class="uppercase font-bold" oninput="runUpdate()">
+                    <input type="text" id="email" placeholder="PROFESIONAL EMAIL (EXAMPLE: ismail@gmail.com)" oninput="runUpdate()">
                     <input type="text" id="phone" placeholder="Phone" oninput="runUpdate()">
-                    <input type="text" id="address" placeholder="CITY, STATE" class="uppercase" oninput="runUpdate()">
+                    <input type="text" id="address" placeholder="CITY AND STATE ONLY (EXAMPLE ARAU,PERLIS)" class="uppercase" oninput="runUpdate()">
                     <input type="text" id="linkedin" placeholder="LinkedIn URL" oninput="runUpdate()">
                 </section>
 
                 <section class="p-4 border rounded-xl bg-white">
                     <div class="flex justify-between items-center"><label>PROFESSIONAL SUMMARY</label><button onclick="openAI('summary', event)" class="ai-btn">✨ AI</button></div>
-                    <textarea id="summary" class="h-20" oninput="runUpdate()"></textarea>
-                </section>
-
-                <section class="p-4 border rounded-xl bg-gray-50">
-                    <div class="flex justify-between items-center mb-2"><b>PROJECTS</b><button onclick="addEntry('project-list')" class="bg-blue-600 text-white px-2 rounded">+</button></div>
-                    <div id="project-list">
-                        <div class="p-3 border bg-white rounded-lg entry mb-2 space-y-1">
-                            <input type="text" placeholder="PROJECT TITLE" class="font-bold uppercase" oninput="runUpdate()">
-                            <input type="text" placeholder="TOOLS/ROLE" oninput="runUpdate()">
-                            <textarea class="h-16" placeholder="Project details..." oninput="runUpdate()"></textarea>
-                        </div>
-                    </div>
+                    <textarea id="summary" class="h-20"  placeholder="Briefly describe your background, studies, and key skills" oninput="runUpdate()"></textarea>
                 </section>
 
                 <section class="p-4 border rounded-xl bg-gray-50">
@@ -145,6 +177,16 @@
                 </section>
 
                 <section class="p-4 border rounded-xl bg-gray-50">
+                    <div class="flex justify-between items-center mb-2"><b>PROJECTS</b><button onclick="addEntry('project-list')" class="bg-blue-600 text-white px-2 rounded">+</button></div>
+                    <div id="project-list">
+                        <div class="p-3 border bg-white rounded-lg entry mb-2 space-y-1">
+                            <input type="text" placeholder="PROJECT TITLE" class="font-bold uppercase" oninput="runUpdate()">
+                            <textarea class="h-16" placeholder="Summarize the project scope, your responsibilities, and results achieved" oninput="runUpdate()"></textarea>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="p-4 border rounded-xl bg-gray-50">
                     <div class="flex justify-between items-center mb-2"><b>CERTIFICATES</b><button onclick="addEntry('cert-list')" class="bg-blue-600 text-white px-2 rounded">+</button></div>
                     <div id="cert-list">
                         <div class="p-3 border bg-white rounded-lg entry mb-2 space-y-1">
@@ -155,8 +197,8 @@
                 </section>
 
                 <div class="grid grid-cols-2 gap-2">
-                    <section class="p-3 border rounded bg-white"><label>TECH SKILLS</label><textarea id="tech_sk" oninput="runUpdate()"></textarea></section>
-                    <section class="p-3 border rounded bg-white"><label>SOFT SKILLS</label><textarea id="soft_sk" oninput="runUpdate()"></textarea></section>
+                    <section class="p-3 border rounded bg-white"><label>TECH SKILLS</label><textarea id="tech_sk" placeholder="MATLAB, AutoCAD, SolidWorks, Python (IN ONE SENTENCE)" oninput="runUpdate()"></textarea></section>
+                    <section class="p-3 border rounded bg-white"><label>SOFT SKILLS</label><textarea id="soft_sk" placeholder="Communication, teamwork, problem-solving, time management, adaptability, critical thinking, and leadership (IN ONE SENTENCE)" oninput="runUpdate()"></textarea></section>
                 </div>
 
                 <section class="p-4 border rounded-xl bg-gray-50">
@@ -165,7 +207,7 @@
                         <div class="p-3 border bg-white rounded-lg entry mb-2 space-y-1">
                             <input type="text" placeholder="ACTIVITY NAME" class="font-bold uppercase" oninput="runUpdate()">
                             <div class="grid grid-cols-2 gap-2"><input type="text" placeholder="ORG" oninput="runUpdate()"><input type="text" placeholder="YEAR" oninput="runUpdate()"></div>
-                            <textarea class="h-16" placeholder="Details..." oninput="runUpdate()"></textarea>
+                            <textarea class="h-16" placeholder="State your role in the activity and briefly explain what you did (3 TO 4 POINT ONLY)" oninput="runUpdate()"></textarea>
                         </div>
                     </div>
                 </section>
@@ -175,7 +217,7 @@
                     <div id="ref-list">
                         <div class="p-3 border bg-white rounded-lg entry mb-2 space-y-1">
                             <input type="text" placeholder="NAME" class="font-bold uppercase" oninput="runUpdate()">
-                            <div class="grid grid-cols-2 gap-2"><input type="text" placeholder="POSITION" oninput="runUpdate()"><input type="text" placeholder="ORG" oninput="runUpdate()"></div>
+                            <div class="grid grid-cols-2 gap-2"><input type="text" placeholder="POSITION" oninput="runUpdate()"><input type="text" placeholder="ORGANIZATION" oninput="runUpdate()"></div>
                             <div class="grid grid-cols-2 gap-2"><input type="text" placeholder="EMAIL" oninput="runUpdate()"><input type="text" placeholder="PHONE" oninput="runUpdate()"></div>
                         </div>
                     </div>
@@ -197,8 +239,8 @@
                 </header>
                 <section id="s-summary"><h2>Professional Summary</h2><p id="p-summary" class="section-content text-justify"></p></section>
                 <section id="s-edu"><h2>Education</h2><div id="p-edu"></div></section>
-                <section id="s-project"><h2>Projects</h2><div id="p-project"></div></section>
                 <section id="s-work"><h2>Work Experience</h2><div id="p-work"></div></section>
+                <section id="s-project"><h2>Projects</h2><div id="p-project"></div></section>
                 <section id="s-cert"><h2>Certificates & Awards</h2><div id="p-cert"></div></section>
                 <div class="grid grid-cols-2 gap-6" id="s-skills">
                     <section><h2>Technical Skills</h2><p id="p-tech" class="section-content whitespace-pre-line"></p></section>
