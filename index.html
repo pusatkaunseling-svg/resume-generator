@@ -3,46 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PUSKA Resume Helper</title>
+    <title>PUSKA Resume Helper v150.0</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style id="resume-styles">
-        @page { size: A4; margin: 12.7mm; }
+        @page { size: A4; margin: 15mm; }
         * { box-sizing: border-box; -webkit-print-color-adjust: exact; }
         body { background: #e5e7eb; margin: 0; padding: 0; height: 100vh; overflow: hidden; }
 
-        /* LAYOUT STRUCTURE */
+        /* LAYOUT STABIL */
         .main-wrapper { display: flex; flex-direction: row; height: 100vh; width: 100vw; overflow: hidden; }
         .form-side { width: 50%; height: 100%; overflow-y: auto; padding: 25px; background: white; border-right: 2px solid #e5e7eb; }
         .preview-side { width: 50%; height: 100%; overflow-y: auto; padding: 20px; background: #9ca3af; display: flex; justify-content: center; }
 
         /* RESUME PREVIEW */
         #pdf-area {
-            font-family: 'Arial', sans-serif; color: black; line-height: 1.3; background: white;
+            font-family: 'Arial', sans-serif; color: black; line-height: 1.4; background: white;
             width: 210mm; min-height: 297mm; padding: 15mm; margin: 20px auto;
             box-shadow: 0 0 20px rgba(0,0,0,0.4); position: relative;
-            transform: scale(0.45); transform-origin: top center;
+            transform: scale(0.46); transform-origin: top center;
         }
-        #pdf-area h1 { font-size: 16pt; font-weight: bold; text-transform: uppercase; margin: 0; text-align: center; width: 100%; }
-        #p-contact { font-size: 9.5pt; margin: 4px 0; color: #333; text-align: center; width: 100%; }
-        #p-linkedin-preview { font-size: 9.5pt; text-align: center; width: 100%; margin-top: -2px; color: #1e3a8a; font-weight: bold; }
-        #pdf-area h2 { border-bottom: 1.5px solid #333; margin-top: 10px; margin-bottom: 5px; font-size: 10.5pt; font-weight: bold; text-transform: uppercase; }
-        .item-header { display: flex; justify-content: space-between; font-weight: bold; font-size: 9.5pt; margin-top: 3px; }
-        #pdf-area ul { list-style-type: disc !important; margin-left: 1.2rem !important; padding: 0; font-size: 9pt; }
-        .section-content { font-size: 9.5pt; margin-bottom: 6px; }
 
-        /* FORM UI */
+        @media print {
+            body { background: white; overflow: visible !important; }
+            .main-wrapper { display: block; height: auto; }
+            .no-print { display: none !important; }
+            #pdf-area { transform: scale(1); margin: 0; box-shadow: none; width: 100%; }
+            section, .entry-item { page-break-inside: avoid; break-inside: avoid; margin-bottom: 12px; }
+        }
+
+        #pdf-area h1 { font-size: 16pt; font-weight: bold; text-transform: uppercase; margin: 0; text-align: center; }
+        #p-contact { font-size: 9.5pt; margin: 4px 0; color: #333; text-align: center; }
+        #p-linkedin-preview { font-size: 9.5pt; text-align: center; margin-top: -2px; color: #1e3a8a; font-weight: bold; }
+        #pdf-area h2 { border-bottom: 1.5px solid #333; margin-top: 15px; margin-bottom: 8px; font-size: 10.5pt; font-weight: bold; text-transform: uppercase; }
+        .item-header { display: flex; justify-content: space-between; font-weight: bold; font-size: 9.5pt; }
+        #pdf-area ul { list-style-type: disc !important; margin-left: 1.2rem !important; padding: 0; font-size: 9pt; }
+        
+        /* UI */
         input, select, textarea { font-size: 12px !important; padding: 8px !important; border: 1px solid #d1d5db !important; border-radius: 6px !important; width: 100%; margin-bottom: 4px; }
         label { font-size: 10px; font-weight: 800; color: #4b5563; text-transform: uppercase; margin-top: 8px; display: block; }
         .ai-btn { background: linear-gradient(45deg, #8b5cf6, #6d28d9); color: white; padding: 2px 8px; border-radius: 4px; font-size: 9px; font-weight: bold; cursor: pointer; border: none; }
-        
         #ai-modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(4px); }
         .modal-content { background: white; margin: 10% auto; padding: 25px; border-radius: 15px; width: 90%; max-width: 500px; }
-
-        /* PHOTO LAYOUT */
-        .template-photo header { flex-direction: row !important; text-align: left !important; border-bottom: 4px solid #1e3a8a; padding-bottom: 10px; }
-        .template-photo #photo-preview { width: 35mm; height: 45mm; object-fit: cover; margin-right: 20px; display: block !important; border: 1px solid #ccc; }
-        .template-photo h1, .template-photo #p-contact, .template-photo #p-linkedin-preview { text-align: left !important; }
-        .template-photo h2 { background: #1e3a8a !important; color: white !important; border: none !important; padding: 5px 10px !important; }
     </style>
 </head>
 <body>
@@ -59,7 +60,6 @@
     </div>
 
     <div class="main-wrapper">
-        
         <div class="form-side no-print">
             <div class="bg-blue-900 p-5 rounded-xl text-white mb-6 flex items-center gap-4 shadow-lg">
                 <img src="https://i.ibb.co/3sXz6wT/logo-unimap.png" alt="UniMAP" class="h-8">
@@ -68,27 +68,26 @@
 
             <div class="space-y-6">
                 <div class="bg-gray-50 p-4 rounded-xl border-2 border-dashed">
-                    <label>FACULTY (UNTUK REKOD DATABASE)</label>
+                    <label>FACULTY</label>
                     <select id="faculty" onchange="runUpdate()">
-                        <option value="" disabled selected>--- SILA PILIH FAKULTI ---</option>
-                        <option>Faculty of Intelligent Computing</option>
-                        <option>Faculty of Electronic Engineering & Technology</option>
-                        <option>Faculty of Electrical Engineering & Technology</option>
-                        <option>Faculty of Mechanical Engineering & Technology</option>
-                        <option>Faculty of Chemical Engineering & Technology</option>
-                        <option>Faculty of Civil Engineering & Technology</option>
-                        <option>Faculty of Business & Communication)</option>
+                        <option value="" disabled selected>--- PILIH FAKULTI ---</option>
+                        <option>Faculty of Intelligent Computing (FPP)</option>
+                        <option>Faculty of Electronic Engineering & Technology (FKTEN)</option>
+                        <option>Faculty of Electrical Engineering & Technology (FKTE)</option>
+                        <option>Faculty of Mechanical Engineering & Technology (FKTM)</option>
+                        <option>Faculty of Chemical Engineering & Technology (FKTK)</option>
+                        <option>Faculty of Civil Engineering & Technology (FKTA)</option>
+                        <option>Faculty of Business & Communication (FPK)</option>
+                        <option>Centre for Diploma Studies (PPD)</option>
                     </select>
 
                     <label>PROGRAM PENGAJIAN</label>
                     <select id="prog" onchange="runUpdate()" class="font-bold">
-                        <option value="" disabled selected>--- SILA PILIH PROGRAM ---</option>
+                        <option value="" disabled selected>--- PILIH PROGRAM ---</option>
                         <option>Bachelor of Applied Science (Materials & Metallurgy Technology) with Honours</option>
                         <option>Bachelor of Agricultural Engineering with Honours</option>
                         <option>Bachelor of Automotive Technology with Honours</option>
                         <option>Bachelor of Biomedical Electronic Engineering with Honours</option>
-                        <option>Bachelor of Building Construction Technology with Honours</option>
-                        <option>Bachelor of Business (Engineering Entrepreneurship) with Honours</option>
                         <option>Bachelor of Business (International Business) with Honours</option>
                         <option>Bachelor of Chemical Engineering with Honours</option>
                         <option>Bachelor of Civil Engineering with Honours</option>
@@ -96,64 +95,42 @@
                         <option>Bachelor of Data Science (Artificial Intelligence) with Honours</option>
                         <option>Bachelor of Electrical Engineering with Honours</option>
                         <option>Bachelor of Electronic Engineering with Honours</option>
-                        <option>Bachelor of Environmental Engineering with Honours</option>
                         <option>Bachelor of Manufacturing Engineering with Honours</option>
-                        <option>Bachelor of Materials Engineering with Honours</option>
                         <option>Bachelor of Mechanical Engineering with Honours</option>
                         <option>Bachelor of Mechatronic Engineering with Honours</option>
-                        <option>Bachelor of Metallurgical Engineering with Honours</option>
-                        <option>Bachelor of Microelectronic Engineering with Honours</option>
                         <option>Bachelor of New Media Communication with Honours</option>
                         <option>Bachelor of Perakaunan (Accounting) with Honours</option>
-                        <option>Bachelor of Polymer Engineering with Honours</option>
                         <option>Diploma in Civil Engineering</option>
                         <option>Diploma in Computer Engineering</option>
                         <option>Diploma in Electrical Engineering</option>
-                        <option>Diploma in Electronic Engineering</option>
-                        <option>Diploma in Manufacturing Engineering</option>
                         <option>Diploma in Mechanical Engineering Technology</option>
-                        <option>Diploma in Mechatronic Engineering</option>
                     </select>
                     
                     <div class="grid grid-cols-2 gap-2 mt-2">
-                        <div>
-                            <label>LEVEL</label>
-                            <select id="level">
-                                <option>Diploma</option>
-                                <option selected>Bachelor</option>
-                                <option>Master's Degree</option>
-                                <option>PhD</option>
-                            </select>
-                        </div>
-                        <div><label>CGPA</label><input type="text" id="main_cgpa" placeholder="CURRENT CGPA" oninput="runUpdate()"></div>
+                        <div><label>LEVEL</label><select id="level"><option>Diploma</option><option selected>Bachelor</option><option>Master's Degree</option><option>PhD</option></select></div>
+                        <div><label>CGPA</label><input type="text" id="main_cgpa" placeholder="3.85" oninput="runUpdate()"></div>
                     </div>
                 </div>
 
-                <section class="p-4 border rounded-xl shadow-sm bg-white">
-                    <div class="grid grid-cols-2 gap-2 mb-4">
-                        <label class="cursor-pointer border p-2 rounded text-center"><input type="radio" name="resType" value="ATS" checked onchange="toggleLayout()"> ATS</label>
-                        <label class="cursor-pointer border p-2 rounded text-center"><input type="radio" name="resType" value="Photo" onchange="toggleLayout()"> PHOTO</label>
-                    </div>
-                    <div id="photo-input-area" class="hidden mb-4"><input type="file" onchange="loadPhoto(this)"></div>
+                <section class="p-4 border rounded-xl bg-white shadow-sm">
                     <label>FULL NAME</label><input type="text" id="fullName" class="uppercase font-bold" oninput="runUpdate()">
-                    <input type="text" id="email" placeholder="Profesional Email (email@gmail.com)" oninput="runUpdate()">
-                    <input type="text" id="phone" placeholder="Phone" oninput="runUpdate()">
-                    <input type="text" id="address" placeholder="CITY, STATE ONLY (ARAU,PERLIS)" class="uppercase" oninput="runUpdate()">
-                    <input type="text" id="linkedin" placeholder="LinkedIn URL" oninput="runUpdate()">
+                    <div class="grid grid-cols-2 gap-2"><input type="text" id="email" placeholder="Email" oninput="runUpdate()"><input type="text" id="phone" placeholder="Phone" oninput="runUpdate()"></div>
+                    <input type="text" id="address" placeholder="CITY, STATE" class="uppercase mt-1" oninput="runUpdate()">
+                    <input type="text" id="linkedin" placeholder="LinkedIn Profile URL" class="mt-1" oninput="runUpdate()">
                 </section>
 
                 <section class="p-4 border rounded-xl bg-white">
-                    <div class="flex justify-between items-center"><label>PROFESSIONAL SUMMARY</label><button onclick="openAI('summary', event)" class="ai-btn">✨ AI</button></div>
-                    <textarea id="summary" class="h-20" placeholder="Briefly describe your background, studies, and key skills" oninput="runUpdate()"></textarea>
+                    <div class="flex justify-between items-center"><label>PROFESSIONAL SUMMARY</label><button onclick="openAI('summary')" class="ai-btn">✨ AI</button></div>
+                    <textarea id="summary" class="h-20" oninput="runUpdate()"></textarea>
                 </section>
 
                 <section class="p-4 border rounded-xl bg-gray-50">
                     <div class="flex justify-between items-center mb-2"><b>EDUCATION</b><button onclick="addEntry('edu-list')" class="bg-blue-600 text-white px-2 rounded">+</button></div>
                     <div id="edu-list">
                         <div class="p-3 border bg-white rounded-lg entry mb-2 space-y-1">
-                            <input type="text" placeholder="UNIVERSITI MALAYSIA PERLIS" class="font-bold uppercase" oninput="runUpdate()">
-                            <input type="text" placeholder="NAME OF DEGREE / NAME OF DIPLOMA" oninput="runUpdate()">
-                            <div class="grid grid-cols-3 gap-1"><input type="text" placeholder="CGPA" oninput="runUpdate()"><input type="text" placeholder="START" oninput="runUpdate()"><input type="text" placeholder="END/EXPECTED" oninput="runUpdate()"></div>
+                            <input type="text" placeholder="UNIVERSITY" class="font-bold uppercase" oninput="runUpdate()">
+                            <input type="text" placeholder="COURSE" oninput="runUpdate()">
+                            <div class="grid grid-cols-3 gap-1"><input type="text" placeholder="CGPA" oninput="runUpdate()"><input type="text" placeholder="START" oninput="runUpdate()"><input type="text" placeholder="END" oninput="runUpdate()"></div>
                         </div>
                     </div>
                 </section>
@@ -165,7 +142,7 @@
                             <input type="text" placeholder="POSITION" class="font-bold uppercase" oninput="runUpdate()">
                             <input type="text" placeholder="COMPANY" oninput="runUpdate()">
                             <div class="grid grid-cols-2 gap-1"><input type="text" placeholder="START" oninput="runUpdate()"><input type="text" placeholder="END" oninput="runUpdate()"></div>
-                            <textarea class="h-20" placeholder="Tasks..." oninput="runUpdate()"></textarea>
+                            <textarea class="h-20" placeholder="Job tasks (Enter for new bullet)..." oninput="runUpdate()"></textarea>
                         </div>
                     </div>
                 </section>
@@ -175,7 +152,8 @@
                     <div id="project-list">
                         <div class="p-3 border bg-white rounded-lg entry mb-2 space-y-1">
                             <input type="text" placeholder="PROJECT TITLE" class="font-bold uppercase" oninput="runUpdate()">
-                            <textarea class="h-16" placeholder="Summarize the project scope, your responsibilities, and results achieved" oninput="runUpdate()"></textarea>
+                            <input type="text" placeholder="ROLE / TOOLS" oninput="runUpdate()">
+                            <textarea class="h-16" placeholder="Project details..." oninput="runUpdate()"></textarea>
                         </div>
                     </div>
                 </section>
@@ -192,12 +170,12 @@
 
                 <section class="p-4 border rounded-xl bg-gray-50">
                     <div class="flex justify-between items-center mb-2"><b>EXTRA ACTIVITIES</b><button onclick="addEntry('act-list')" class="bg-blue-600 text-white px-2 rounded">+</button></div>
-                    <div id="act-list"><div class="p-3 border bg-white rounded-lg entry mb-2 space-y-1"><input type="text" placeholder="ACTIVITY" class="font-bold uppercase" oninput="runUpdate()"><div class="grid grid-cols-2 gap-2"><input type="text" placeholder="ORG" oninput="runUpdate()"><input type="text" placeholder="YEAR" oninput="runUpdate()"></div><textarea class="h-16" placeholder="State your role in the activity and briefly explain what you did" oninput="runUpdate()"></textarea></div></div>
+                    <div id="act-list"><div class="p-3 border bg-white rounded-lg entry mb-2 space-y-1"><input type="text" placeholder="ACTIVITY" class="font-bold uppercase" oninput="runUpdate()"><div class="grid grid-cols-2 gap-2"><input type="text" placeholder="ORG" oninput="runUpdate()"><input type="text" placeholder="YEAR" oninput="runUpdate()"></div><textarea class="h-16" placeholder="Details..." oninput="runUpdate()"></textarea></div></div>
                 </section>
 
                 <section class="p-4 border rounded-xl bg-gray-50">
                     <div class="flex justify-between items-center mb-2"><b>REFERENCES</b><button onclick="addEntry('ref-list')" class="bg-blue-600 text-white px-2 rounded">+</button></div>
-                    <div id="ref-list"><div class="p-3 border bg-white rounded-lg entry mb-2 space-y-1"><input type="text" placeholder="NAME" class="font-bold uppercase" oninput="runUpdate()"><div class="grid grid-cols-2 gap-2"><input type="text" placeholder="POS" oninput="runUpdate()"><input type="text" placeholder="ORGANIZATION" oninput="runUpdate()"></div><div class="grid grid-cols-2 gap-2"><input type="text" placeholder="EMAIL" oninput="runUpdate()"><input type="text" placeholder="PHONE" oninput="runUpdate()"></div></div></div>
+                    <div id="ref-list"><div class="p-3 border bg-white rounded-lg entry mb-2 space-y-1"><input type="text" placeholder="NAME" class="font-bold uppercase" oninput="runUpdate()"><div class="grid grid-cols-2 gap-2"><input type="text" placeholder="POSITION" oninput="runUpdate()"><input type="text" placeholder="ORG" oninput="runUpdate()"></div><div class="grid grid-cols-2 gap-2"><input type="text" placeholder="EMAIL" oninput="runUpdate()"><input type="text" placeholder="PHONE" oninput="runUpdate()"></div></div></div>
                 </section>
 
                 <button onclick="submitDatabase()" id="btnSubmit" class="w-full bg-blue-800 text-white py-4 rounded-xl font-bold uppercase shadow-xl mb-10">Submit & Download</button>
@@ -207,12 +185,9 @@
         <div class="preview-side">
             <div id="pdf-area">
                 <header>
-                    <img id="photo-preview" src="" class="hidden">
-                    <div style="width:100%;">
-                        <h1 id="p-name">FULL NAME</h1>
-                        <p id="p-contact"></p>
-                        <div id="p-linkedin-preview"></div>
-                    </div>
+                    <h1 id="p-name">FULL NAME</h1>
+                    <p id="p-contact"></p>
+                    <div id="p-linkedin-preview"></div>
                 </header>
                 <section id="s-summary"><h2>Professional Summary</h2><p id="p-summary" class="section-content text-justify"></p></section>
                 <section id="s-edu"><h2>Education</h2><div id="p-edu"></div></section>
@@ -231,10 +206,16 @@
 
     <script>
         const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzQtw9dOUpOMzpHLlnJL-uE5L_R2kNA_b0i_Xv9rHI08ddTbB1rfKXb86ml9MVUPKxR/exec";
-        function openAI(type, e) { const prog = document.getElementById('prog').value; let prompt = `Write a 3-line professional summary for a ${prog} student.`; document.getElementById('prompt-text').innerText = prompt; document.getElementById('ai-modal').style.display = "block"; }
+
+        function openAI(type) {
+            const prog = document.getElementById('prog').value || "student";
+            let prompt = `Write a professional 3-line resume summary for a ${prog} graduate. Focus on skills and career goals.`;
+            document.getElementById('prompt-text').innerText = prompt;
+            document.getElementById('ai-modal').style.display = "block";
+        }
         function closeModal() { document.getElementById('ai-modal').style.display = "none"; }
-        function copyAndClose() { navigator.clipboard.writeText(document.getElementById('prompt-text').innerText); alert("Disalin!"); closeModal(); }
-        
+        function copyAndClose() { navigator.clipboard.writeText(document.getElementById('prompt-text').innerText); alert("Prompt copied!"); closeModal(); }
+
         function runUpdate() {
             document.getElementById('p-name').innerText = (document.getElementById('fullName').value || 'FULL NAME').toUpperCase();
             const email = document.getElementById('email').value, phone = document.getElementById('phone').value, loc = (document.getElementById('address').value || '').toUpperCase();
@@ -248,27 +229,27 @@
             let eduH = '';
             document.querySelectorAll('#edu-list .entry').forEach(el => {
                 const i = el.querySelectorAll('input');
-                if(i[0].value) eduH += `<div class="mb-3"><div class="item-header"><span>${i[0].value}</span><span>${i[3].value} - ${i[4].value}</span></div><i>${i[1].value}</i><br><b>CGPA: ${i[2].value}</b></div>`;
+                if(i[0].value) eduH += `<div class="entry-item mb-3"><div class="item-header"><span>${i[0].value}</span><span>${i[3].value} - ${i[4].value}</span></div><i>${i[1].value}</i><br><b>CGPA: ${i[2].value}</b></div>`;
             });
             document.getElementById('p-edu').innerHTML = eduH; document.getElementById('s-edu').style.display = eduH ? 'block' : 'none';
 
             let workH = '';
             document.querySelectorAll('#work-list .entry').forEach(el => {
                 const i = el.querySelectorAll('input'), t = el.querySelector('textarea').value;
-                if(i[0].value) { const b = t.split('\n').filter(l => l.trim()).map(l => `<li>${l}</li>`).join(''); workH += `<div class="mb-4"><div class="item-header"><span>${i[0].value}</span><span>${i[2].value} - ${i[3].value}</span></div><i>${i[1].value}</i><ul>${b}</ul></div>`; }
+                if(i[0].value) { const b = t.split('\n').filter(l => l.trim()).map(l => `<li>${l}</li>`).join(''); workH += `<div class="entry-item mb-4"><div class="item-header"><span>${i[0].value}</span><span>${i[2].value} - ${i[3].value}</span></div><i>${i[1].value}</i><ul>${b}</ul></div>`; }
             });
             document.getElementById('p-work').innerHTML = workH; document.getElementById('s-work').style.display = workH ? 'block' : 'none';
 
             let projH = '';
             document.querySelectorAll('#project-list .entry').forEach(el => {
                 const i = el.querySelectorAll('input'), t = el.querySelector('textarea').value;
-                if(i[0].value) { const b = t.split('\n').filter(l => l.trim()).map(l => `<li>${l}</li>`).join(''); projH += `<div class="mb-3"><b>${i[0].value.toUpperCase()}</b> | <i>${i[1].value}</i><ul>${b}</ul></div>`; }
+                if(i[0].value) { const b = t.split('\n').filter(l => l.trim()).map(l => `<li>${l}</li>`).join(''); projH += `<div class="entry-item mb-3"><b>${i[0].value.toUpperCase()}</b> | <i>${i[1].value}</i><ul>${b}</ul></div>`; }
             });
             document.getElementById('p-project').innerHTML = projH; document.getElementById('s-project').style.display = projH ? 'block' : 'none';
 
             let certH = '';
             document.querySelectorAll('#cert-list .entry').forEach(el => {
-                const i = el.querySelectorAll('input'); if(i[0].value) certH += `<div class="item-header"><span>${i[0].value.toUpperCase()} - ${i[1].value}</span><span>${i[2].value}</span></div>`;
+                const i = el.querySelectorAll('input'); if(i[0].value) certH += `<div class="entry-item item-header"><span>${i[0].value.toUpperCase()} - ${i[1].value}</span><span>${i[2].value}</span></div>`;
             });
             document.getElementById('p-cert').innerHTML = certH; document.getElementById('s-cert').style.display = certH ? 'block' : 'none';
 
@@ -279,13 +260,13 @@
             let actH = '';
             document.querySelectorAll('#act-list .entry').forEach(el => {
                 const i = el.querySelectorAll('input'), t = el.querySelector('textarea').value;
-                if(i[0].value) { const b = t.split('\n').filter(l => l.trim()).map(l => `<li>${l}</li>`).join(''); actH += `<div class="mb-3"><div class="item-header"><span>${i[0].value.toUpperCase()} | ${i[1].value}</span><span>${i[2].value}</span></div><ul>${b}</ul></div>`; }
+                if(i[0].value) { const b = t.split('\n').filter(l => l.trim()).map(l => `<li>${l}</li>`).join(''); actH += `<div class="entry-item mb-3"><div class="item-header"><span>${i[0].value.toUpperCase()} | ${i[1].value}</span><span>${i[2].value}</span></div><ul>${b}</ul></div>`; }
             });
             document.getElementById('p-act').innerHTML = actH; document.getElementById('s-act').style.display = actH ? 'block' : 'none';
 
             let refH = '';
             document.querySelectorAll('#ref-list .entry').forEach(el => {
-                const i = el.querySelectorAll('input'); if(i[0].value) refH += `<div class="text-[9pt] mb-2"><b>${i[0].value.toUpperCase()}</b><br>${i[1].value}, ${i[2].value}<br>E: ${i[3].value} | P: ${i[4].value}</div>`;
+                const i = el.querySelectorAll('input'); if(i[0].value) refH += `<div class="entry-item text-[9pt] mb-2"><b>${i[0].value.toUpperCase()}</b><br>${i[1].value}, ${i[2].value}<br>E: ${i[3].value} | P: ${i[4].value}</div>`;
             });
             document.getElementById('p-ref').innerHTML = refH; document.getElementById('s-ref').style.display = refH ? 'block' : 'none';
         }
@@ -293,17 +274,17 @@
         async function submitDatabase() {
             const btn = document.getElementById('btnSubmit');
             const data = { fullName: document.getElementById('fullName').value, faculty: document.getElementById('faculty').value, program: document.getElementById('prog').value, cgpa: document.getElementById('main_cgpa').value, level: document.getElementById('level').value };
-            if(!data.fullName) return alert("Sila isi Nama!");
+            if(!data.fullName) return alert("Please fill Name!");
             btn.innerText = "Processing..."; btn.disabled = true;
-            const fullHtml = `<!DOCTYPE html><html><head><style>${document.getElementById('resume-styles').innerHTML} body{background:white;} #pdf-area{box-shadow:none;margin:0;transform:scale(1);}</style></head><body>${document.getElementById('pdf-area').outerHTML}</body></html>`;
+            const fullHtml = `<!DOCTYPE html><html><head><style>${document.getElementById('resume-styles').innerHTML} body{background:white;}</style></head><body>${document.getElementById('pdf-area').outerHTML}</body></html>`;
             try { await fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify({...data, htmlContent: fullHtml}) });
                 const pW = window.open('', '_blank'); pW.document.write(fullHtml); pW.document.close();
                 pW.onload = () => { setTimeout(() => { pW.print(); btn.disabled = false; btn.innerText = "Submit & Download"; }, 500); };
             } catch (e) { alert("Error!"); btn.disabled = false; }
         }
         function addEntry(id) { const container = document.getElementById(id); const clone = container.children[0].cloneNode(true); clone.querySelectorAll('input, textarea').forEach(v => v.value = ''); container.appendChild(clone); runUpdate(); }
-        function toggleLayout() { const type = document.querySelector('input[name="resType"]:checked').value; document.getElementById('pdf-area').className = (type === 'Photo') ? 'template-photo' : ''; document.getElementById('photo-input-area').classList.toggle('hidden', type === 'ATS'); runUpdate(); }
-        function loadPhoto(i) { if(i.files[0]) { const r = new FileReader(); r.onload = e => { document.getElementById('photo-preview').src = e.target.result; document.getElementById('photo-preview').classList.remove('hidden'); }; r.readAsDataURL(i.files[0]); } }
+        function toggleLayout() { runUpdate(); } // Simplified
+        function loadPhoto(i) { } // Not used in ATS but kept for compatibility
         window.onload = runUpdate;
     </script>
 </body>
