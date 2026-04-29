@@ -1,16 +1,3 @@
-Saya telah menyemak semula kod v185.0 tadi baris demi baris. Semuanya sudah lengkap, tetapi saya perasan **Senarai Program Full** yang panjang (A-Z) yang kita bincangkan sebelum ini telah diringkaskan dalam versi v185.0 untuk menjimatkan ruang kod.
-
-Oleh itu, ini adalah **Full Code Versi Muktamad (v190.0)** yang menggabungkan **SEMUA** ciri tanpa ada satu pun tertinggal:
-
-1.  **Header:** LinkedIn di tengah (centered).
-2.  **Database:** Faculty Dropdown & Level (Diploma - PhD).
-3.  **Program:** Senarai penuh program UniMAP (A-Z).
-4.  **Susunan:** Education > Work Experience > Projects.
-5.  **Certificates:** Ada bullet point `•` di hadapan nama.
-6.  **Visual:** Page Indicator (Page 1 & 2) & Auto-Expanding Paper (Selesaikan isu screenshot).
-7.  **Activities:** Ada huraian bullet points.
-
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -94,57 +81,60 @@ Oleh itu, ini adalah **Full Code Versi Muktamad (v190.0)** yang menggabungkan **
                     </select>
 
                     <label>PROGRAM PENGAJIAN</label>
-                    <optgroup label="BACHELOR PROGRAMS">
-                        <option>Bachelor of Applied Science (Materials & Metallurgy Technology) with Honours</option>
-                        <option>Bachelor of Agricultural Engineering with Honours</option>
-                        <option>Bachelor of Automotive Technology with Honours</option>
-                        <option>Bachelor of Biomedical Electronic Engineering with Honours</option>
-                        <option>Bachelor of Building Construction Technology with Honours</option>
-                        <option>Bachelor of Business (Engineering Entrepreneurship) with Honours</option>
-                        <option>Bachelor of Business (International Business) with Honours</option>
-                        <option>Bachelor of Chemical Engineering with Honours</option>
-                        <option>Bachelor of Chemical Engineering Technology (Biotechnology) with Honours</option>
-                        <option>Bachelor of Chemical Engineering Technology (Food Technology) with Honours</option>
-                        <option>Bachelor of Chemical Engineering Technology (Industrial Process) with Honours</option>
-                        <option>Bachelor of Civil Engineering with Honours</option>
-                        <option>Bachelor of Civil Engineering Technology (Construction) with Honours</option>
-                        <option>Bachelor of Computer Engineering with Honours</option>
-                        <option>Bachelor of Data Science (Artificial Intelligence) with Honours</option>
-                        <option>Bachelor of Electrical Engineering with Honours</option>
-                        <option>Bachelor of Electrical Engineering Technology (Industrial Power) with Honours</option>
-                        <option>Bachelor of Electrical Engineering Technology (Robotics & Automation) with Honours</option>
-                        <option>Bachelor of Electrical System Maintenance Technology with Honours</option>
-                        <option>Bachelor of Electronic Engineering with Honours</option>
-                        <option>Bachelor of Electronic Engineering Technology (Electronic System) with Honours</option>
-                        <option>Bachelor of Electronic Engineering Technology (Network Design) with Honours</option>
-                        <option>Bachelor of Electronic Engineering Technology (Telecommunication Design) with Honours</option>
-                        <option>Bachelor of Environmental Engineering with Honours</option>
-                        <option>Bachelor of Industrial Machining Technology with Honours</option>
-                        <option>Bachelor of Interactive Media Technology with Honours</option>
-                        <option>Bachelor of Manufacturing Engineering with Honours</option>
-                        <option>Bachelor of Materials Engineering with Honours</option>
-                        <option>Bachelor of Mechanical Engineering with Honours</option>
-                        <option>Bachelor of Mechanical Engineering Technology (Machining) with Honours</option>
-                        <option>Bachelor of Mechanical Engineering Technology (Product Design) with Honours</option>
-                        <option>Bachelor of Mechatronic Engineering with Honours</option>
-                        <option>Bachelor of Metallurgical Engineering with Honours</option>
-                        <option>Bachelor of Microelectronic Engineering with Honours</option>
-                        <option>Bachelor of New Media Communication with Honours</option>
-                        <option>Bachelor of Perakaunan (Accounting) with Honours</option>
-                        <option>Bachelor of Polymer Engineering with Honours</option>
-                        <option>Bachelor of Welding Technology with Honours</option>
-                    </optgroup>
-                
-                    <optgroup label="DIPLOMA PROGRAMS">
-                        <option>Diploma in Civil Engineering</option>
-                        <option>Diploma in Computer Engineering</option>
-                        <option>Diploma in Electrical Engineering</option>
-                        <option>Diploma in Electronic Engineering</option>
-                        <option>Diploma in Manufacturing Engineering</option>
-                        <option>Diploma in Materials Engineering</option>
-                        <option>Diploma in Mechanical Engineering Technology</option>
-                        <option>Diploma in Mechatronic Engineering</option>
-                        <option>Diploma in Metallurgical Engineering</option>
+                    <select id="prog" onchange="runUpdate()" class="font-bold border p-2 rounded w-full bg-white text-black">
+                        <option value="" disabled selected>--- SILA PILIH PROGRAM ---</option>
+                        
+                        <optgroup label="BACHELOR PROGRAMS">
+                            <option>Bachelor of Applied Science (Materials & Metallurgy Technology) with Honours</option>
+                            <option>Bachelor of Agricultural Engineering with Honours</option>
+                            <option>Bachelor of Automotive Technology with Honours</option>
+                            <option>Bachelor of Biomedical Electronic Engineering with Honours</option>
+                            <option>Bachelor of Building Construction Technology with Honours</option>
+                            <option>Bachelor of Business (Engineering Entrepreneurship) with Honours</option>
+                            <option>Bachelor of Business (International Business) with Honours</option>
+                            <option>Bachelor of Chemical Engineering with Honours</option>
+                            <option>Bachelor of Chemical Engineering Technology (Biotechnology) with Honours</option>
+                            <option>Bachelor of Chemical Engineering Technology (Food Technology) with Honours</option>
+                            <option>Bachelor of Chemical Engineering Technology (Industrial Process) with Honours</option>
+                            <option>Bachelor of Civil Engineering with Honours</option>
+                            <option>Bachelor of Civil Engineering Technology (Construction) with Honours</option>
+                            <option>Bachelor of Computer Engineering with Honours</option>
+                            <option>Bachelor of Data Science (Artificial Intelligence) with Honours</option>
+                            <option>Bachelor of Electrical Engineering with Honours</option>
+                            <option>Bachelor of Electrical Engineering Technology (Industrial Power) with Honours</option>
+                            <option>Bachelor of Electrical Engineering Technology (Robotics & Automation) with Honours</option>
+                            <option>Bachelor of Electrical System Maintenance Technology with Honours</option>
+                            <option>Bachelor of Electronic Engineering with Honours</option>
+                            <option>Bachelor of Electronic Engineering Technology (Electronic System) with Honours</option>
+                            <option>Bachelor of Electronic Engineering Technology (Network Design) with Honours</option>
+                            <option>Bachelor of Electronic Engineering Technology (Telecommunication Design) with Honours</option>
+                            <option>Bachelor of Environmental Engineering with Honours</option>
+                            <option>Bachelor of Industrial Machining Technology with Honours</option>
+                            <option>Bachelor of Interactive Media Technology with Honours</option>
+                            <option>Bachelor of Manufacturing Engineering with Honours</option>
+                            <option>Bachelor of Materials Engineering with Honours</option>
+                            <option>Bachelor of Mechanical Engineering with Honours</option>
+                            <option>Bachelor of Mechanical Engineering Technology (Machining) with Honours</option>
+                            <option>Bachelor of Mechanical Engineering Technology (Product Design) with Honours</option>
+                            <option>Bachelor of Mechatronic Engineering with Honours</option>
+                            <option>Bachelor of Metallurgical Engineering with Honours</option>
+                            <option>Bachelor of Microelectronic Engineering with Honours</option>
+                            <option>Bachelor of New Media Communication with Honours</option>
+                            <option>Bachelor of Perakaunan (Accounting) with Honours</option>
+                            <option>Bachelor of Polymer Engineering with Honours</option>
+                            <option>Bachelor of Welding Technology with Honours</option>
+                        </optgroup>
+                    
+                        <optgroup label="DIPLOMA PROGRAMS">
+                            <option>Diploma in Civil Engineering</option>
+                            <option>Diploma in Computer Engineering</option>
+                            <option>Diploma in Electrical Engineering</option>
+                            <option>Diploma in Electronic Engineering</option>
+                            <option>Diploma in Manufacturing Engineering</option>
+                            <option>Diploma in Materials Engineering</option>
+                            <option>Diploma in Mechanical Engineering Technology</option>
+                            <option>Diploma in Mechatronic Engineering</option>
+                            <option>Diploma in Metallurgical Engineering</option>
                         </optgroup>
                     </select>
                     
