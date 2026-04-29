@@ -68,7 +68,7 @@
 
             <div class="space-y-6">
                 <div class="bg-gray-50 p-4 rounded-xl border-2 border-dashed">
-                    <label>FACULTY</label>
+                    <label>SELECT FACULTY</label>
                     <select id="faculty" onchange="runUpdate()">
                         <option value="" disabled selected>--- PILIH FAKULTI ---</option>
                         <option>Faculty of Intelligent Computing</option>
@@ -80,9 +80,9 @@
                         <option>Faculty of Business & Communication</option>
                     </select>
 
-                    <label>PROGRAM PENGAJIAN</label>
+                    <label>STUDY PROGRAM</label>
                     <select id="prog" onchange="runUpdate()" class="font-bold border p-2 rounded w-full bg-white text-black">
-                        <option value="" disabled selected>--- SILA PILIH PROGRAM ---</option>
+                        <option value="" disabled selected>--- SELECT PROGRAM ---</option>
                         
                         <optgroup label="BACHELOR PROGRAMS">
                             <option>Bachelor of Applied Science (Materials & Metallurgy Technology) with Honours</option>
@@ -144,14 +144,14 @@
                     </div>
                 </div>
 
-                <section class="p-4 border rounded-xl bg-white shadow-sm">
+                <section class="p-4 border rounded-xl bg-gray-50 shadow-sm">
                     <label>FULL NAME</label><input type="text" id="fullName" placeholder="ISMAIL BIN MAIL" class="uppercase font-bold" oninput="runUpdate()">
                     <div class="grid grid-cols-2 gap-2"><input type="text" id="email" placeholder="Email" oninput="runUpdate()"><input type="text" id="phone" placeholder="012-3456789" oninput="runUpdate()"></div>
                     <input type="text" id="address" placeholder="CITY AND STATE ONLY (EXAMPLE: ARAU,PERLIS)" class="uppercase mt-1" oninput="runUpdate()">
                     <input type="text" id="linkedin" placeholder="LinkedIn URL" class="mt-1" oninput="runUpdate()">
                 </section>
 
-                <section class="p-4 border rounded-xl bg-white"><label>PROFESSIONAL SUMMARY</label><textarea id="summary" placeholder="Write a brief professional summary highlighting your key skills, experience, and career goals. Focus on achievements and strengths relevant to the position you are applying for." class="h-20" oninput="runUpdate()"></textarea></section>
+                <section class="p-4 border rounded-xl bg-gray-50"><label>PROFESSIONAL SUMMARY</label><textarea id="summary" placeholder="Write a brief professional summary highlighting your key skills, experience, and career goals. Focus on achievements and strengths relevant to the position you are applying for." class="h-20" oninput="runUpdate()"></textarea></section>
 
                 <section class="p-4 border rounded-xl bg-gray-50">
                     <div class="flex justify-between items-center mb-2"><b>EDUCATION</b><button onclick="addEntry('edu-list')" class="bg-blue-600 text-white px-2 rounded">+</button></div>
