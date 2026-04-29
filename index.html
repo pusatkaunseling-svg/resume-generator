@@ -160,13 +160,18 @@
 
                 <section class="p-4 border rounded-xl bg-gray-50">
                     <div class="flex justify-between items-center mb-2"><b>WORK EXPERIENCE</b><button onclick="addEntry('work-list')" class="bg-blue-600 text-white px-2 rounded">+</button></div>
-                    <div id="work-list"><div class="p-3 border bg-white rounded-lg entry mb-2 space-y-1"><input type="text" placeholder="POSITION" class="font-bold uppercase" oninput="runUpdate()"><input type="text" placeholder="COMPANY" oninput="runUpdate()"><div class="grid grid-cols-2 gap-1"><input type="text" placeholder="START" oninput="runUpdate()"><input type="text" placeholder="END" oninput="runUpdate()"></div><textarea class="h-20 mt-1" placeholder="Job tasks (Enter for bullet)..." oninput="runUpdate()"></textarea></div></div>
+                    <div id="work-list"><div class="p-3 border bg-white rounded-lg entry mb-2 space-y-1"><input type="text" placeholder="POSITION" class="font-bold uppercase" oninput="runUpdate()"><input type="text" placeholder="COMPANY" oninput="runUpdate()"><div class="grid grid-cols-2 gap-1"><input type="text" placeholder="START" oninput="runUpdate()"><input type="text" placeholder="END" oninput="runUpdate()"></div><textarea class="h-20 mt-1" placeholder="State your role, organization, duration, and key contributions. Focus on what you learned and achieved." oninput="runUpdate()"></textarea></div></div>
                 </section>
 
-                <section class="p-4 border rounded-xl bg-gray-50">
-                    <div class="flex justify-between items-center mb-2"><b>PROJECTS</b><button onclick="addEntry('project-list')" class="bg-blue-600 text-white px-2 rounded">+</button></div>
-                    <div id="project-list"><div class="p-3 border bg-white rounded-lg entry mb-2 space-y-1"><input type="text" placeholder="PROJECT TITLE" class="font-bold uppercase" oninput="runUpdate()"><textarea class="h-16 mt-1" placeholder="Describe academic or personal projects related to your field. Highlight your role, tools or skills used, and outcomes or results." oninput="runUpdate()"></textarea></div></div>
-                </section>
+               <section class="p-4 border rounded-xl bg-gray-50">
+                <div class="flex justify-between items-center mb-2"><b>PROJECTS</b><button onclick="addEntry('project-list')" class="bg-blue-600 text-white px-2 rounded">+</button></div>
+                <div id="project-list">
+                    <div class="p-3 border bg-white rounded-lg entry mb-2 space-y-1">
+                        <input type="text" placeholder="PROJECT TITLE" class="font-bold uppercase" oninput="runUpdate()">
+                        <textarea class="h-16 mt-1" placeholder="Describe academic or personal projects..." oninput="runUpdate()"></textarea>
+                    </div>
+                </div>
+            </section>
 
                 <section class="p-4 border rounded-xl bg-gray-50">
                     <div class="flex justify-between items-center mb-2"><b>CERTIFICATES</b><button onclick="addEntry('cert-list')" class="bg-blue-600 text-white px-2 rounded">+</button></div>
@@ -245,10 +250,16 @@
 
             let projH = '';
             document.querySelectorAll('#project-list .entry').forEach(el => {
-                const i = el.querySelectorAll('input'), t = el.querySelector('textarea').value;
-                if(i[0].value) { const b = t.split('\n').filter(l => l.trim()).map(l => `<li>${l}</li>`).join(''); projH += `<div class="mb-3"><b>${i[0].value.toUpperCase()}</b> | <i>${i[1].value}</i><ul>${b}</ul></div>`; }
+                // Kita guna querySelector (bukan querySelectorAll) sebab ada SATU input sahaja sekarang
+                const i = el.querySelector('input'), t = el.querySelector('textarea').value;
+                if(i.value) { 
+                    const b = t.split('\n').filter(l => l.trim()).map(l => `<li>${l}</li>`).join(''); 
+                    // Paparan preview hanya akan tunjuk Tajuk (Bold) dan Bullets
+                    projH += `<div class="mb-3"><b>${i.value.toUpperCase()}</b><ul>${b}</ul></div>`; 
+                }
             });
-            document.getElementById('p-project').innerHTML = projH; document.getElementById('s-project').style.display = projH ? 'block' : 'none';
+            document.getElementById('p-project').innerHTML = projH; 
+            document.getElementById('s-project').style.display = projH ? 'block' : 'none';
 
             let certH = '';
             document.querySelectorAll('#cert-list .entry').forEach(el => {
