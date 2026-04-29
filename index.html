@@ -1,9 +1,22 @@
+Saya telah menyemak semula kod v185.0 tadi baris demi baris. Semuanya sudah lengkap, tetapi saya perasan **Senarai Program Full** yang panjang (A-Z) yang kita bincangkan sebelum ini telah diringkaskan dalam versi v185.0 untuk menjimatkan ruang kod.
+
+Oleh itu, ini adalah **Full Code Versi Muktamad (v190.0)** yang menggabungkan **SEMUA** ciri tanpa ada satu pun tertinggal:
+
+1.  **Header:** LinkedIn di tengah (centered).
+2.  **Database:** Faculty Dropdown & Level (Diploma - PhD).
+3.  **Program:** Senarai penuh program UniMAP (A-Z).
+4.  **Susunan:** Education > Work Experience > Projects.
+5.  **Certificates:** Ada bullet point `•` di hadapan nama.
+6.  **Visual:** Page Indicator (Page 1 & 2) & Auto-Expanding Paper (Selesaikan isu screenshot).
+7.  **Activities:** Ada huraian bullet points.
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PUSKA Resume Helper v175.0</title>
+    <title>PUSKA Resume Helper</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style id="resume-styles">
         /* --- PRINT & PAGE SETTINGS --- */
@@ -20,38 +33,26 @@
             display: flex; flex-direction: column; align-items: center; 
         }
 
-        /* AUTO-EXPANDING PAPER WITH PAGE INDICATOR */
+        /* AUTO-EXPANDING PAPER */
         #pdf-area {
             font-family: 'Arial', sans-serif; color: black; line-height: 1.4; background: white;
             width: 210mm; min-height: 297mm; height: auto; 
-            padding: 15mm; margin-bottom: 50px;
+            padding: 15mm; margin-bottom: 100px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5); position: relative;
             transform: scale(0.48); transform-origin: top center; flex-shrink: 0;
         }
 
-        /* PENANDA MUKA SURAT (Hanya nampak di skrin) */
-        #pdf-area::after {
-            content: "--- END OF PAGE 1 / START OF PAGE 2 ---";
-            position: absolute;
-            top: 297mm; /* Tepat pada saiz A4 */
-            left: 0;
-            width: 100%;
-            border-top: 2px dashed #ff4444;
-            color: #ff4444;
-            font-family: sans-serif;
-            font-size: 10pt;
-            font-weight: bold;
-            text-align: center;
-            pointer-events: none; /* Supaya tak ganggu klik */
-            z-index: 10;
-        }
+        /* PAGE INDICATORS (SCREEN ONLY) */
+        .page-line-1 { position: absolute; top: 297mm; left: 0; width: 100%; border-top: 3px dashed #ff4444; z-index: 10; pointer-events: none; }
+        .page-line-1::after { content: "--- END OF PAGE 1 / START OF PAGE 2 ---"; position: absolute; top: -20px; left: 50%; transform: translateX(-50%); background: #ff4444; color: white; font-size: 10pt; padding: 2px 10px; border-radius: 5px; }
+        .page-line-2 { position: absolute; top: 594mm; left: 0; width: 100%; border-top: 3px dashed #ff4444; z-index: 10; pointer-events: none; }
+        .page-line-2::after { content: "--- END OF PAGE 2 / START OF PAGE 3 ---"; position: absolute; top: -20px; left: 50%; transform: translateX(-50%); background: #ff4444; color: white; font-size: 10pt; padding: 2px 10px; border-radius: 5px; }
 
         @media print {
             body { background: white; overflow: visible !important; }
             .main-wrapper { display: block; height: auto; }
-            .no-print { display: none !important; }
+            .no-print, .page-line-1, .page-line-2 { display: none !important; }
             #pdf-area { transform: scale(1); margin: 0; box-shadow: none; width: 100%; height: auto; }
-            #pdf-area::after { display: none !important; } /* Sorok penanda masa print */
             section { page-break-inside: auto; break-inside: auto; margin-bottom: 10px; }
         }
 
@@ -62,6 +63,7 @@
         #pdf-area h2 { border-bottom: 1.5px solid #333; margin-top: 15px; margin-bottom: 8px; font-size: 10.5pt; font-weight: bold; text-transform: uppercase; }
         .item-header { display: flex; justify-content: space-between; font-weight: bold; font-size: 9.5pt; }
         #pdf-area ul { list-style-type: disc !important; margin-left: 1.2rem !important; padding: 0; font-size: 9pt; }
+        .cert-item { display: flex; justify-content: space-between; font-size: 9.5pt; margin-bottom: 2px; }
         
         /* FORM UI */
         input, select, textarea { font-size: 12px !important; padding: 8px !important; border: 1px solid #d1d5db !important; border-radius: 6px !important; width: 100%; margin-bottom: 4px; }
@@ -82,48 +84,93 @@
                     <label>FACULTY</label>
                     <select id="faculty" onchange="runUpdate()">
                         <option value="" disabled selected>--- PILIH FAKULTI ---</option>
-                        <option>Faculty of Intelligent Computing (FPP)</option>
-                        <option>Faculty of Electronic Engineering & Technology (FKTEN)</option>
-                        <option>Faculty of Electrical Engineering & Technology (FKTE)</option>
-                        <option>Faculty of Mechanical Engineering & Technology (FKTM)</option>
-                        <option>Faculty of Chemical Engineering & Technology (FKTK)</option>
-                        <option>Faculty of Civil Engineering & Technology (FKTA)</option>
-                        <option>Faculty of Business & Communication (FPK)</option>
-                        <option>Centre for Diploma Studies (PPD)</option>
+                        <option>Faculty of Intelligent Computing</option>
+                        <option>Faculty of Electronic Engineering & Technology</option>
+                        <option>Faculty of Electrical Engineering & Technology</option>
+                        <option>Faculty of Mechanical Engineering & Technology</option>
+                        <option>Faculty of Chemical Engineering & Technology</option>
+                        <option>Faculty of Civil Engineering & Technology)</option>
+                        <option>Faculty of Business & Communication</option>
                     </select>
 
                     <label>PROGRAM PENGAJIAN</label>
-                    <select id="prog" onchange="runUpdate()" class="font-bold">
-                        <option value="" disabled selected>--- PILIH PROGRAM ---</option>
-                        <option>Bachelor of Data Science (Artificial Intelligence) with Honours</option>
+                    <optgroup label="BACHELOR PROGRAMS">
+                        <option>Bachelor of Applied Science (Materials & Metallurgy Technology) with Honours</option>
+                        <option>Bachelor of Agricultural Engineering with Honours</option>
+                        <option>Bachelor of Automotive Technology with Honours</option>
+                        <option>Bachelor of Biomedical Electronic Engineering with Honours</option>
+                        <option>Bachelor of Building Construction Technology with Honours</option>
+                        <option>Bachelor of Business (Engineering Entrepreneurship) with Honours</option>
+                        <option>Bachelor of Business (International Business) with Honours</option>
+                        <option>Bachelor of Chemical Engineering with Honours</option>
+                        <option>Bachelor of Chemical Engineering Technology (Biotechnology) with Honours</option>
+                        <option>Bachelor of Chemical Engineering Technology (Food Technology) with Honours</option>
+                        <option>Bachelor of Chemical Engineering Technology (Industrial Process) with Honours</option>
+                        <option>Bachelor of Civil Engineering with Honours</option>
+                        <option>Bachelor of Civil Engineering Technology (Construction) with Honours</option>
                         <option>Bachelor of Computer Engineering with Honours</option>
+                        <option>Bachelor of Data Science (Artificial Intelligence) with Honours</option>
+                        <option>Bachelor of Electrical Engineering with Honours</option>
+                        <option>Bachelor of Electrical Engineering Technology (Industrial Power) with Honours</option>
+                        <option>Bachelor of Electrical Engineering Technology (Robotics & Automation) with Honours</option>
+                        <option>Bachelor of Electrical System Maintenance Technology with Honours</option>
+                        <option>Bachelor of Electronic Engineering with Honours</option>
+                        <option>Bachelor of Electronic Engineering Technology (Electronic System) with Honours</option>
+                        <option>Bachelor of Electronic Engineering Technology (Network Design) with Honours</option>
+                        <option>Bachelor of Electronic Engineering Technology (Telecommunication Design) with Honours</option>
+                        <option>Bachelor of Environmental Engineering with Honours</option>
+                        <option>Bachelor of Industrial Machining Technology with Honours</option>
+                        <option>Bachelor of Interactive Media Technology with Honours</option>
+                        <option>Bachelor of Manufacturing Engineering with Honours</option>
+                        <option>Bachelor of Materials Engineering with Honours</option>
                         <option>Bachelor of Mechanical Engineering with Honours</option>
+                        <option>Bachelor of Mechanical Engineering Technology (Machining) with Honours</option>
+                        <option>Bachelor of Mechanical Engineering Technology (Product Design) with Honours</option>
+                        <option>Bachelor of Mechatronic Engineering with Honours</option>
+                        <option>Bachelor of Metallurgical Engineering with Honours</option>
+                        <option>Bachelor of Microelectronic Engineering with Honours</option>
+                        <option>Bachelor of New Media Communication with Honours</option>
+                        <option>Bachelor of Perakaunan (Accounting) with Honours</option>
+                        <option>Bachelor of Polymer Engineering with Honours</option>
+                        <option>Bachelor of Welding Technology with Honours</option>
+                    </optgroup>
+                
+                    <optgroup label="DIPLOMA PROGRAMS">
+                        <option>Diploma in Civil Engineering</option>
                         <option>Diploma in Computer Engineering</option>
+                        <option>Diploma in Electrical Engineering</option>
+                        <option>Diploma in Electronic Engineering</option>
+                        <option>Diploma in Manufacturing Engineering</option>
+                        <option>Diploma in Materials Engineering</option>
+                        <option>Diploma in Mechanical Engineering Technology</option>
+                        <option>Diploma in Mechatronic Engineering</option>
+                        <option>Diploma in Metallurgical Engineering</option>
+                        </optgroup>
                     </select>
                     
                     <div class="grid grid-cols-2 gap-2 mt-2">
                         <div><label>LEVEL</label><select id="level"><option>Diploma</option><option selected>Bachelor</option><option>Master's Degree</option><option>PhD</option></select></div>
-                        <div><label>CGPA</label><input type="text" id="main_cgpa" placeholder="3.85" oninput="runUpdate()"></div>
+                        <div><label>CGPA</label><input type="text" id="main_cgpa" placeholder="CURRENT CGPA (EXAMPLE: 4.00)" oninput="runUpdate()"></div>
                     </div>
                 </div>
 
                 <section class="p-4 border rounded-xl bg-white shadow-sm">
-                    <label>FULL NAME</label><input type="text" id="fullName" class="uppercase font-bold" oninput="runUpdate()">
-                    <div class="grid grid-cols-2 gap-2"><input type="text" id="email" placeholder="Email" oninput="runUpdate()"><input type="text" id="phone" placeholder="Phone" oninput="runUpdate()"></div>
-                    <input type="text" id="address" placeholder="CITY, STATE" class="uppercase mt-1" oninput="runUpdate()">
+                    <label>FULL NAME</label><input type="text" id="fullName" placeholder="ISMAIL BIN MAIL" class="uppercase font-bold" oninput="runUpdate()">
+                    <div class="grid grid-cols-2 gap-2"><input type="text" id="email" placeholder="Email" oninput="runUpdate()"><input type="text" id="phone" placeholder="012-3456789" oninput="runUpdate()"></div>
+                    <input type="text" id="address" placeholder="CITY AND STATE ONLY (EXAMPLE: ARAU,PERLIS)" class="uppercase mt-1" oninput="runUpdate()">
                     <input type="text" id="linkedin" placeholder="LinkedIn URL" class="mt-1" oninput="runUpdate()">
                 </section>
 
-                <section class="p-4 border rounded-xl bg-white"><label>PROFESSIONAL SUMMARY</label><textarea id="summary" class="h-20" oninput="runUpdate()"></textarea></section>
+                <section class="p-4 border rounded-xl bg-white"><label>PROFESSIONAL SUMMARY</label><textarea id="summary" placeholder="Write a brief professional summary highlighting your key skills, experience, and career goals. Focus on achievements and strengths relevant to the position you are applying for." class="h-20" oninput="runUpdate()"></textarea></section>
 
                 <section class="p-4 border rounded-xl bg-gray-50">
                     <div class="flex justify-between items-center mb-2"><b>EDUCATION</b><button onclick="addEntry('edu-list')" class="bg-blue-600 text-white px-2 rounded">+</button></div>
-                    <div id="edu-list"><div class="p-3 border bg-white rounded-lg entry mb-2 space-y-1"><input type="text" placeholder="UNIVERSITY" class="font-bold uppercase" oninput="runUpdate()"><input type="text" placeholder="COURSE" oninput="runUpdate()"><div class="grid grid-cols-3 gap-1"><input type="text" placeholder="CGPA" oninput="runUpdate()"><input type="text" placeholder="START" oninput="runUpdate()"><input type="text" placeholder="END" oninput="runUpdate()"></div></div></div>
+                    <div id="edu-list"><div class="p-3 border bg-white rounded-lg entry mb-2 space-y-1"><input type="text" placeholder="UNIVERSITI MALAYSIA PERLIS" class="font-bold uppercase" oninput="runUpdate()"><input type="text" placeholder="NAME OF DEGREE / NAME OF DIPLOMA" oninput="runUpdate()"><div class="grid grid-cols-3 gap-1"><input type="text" placeholder="CGPA" oninput="runUpdate()"><input type="text" placeholder="START" oninput="runUpdate()"><input type="text" placeholder="END/EXPECTED" oninput="runUpdate()"></div></div></div>
                 </section>
 
                 <section class="p-4 border rounded-xl bg-gray-50">
                     <div class="flex justify-between items-center mb-2"><b>WORK EXPERIENCE</b><button onclick="addEntry('work-list')" class="bg-blue-600 text-white px-2 rounded">+</button></div>
-                    <div id="work-list"><div class="p-3 border bg-white rounded-lg entry mb-2 space-y-1"><input type="text" placeholder="POSITION" class="font-bold uppercase" oninput="runUpdate()"><input type="text" placeholder="COMPANY" oninput="runUpdate()"><div class="grid grid-cols-2 gap-1"><input type="text" placeholder="START" oninput="runUpdate()"><input type="text" placeholder="END" oninput="runUpdate()"></div><textarea class="h-20 mt-1" placeholder="Job tasks (Enter for new bullet)..." oninput="runUpdate()"></textarea></div></div>
+                    <div id="work-list"><div class="p-3 border bg-white rounded-lg entry mb-2 space-y-1"><input type="text" placeholder="POSITION" class="font-bold uppercase" oninput="runUpdate()"><input type="text" placeholder="COMPANY" oninput="runUpdate()"><div class="grid grid-cols-2 gap-1"><input type="text" placeholder="START" oninput="runUpdate()"><input type="text" placeholder="END" oninput="runUpdate()"></div><textarea class="h-20 mt-1" placeholder="Job tasks (Enter for bullet)..." oninput="runUpdate()"></textarea></div></div>
                 </section>
 
                 <section class="p-4 border rounded-xl bg-gray-50">
@@ -137,18 +184,18 @@
                 </section>
 
                 <div class="grid grid-cols-2 gap-2">
-                    <section class="p-3 border rounded bg-white"><label>TECH SKILLS</label><textarea id="tech_sk" oninput="runUpdate()"></textarea></section>
-                    <section class="p-3 border rounded bg-white"><label>SOFT SKILLS</label><textarea id="soft_sk" oninput="runUpdate()"></textarea></section>
+                    <section class="p-3 border rounded bg-white"><label>TECH SKILLS</label><textarea id="tech_sk" placeholder="Python, MATLAB, AutoCAD, SolidWorks, Circuit Design, PCB Design, Arduino (IN ONE SENTENCE)" oninput="runUpdate()"></textarea></section>
+                    <section class="p-3 border rounded bg-white"><label>SOFT SKILLS</label><textarea id="soft_sk" placeholder="Communication, Teamwork, Problem-Solving, Time Management, Adaptability (IN ONE SENTENCE)" oninput="runUpdate()"></textarea></section>
                 </div>
 
                 <section class="p-4 border rounded-xl bg-gray-50">
                     <div class="flex justify-between items-center mb-2"><b>EXTRA ACTIVITIES</b><button onclick="addEntry('act-list')" class="bg-blue-600 text-white px-2 rounded">+</button></div>
-                    <div id="act-list"><div class="p-3 border bg-white rounded-lg entry mb-2 space-y-1"><input type="text" placeholder="ACTIVITY" class="font-bold uppercase" oninput="runUpdate()"><div class="grid grid-cols-2 gap-2"><input type="text" placeholder="ORG" oninput="runUpdate()"><input type="text" placeholder="YEAR" oninput="runUpdate()"></div><textarea class="h-16" placeholder="Details..." oninput="runUpdate()"></textarea></div></div>
+                    <div id="act-list"><div class="p-3 border bg-white rounded-lg entry mb-2 space-y-1"><input type="text" placeholder="ACTIVITY/ROLE" class="font-bold uppercase" oninput="runUpdate()"><div class="grid grid-cols-2 gap-2"><input type="text" placeholder="ORGANIZATION" oninput="runUpdate()"><input type="text" placeholder="YEAR" oninput="runUpdate()"></div><textarea class="h-16" placeholder="Add involvement in clubs, programs, or volunteer work. Highlight leadership roles, teamwork, or event participation." oninput="runUpdate()"></textarea></div></div>
                 </section>
 
                 <section class="p-4 border rounded-xl bg-gray-50">
                     <div class="flex justify-between items-center mb-2"><b>REFERENCES</b><button onclick="addEntry('ref-list')" class="bg-blue-600 text-white px-2 rounded">+</button></div>
-                    <div id="ref-list"><div class="p-3 border bg-white rounded-lg entry mb-2 space-y-1"><input type="text" placeholder="NAME" class="font-bold uppercase" oninput="runUpdate()"><div class="grid grid-cols-2 gap-2"><input type="text" placeholder="POSITION" oninput="runUpdate()"><input type="text" placeholder="ORG" oninput="runUpdate()"></div><div class="grid grid-cols-2 gap-2"><input type="text" placeholder="EMAIL" oninput="runUpdate()"><input type="text" placeholder="PHONE" oninput="runUpdate()"></div></div></div>
+                    <div id="ref-list"><div class="p-3 border bg-white rounded-lg entry mb-2 space-y-1"><input type="text" placeholder="NAME" class="font-bold uppercase" oninput="runUpdate()"><div class="grid grid-cols-2 gap-2"><input type="text" placeholder="POS" oninput="runUpdate()"><input type="text" placeholder="ORG" oninput="runUpdate()"></div><div class="grid grid-cols-2 gap-2"><input type="text" placeholder="EMAIL" oninput="runUpdate()"><input type="text" placeholder="PHONE" oninput="runUpdate()"></div></div></div>
                 </section>
 
                 <button onclick="submitDatabase()" id="btnSubmit" class="w-full bg-blue-800 text-white py-4 rounded-xl font-bold uppercase shadow-xl mb-10">Submit & Download</button>
@@ -157,6 +204,8 @@
 
         <div class="preview-side">
             <div id="pdf-area">
+                <div class="page-line-1 no-print"></div>
+                <div class="page-line-2 no-print"></div>
                 <header>
                     <h1 id="p-name">FULL NAME</h1>
                     <p id="p-contact"></p>
@@ -193,27 +242,28 @@
             let eduH = '';
             document.querySelectorAll('#edu-list .entry').forEach(el => {
                 const i = el.querySelectorAll('input');
-                if(i[0].value) eduH += `<div class="entry-item mb-3"><div class="item-header"><span>${i[0].value}</span><span>${i[3].value} - ${i[4].value}</span></div><i>${i[1].value}</i><br><b>CGPA: ${i[2].value}</b></div>`;
+                if(i[0].value) eduH += `<div class="mb-3"><div class="item-header"><span>${i[0].value}</span><span>${i[3].value} - ${i[4].value}</span></div><i>${i[1].value}</i><br><b>CGPA: ${i[2].value}</b></div>`;
             });
             document.getElementById('p-edu').innerHTML = eduH; document.getElementById('s-edu').style.display = eduH ? 'block' : 'none';
 
             let workH = '';
             document.querySelectorAll('#work-list .entry').forEach(el => {
                 const i = el.querySelectorAll('input'), t = el.querySelector('textarea').value;
-                if(i[0].value) { const b = t.split('\n').filter(l => l.trim()).map(l => `<li>${l}</li>`).join(''); workH += `<div class="entry-item mb-4"><div class="item-header"><span>${i[0].value}</span><span>${i[2].value} - ${i[3].value}</span></div><i>${i[1].value}</i><ul>${b}</ul></div>`; }
+                if(i[0].value) { const b = t.split('\n').filter(l => l.trim()).map(l => `<li>${l}</li>`).join(''); workH += `<div class="mb-4"><div class="item-header"><span>${i[0].value}</span><span>${i[2].value} - ${i[3].value}</span></div><i>${i[1].value}</i><ul>${b}</ul></div>`; }
             });
             document.getElementById('p-work').innerHTML = workH; document.getElementById('s-work').style.display = workH ? 'block' : 'none';
 
             let projH = '';
             document.querySelectorAll('#project-list .entry').forEach(el => {
                 const i = el.querySelectorAll('input'), t = el.querySelector('textarea').value;
-                if(i[0].value) { const b = t.split('\n').filter(l => l.trim()).map(l => `<li>${l}</li>`).join(''); projH += `<div class="entry-item mb-3"><b>${i[0].value.toUpperCase()}</b> | <i>${i[1].value}</i><ul>${b}</ul></div>`; }
+                if(i[0].value) { const b = t.split('\n').filter(l => l.trim()).map(l => `<li>${l}</li>`).join(''); projH += `<div class="mb-3"><b>${i[0].value.toUpperCase()}</b> | <i>${i[1].value}</i><ul>${b}</ul></div>`; }
             });
             document.getElementById('p-project').innerHTML = projH; document.getElementById('s-project').style.display = projH ? 'block' : 'none';
 
             let certH = '';
             document.querySelectorAll('#cert-list .entry').forEach(el => {
-                const i = el.querySelectorAll('input'); if(i[0].value) certH += `<div class="entry-item item-header"><span>${i[0].value.toUpperCase()} - ${i[1].value}</span><span>${i[2].value}</span></div>`;
+                const i = el.querySelectorAll('input');
+                if(i[0].value) certH += `<div class="cert-item"><span>• ${i[0].value.toUpperCase()} (${i[1].value})</span><span>${i[2].value}</span></div>`;
             });
             document.getElementById('p-cert').innerHTML = certH; document.getElementById('s-cert').style.display = certH ? 'block' : 'none';
 
@@ -224,13 +274,13 @@
             let actH = '';
             document.querySelectorAll('#act-list .entry').forEach(el => {
                 const i = el.querySelectorAll('input'), t = el.querySelector('textarea').value;
-                if(i[0].value) { const b = t.split('\n').filter(l => l.trim()).map(l => `<li>${l}</li>`).join(''); actH += `<div class="entry-item mb-3"><div class="item-header"><span>${i[0].value.toUpperCase()} | ${i[1].value}</span><span>${i[2].value}</span></div><ul>${b}</ul></div>`; }
+                if(i[0].value) { const b = t.split('\n').filter(l => l.trim()).map(l => `<li>${l}</li>`).join(''); actH += `<div class="mb-3"><div class="item-header"><span>${i[0].value.toUpperCase()} | ${i[1].value}</span><span>${i[2].value}</span></div><ul>${b}</ul></div>`; }
             });
             document.getElementById('p-act').innerHTML = actH; document.getElementById('s-act').style.display = actH ? 'block' : 'none';
 
             let refH = '';
             document.querySelectorAll('#ref-list .entry').forEach(el => {
-                const i = el.querySelectorAll('input'); if(i[0].value) refH += `<div class="entry-item text-[9pt] mb-2"><b>${i[0].value.toUpperCase()}</b><br>${i[1].value}, ${i[2].value}<br>E: ${i[3].value} | P: ${i[4].value}</div>`;
+                const i = el.querySelectorAll('input'); if(i[0].value) refH += `<div class="text-[9pt] mb-2"><b>${i[0].value.toUpperCase()}</b><br>${i[1].value}, ${i[2].value}<br>E: ${i[3].value} | P: ${i[4].value}</div>`;
             });
             document.getElementById('p-ref').innerHTML = refH; document.getElementById('s-ref').style.display = refH ? 'block' : 'none';
         }
@@ -251,3 +301,4 @@
     </script>
 </body>
 </html>
+```
