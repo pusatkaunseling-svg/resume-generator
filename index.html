@@ -182,7 +182,12 @@
                     <section class="p-3 border rounded bg-white"><label>TECH SKILLS</label><textarea id="tech_sk" placeholder="Python, MATLAB, AutoCAD, SolidWorks, Circuit Design, PCB Design, Arduino (IN ONE SENTENCE)" oninput="runUpdate()"></textarea></section>
                     <section class="p-3 border rounded bg-white"><label>SOFT SKILLS</label><textarea id="soft_sk" placeholder="Communication, Teamwork, Problem-Solving, Time Management, Adaptability (IN ONE SENTENCE)" oninput="runUpdate()"></textarea></section>
                 </div>
-
+                
+                <section class="p-4 border rounded-xl bg-white shadow-sm">
+                    <label>LANGUAGES</label>
+                    <input type="text" id="langs" placeholder="Contoh: Malay (Fluent), English (Professional)" oninput="runUpdate()">
+                </section>
+                
                 <section class="p-4 border rounded-xl bg-gray-50">
                     <div class="flex justify-between items-center mb-2"><b>EXTRA ACTIVITIES</b><button onclick="addEntry('act-list')" class="bg-blue-600 text-white px-2 rounded">+</button></div>
                     <div id="act-list"><div class="p-3 border bg-white rounded-lg entry mb-2 space-y-1"><input type="text" placeholder="ACTIVITY/ROLE" class="font-bold uppercase" oninput="runUpdate()"><div class="grid grid-cols-2 gap-2"><input type="text" placeholder="ORGANIZATION" oninput="runUpdate()"><input type="text" placeholder="YEAR" oninput="runUpdate()"></div><textarea class="h-16" placeholder="Add involvement in clubs, programs, or volunteer work. Highlight leadership roles, teamwork, or event participation." oninput="runUpdate()"></textarea></div></div>
@@ -215,6 +220,10 @@
                     <section><h2>Technical Skills</h2><p id="p-tech" class="section-content whitespace-pre-line"></p></section>
                     <section><h2>Soft Skills</h2><p id="p-soft" class="section-content whitespace-pre-line"></p></section>
                 </div>
+                <section id="s-lang">
+                    <h2>Languages</h2>
+                    <p id="p-lang" class="section-content"></p>
+                </section>
                 <section id="s-act"><h2>Activities</h2><div id="p-act"></div></section>
                 <section id="s-ref"><h2>References</h2><div id="p-ref" class="grid grid-cols-2 gap-4"></div></section>
             </div>
@@ -278,6 +287,11 @@
                 if(i[0].value) { const b = t.split('\n').filter(l => l.trim()).map(l => `<li>${l}</li>`).join(''); actH += `<div class="mb-3"><div class="item-header"><span>${i[0].value.toUpperCase()} | ${i[1].value}</span><span>${i[2].value}</span></div><ul>${b}</ul></div>`; }
             });
             document.getElementById('p-act').innerHTML = actH; document.getElementById('s-act').style.display = actH ? 'block' : 'none';
+
+            // Logik Kemaskini Languages
+            const langV = document.getElementById('langs').value;
+            document.getElementById('p-lang').innerText = langV;
+            document.getElementById('s-lang').style.display = langV ? 'block' : 'none';
 
             let refH = '';
             document.querySelectorAll('#ref-list .entry').forEach(el => {
