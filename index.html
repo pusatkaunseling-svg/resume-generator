@@ -190,7 +190,7 @@
                         <div class="p-3 border bg-white rounded-lg entry mb-2">
                             <input type="text" placeholder="POSITION" class="font-bold uppercase" oninput="runUpdate()">
                             <input type="text" placeholder="COMPANY" oninput="runUpdate()">
-                            <textarea class="h-20 mt-1" placeholder="Job tasks..." oninput="runUpdate()"></textarea>
+                            <textarea class="h-20 mt-1" placeholder="Added 3–5 bullet points using action verbs in past tense to highlight tasks, skills, and results. Included tools or measurable achievements where possible." oninput="runUpdate()"></textarea>
                         </div>
                     </div>
                 </section>
@@ -200,7 +200,7 @@
                     <div id="project-list">
                         <div class="p-3 border bg-white rounded-lg entry mb-2 space-y-1">
                             <input type="text" placeholder="PROJECT TITLE" class="font-bold uppercase" oninput="runUpdate()">
-                            <textarea class="h-16 mt-1" placeholder="Describe project..." oninput="runUpdate()"></textarea>
+                            <textarea class="h-16 mt-1" placeholder="Added 2–4 bullet points in past tense highlighting objectives, methods, tools used, and key results or outcomes." oninput="runUpdate()"></textarea>
                         </div>
                     </div>
                 </section>
@@ -211,8 +211,8 @@
                 </section>
 
                  <div class="grid grid-cols-2 gap-2">
-                    <section class="p-3 border rounded bg-white"><label>TECH SKILLS</label><textarea id="tech_sk" oninput="runUpdate()"></textarea></section>
-                    <section class="p-3 border rounded bg-white"><label>SOFT SKILLS</label><textarea id="soft_sk" oninput="runUpdate()"></textarea></section>
+                    <section class="p-3 border rounded bg-white"><label>TECH SKILLS</label><textarea id="tech_sk" placeholder="Python, MATLAB, AutoCAD, SolidWorks, Circuit Design, PCB Design, Arduino (IN ONE SENTENCE)" oninput="runUpdate()"></textarea></section>
+                    <section class="p-3 border rounded bg-white"><label>SOFT SKILLS</label><textarea id="soft_sk" placeholder="Communication, Teamwork, Problem-Solving, Time Management, Adaptability (IN ONE SENTENCE)" oninput="runUpdate()"></textarea></section>
                 </div>
                         
                 <section class="p-4 border rounded-xl bg-white"><label>LANGUAGES</label><input type="text" id="langs" placeholder="Malay (Fluent), English (Professional)" oninput="runUpdate()"></section>
@@ -224,7 +224,7 @@
 
                 <section class="p-4 border rounded-xl bg-gray-50">
                     <div class="flex justify-between items-center mb-2"><b>REFERENCES</b><button onclick="addEntry('ref-list')" class="bg-blue-600 text-white px-2 rounded">+</button></div>
-                    <div id="ref-list"><div class="p-3 border bg-white rounded-lg entry mb-2 space-y-1"><input type="text" placeholder="NAME" class="font-bold uppercase" oninput="runUpdate()"><div class="grid grid-cols-2 gap-2"><input type="text" placeholder="POS" oninput="runUpdate()"><input type="text" placeholder="ORG" oninput="runUpdate()"></div><div class="grid grid-cols-2 gap-2"><input type="text" placeholder="EMAIL" oninput="runUpdate()"><input type="text" placeholder="PHONE" oninput="runUpdate()"></div></div></div>
+                    <div id="ref-list"><div class="p-3 border bg-white rounded-lg entry mb-2 space-y-1"><input type="text" placeholder="NAME" class="font-bold uppercase" oninput="runUpdate()"><div class="grid grid-cols-2 gap-2"><input type="text" placeholder="POSITION" oninput="runUpdate()"><input type="text" placeholder="ORGANIZATION" oninput="runUpdate()"></div><div class="grid grid-cols-2 gap-2"><input type="text" placeholder="EMAIL" oninput="runUpdate()"><input type="text" placeholder="PHONE" oninput="runUpdate()"></div></div></div>
                 </section>
                         
                 <button onclick="submitDatabase()" id="btnSubmit" class="w-full bg-blue-800 text-white py-4 rounded-xl font-bold uppercase shadow-xl mb-10">Submit & Download</button>
