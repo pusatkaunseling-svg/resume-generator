@@ -103,7 +103,6 @@
                     <label>PROGRAM PENGAJIAN</label>
                     <select id="prog" onchange="runUpdate()" class="font-bold">
                         <option value="" disabled selected>--- SELECT PROGRAM ---</option>
-                        
                         <optgroup label="BACHELOR PROGRAMS">
                             <option>Bachelor of Applied Science (Materials & Metallurgy Technology) with Honours</option>
                             <option>Bachelor of Agricultural Engineering with Honours</option>
@@ -144,7 +143,6 @@
                             <option>Bachelor of Polymer Engineering with Honours</option>
                             <option>Bachelor of Welding Technology with Honours</option>
                         </optgroup>
-                    
                         <optgroup label="DIPLOMA PROGRAMS">
                             <option>Diploma in Civil Engineering</option>
                             <option>Diploma in Computer Engineering</option>
@@ -177,12 +175,24 @@
 
                <section class="p-4 border rounded-xl bg-gray-50">
                     <div class="flex justify-between items-center mb-2"><b>EDUCATION</b><button onclick="addEntry('edu-list')" class="bg-blue-600 text-white px-2 rounded">+</button></div>
-                    <div id="edu-list"><div class="p-3 border bg-white rounded-lg entry mb-2 space-y-1"><input type="text" placeholder="UNIVERSITI MALAYSIA PERLIS" class="font-bold uppercase" oninput="runUpdate()"><input type="text" placeholder="NAME OF DEGREE / NAME OF DIPLOMA" oninput="runUpdate()"><div class="grid grid-cols-3 gap-1"><input type="text" placeholder="CGPA" oninput="runUpdate()"><input type="text" placeholder="START" oninput="runUpdate()"><input type="text" placeholder="END/EXPECTED" oninput="runUpdate()"></div></div></div>
+                    <div id="edu-list">
+                        <div class="p-3 border bg-white rounded-lg entry mb-2 space-y-1">
+                            <input type="text" placeholder="UNIVERSITY" class="font-bold uppercase" oninput="runUpdate()">
+                            <input type="text" placeholder="NAME OF DEGREE" oninput="runUpdate()">
+                            <div class="grid grid-cols-3 gap-1"><input type="text" placeholder="CGPA" oninput="runUpdate()"><input type="text" placeholder="START" oninput="runUpdate()"><input type="text" placeholder="END" oninput="runUpdate()"></div>
+                        </div>
+                    </div>
                 </section>
 
                 <section class="p-4 border rounded-xl bg-gray-50">
                     <div class="flex justify-between items-center mb-2"><b>WORK EXPERIENCE</b><div class="flex gap-2"><button onclick="openAI('work')" class="ai-btn">✨ AI HELP</button><button onclick="addEntry('work-list')" class="bg-blue-600 text-white px-2 rounded">+</button></div></div>
-                    <div id="work-list"><div class="p-3 border bg-white rounded-lg entry mb-2"><input type="text" placeholder="POSITION" class="font-bold uppercase" oninput="runUpdate()"><input type="text" placeholder="COMPANY" oninput="runUpdate()"><textarea class="h-20 mt-1" placeholder="State your role, organization, duration, and key contributions. Focus on what you learned and achieved." oninput="runUpdate()"></textarea></div></div>
+                    <div id="work-list">
+                        <div class="p-3 border bg-white rounded-lg entry mb-2">
+                            <input type="text" placeholder="POSITION" class="font-bold uppercase" oninput="runUpdate()">
+                            <input type="text" placeholder="COMPANY" oninput="runUpdate()">
+                            <textarea class="h-20 mt-1" placeholder="Job tasks (Enter for bullet)..." oninput="runUpdate()"></textarea>
+                        </div>
+                    </div>
                 </section>
 
                <section class="p-4 border rounded-xl bg-gray-50">
@@ -190,7 +200,7 @@
                     <div id="project-list">
                         <div class="p-3 border bg-white rounded-lg entry mb-2 space-y-1">
                             <input type="text" placeholder="PROJECT TITLE" class="font-bold uppercase" oninput="runUpdate()">
-                            <textarea class="h-16 mt-1" placeholder="Describe academic or personal projects..." oninput="runUpdate()"></textarea>
+                            <textarea class="h-16 mt-1" placeholder="Describe project..." oninput="runUpdate()"></textarea>
                         </div>
                     </div>
                 </section>
@@ -201,8 +211,8 @@
                 </section>
 
                  <div class="grid grid-cols-2 gap-2">
-                    <section class="p-3 border rounded bg-white"><label>TECH SKILLS</label><textarea id="tech_sk" placeholder="Python, MATLAB, AutoCAD, SolidWorks, Circuit Design, PCB Design, Arduino (IN ONE SENTENCE)" oninput="runUpdate()"></textarea></section>
-                    <section class="p-3 border rounded bg-white"><label>SOFT SKILLS</label><textarea id="soft_sk" placeholder="Communication, Teamwork, Problem-Solving, Time Management, Adaptability (IN ONE SENTENCE)" oninput="runUpdate()"></textarea></section>
+                    <section class="p-3 border rounded bg-white"><label>TECH SKILLS</label><textarea id="tech_sk" oninput="runUpdate()"></textarea></section>
+                    <section class="p-3 border rounded bg-white"><label>SOFT SKILLS</label><textarea id="soft_sk" oninput="runUpdate()"></textarea></section>
                 </div>
                         
                 <section class="p-4 border rounded-xl bg-white"><label>LANGUAGES</label><input type="text" id="langs" placeholder="Malay (Fluent), English (Professional)" oninput="runUpdate()"></section>
@@ -221,7 +231,8 @@
             </div>
         </div>
 
-                   <div id="pdf-area">
+        <div class="preview-side">
+            <div id="pdf-area">
                 <div class="page-line-1 no-print"></div>
                 <div class="page-line-2 no-print"></div>
                 <header>
@@ -245,6 +256,8 @@
                 <section id="s-act"><h2>Activities</h2><div id="p-act"></div></section>
                 <section id="s-ref"><h2>References</h2><div id="p-ref" class="grid grid-cols-2 gap-4"></div></section>
             </div>
+        </div>
+    </div>
 
     <script>
         const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzQtw9dOUpOMzpHLlnJL-uE5L_R2kNA_b0i_Xv9rHI08ddTbB1rfKXb86ml9MVUPKxR/exec";
@@ -267,6 +280,7 @@
                     img.classList.remove('hidden');
                 };
                 reader.readAsDataURL(input.files[0]);
+            }
         }
 
         function openAI(type) {
@@ -293,35 +307,36 @@
             document.getElementById('p-linkedin-preview').innerHTML = li ? `<a href="${li.startsWith('http')?li:'https://'+li}" target="_blank">${li}</a>` : '';
 
             const sumV = document.getElementById('summary').value;
-            document.getElementById('p-summary').innerText = sumV; document.getElementById('s-summary').style.display = sumV ? 'block' : 'none';
-
+            document.getElementById('p-summary').innerText = sumV; 
+            document.getElementById('s-summary').style.display = sumV ? 'block' : 'none';
+             
             let eduH = '';
             document.querySelectorAll('#edu-list .entry').forEach(el => {
                 const i = el.querySelectorAll('input');
                 if(i[0].value) eduH += `<div class="mb-3"><div class="item-header"><span>${i[0].value}</span><span>${i[3].value} - ${i[4].value}</span></div><i>${i[1].value}</i><br><b>CGPA: ${i[2].value}</b></div>`;
-            });
-            document.getElementById('p-edu').innerHTML = eduH; document.getElementById('s-edu').style.display = eduH ? 'block' : 'none';
-
+           });
+            document.getElementById('p-edu').innerHTML = eduH; 
+            document.getElementById('s-edu').style.display = eduH ? 'block' : 'none';
+             
             let workH = '';
             document.querySelectorAll('#work-list .entry').forEach(el => {
                 const i = el.querySelectorAll('input'), t = el.querySelector('textarea').value;
                 if(i[0].value) { const b = t.split('\n').filter(l => l.trim()).map(l => `<li>${l}</li>`).join(''); workH += `<div class="mb-4"><div class="item-header"><span>${i[0].value}</span><span>${i[2].value} - ${i[3].value}</span></div><i>${i[1].value}</i><ul>${b}</ul></div>`; }
             });
-            document.getElementById('p-work').innerHTML = workH; document.getElementById('s-work').style.display = workH ? 'block' : 'none';
-
+            document.getElementById('p-work').innerHTML = workH; 
+            document.getElementById('s-work').style.display = workH ? 'block' : 'none';
+             
             let projH = '';
             document.querySelectorAll('#project-list .entry').forEach(el => {
-                // Kita guna querySelector (bukan querySelectorAll) sebab ada SATU input sahaja sekarang
                 const i = el.querySelector('input'), t = el.querySelector('textarea').value;
                 if(i.value) { 
                     const b = t.split('\n').filter(l => l.trim()).map(l => `<li>${l}</li>`).join(''); 
-                    // Paparan preview hanya akan tunjuk Tajuk (Bold) dan Bullets
                     projH += `<div class="mb-3"><b>${i.value.toUpperCase()}</b><ul>${b}</ul></div>`; 
                 }
             });
             document.getElementById('p-project').innerHTML = projH; 
             document.getElementById('s-project').style.display = projH ? 'block' : 'none';
-
+             
             let certH = '';
             document.querySelectorAll('#cert-list .entry').forEach(el => {
                 const i = el.querySelectorAll('input');
@@ -333,23 +348,25 @@
             document.getElementById('p-soft').innerText = document.getElementById('soft_sk').value;
             document.getElementById('s-skills').style.display = (document.getElementById('tech_sk').value || document.getElementById('soft_sk').value) ? 'grid' : 'none';
 
+            const langV = document.getElementById('langs').value;
+            document.getElementById('p-lang').innerText = langV;
+            document.getElementById('s-lang').style.display = langV ? 'block' : 'none';
+
             let actH = '';
             document.querySelectorAll('#act-list .entry').forEach(el => {
                 const i = el.querySelectorAll('input'), t = el.querySelector('textarea').value;
                 if(i[0].value) { const b = t.split('\n').filter(l => l.trim()).map(l => `<li>${l}</li>`).join(''); actH += `<div class="mb-3"><div class="item-header"><span>${i[0].value.toUpperCase()} | ${i[1].value}</span><span>${i[2].value}</span></div><ul>${b}</ul></div>`; }
             });
-            document.getElementById('p-act').innerHTML = actH; document.getElementById('s-act').style.display = actH ? 'block' : 'none';
-
-            // Logik Kemaskini Languages
-            const langV = document.getElementById('langs').value;
-            document.getElementById('p-lang').innerText = langV;
-            document.getElementById('s-lang').style.display = langV ? 'block' : 'none';
+            document.getElementById('p-act').innerHTML = actH; 
+            document.getElementById('s-act').style.display = actH ? 'block' : 'none';
 
             let refH = '';
             document.querySelectorAll('#ref-list .entry').forEach(el => {
-                const i = el.querySelectorAll('input'); if(i[0].value) refH += `<div class="text-[9pt] mb-2"><b>${i[0].value.toUpperCase()}</b><br>${i[1].value}, ${i[2].value}<br>E: ${i[3].value} | P: ${i[4].value}</div>`;
+                const i = el.querySelectorAll('input'); 
+                if(i[0].value) refH += `<div class="text-[9pt] mb-2"><b>${i[0].value.toUpperCase()}</b><br>${i[1].value}, ${i[2].value}<br>E: ${i[3].value} | P: ${i[4].value}</div>`;
             });
-            document.getElementById('p-ref').innerHTML = refH; document.getElementById('s-ref').style.display = refH ? 'block' : 'none';
+            document.getElementById('p-ref').innerHTML = refH; 
+            document.getElementById('s-ref').style.display = refH ? 'block' : 'none';
         }
 
         async function submitDatabase() {
