@@ -185,18 +185,12 @@
                 </section>
 
                <section class="p-4 border rounded-xl bg-gray-50">
-                    <div class="flex justify-between items-center mb-2">
-                        <b>WORK EXPERIENCE</b>
-                        <div class="flex gap-2">
-                            <button onclick="openAI('work')" class="ai-btn">✨ AI HELP</button>
-                            <button onclick="addEntry('work-list')" class="bg-blue-600 text-white px-2 rounded">+</button>
-                        </div>
-                    </div>
+                    <div class="flex justify-between items-center mb-2"><b>WORK EXPERIENCE</b><div class="flex gap-2"><button onclick="openAI('work')" class="ai-btn">✨ AI HELP</button><button onclick="addEntry('work-list')" class="bg-blue-600 text-white px-2 rounded">+</button></div></div>
                     <div id="work-list">
                         <div class="p-3 border bg-white rounded-lg entry mb-2">
                             <input type="text" placeholder="POSITION" class="font-bold uppercase" oninput="runUpdate()">
                             <input type="text" placeholder="COMPANY" oninput="runUpdate()">
-                            <textarea class="h-20 mt-1" placeholder="Job tasks (Enter for bullet)..." oninput="runUpdate()"></textarea>
+                            <textarea class="h-20 mt-1" placeholder="Job tasks..." oninput="runUpdate()"></textarea>
                         </div>
                     </div>
                 </section>
@@ -324,26 +318,19 @@
             document.getElementById('p-edu').innerHTML = eduH; 
             document.getElementById('s-edu').style.display = eduH ? 'block' : 'none';
              
-            l// --- LOGIK WORK EXPERIENCE (DIBETULKAN) ---
+            // --- LOGIK WORK EXPERIENCE (DIBETULKAN) ---
             let workH = '';
             document.querySelectorAll('#work-list .entry').forEach(el => {
-                const inputs = el.querySelectorAll('input');
-                const textarea = el.querySelector('textarea').value;
-                
-                // inputs[0] adalah Position, inputs[1] adalah Company
-                if(inputs[0] && inputs[0].value) {
-                    const bullets = textarea.split('\n').filter(l => l.trim()).map(l => `<li>${l}</li>`).join('');
-                    const company = inputs[1] ? inputs[1].value : "";
-                    
-                    workH += `<div class="mb-4">
-                                <div class="item-header"><span>${inputs[0].value.toUpperCase()}</span></div>
-                                <i>${company}</i>
-                                <ul>${bullets}</ul>
-                              </div>`;
+                const i = el.querySelectorAll('input');
+                const t = el.querySelector('textarea').value;
+                if(i[0].value) { 
+                    const b = t.split('\n').filter(l => l.trim()).map(l => `<li>${l}</li>`).join(''); 
+                    workH += `<div class="mb-4"><b>${i[0].value.toUpperCase()}</b> | <i>${i[1].value}</i><ul>${b}</ul></div>`; 
                 }
             });
-            document.getElementById('p-work').innerHTML = workH;
+            document.getElementById('p-work').innerHTML = workH; 
             document.getElementById('s-work').style.display = workH ? 'block' : 'none';
+             
             let projH = '';
             document.querySelectorAll('#project-list .entry').forEach(el => {
                 const i = el.querySelector('input'), t = el.querySelector('textarea').value;
