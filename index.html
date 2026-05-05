@@ -6,25 +6,17 @@
     <title>PUSKA Resume Helper</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style id="resume-styles">
-        /* --- PRINT & PAGE SETTINGS --- */
         @page { size: A4; margin: 15mm; }
         * { box-sizing: border-box; -webkit-print-color-adjust: exact; }
         body { background: #e5e7eb; margin: 0; padding: 0; height: 100vh; overflow: hidden; }
 
         .main-wrapper { display: flex; flex-direction: row; height: 100vh; width: 100vw; overflow: hidden; }
         .form-side { width: 50%; height: 100%; overflow-y: auto; padding: 25px; background: white; border-right: 2px solid #e5e7eb; }
-        
-        .preview-side { 
-            width: 50%; height: 100%; overflow-y: auto; 
-            padding: 40px 20px; background: #9ca3af; 
-            display: flex; flex-direction: column; align-items: center; 
-        }
+        .preview-side { width: 50%; height: 100%; overflow-y: auto; padding: 40px 20px; background: #9ca3af; display: flex; flex-direction: column; align-items: center; }
 
-        /* AUTO-EXPANDING PAPER */
         #pdf-area {
             font-family: 'Arial', sans-serif; color: black; line-height: 1.4; background: white;
-            width: 210mm; min-height: 297mm; height: auto; 
-            padding: 15mm; margin-bottom: 100px;
+            width: 210mm; min-height: 297mm; height: auto; padding: 15mm; margin-bottom: 100px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5); position: relative;
             transform: scale(0.48); transform-origin: top center; flex-shrink: 0;
         }
@@ -35,40 +27,69 @@
         .page-line-2 { position: absolute; top: 594mm; left: 0; width: 100%; border-top: 3px dashed #ff4444; z-index: 10; pointer-events: none; }
         .page-line-2::after { content: "--- END OF PAGE 2 / START OF PAGE 3 ---"; position: absolute; top: -20px; left: 50%; transform: translateX(-50%); background: #ff4444; color: white; font-size: 10pt; padding: 2px 10px; border-radius: 5px; }
 
+        /* TEMPLATE PHOTO CSS */
+        .template-photo header { display: flex; align-items: flex-start; gap: 20px; border-bottom: 4px solid #1e3a8a; padding-bottom: 15px; margin-bottom: 15px; }
+        .template-photo #photo-preview { width: 35mm; height: 45mm; object-fit: cover; border: 1px solid #ddd; display: block !important; }
+        .template-photo header div { text-align: left !important; flex: 1; }
+        .template-photo h1 { text-align: left !important; color: #1e3a8a; margin: 0; }
+        .template-photo #p-contact, .template-photo #p-linkedin-preview { text-align: left !important; margin: 2px 0; }
+        .template-photo h2 { background: #1e3a8a; color: white; padding: 5px 12px; border: none; text-transform: uppercase; margin-top: 15px; }
+
         @media print {
             body { background: white; overflow: visible !important; }
-            .main-wrapper { display: block; height: auto; }
             .no-print, .page-line-1, .page-line-2 { display: none !important; }
             #pdf-area { transform: scale(1); margin: 0; box-shadow: none; width: 100%; height: auto; }
-            section { page-break-inside: auto; break-inside: auto; margin-bottom: 10px; }
+            section { page-break-inside: auto; break-inside: auto; }
         }
 
-        /* TYPOGRAPHY */
+        /* ATS / DEFAULT TYPOGRAPHY */
         #pdf-area h1 { font-size: 16pt; font-weight: bold; text-transform: uppercase; margin: 0; text-align: center; }
         #p-contact { font-size: 9.5pt; margin: 4px 0; color: #333; text-align: center; }
-        #p-linkedin-preview { font-size: 9.5pt; text-align: center; margin-top: -2px; color: #1e3a8a; font-weight: bold; }
+        #p-linkedin-preview { font-size: 9.5pt; text-align: center; color: #1e3a8a; font-weight: bold; }
         #pdf-area h2 { border-bottom: 1.5px solid #333; margin-top: 15px; margin-bottom: 8px; font-size: 10.5pt; font-weight: bold; text-transform: uppercase; }
         .item-header { display: flex; justify-content: space-between; font-weight: bold; font-size: 9.5pt; }
         #pdf-area ul { list-style-type: disc !important; margin-left: 1.2rem !important; padding: 0; font-size: 9pt; }
         .cert-item { display: flex; justify-content: space-between; font-size: 9.5pt; margin-bottom: 2px; }
-        
-        /* FORM UI */
+
+        /* UI FORM */
         input, select, textarea { font-size: 12px !important; padding: 8px !important; border: 1px solid #d1d5db !important; border-radius: 6px !important; width: 100%; margin-bottom: 4px; }
         label { font-size: 10px; font-weight: 800; color: #4b5563; text-transform: uppercase; margin-top: 8px; display: block; }
+        .ai-btn { background: linear-gradient(45deg, #8b5cf6, #6d28d9); color: white; padding: 2px 8px; border-radius: 4px; font-size: 9px; font-weight: bold; cursor: pointer; border: none; }
+        #ai-modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(4px); }
     </style>
 </head>
 <body>
 
+    <div id="ai-modal" class="no-print">
+        <div style="background: white; margin: 10% auto; padding: 25px; border-radius: 15px; width: 90%; max-width: 500px; text-align: center;">
+            <h3 class="font-black text-lg text-purple-700 uppercase mb-4">✨ AI Prompt Generator</h3>
+            <div id="prompt-text" class="p-4 bg-gray-50 border rounded-xl text-sm italic mb-6 text-left text-gray-700"></div>
+            <div class="flex gap-2">
+                <button onclick="copyAndClose()" class="flex-1 bg-purple-600 text-white font-bold py-3 rounded-xl uppercase">Copy & Close</button>
+                <button onclick="closeModal()" class="px-6 bg-gray-200 rounded-xl font-bold uppercase">Cancel</button>
+            </div>
+        </div>
+    </div>
+
     <div class="main-wrapper">
         <div class="form-side no-print">
-            <div class="bg-blue-900 p-5 rounded-xl text-white mb-6 flex items-center gap-4 shadow-lg">
+            <div class="bg-blue-900 p-5 rounded-xl text-white mb-6 flex items-center gap-4">
                 <img src="https://i.ibb.co/3sXz6wT/logo-unimap.png" alt="UniMAP" class="h-8">
                 <h1 class="text-lg font-black uppercase">PUSKA Resume Helper</h1>
             </div>
 
             <div class="space-y-6">
+                <section class="p-4 border rounded-xl bg-blue-50">
+                    <label>CHOOSE TEMPLATE</label>
+                    <div class="grid grid-cols-2 gap-2 mt-1">
+                        <label class="flex items-center gap-2 p-2 border bg-white rounded cursor-pointer"><input type="radio" name="resType" value="ATS" checked onchange="toggleLayout()"> ATS (Standard)</label>
+                        <label class="flex items-center gap-2 p-2 border bg-white rounded cursor-pointer"><input type="radio" name="resType" value="Photo" onchange="toggleLayout()"> PHOTO (Creative)</label>
+                    </div>
+                    <div id="photo-input-area" class="hidden mt-2"><label>UPLOAD PHOTO</label><input type="file" accept="image/*" onchange="loadPhoto(this)"></div>
+                </section>
+
                 <div class="bg-gray-50 p-4 rounded-xl border-2 border-dashed">
-                    <label>SELECT FACULTY</label>
+                    <label>FACULTY</label>
                     <select id="faculty" onchange="runUpdate()">
                         <option value="" disabled selected>--- PILIH FAKULTI ---</option>
                         <option>Faculty of Intelligent Computing</option>
@@ -79,9 +100,8 @@
                         <option>Faculty of Civil Engineering & Technology)</option>
                         <option>Faculty of Business & Communication</option>
                     </select>
-
-                    <label>STUDY PROGRAM</label>
-                    <select id="prog" onchange="runUpdate()" class="font-bold border p-2 rounded w-full bg-white text-black">
+                    <label>PROGRAM PENGAJIAN</label>
+                    <select id="prog" onchange="runUpdate()" class="font-bold">
                         <option value="" disabled selected>--- SELECT PROGRAM ---</option>
                         
                         <optgroup label="BACHELOR PROGRAMS">
@@ -137,30 +157,32 @@
                             <option>Diploma in Metallurgical Engineering</option>
                         </optgroup>
                     </select>
-                    
                     <div class="grid grid-cols-2 gap-2 mt-2">
-                        <div><label>LEVEL</label><select id="level"><option>Diploma</option><option selected>Bachelor</option><option>Master's Degree</option><option>PhD</option></select></div>
-                        <div><label>CGPA</label><input type="text" id="main_cgpa" placeholder="CURRENT CGPA (EXAMPLE: 4.00)" oninput="runUpdate()"></div>
+                        <div><label>LEVEL</label><select id="level"><option>Diploma</option><option selected>Bachelor</option><option>Master</option><option>PhD</option></select></div>
+                        <div><label>CGPA</label><input type="text" id="main_cgpa" placeholder="3.85" oninput="runUpdate()"></div>
                     </div>
                 </div>
 
-                <section class="p-4 border rounded-xl bg-gray-50 shadow-sm">
+               <section class="p-4 border rounded-xl bg-gray-50 shadow-sm">
                     <label>FULL NAME</label><input type="text" id="fullName" placeholder="ISMAIL BIN MAIL" class="uppercase font-bold" oninput="runUpdate()">
                     <div class="grid grid-cols-2 gap-2"><input type="text" id="email" placeholder="Email" oninput="runUpdate()"><input type="text" id="phone" placeholder="012-3456789" oninput="runUpdate()"></div>
                     <input type="text" id="address" placeholder="CITY AND STATE ONLY (EXAMPLE: ARAU,PERLIS)" class="uppercase mt-1" oninput="runUpdate()">
                     <input type="text" id="linkedin" placeholder="LinkedIn URL" class="mt-1" oninput="runUpdate()">
                 </section>
 
-                <section class="p-4 border rounded-xl bg-gray-50"><label>PROFESSIONAL SUMMARY</label><textarea id="summary" placeholder="Write a brief professional summary highlighting your key skills, experience, and career goals. Focus on achievements and strengths relevant to the position you are applying for." class="h-20" oninput="runUpdate()"></textarea></section>
+                <section class="p-4 border rounded-xl bg-white">
+                    <div class="flex justify-between items-center"><label>PROFESSIONAL SUMMARY</label><button onclick="openAI('summary')" class="ai-btn">✨ AI HELP</button></div>
+                    <textarea id="summary" placeholder="Write a brief professional summary highlighting your key skills, experience, and career goals. Focus on achievements and strengths relevant to the position you are applying for."class="h-20" oninput="runUpdate()"></textarea>
+                </section>
 
-                <section class="p-4 border rounded-xl bg-gray-50">
+               <section class="p-4 border rounded-xl bg-gray-50">
                     <div class="flex justify-between items-center mb-2"><b>EDUCATION</b><button onclick="addEntry('edu-list')" class="bg-blue-600 text-white px-2 rounded">+</button></div>
                     <div id="edu-list"><div class="p-3 border bg-white rounded-lg entry mb-2 space-y-1"><input type="text" placeholder="UNIVERSITI MALAYSIA PERLIS" class="font-bold uppercase" oninput="runUpdate()"><input type="text" placeholder="NAME OF DEGREE / NAME OF DIPLOMA" oninput="runUpdate()"><div class="grid grid-cols-3 gap-1"><input type="text" placeholder="CGPA" oninput="runUpdate()"><input type="text" placeholder="START" oninput="runUpdate()"><input type="text" placeholder="END/EXPECTED" oninput="runUpdate()"></div></div></div>
                 </section>
 
                 <section class="p-4 border rounded-xl bg-gray-50">
-                    <div class="flex justify-between items-center mb-2"><b>WORK EXPERIENCE</b><button onclick="addEntry('work-list')" class="bg-blue-600 text-white px-2 rounded">+</button></div>
-                    <div id="work-list"><div class="p-3 border bg-white rounded-lg entry mb-2 space-y-1"><input type="text" placeholder="POSITION" class="font-bold uppercase" oninput="runUpdate()"><input type="text" placeholder="COMPANY" oninput="runUpdate()"><div class="grid grid-cols-2 gap-1"><input type="text" placeholder="START" oninput="runUpdate()"><input type="text" placeholder="END" oninput="runUpdate()"></div><textarea class="h-20 mt-1" placeholder="State your role, organization, duration, and key contributions. Focus on what you learned and achieved." oninput="runUpdate()"></textarea></div></div>
+                    <div class="flex justify-between items-center mb-2"><b>WORK EXPERIENCE</b><div class="flex gap-2"><button onclick="openAI('work')" class="ai-btn">✨ AI HELP</button><button onclick="addEntry('work-list')" class="bg-blue-600 text-white px-2 rounded">+</button></div></div>
+                    <div id="work-list"><div class="p-3 border bg-white rounded-lg entry mb-2"><input type="text" placeholder="POSITION" class="font-bold uppercase" oninput="runUpdate()"><input type="text" placeholder="COMPANY" oninput="runUpdate()"><textarea class="h-20 mt-1" placeholder="State your role, organization, duration, and key contributions. Focus on what you learned and achieved." oninput="runUpdate()"></textarea></div></div>
                 </section>
 
                <section class="p-4 border rounded-xl bg-gray-50">
@@ -169,26 +191,21 @@
                     <div class="p-3 border bg-white rounded-lg entry mb-2 space-y-1">
                         <input type="text" placeholder="PROJECT TITLE" class="font-bold uppercase" oninput="runUpdate()">
                         <textarea class="h-16 mt-1" placeholder="Describe academic or personal projects..." oninput="runUpdate()"></textarea>
-                    </div>
-                </div>
-            </section>
+                </section>
 
                 <section class="p-4 border rounded-xl bg-gray-50">
                     <div class="flex justify-between items-center mb-2"><b>CERTIFICATES</b><button onclick="addEntry('cert-list')" class="bg-blue-600 text-white px-2 rounded">+</button></div>
                     <div id="cert-list"><div class="p-3 border bg-white rounded-lg entry mb-2 space-y-1"><input type="text" placeholder="CERT NAME" class="font-bold uppercase" oninput="runUpdate()"><div class="grid grid-cols-2 gap-1"><input type="text" placeholder="ISSUER" oninput="runUpdate()"><input type="text" placeholder="YEAR" oninput="runUpdate()"></div></div></div>
                 </section>
 
-                <div class="grid grid-cols-2 gap-2">
+                 <div class="grid grid-cols-2 gap-2">
                     <section class="p-3 border rounded bg-white"><label>TECH SKILLS</label><textarea id="tech_sk" placeholder="Python, MATLAB, AutoCAD, SolidWorks, Circuit Design, PCB Design, Arduino (IN ONE SENTENCE)" oninput="runUpdate()"></textarea></section>
                     <section class="p-3 border rounded bg-white"><label>SOFT SKILLS</label><textarea id="soft_sk" placeholder="Communication, Teamwork, Problem-Solving, Time Management, Adaptability (IN ONE SENTENCE)" oninput="runUpdate()"></textarea></section>
                 </div>
-                
-                <section class="p-4 border rounded-xl bg-white shadow-sm">
-                    <label>LANGUAGES</label>
-                    <input type="text" id="langs" placeholder="Contoh: Malay (Fluent), English (Professional)" oninput="runUpdate()">
-                </section>
-                
-                <section class="p-4 border rounded-xl bg-gray-50">
+                        
+                <section class="p-4 border rounded-xl bg-white"><label>LANGUAGES</label><input type="text" id="langs" placeholder="Malay (Fluent), English (Professional)" oninput="runUpdate()"></section>
+
+                 <section class="p-4 border rounded-xl bg-gray-50">
                     <div class="flex justify-between items-center mb-2"><b>EXTRA ACTIVITIES</b><button onclick="addEntry('act-list')" class="bg-blue-600 text-white px-2 rounded">+</button></div>
                     <div id="act-list"><div class="p-3 border bg-white rounded-lg entry mb-2 space-y-1"><input type="text" placeholder="ACTIVITY/ROLE" class="font-bold uppercase" oninput="runUpdate()"><div class="grid grid-cols-2 gap-2"><input type="text" placeholder="ORGANIZATION" oninput="runUpdate()"><input type="text" placeholder="YEAR" oninput="runUpdate()"></div><textarea class="h-16" placeholder="Add involvement in clubs, programs, or volunteer work. Highlight leadership roles, teamwork, or event participation." oninput="runUpdate()"></textarea></div></div>
                 </section>
@@ -197,7 +214,7 @@
                     <div class="flex justify-between items-center mb-2"><b>REFERENCES</b><button onclick="addEntry('ref-list')" class="bg-blue-600 text-white px-2 rounded">+</button></div>
                     <div id="ref-list"><div class="p-3 border bg-white rounded-lg entry mb-2 space-y-1"><input type="text" placeholder="NAME" class="font-bold uppercase" oninput="runUpdate()"><div class="grid grid-cols-2 gap-2"><input type="text" placeholder="POS" oninput="runUpdate()"><input type="text" placeholder="ORG" oninput="runUpdate()"></div><div class="grid grid-cols-2 gap-2"><input type="text" placeholder="EMAIL" oninput="runUpdate()"><input type="text" placeholder="PHONE" oninput="runUpdate()"></div></div></div>
                 </section>
-
+                        
                 <button onclick="submitDatabase()" id="btnSubmit" class="w-full bg-blue-800 text-white py-4 rounded-xl font-bold uppercase shadow-xl mb-10">Submit & Download</button>
             </div>
         </div>
@@ -207,24 +224,25 @@
                 <div class="page-line-1 no-print"></div>
                 <div class="page-line-2 no-print"></div>
                 <header>
-                    <h1 id="p-name">FULL NAME</h1>
-                    <p id="p-contact"></p>
-                    <div id="p-linkedin-preview"></div>
+                    <img id="photo-preview" src="" class="hidden">
+                    <div>
+                        <h1 id="p-name">FULL NAME</h1>
+                        <p id="p-contact"></p>
+                        <div id="p-linkedin-preview"></div>
+                    </div>
                 </header>
-                <section id="s-summary"><h2>Professional Summary</h2><p id="p-summary" class="section-content text-justify"></p></section>
+                <section id="s-summary"><h2>Professional Summary</h2><p id="p-summary" class="text-justify"></p></section>
                 <section id="s-edu"><h2>Education</h2><div id="p-edu"></div></section>
                 <section id="s-work"><h2>Work Experience</h2><div id="p-work"></div></section>
                 <section id="s-project"><h2>Projects</h2><div id="p-project"></div></section>
-                <section id="s-cert"><h2>Certificates & Awards</h2><div id="p-cert"></div></section>
+                <section id="s-cert"><h2>Certificates</h2><div id="p-cert"></div></section>
                 <div class="grid grid-cols-2 gap-6" id="s-skills">
                     <section><h2>Technical Skills</h2><p id="p-tech" class="section-content whitespace-pre-line"></p></section>
                     <section><h2>Soft Skills</h2><p id="p-soft" class="section-content whitespace-pre-line"></p></section>
                 </div>
-                <section id="s-lang">
-                    <h2>Languages</h2>
-                    <p id="p-lang" class="section-content"></p>
-                </section>
-                <section id="s-act"><h2>Activities</h2><div id="p-act"></div></section>
+                <section id="s-lang"><h2>Languages</h2><p id="p-lang"></p></section>
+            </div>
+             <section id="s-act"><h2>Activities</h2><div id="p-act"></div></section>
                 <section id="s-ref"><h2>References</h2><div id="p-ref" class="grid grid-cols-2 gap-4"></div></section>
             </div>
         </div>
@@ -233,7 +251,44 @@
     <script>
         const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzQtw9dOUpOMzpHLlnJL-uE5L_R2kNA_b0i_Xv9rHI08ddTbB1rfKXb86ml9MVUPKxR/exec";
 
-        function runUpdate() {
+        function toggleLayout() {
+            const type = document.querySelector('input[name="resType"]:checked').value;
+            const area = document.getElementById('pdf-area');
+            const photoArea = document.getElementById('photo-input-area');
+            area.className = (type === 'Photo') ? 'template-photo' : '';
+            photoArea.classList.toggle('hidden', type === 'ATS');
+            runUpdate();
+        }
+
+        function loadPhoto(input) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = e => {
+                    const img = document.getElementById('photo-preview');
+                    img.src = e.target.result;
+                    img.classList.remove('hidden');
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function openAI(type) {
+            const prog = document.getElementById('prog').value || "student";
+            let prompt = "";
+            if(type === 'summary') {
+                prompt = `Write a professional 3-line resume summary for a ${prog} student focusing on skills and career goals.`;
+            } else {
+                const firstWork = document.querySelector('#work-list .entry input');
+                prompt = `I worked as a ${firstWork.value || 'student'}. Write 4 professional ATS bullet points for my work experience.`;
+            }
+            document.getElementById('prompt-text').innerText = prompt;
+            document.getElementById('ai-modal').style.display = "block";
+        }
+
+        function closeModal() { document.getElementById('ai-modal').style.display = "none"; }
+        function copyAndClose() { navigator.clipboard.writeText(document.getElementById('prompt-text').innerText); alert("Prompt copied!"); closeModal(); }
+
+         function runUpdate() {
             document.getElementById('p-name').innerText = (document.getElementById('fullName').value || 'FULL NAME').toUpperCase();
             const email = document.getElementById('email').value, phone = document.getElementById('phone').value, loc = (document.getElementById('address').value || '').toUpperCase();
             document.getElementById('p-contact').innerText = email || phone || loc ? `${email} • ${phone} • ${loc}` : '';
@@ -300,9 +355,10 @@
             document.getElementById('p-ref').innerHTML = refH; document.getElementById('s-ref').style.display = refH ? 'block' : 'none';
         }
 
+
         async function submitDatabase() {
             const btn = document.getElementById('btnSubmit');
-            const data = { fullName: document.getElementById('fullName').value, faculty: document.getElementById('faculty').value, program: document.getElementById('prog').value, cgpa: document.getElementById('main_cgpa').value, level: document.getElementById('level').value };
+            const data = { fullName: document.getElementById('fullName').value, faculty: document.getElementById('faculty').value, program: document.getElementById('prog').value };
             if(!data.fullName) return alert("Sila isi Nama!");
             btn.innerText = "Processing..."; btn.disabled = true;
             const fullHtml = `<!DOCTYPE html><html><head><style>${document.getElementById('resume-styles').innerHTML} body{background:white;}</style></head><body>${document.getElementById('pdf-area').outerHTML}</body></html>`;
@@ -311,9 +367,9 @@
                 pW.onload = () => { setTimeout(() => { pW.print(); btn.disabled = false; btn.innerText = "Submit & Download"; }, 500); };
             } catch (e) { alert("Error!"); btn.disabled = false; }
         }
+
         function addEntry(id) { const container = document.getElementById(id); const clone = container.children[0].cloneNode(true); clone.querySelectorAll('input, textarea').forEach(v => v.value = ''); container.appendChild(clone); runUpdate(); }
         window.onload = runUpdate;
     </script>
 </body>
 </html>
-```
