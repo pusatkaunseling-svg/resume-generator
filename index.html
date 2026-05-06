@@ -167,6 +167,7 @@
                     <div class="grid grid-cols-2 gap-2"><input type="text" id="email" placeholder="Email" oninput="runUpdate()"><input type="text" id="phone" placeholder="012-3456789" oninput="runUpdate()"></div>
                     <input type="text" id="address" placeholder="CITY AND STATE ONLY (EXAMPLE: ARAU,PERLIS)" class="uppercase mt-1" oninput="runUpdate()">
                     <input type="text" id="linkedin" placeholder="LinkedIn URL" class="mt-1" oninput="runUpdate()">
+                    <input type="text" id="portfolio" placeholder="Portfolio Link (Optional: Behance/GitHub/Website)" class="mt-1" oninput="runUpdate()">
                 </section>
 
                 <section class="p-4 border rounded-xl bg-white">
@@ -306,7 +307,13 @@
             document.getElementById('p-contact').innerText = email || phone || loc ? `${email} • ${phone} • ${loc}` : '';
             const li = document.getElementById('linkedin').value;
             document.getElementById('p-linkedin-preview').innerHTML = li ? `<a href="${li.startsWith('http')?li:'https://'+li}" target="_blank">${li}</a>` : '';
+            const port = document.getElementById('portfolio').value;
+            const portDisplay = document.getElementById('p-portfolio-preview'); // Pastikan ID ini ada di template resume
 
+            if (portDisplay) {
+            // Jika ada isi, paparkan dengan pemisah "•" atau " | "
+            portDisplay.innerHTML = port ? ` • <a href="${port.startsWith('http')?port:'https://'+port}" target="_blank">Portfolio</a>` : '';
+    
             const sumV = document.getElementById('summary').value;
             document.getElementById('p-summary').innerText = sumV; 
             document.getElementById('s-summary').style.display = sumV ? 'block' : 'none';
