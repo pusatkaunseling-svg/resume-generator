@@ -323,15 +323,20 @@
                   loc = (document.getElementById('address').value || '').toUpperCase();
             document.getElementById('p-contact').innerText = email || phone || loc ? `${email} • ${phone} • ${loc}` : '';
     
-            // --- LINKEDIN ---
+            // --- LINKEDIN (Paparkan URL Penuh) ---
             const li = document.getElementById('linkedin').value;
-            document.getElementById('p-linkedin-preview').innerHTML = li ? `<a href="${li.startsWith('http')?li:'https://'+li}" target="_blank">LinkedIn</a>` : '';
-
-            // --- PORTFOLIO (SUDAH DIBAIKI) ---
+            const liDisplay = document.getElementById('p-linkedin-preview');
+            if (liDisplay) {
+                // Kod ini akan memaparkan URL yang ditaip oleh pelajar
+                liDisplay.innerHTML = li ? `<a href="${li.startsWith('http') ? li : 'https://' + li}" target="_blank" style="color: #1e3a8a; text-decoration: underline;">${li}</a>` : '';
+            }
+        
+            // --- PORTFOLIO (Paparkan URL Penuh) ---
             const port = document.getElementById('portfolio').value;
             const portDisplay = document.getElementById('p-portfolio-preview');
             if (portDisplay) {
-                portDisplay.innerHTML = port ? ` • <a href="${port.startsWith('http')?port:'https://'+port}" target="_blank">Portfolio</a>` : '';
+                // Kod ini akan memaparkan URL yang ditaip oleh pelajar
+                portDisplay.innerHTML = port ? ` • <a href="${port.startsWith('http') ? port : 'https://' + port}" target="_blank" style="color: #1e3a8a; text-decoration: underline;">${port}</a>` : '';
             }
     
             const sumV = document.getElementById('summary').value;
