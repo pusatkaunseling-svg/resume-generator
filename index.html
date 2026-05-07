@@ -407,60 +407,72 @@
             document.getElementById('s-ref').style.display = refH ? 'block' : 'none';
         }
 
-        async function submitDatabase() {
-    const btn = document.getElementById('btnSubmit');
-    const resType = document.querySelector('input[name="resType"]:checked').value;
+      async function submitDatabase() {
+        const btn = document.getElementById('btnSubmit');
+        const resType = document.querySelector('input[name="resType"]:checked').value;
 
-    // Ambil data untuk dihantar ke Google Sheet mengikut Column A-K
-    const data = {
-        fullName: document.getElementById('fullName').value,
-        email: document.getElementById('email').value,
-        phone: document.getElementById('phone').value,
-        cgpa: document.getElementById('main_cgpa').value,
-        level: document.getElementById('level').value,
-        year: document.getElementById('year').value, 
-        program: document.getElementById('prog').value,
-        faculty: document.getElementById('faculty').value,
-        resumeType: resType,
-        htmlContent: `<!DOCTYPE html><html><head><style>${document.getElementById('resume-styles').innerHTML} body{background:white;}</style></head><body>${document.getElementById('pdf-area').outerHTML}</body></html>`
-    };
-
-    if(!data.fullName || !data.email) return alert("Sila isi Nama dan Email!");
-
-    btn.innerText = "Processing...";
-    btn.disabled = true;
-
-    try {
-        // Hantar ke Google Apps Script
-        await fetch(SCRIPT_URL, {
-            method: 'POST',
-            mode: 'no-cors', 
-            body: JSON.stringify(data)
-        });
-
-        // Proses Print
-        const pW = window.open('', '_blank');
-        pW.document.write(data.htmlContent);
-        pW.document.close();
-        
-        pW.onload = () => {
-            setTimeout(() => {
-                pW.print();
-                btn.disabled = false;
-                btn.innerText = "Submit & Download";
-                alert("Data berjaya disimpan ke Google Sheet!");
-            }, 500);
+        // Ambil data untuk dihantar ke Google Sheet
+        const data = {
+            fullName: document.getElementById('fullName').value,
+            email: document.getElementById('email').value,
+            phone: document.getElementById('phone').value,
+            linkedin: document.getElementById('linkedin').value,
+            portfolio: document.getElementById('portfolio').value, // TAMBAH INI
+            cgpa: document.getElementById('main_cgpa').value,
+            level: document.getElementById('level').value,
+            year: document.getElementById('year').value, 
+            program: document.getElementById('prog').value,
+            faculty: document.getElementById('faculty').value,
+            resumeType: resType,
+            htmlContent: `<!DOCTYPE html><html><head><style>${document.getElementById('resume-styles').innerHTML} body{background:white;}</style></head><body>${document.getElementById('pdf-area').outerHTML}</body></html>`
         };
-    } catch (e) {
-        console.error(e);
-        alert("Error! Sila pastikan SCRIPT_URL anda betul.");
-        btn.disabled = false;
-        btn.innerText = "Submit & Download";
-    }
-}
 
-        function addEntry(id) { const container = document.getElementById(id); const clone = container.children[0].cloneNode(true); clone.querySelectorAll('input, textarea').forEach(v => v.value = ''); container.appendChild(clone); runUpdate(); }
-        window.onload = runUpdate;
-    </script>
+        if(!data.fullName || !data.email) return alert("Sila isi Nama dan Email!");
+
+        btn.innerText = "Processing...";
+        btn.disabled = true;
+
+        try {
+            // Hantar ke Google Apps Script
+            // Pastikan SCRIPT_URL di atas sekali adalah betul
+            await fetch(SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors', 
+                body: JSON.stringify(data)
+            });
+
+            // Proses Print/Download
+            const pW = window.open('', '_blank');
+            pW.document.write(data.htmlContent);
+            pW.document.close();
+            
+            pW.onload = () => {
+                setTimeout(() => {
+                    pW.print();
+                    btn.disabled = false;
+                    btn.innerText = "Submit & Download";
+                    alert("Data berjaya disimpan ke Google Sheet!");
+                }, 500);
+            };
+        } catch (e) {
+            console.error(e);
+            alert("Error! Sila pastikan SCRIPT_URL anda betul dan anda telah 'Deploy' Apps Script sebagai Web App.");
+            btn.disabled = false;
+            btn.innerText = "Submit & Download";
+        }
+    }
+
+    function addEntry(id) { 
+        const container = document.getElementById(id); 
+        if(container.children.length > 0) {
+            const clone = container.children[0].cloneNode(true); 
+            clone.querySelectorAll('input, textarea').forEach(v => v.value = ''); 
+            container.appendChild(clone); 
+            runUpdate(); 
+        }
+    }
+    
+    window.onload = runUpdate;
+</script>
 </body>
 </html>
