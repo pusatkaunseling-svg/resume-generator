@@ -326,13 +326,13 @@
             // --- LINKEDIN ---
             const li = document.getElementById('linkedin').value;
             document.getElementById('p-linkedin-preview').innerHTML = li ? `<a href="${li.startsWith('http')?li:'https://'+li}" target="_blank">LinkedIn</a>` : '';
-        
-            // --- PORTFOLIO (BETULKAN BRACKET DI SINI) ---
+
+            // --- PORTFOLIO (SUDAH DIBAIKI) ---
             const port = document.getElementById('portfolio').value;
             const portDisplay = document.getElementById('p-portfolio-preview');
             if (portDisplay) {
                 portDisplay.innerHTML = port ? ` • <a href="${port.startsWith('http')?port:'https://'+port}" target="_blank">Portfolio</a>` : '';
-            } // <-- INI BRACKET YANG HILANG TADI
+            }
     
             const sumV = document.getElementById('summary').value;
             document.getElementById('p-summary').innerText = sumV; 
