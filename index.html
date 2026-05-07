@@ -46,18 +46,14 @@
         #pdf-area h1 { font-size: 16pt; font-weight: bold; text-transform: uppercase; margin: 0; text-align: center; }
         #p-contact { font-size: 9.5pt; margin: 4px 0; color: #333; text-align: center; }
         
-        /* KEMASKINI: LinkedIn & Portfolio Preview */
-        #p-linkedin-preview, #p-portfolio-preview { 
-            font-size: 9.5pt; 
-            text-align: center; 
-            color: #1e3a8a; 
-            font-weight: bold; 
-            display: inline-block; /* Supaya mereka duduk sebaris */
+       #p-linkedin-preview, #p-portfolio-preview { 
+        font-size: 9.5pt; 
+        color: #1e3a8a; 
+        font-weight: bold; 
         }
-        
         #p-linkedin-preview a, #p-portfolio-preview a {
-            color: #1e3a8a;
-            text-decoration: none;
+        color: #1e3a8a;
+        text-decoration: none;
         }
 
         #pdf-area h2 { border-bottom: 1.5px solid #333; margin-top: 15px; margin-bottom: 8px; font-size: 10.5pt; font-weight: bold; text-transform: uppercase; }
@@ -251,12 +247,17 @@
             <div id="pdf-area">
                 <div class="page-line-1 no-print"></div>
                 <div class="page-line-2 no-print"></div>
-                <header>
-                    <img id="photo-preview" src="" class="hidden">
-                    <div>
-                        <h1 id="p-name">FULL NAME</h1>
-                        <p id="p-contact"></p>
-                        <div id="p-linkedin-preview"></div>
+                <header style="text-align: center; width: 100%;">
+                    <img id="photo-preview" src="" class="hidden" style="margin: 0 auto 10px auto;">
+                    <div style="width: 100%; text-align: center;">
+                        <h1 id="p-name" style="text-align: center; margin: 0;">FULL NAME</h1>
+                        
+                        <p id="p-contact" style="text-align: center; margin: 4px 0; font-size: 9.5pt; color: #333;"></p>
+                        
+                        <div style="text-align: center; font-size: 9.5pt; width: 100%;">
+                            <span id="p-linkedin-preview"></span>
+                            <span id="p-portfolio-preview"></span>
+                        </div>
                     </div>
                 </header>
                 <section id="s-summary"><h2>Professional Summary</h2><p id="p-summary" class="text-justify"></p></section>
@@ -324,14 +325,14 @@
     
             // --- LINKEDIN ---
             const li = document.getElementById('linkedin').value;
-            document.getElementById('p-linkedin-preview').innerHTML = li ? `<a href="${li.startsWith('http')?li:'https://'+li}" target="_blank">LinkedIn: ${li}</a>` : '';
-    
-            // --- PORTFOLIO (BAIKI LOGIK DI SINI) ---
+            document.getElementById('p-linkedin-preview').innerHTML = li ? `<a href="${li.startsWith('http')?li:'https://'+li}" target="_blank">LinkedIn</a>` : '';
+        
+            // --- PORTFOLIO (BETULKAN BRACKET DI SINI) ---
             const port = document.getElementById('portfolio').value;
             const portDisplay = document.getElementById('p-portfolio-preview');
             if (portDisplay) {
                 portDisplay.innerHTML = port ? ` • <a href="${port.startsWith('http')?port:'https://'+port}" target="_blank">Portfolio</a>` : '';
-            }
+            } // <-- INI BRACKET YANG HILANG TADI
     
             const sumV = document.getElementById('summary').value;
             document.getElementById('p-summary').innerText = sumV; 
