@@ -303,16 +303,21 @@
 
          function runUpdate() {
             document.getElementById('p-name').innerText = (document.getElementById('fullName').value || 'FULL NAME').toUpperCase();
-            const email = document.getElementById('email').value, phone = document.getElementById('phone').value, loc = (document.getElementById('address').value || '').toUpperCase();
+            const email = document.getElementById('email').value, 
+                  phone = document.getElementById('phone').value, 
+                  loc = (document.getElementById('address').value || '').toUpperCase();
             document.getElementById('p-contact').innerText = email || phone || loc ? `${email} • ${phone} • ${loc}` : '';
+    
+            // --- LINKEDIN ---
             const li = document.getElementById('linkedin').value;
-            document.getElementById('p-linkedin-preview').innerHTML = li ? `<a href="${li.startsWith('http')?li:'https://'+li}" target="_blank">${li}</a>` : '';
+            document.getElementById('p-linkedin-preview').innerHTML = li ? `<a href="${li.startsWith('http')?li:'https://'+li}" target="_blank">LinkedIn: ${li}</a>` : '';
+    
+            // --- PORTFOLIO (BAIKI LOGIK DI SINI) ---
             const port = document.getElementById('portfolio').value;
-            const portDisplay = document.getElementById('p-portfolio-preview'); // Pastikan ID ini ada di template resume
-
+            const portDisplay = document.getElementById('p-portfolio-preview');
             if (portDisplay) {
-            // Jika ada isi, paparkan dengan pemisah "•" atau " | "
-            portDisplay.innerHTML = port ? ` • <a href="${port.startsWith('http')?port:'https://'+port}" target="_blank">Portfolio</a>` : '';
+                portDisplay.innerHTML = port ? `<a href="${port.startsWith('http')?port:'https://'+port}" target="_blank">Portfolio: ${port}</a>` : '';
+            }
     
             const sumV = document.getElementById('summary').value;
             document.getElementById('p-summary').innerText = sumV; 
